@@ -4,6 +4,7 @@
 package pl.edu.agh.cs.kraksim.main.gui;
 
 import com.google.common.collect.ImmutableList;
+import javafx.scene.control.Alert;
 import org.apache.log4j.Priority;
 import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
@@ -35,6 +36,7 @@ public class SetUpPanel extends JPanel {
 	private InputPanel statsOutputLocation;
 	private InputPanel algorithm;
 	private InputPanel yellowTransition;
+	private JButton designer;
 
 	private JFrame myFrame = null;
 
@@ -132,7 +134,16 @@ public class SetUpPanel extends JPanel {
 		statsOutputLocation = new InputPanel("Statistics", fileLocation, 20, fc);
 		algorithm = new InputPanel("Algorithm", getParam("algorithm"), 20, null);
 		yellowTransition = new InputPanel("Yellow Duration", "3", 20, null);
+		designer = new JButton("OpenCityDesigner");
 
+		designer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Hello World");
+			}
+		});
+
+		filesPane.add(designer);
 		filesPane.add(cityMapLocation);
 		filesPane.add(travellingSchemeLocation);
 		filesPane.add(statsOutputLocation);
