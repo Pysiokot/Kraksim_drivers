@@ -1,5 +1,6 @@
 package pl.edu.agh.cs.kraksimcitydesigner;
 
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -97,7 +98,21 @@ public class ControlPanel extends JPanel {
 				}
 			}
 		});
-        
+
+		final JToggleButton doneButton = new JToggleButton("Done");
+		doneButton.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(doneButton.isSelected()) {
+					log.trace("Done button");
+				}
+			}
+		});
+
+		doneButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		doneButton.setForeground(Color.GREEN);
+		doneButton.setBackground(Color.ORANGE);
+		doneButton.setToolTipText("Return to Kraksim");
+
         ButtonGroup controlPanelButtonGroup = new ButtonGroup();
         controlPanelButtonGroup.add(selectBtn);
         controlPanelButtonGroup.add(deleteBtn);
@@ -105,7 +120,8 @@ public class ControlPanel extends JPanel {
         controlPanelButtonGroup.add(gatewayBtn);
         controlPanelButtonGroup.add(roadBtn);
         controlPanelButtonGroup.add(movingBtn);
-        
+        controlPanelButtonGroup.add(doneButton);
+
 		JToggleButton scrollingBtn = new JToggleButton("Scroll");
 
 		layout.setHorizontalGroup(
@@ -116,6 +132,7 @@ public class ControlPanel extends JPanel {
               .addComponent(gatewayBtn, 120, 120, 120)
               .addComponent(roadBtn, 120, 120, 120)
               .addComponent(movingBtn, 120, 120, 120)
+              .addComponent(doneButton, 120, 120, 120)
         );
 		layout.setVerticalGroup(
 		      layout.createSequentialGroup()
@@ -125,6 +142,7 @@ public class ControlPanel extends JPanel {
               .addComponent(gatewayBtn, 30, 30, 30)
               .addComponent(roadBtn, 30, 30, 30)
               .addComponent(movingBtn, 30, 30, 30)
+              .addComponent(doneButton, 30, 30, 30)
         );
 //		verticalBox.add(selectBtn);
 //		//verticalBox.add(deleteBtn);
