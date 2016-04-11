@@ -236,7 +236,11 @@ public class ModelParser {
   private static Link createLink(Element linkElement, LinkType linkType, Node startNode, Node endNode, DisplaySettings displaySettings) {
         Element main = (Element) linkElement.getChild("main");
         int length = Integer.valueOf(main.getAttributeValue("length"));
-        int numberOfLanes = Integer.valueOf(main.getAttributeValue("numberOfLanes"));
+        int numberOfLanes;
+          if (main.getAttributeValue("numberOfLanes") != null) {
+               numberOfLanes = Integer.valueOf(main.getAttributeValue("numberOfLanes"));
+          } else numberOfLanes = 1;
+
         LinkedList<Integer> leftLines = new LinkedList<Integer>();
         for (Object leftObject : linkElement.getChildren("left")) {
             leftLines.add(Integer.valueOf(((Element)leftObject).getAttributeValue("length")));
