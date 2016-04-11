@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<RoadNet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\workspace\AGHworkspace\KraksimMSc\src\resources\tests\Topologie2\RoadNet.xsd">
+	<nodes>
+		<gateway id="Nroad" x="210" y="10"/>
+		<gateway id="Sroad" x="210" y="420"/>
+		<gateway id="Wroad" x="10" y="210"/>
+		<intersection id="X1" x="210" y="210"/>
+	</nodes>
+	<roads>
+		<road id="NroadX1" street="ulica Pionowa" from="Nroad" to="X1">
+			<uplink>
+				<right length="20"/>
+				<main length="50"/>
+			</uplink>
+			<downlink>
+				<main length="50"/>
+			</downlink>
+		</road>
+		<road id="SroadX1" street="ulica Pionowa" from="Sroad" to="X1">
+			<uplink>
+				<main length="50"/>
+				<left length="35"/>
+			</uplink>
+			<downlink>
+				<main length="50"/>
+			</downlink>
+		</road>
+		<road id="WroadX1" street="ulica Pozioma" from="Wroad" to="X1">
+			<uplink>
+				<main length="50"/>
+				<left length="20"/>
+			</uplink>
+			<downlink>
+				<main length="50"/>
+			</downlink>
+		</road>
+	</roads>
+	<intersectionDescriptions>
+		<intersection id="X1">
+			<armActions arm="Nroad">
+				<action lane="1" exit="Wroad">
+
+				</action>
+				<action lane="0" exit="Sroad"/>
+			</armActions>
+			<armActions arm="Wroad">
+				<action lane="0" exit="Sroad">
+					<rule entrance="Nroad" lane="0"/>
+				</action>
+				<action lane="-1" exit="Nroad">
+					<rule entrance="Sroad" lane="0"/>
+					<rule entrance="Sroad" lane="-1"/>
+					<rule entrance="Nroad" lane="0"/>
+				</action>
+			</armActions>
+			<armActions arm="Sroad">
+				<action lane="0" exit="Nroad">
+
+				</action>
+				<action lane="-1" exit="Wroad">
+					<rule entrance="Nroad" lane="0"/>
+					<rule entrance="Nroad" lane="1"/>
+				</action>
+			</armActions>
+			<trafficLightsSchedule>
+				<phase num="1">
+					<inlane arm="Nroad" lane="0" state="green"/>
+					<inlane arm="Nroad" lane="1" state="green"/>
+					<inlane arm="Sroad" lane="0" state="green"/>
+					<inlane arm="Sroad" lane="-1" state="red"/>
+					<inlane arm="Wroad" lane="0" state="red"/>
+					<inlane arm="Wroad" lane="-1" state="red"/>
+				</phase>
+				<phase num="2">
+					<inlane arm="Nroad" lane="0" state="red"/>
+					<inlane arm="Nroad" lane="1" state="red"/>
+					<inlane arm="Sroad" lane="0" state="red"/>
+					<inlane arm="Sroad" lane="-1" state="green"/>
+					<inlane arm="Wroad" lane="0" state="green"/>
+					<inlane arm="Wroad" lane="-1" state="red"/>
+				</phase>
+				<phase num="3">
+					<inlane arm="Nroad" lane="0" state="red"/>
+					<inlane arm="Nroad" lane="1" state="green"/>
+					<inlane arm="Sroad" lane="0" state="red"/>
+					<inlane arm="Sroad" lane="-1" state="red"/>
+					<inlane arm="Wroad" lane="0" state="red"/>
+					<inlane arm="Wroad" lane="-1" state="green"/>
+				</phase>
+			</trafficLightsSchedule>
+		</intersection>
+	</intersectionDescriptions>
+</RoadNet>

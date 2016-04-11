@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<traffic>
+    <scheme count="7000">
+        <gateway id="N1">
+            <uniform a="0" b="7000"/>
+        </gateway>
+        <gateway id="S1"/>
+    </scheme>
+	<scheme count="7000">
+        <gateway id="S1">
+            <uniform a="0" b="7000"/>
+        </gateway>
+        <gateway id="N1"/>
+    </scheme>
+	<scheme count="1">
+        <gateway id="W1">
+            <point y="3000"/>
+        </gateway>
+        <gateway id="E1"/>
+    </scheme>
+</traffic>

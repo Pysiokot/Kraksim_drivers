@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<traffic>
+	<scheme count="1">
+        <gateway id="E2">
+            <point y="0"/>
+        </gateway>
+        <gateway id="S1"/>
+    </scheme>
+</traffic>

@@ -1,0 +1,92 @@
+Time: Sun Mar 20 15:30:45 CET 2016
+Total Items: 1440
+Total Congestion: 506
+Total predictable congestions: 506
+True Positive: 292
+True Negative: 910
+False Negative 214
+False Positive 24
+
+Congestion class
+Positive: 0,577
+Negative: 0,423
+
+Non congestion class
+Positive: 0,974
+Negative: 0,026
+
+LINK STATS
+
+XS1X1:       20 TP:        0[0,000] FN:       20[1,000] TN:        0[NaN] FP:        0[NaN]
+WX3X1:       20 TP:       20[1,000] FN:        0[0,000] TN:        0[NaN] FP:        0[NaN]
+X3X2:       20 TP:       20[1,000] FN:        0[0,000] TN:        0[NaN] FP:        0[NaN]
+X6X3:       20 TP:        0[0,000] FN:       20[1,000] TN:        0[NaN] FP:        0[NaN]
+XE3X3:       20 TP:       20[1,000] FN:        0[0,000] TN:        0[NaN] FP:        0[NaN]
+X4X7:       20 TP:       20[1,000] FN:        0[0,000] TN:        0[NaN] FP:        0[NaN]
+WX1X7:       20 TP:       20[1,000] FN:        0[0,000] TN:        0[NaN] FP:        0[NaN]
+XN2X8:       20 TP:       20[1,000] FN:        0[0,000] TN:        0[NaN] FP:        0[NaN]
+W1WX1:       20 TP:       20[1,000] FN:        0[0,000] TN:        0[NaN] FP:        0[NaN]
+W3WX3:       20 TP:       20[1,000] FN:        0[0,000] TN:        0[NaN] FP:        0[NaN]
+E3XE3:       20 TP:        0[0,000] FN:       20[1,000] TN:        0[NaN] FP:        0[NaN]
+N2XN2:       20 TP:       20[1,000] FN:        0[0,000] TN:        0[NaN] FP:        0[NaN]
+S2XS2:       20 TP:        0[0,000] FN:       20[1,000] TN:        0[NaN] FP:        0[NaN]
+XS2X2:       19 TP:       19[1,000] FN:        0[0,000] TN:        0[0,000] FP:        1[1,000]
+X7X8:       19 TP:        0[0,000] FN:       19[1,000] TN:        1[1,000] FP:        0[0,000]
+X1X2:       18 TP:        0[0,000] FN:       18[1,000] TN:        2[1,000] FP:        0[0,000]
+X2X1:       17 TP:       17[1,000] FN:        0[0,000] TN:        0[0,000] FP:        3[1,000]
+X5X8:       17 TP:        9[0,529] FN:        8[0,471] TN:        3[1,000] FP:        0[0,000]
+X4X1:       15 TP:       15[1,000] FN:        0[0,000] TN:        0[0,000] FP:        5[1,000]
+X5X2:       15 TP:       15[1,000] FN:        0[0,000] TN:        0[0,000] FP:        5[1,000]
+XN1X7:       15 TP:       15[1,000] FN:        0[0,000] TN:        0[0,000] FP:        5[1,000]
+X7X4:       14 TP:       14[1,000] FN:        0[0,000] TN:        5[0,833] FP:        1[0,167]
+X9X6:       13 TP:        0[0,000] FN:       13[1,000] TN:        7[1,000] FP:        0[0,000]
+X2X5:       10 TP:        0[0,000] FN:       10[1,000] TN:       10[1,000] FP:        0[0,000]
+WX2X4:       10 TP:        0[0,000] FN:       10[1,000] TN:       10[1,000] FP:        0[0,000]
+X8X9:       10 TP:        0[0,000] FN:       10[1,000] TN:       10[1,000] FP:        0[0,000]
+S1XS1:       10 TP:        0[0,000] FN:       10[1,000] TN:       10[1,000] FP:        0[0,000]
+X4X5:        9 TP:        0[0,000] FN:        9[1,000] TN:       11[1,000] FP:        0[0,000]
+X5X6:        9 TP:        0[0,000] FN:        9[1,000] TN:       11[1,000] FP:        0[0,000]
+X8X5:        8 TP:        8[1,000] FN:        0[0,000] TN:       10[0,833] FP:        2[0,167]
+W2WX2:        8 TP:        0[0,000] FN:        8[1,000] TN:       12[1,000] FP:        0[0,000]
+X6X5:        6 TP:        0[0,000] FN:        6[1,000] TN:       14[1,000] FP:        0[0,000]
+X2X3:        4 TP:        0[0,000] FN:        4[1,000] TN:       16[1,000] FP:        0[0,000]
+X1X4:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X1XS1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X1WX3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X2XS2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X3X6:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X3XE3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XS3X3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X3XS3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X5X4:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X4WX2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X6X9:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XE2X6:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X6XE2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X7XN1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X8X7:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X7WX1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X8XN2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X9X8:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XN3X9:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X9XN3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XE1X9:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+X9XE1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+WX1W1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+WX2W2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+WX3W3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XE1E1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+E1XE1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XE2E2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+E2XE2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XE3E3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XN1N1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+N1XN1:        0 TP:        0[NaN] FN:        0[NaN] TN:       18[0,900] FP:        2[0,100]
+XN2N2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XN3N3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+N3XN3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XS1S1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XS2S2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+XS3S3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+S3XS3:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+MAPE: 30.055965876025198

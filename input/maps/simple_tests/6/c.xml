@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoadNet>
+    <nodes>
+        <gateway id="W1" x="10" y="100"/>
+        <gateway id="N1" x="100" y="10"/>
+        <intersection id="X1" x="100" y="100"/>
+        <gateway id="S1" x="100" y="190"/>
+        <gateway id="E1" x="190" y="100"/>
+    </nodes>
+    <roads defaultSpeedLimit="1">
+        <road from="N1" id="N1X1" to="X1">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+        <road from="W1" id="W1X1" to="X1">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+		<road from="S1" id="S1X1" to="X1">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+		<road from="E1" id="E1X1" to="X1">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+	</roads>
+    <intersectionDescriptions>
+        <intersection id="X1">
+            <armActions arm="N1" dir="NS">
+                <action exit="S1" lane="0" />
+            </armActions>
+			<armActions arm="S1" dir="NS">
+                <action exit="N1" lane="0" />
+            </armActions>
+			<armActions arm="E1" dir="WE">
+                <action exit="W1" lane="0" />
+            </armActions>
+			<armActions arm="W1" dir="WE">
+                <action exit="E1" lane="0" />
+            </armActions>
+			
+            <trafficLightsSchedule>
+                <phase duration="1" name="phase_1" num="1">
+                    <inlane arm="W1" lane="0" state="red"/>
+                    <inlane arm="S1" lane="0" state="red"/>
+                    <inlane arm="N1" lane="0" state="red"/>
+                    <inlane arm="E1" lane="0" state="green"/>
+                </phase>
+                <phase duration="1" name="phase_2" num="2">
+                    <inlane arm="W1" lane="0" state="red"/>
+                    <inlane arm="S1" lane="0" state="red"/>
+                    <inlane arm="N1" lane="0" state="green"/>
+                    <inlane arm="E1" lane="0" state="red"/>
+                </phase>
+                <phase duration="1" name="phase_3" num="3">
+                    <inlane arm="W1" lane="0" state="red"/>
+                    <inlane arm="S1" lane="0" state="green"/>
+                    <inlane arm="N1" lane="0" state="red"/>
+                    <inlane arm="E1" lane="0" state="red"/>
+                </phase>
+                <phase duration="1" name="phase_4" num="4">
+                    <inlane arm="W1" lane="0" state="green"/>
+                    <inlane arm="S1" lane="0" state="red"/>
+                    <inlane arm="N1" lane="0" state="red"/>
+                    <inlane arm="E1" lane="0" state="red"/>
+                </phase>
+            </trafficLightsSchedule>
+        </intersection>
+    </intersectionDescriptions>
+</RoadNet>

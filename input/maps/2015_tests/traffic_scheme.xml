@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<traffic>
+
+  <scheme count="250">
+    <gateway id="GN">
+      <uniform a="0" b="500"/>
+    </gateway>
+    <gateway id="GS"/>
+  </scheme>
+  
+  <scheme count="250">
+    <gateway id="GS">
+      <uniform a="0" b="500"/>
+    </gateway>
+    <gateway id="GN"/>
+  </scheme>
+  
+
+</traffic>

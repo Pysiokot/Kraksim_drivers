@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<traffic>
+	<!-- generate 300 cars -->
+	<scheme count="300">
+		<!-- from W to E -->
+		<gateway id="W">
+			<!-- from 0s to 43200s (12h) -->
+			<uniform a="0" b="43200" />
+		</gateway>
+		<gateway id="E"/>
+	</scheme>
+	<scheme count="300">
+		<gateway id="E">
+			<uniform a="0" b="43200" />
+		</gateway>
+		<gateway id="W"/>
+	</scheme>
+</traffic>

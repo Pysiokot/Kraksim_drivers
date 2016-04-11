@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoadNet>
+    <nodes>
+        <gateway id="W1" x="10" y="100"/>
+        <gateway id="N1" x="100" y="10"/>
+        <gateway id="S1" x="100" y="280"/>
+        <gateway id="E1" x="190" y="100"/>
+		<intersection id="X1" x="100" y="100"/>
+		<intersection id="X2" x="100" y="190"/>
+        <gateway id="W2" x="10" y="190"/>
+        <gateway id="E2" x="190" y="190"/>
+    </nodes>
+    <roads defaultSpeedLimit="1">
+        <road from="N1" id="N1X1" to="X1">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+        <road from="W1" id="W1X1" to="X1">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+		<road from="E1" id="E1X1" to="X1">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+		<road from="S1" id="S1X2" to="X2">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+		<road from="X1" id="X1X2" to="X2">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+        <road from="W2" id="W2X2" to="X2">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+		<road from="E2" id="E2X2" to="X2">
+            <uplink>
+                <main length="50"/>
+            </uplink>
+            <downlink>
+                <main length="50"/>
+            </downlink>
+        </road>
+	</roads>
+	
+    <intersectionDescriptions>
+        <intersection id="X1">
+            <armActions arm="N1" dir="NS">
+                <action exit="X2" lane="0" />
+            </armActions>
+			<armActions arm="X2" dir="NS">
+                <action exit="N1" lane="0" />
+            </armActions>
+			<armActions arm="E1" dir="WE">
+                <action exit="W1" lane="0" />
+            </armActions>
+			<armActions arm="W1" dir="WE">
+                <action exit="E1" lane="0" />
+            </armActions>
+			
+            <trafficLightsSchedule>
+                <phase duration="50" name="phase_1" num="1">
+                    <inlane arm="W1" lane="0" state="red"/>
+                    <inlane arm="N1" lane="0" state="red"/>
+                    <inlane arm="E1" lane="0" state="red"/>
+                    <inlane arm="X2" lane="0" state="red"/>
+                </phase>
+            </trafficLightsSchedule>
+        </intersection>
+		
+		<intersection id="X2">
+            <armActions arm="S1" dir="NS">
+                <action exit="X1" lane="0" />
+            </armActions>
+			<armActions arm="X1" dir="NS">
+                <action exit="S1" lane="0" />
+            </armActions>
+			<armActions arm="E2" dir="WE">
+                <action exit="W2" lane="0" />
+            </armActions>
+			<armActions arm="W2" dir="WE">
+                <action exit="E2" lane="0" />
+            </armActions>
+			
+            <trafficLightsSchedule>
+                <phase duration="50" name="phase_2" num="2">
+                    <inlane arm="W2" lane="0" state="red"/>
+                    <inlane arm="X1" lane="0" state="green"/>
+                    <inlane arm="E2" lane="0" state="red"/>
+                    <inlane arm="S1" lane="0" state="green"/>
+                </phase>
+            </trafficLightsSchedule>
+        </intersection>
+    </intersectionDescriptions>
+</RoadNet>

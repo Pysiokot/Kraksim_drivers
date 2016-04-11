@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoadNet>
+    <nodes>
+    	<gateway id="W" x="0" y="50"></gateway>
+    	<intersection id="C" x="200" y="50"></intersection>
+    	<gateway id="E" x="400" y="50"></gateway>
+    </nodes>
+    <roads defaultSpeedLimit="1">
+    	<road id="WC" street="First" from="W" to="C" speedLimit="2">
+    		<uplink>
+    			<main length="50" numberOfLanes="1"/>
+    		</uplink>
+    		<downlink>	
+    			<main length="50" numberOfLanes="1"/>
+    		</downlink>
+    	</road>
+    	<road id="CE" street="Second" from="C" to="E" speedLimit="3">
+    		<uplink>
+    			<main length="40" numberOfLanes="1"/>
+    		</uplink>
+    		<downlink>
+    			<main length="40" numberOfLanes="1"/>
+    		</downlink>
+    	</road>
+    </roads>
+	<intersectionDescriptions>
+		<intersection id="C">
+			<armActions arm="E">
+				<action lane="0" exit="W" />
+			</armActions>
+			<armActions arm="W">
+				<action lane="0" exit="E" />
+			</armActions>
+
+			<trafficLightsSchedule>
+				<phase num="1" duration="10">
+					<inlane arm="W" lane="0" state="green" />
+					<inlane arm="E" lane="0" state="green" />
+				</phase>
+				<phase num="2" duration="10">
+					<inlane arm="W" lane="0" state="green" />
+					<inlane arm="E" lane="0" state="green" />
+				</phase>
+			</trafficLightsSchedule>
+		</intersection>
+    </intersectionDescriptions>
+</RoadNet>
