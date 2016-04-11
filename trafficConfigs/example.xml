@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoadNet>
+  <nodes>
+    <gateway id="G0" x="922" y="415" />
+    <gateway id="G1" x="175" y="753" />
+    <gateway id="G2" x="109" y="86" />
+    <gateway id="G3" x="635" y="188" />
+    <intersection id="I0" x="215" y="658" />
+    <intersection id="I1" x="256" y="576" />
+    <intersection id="I2" x="314" y="522" />
+    <intersection id="I3" x="415" y="443" />
+    <intersection id="I4" x="533" y="377" />
+    <intersection id="I5" x="598" y="368" />
+    <intersection id="I6" x="598" y="311" />
+    <intersection id="I7" x="350" y="375" />
+    <intersection id="I8" x="351" y="245" />
+    <intersection id="I9" x="323" y="337" />
+    <intersection id="I10" x="258" y="712" />
+    <intersection id="I11" x="318" y="663" />
+    <intersection id="I12" x="487" y="659" />
+    <intersection id="I13" x="396" y="665" />
+    <intersection id="I14" x="433" y="562" />
+    <intersection id="I15" x="499" y="502" />
+    <intersection id="I16" x="555" y="552" />
+    <intersection id="I17" x="505" y="578" />
+    <intersection id="I18" x="475" y="525" />
+  </nodes>
+  <roads>
+    <road id="roads_0" street="roads_0" from="G1" to="I0">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_1" street="roads_1" from="I0" to="I10">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_2" street="roads_2" from="I10" to="I11">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_3" street="roads_3" from="I11" to="I13">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_4" street="roads_4" from="I11" to="I1">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_5" street="roads_5" from="I1" to="I2">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_6" street="roads_6" from="I2" to="I14">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_8" street="roads_8" from="I12" to="I13">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_7" street="roads_7" from="I2" to="I3">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_9" street="roads_9" from="I3" to="I7">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_10" street="roads_10" from="I3" to="I15">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_11" street="roads_11" from="I15" to="I18">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_12" street="roads_12" from="I18" to="I14">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_13" street="roads_13" from="I18" to="I17">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_14" street="roads_14" from="I17" to="I16">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_15" street="roads_15" from="I16" to="I15">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_16" street="roads_16" from="I3" to="I4">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_17" street="roads_17" from="I4" to="I5">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_18" street="roads_18" from="I5" to="I6">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_19" street="roads_19" from="I5" to="G0">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_20" street="roads_20" from="I8" to="I9">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_21" street="roads_21" from="I9" to="I7">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_22" street="roads_22" from="G3" to="I6">
+      <uplink>
+        <main length="80" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="80" numberOfLanes="1" />
+      </downlink>
+    </road>
+  </roads>
+  <intersectionDescriptions>
+    <intersection id="I0">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I1">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I2">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I3">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I4">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I5">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I6">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I7">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I8">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I9">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I10">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I11">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I12">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I13">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I14">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I15">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I16">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I17">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I18">
+      <trafficLightsSchedule />
+    </intersection>
+  </intersectionDescriptions>
+</RoadNet>
+

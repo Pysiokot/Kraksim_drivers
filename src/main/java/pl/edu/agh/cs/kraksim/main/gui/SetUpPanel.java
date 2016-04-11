@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import pl.edu.agh.cs.kraksimcitydesigner.AppRunner;
 
 public class SetUpPanel extends JPanel {
 	private static final long serialVersionUID = -4635082252841397559L;
@@ -139,7 +140,12 @@ public class SetUpPanel extends JPanel {
 		designer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Hello World");
+				javax.swing.SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						AppRunner.createAndShowGUI();
+					}
+				});
 			}
 		});
 

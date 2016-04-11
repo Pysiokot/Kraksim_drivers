@@ -52,7 +52,7 @@ public class MainFrame extends JFrame {
 	 * Instantiates a new main frame.
 	 */
 	public MainFrame() {
-	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	    this.setTitle(FRAME_TITLE+"- Nowy projekt");
 	    
 	    displaySettings = new DisplaySettings();
