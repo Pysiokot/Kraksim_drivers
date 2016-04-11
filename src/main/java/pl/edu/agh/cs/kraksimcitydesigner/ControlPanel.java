@@ -103,14 +103,13 @@ public class ControlPanel extends JPanel {
 		doneButton.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if(doneButton.isSelected()) {
+					mainFrame.setVisible(false);
 					log.trace("Done button");
 				}
 			}
 		});
 
-		doneButton.setFont(new Font("Dialog", Font.BOLD, 20));
-		doneButton.setForeground(Color.GREEN);
-		doneButton.setBackground(Color.ORANGE);
+		doneButton.setFont(new Font("Dialog", Font.BOLD, 12));
 		doneButton.setToolTipText("Return to Kraksim");
 
         ButtonGroup controlPanelButtonGroup = new ButtonGroup();
