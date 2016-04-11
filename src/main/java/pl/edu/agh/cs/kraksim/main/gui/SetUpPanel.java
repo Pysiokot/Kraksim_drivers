@@ -4,13 +4,14 @@
 package pl.edu.agh.cs.kraksim.main.gui;
 
 import com.google.common.collect.ImmutableList;
-import javafx.scene.control.Alert;
+import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
 import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityCalculator;
 import pl.edu.agh.cs.kraksim.sna.centrality.MeasureType;
 import pl.edu.agh.cs.kraksim.sna.centrality.SNADistanceType;
+import pl.edu.agh.cs.kraksimcitydesigner.AppRunner;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,9 +24,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Properties;
-
-import org.apache.log4j.Logger;
-import pl.edu.agh.cs.kraksimcitydesigner.AppRunner;
 
 public class SetUpPanel extends JPanel {
 	private static final long serialVersionUID = -4635082252841397559L;
