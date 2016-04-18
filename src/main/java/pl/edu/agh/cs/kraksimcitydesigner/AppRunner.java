@@ -6,9 +6,14 @@ public class AppRunner {
 	/**
 	 * Creates the and show gui.
 	 */
-	public static void createAndShowGUI() {
-		MainFrame mf = new MainFrame();
-        
+	private static MainFrame mf = null;
+
+	public synchronized static void createAndShowGUI() {
+		if (mf == null) {
+			mf = new MainFrame();
+		}
+		mf.setVisible(true);
+
     }
 	
 	/**
