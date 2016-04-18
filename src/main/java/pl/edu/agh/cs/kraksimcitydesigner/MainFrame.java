@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.swing.*;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.chainsaw.Main;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -19,6 +20,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+import pl.edu.agh.cs.kraksim.main.gui.SetUpPanel;
 import pl.edu.agh.cs.kraksimcitydesigner.element.DisplaySettings;
 import pl.edu.agh.cs.kraksimcitydesigner.element.ElementManager;
 import pl.edu.agh.cs.kraksimcitydesigner.element.Gateway;
@@ -45,15 +47,17 @@ public class MainFrame extends JFrame {
     private boolean projectChanged;
     private final JFileChooser fc = new JFileChooser();
     private final SettingsDialog settingsDialog;
+	private SetUpPanel setUpPanel;
     
     private File loadedFile = null;
 	
 	/**
 	 * Instantiates a new main frame.
 	 */
-	public MainFrame() {
+	public MainFrame(SetUpPanel setUpPanel) {
 	    this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	    this.setTitle(FRAME_TITLE+"- Nowy projekt");
+		this.setSetUpPanel(setUpPanel);
 	    
 	    displaySettings = new DisplaySettings();
 	    
@@ -96,12 +100,21 @@ public class MainFrame extends JFrame {
 	    // Display the window.
 	    this.pack();
 	    
-	    loadProjectFromFile(new File("./trafficConfigs/krakow_duzy.xml"));
+//	    loadProjectFromFile(new File("./trafficConfigs/krakow_duzy.xml"));
 	       
 	    //this.setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
 	    this.setVisible(true);
 	}
-	
+
+	public MainFrame() {
+		this(null);
+	}
+
+	public void changeFile(String fileName) {
+		loadProjectFromFile(new File(fileName));
+		editorPanel.repaint();
+	}
+
 	private JMenu createMenuRoads() {
         
 	    JMenu menuRoads = new JMenu("Roads");
@@ -496,8 +509,21 @@ public class MainFrame extends JFrame {
         return displaySettings;
     }
 
-    public void refresh() {
+	public SetUpPanel getSetUpPanel() {
+		return setUpPanel;
+	}
+
+	public void setSetUpPanel(SetUpPanel setUpPanel) {
+		this.setUpPanel = setUpPanel;
+	}
+
+	public void refresh() {
         repaint();
     }
 
+	public void updateFilePath() {
+		if (loadedFile != null) {
+			setUpPanel.setMapLocationPath(loadedFile.getPath());
+		}
+	}
 }
