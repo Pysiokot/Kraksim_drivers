@@ -98,11 +98,10 @@ public class ControlPanel extends JPanel {
 			}
 		});
 
-		final JButton doneButton = new JButton("Done & Save");
+		final JButton doneButton = new JButton("Done");
 		doneButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.saveProject();
 				mainFrame.updateFilePath();
 				mainFrame.setVisible(false);
 				log.trace("Done button");

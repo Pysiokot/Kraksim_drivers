@@ -8,11 +8,10 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
-import pl.edu.agh.cs.kraksim.sna.centrality.CentralityCalculator;
+import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityCalculator;
 import pl.edu.agh.cs.kraksim.sna.centrality.MeasureType;
 import pl.edu.agh.cs.kraksim.sna.centrality.SNADistanceType;
 import pl.edu.agh.cs.kraksimcitydesigner.AppRunner;
-import pl.edu.agh.cs.kraksimtrafficgenerator.TrafficGeneratorGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +28,6 @@ import java.util.Properties;
 public class SetUpPanel extends JPanel {
 	private static final long serialVersionUID = -4635082252841397559L;
 
-	private static final String TRAFFIC_SCHEMES_DIRECTORY = "trafficSchemes";
-
 	private static final List<String> availableMoveModels = ImmutableList.of(CarMoveModel.MODEL_NAGLE, CarMoveModel.MODEL_VDR, CarMoveModel.MODEL_BRAKELIGHT, CarMoveModel.MODEL_MULTINAGLE);
 
 	private InputPanel cityMapLocation;
@@ -39,7 +36,6 @@ public class SetUpPanel extends JPanel {
 	private InputPanel algorithm;
 	private InputPanel yellowTransition;
 	private JButton designer;
-	private JButton trafficGenerator;
 
 	private JFrame myFrame = null;
 
@@ -57,29 +53,17 @@ public class SetUpPanel extends JPanel {
 	private Properties params;
 	private Properties lastSessionParams;
 	private String carMoveModel;
-	private TrafficGeneratorGUI trafficGeneratorGUI;
 
 	public SetUpPanel(MainVisualisationPanel parent, Properties params) {
 		this.parent = parent;
 		initParams(params);
 		initLayout();
-		initTrafficGenerator();
 	}
 
 	public SetUpPanel(MainVisualisationPanel parent) {
 		this.parent = parent;
 		initParams(new Properties());
 		initLayout();
-		initTrafficGenerator();
-	}
-
-	private void initTrafficGenerator() {
-		trafficGeneratorGUI = new TrafficGeneratorGUI(new TrafficGeneratorGUI.GenerateCallback() {
-			@Override
-			public void call() {
-				travellingSchemeLocation.setText(trafficGeneratorGUI.getPathToFile());
-			}
-		});
 	}
 
 	private void initParams(Properties params) {
@@ -130,6 +114,7 @@ public class SetUpPanel extends JPanel {
 	}
 
 	public void setMapLocationPath(String filePath) {
+		//TODO: change file
 		cityMapLocation.setText(filePath);
 	}
 
@@ -154,7 +139,6 @@ public class SetUpPanel extends JPanel {
 		algorithm = new InputPanel("Algorithm", getParam("algorithm"), 20, null);
 		yellowTransition = new InputPanel("Yellow Duration", "3", 20, null);
 		designer = new JButton("Open CityDesigner");
-		trafficGenerator = new JButton("Open Traffic Generator");
 
 		designer.addActionListener(new ActionListener() {
 			@Override
@@ -168,25 +152,7 @@ public class SetUpPanel extends JPanel {
 			}
 		});
 
-		trafficGenerator.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				javax.swing.SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							trafficGeneratorGUI.setPathToFile(getParentPath(cityMapLocation.getText()) + File.separator + TRAFFIC_SCHEMES_DIRECTORY + File.separator);
-							trafficGeneratorGUI.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
-
 		filesPane.add(designer);
-		filesPane.add(trafficGenerator);
 		filesPane.add(cityMapLocation);
 		filesPane.add(travellingSchemeLocation);
 		filesPane.add(statsOutputLocation);
@@ -211,7 +177,7 @@ public class SetUpPanel extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox) e.getSource();
-				CentralityCalculator.measureType = (MeasureType) cb.getSelectedItem();
+				CentrallityCalculator.measureType = (MeasureType) cb.getSelectedItem();
 			}
 		});
 
@@ -289,7 +255,7 @@ public class SetUpPanel extends JPanel {
 						metricTypeComboBox.getSelectedItem();
 				props.setProperty("centralNodesAlgMod", algStr);
 				storeParam("centralNodesAlgMod", algStr);
-				props.setProperty("numberOfWinners", numberOfWinnersSpinner.getValue().toString());
+				props.setProperty("numberOfWiners", numberOfWinnersSpinner.getValue().toString());
 				props.setProperty("carMoveModel", carMoveModel);
 				storeParam("carMoveModel", carMoveModel);
 
@@ -333,7 +299,7 @@ public class SetUpPanel extends JPanel {
 		commandsPane.add(cancel);
 
 		initVotingAlgorithmPanel();
-		initZoneAwarenessPanel();
+		initZoneAwarnessPanel();
 
 		add(commandsPane, BorderLayout.NORTH);
 	}
@@ -391,13 +357,13 @@ public class SetUpPanel extends JPanel {
 		add(votingAlgorithmsPanel);
 	}
 
-	private void initZoneAwarenessPanel() {
-		JPanel zoneAwarenessPanel = new JPanel();
-		zoneAwarenessPanel.setBorder(BorderFactory.createTitledBorder("Zone awareness"));
-		zoneAwarenessPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
-		zoneAwarenessPanel.setPreferredSize(new Dimension(600, 55));
-		zoneAwarenessPanel.setMinimumSize(new Dimension(600, 55));
-		zoneAwarenessPanel.setMaximumSize(new Dimension(1600, 55));
+	private void initZoneAwarnessPanel() {
+		JPanel zoneAwarnessPanel = new JPanel();
+		zoneAwarnessPanel.setBorder(BorderFactory.createTitledBorder("Zone awareness"));
+		zoneAwarnessPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
+		zoneAwarnessPanel.setPreferredSize(new Dimension(600, 55));
+		zoneAwarnessPanel.setMinimumSize(new Dimension(600, 55));
+		zoneAwarnessPanel.setMaximumSize(new Dimension(1600, 55));
 
 		JRadioButton zoneEnabledButton = new JRadioButton("Enabled");
 		zoneEnabledButton.setSelected(true);
@@ -411,15 +377,10 @@ public class SetUpPanel extends JPanel {
 		zoneAwareGroup.add(zoneEnabledButton);
 		zoneAwareGroup.add(zoneDisabledButton);
 
-		zoneAwarenessPanel.add(zoneEnabledButton);
-		zoneAwarenessPanel.add(zoneDisabledButton);
+		zoneAwarnessPanel.add(zoneEnabledButton);
+		zoneAwarnessPanel.add(zoneDisabledButton);
 
-		add(zoneAwarenessPanel);
-	}
-
-	private String getParentPath(String path) {
-		File file = new File(path);
-		return file.getAbsoluteFile().getParent();
+		add(zoneAwarnessPanel);
 	}
 
 	public void end() {
