@@ -1,36 +1,27 @@
 package pl.edu.agh.cs.kraksimcitydesigner;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Map;
-
-import javax.swing.*;
-
 import org.apache.log4j.Logger;
-import org.apache.log4j.chainsaw.Main;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-
 import pl.edu.agh.cs.kraksim.main.gui.SetUpPanel;
 import pl.edu.agh.cs.kraksimcitydesigner.element.DisplaySettings;
 import pl.edu.agh.cs.kraksimcitydesigner.element.ElementManager;
-import pl.edu.agh.cs.kraksimcitydesigner.element.Gateway;
-import pl.edu.agh.cs.kraksimcitydesigner.element.Intersection;
-import pl.edu.agh.cs.kraksimcitydesigner.element.Link;
-import pl.edu.agh.cs.kraksimcitydesigner.element.Road;
 import pl.edu.agh.cs.kraksimcitydesigner.parser.ModelParser;
 import pl.edu.agh.cs.kraksimcitydesigner.parser.ParsingException;
 import pl.edu.agh.cs.kraksimcitydesigner.propertiesdialogs.AboutConfigDialog;
 import pl.edu.agh.cs.kraksimcitydesigner.propertiesdialogs.SettingsDialog;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1957030091157298387L;
