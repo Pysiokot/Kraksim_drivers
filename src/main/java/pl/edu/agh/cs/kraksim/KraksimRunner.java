@@ -1,6 +1,7 @@
 package pl.edu.agh.cs.kraksim;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import pl.edu.agh.cs.kraksim.main.Simulation;
 import pl.edu.agh.cs.kraksim.main.gui.MainVisualisationPanel;
 
@@ -29,6 +30,10 @@ public class KraksimRunner {
 		if (props.containsKey("visualization") && props.getProperty("visualization").equals("false")) {
 			visualise = false;
 		}
+
+		// set up Logger
+		PropertyConfigurator.configure("src\\main\\resources\\log4j.properties");
+
 
 		// set up the prediction
 		String predictionConfig = props.getProperty("enablePrediction");
