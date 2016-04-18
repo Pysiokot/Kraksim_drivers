@@ -113,6 +113,10 @@ public class SetUpPanel extends JPanel {
 		myFrame.pack();
 	}
 
+	public void setMapLocationPath(String filePath) {
+		cityMapLocation.setText(filePath);
+	}
+
 	private void createLayout() {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -133,7 +137,7 @@ public class SetUpPanel extends JPanel {
 		statsOutputLocation = new InputPanel("Statistics", fileLocation, 20, fc);
 		algorithm = new InputPanel("Algorithm", getParam("algorithm"), 20, null);
 		yellowTransition = new InputPanel("Yellow Duration", "3", 20, null);
-		designer = new JButton("OpenCityDesigner");
+		designer = new JButton("Open CityDesigner");
 
 		designer.addActionListener(new ActionListener() {
 			@Override
@@ -141,7 +145,7 @@ public class SetUpPanel extends JPanel {
 				javax.swing.SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						AppRunner.createAndShowGUI();
+						AppRunner.createAndShowGUI(cityMapLocation.getText(), SetUpPanel.this);
 					}
 				});
 			}

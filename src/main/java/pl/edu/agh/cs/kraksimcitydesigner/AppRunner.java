@@ -1,5 +1,7 @@
 package pl.edu.agh.cs.kraksimcitydesigner;
 
+import pl.edu.agh.cs.kraksim.main.gui.SetUpPanel;
+
 // TODO: Auto-generated Javadoc
 public class AppRunner {
 	
@@ -8,14 +10,19 @@ public class AppRunner {
 	 */
 	private static MainFrame mf = null;
 
-	public synchronized static void createAndShowGUI() {
+	public synchronized static void createAndShowGUI(String mapFile) {
+		createAndShowGUI(mapFile, null);
+	}
+
+	public synchronized static void createAndShowGUI(String mapFile, SetUpPanel setUpPanel) {
 		if (mf == null) {
-			mf = new MainFrame();
+			mf = new MainFrame(setUpPanel);
 		}
+		mf.changeFile(mapFile);
 		mf.setVisible(true);
 
-    }
-	
+	}
+
 	/**
 	 * The main method.
 	 * 
@@ -25,7 +32,7 @@ public class AppRunner {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 	    public void run() {
 	        
-	        createAndShowGUI();
+	        createAndShowGUI("./trafficConfigs/krakow_duzy.xml");
         }});
     }
 
