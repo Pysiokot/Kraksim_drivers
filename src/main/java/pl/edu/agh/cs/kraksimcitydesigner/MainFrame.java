@@ -262,7 +262,7 @@ public class MainFrame extends JFrame {
 	/**
 	 * Save project.
 	 */
-	private void saveProject() {
+	public void saveProject() {
         if (loadedFile != null) {
             saveProjectToFile(loadedFile);
             setProjectChanged(false);

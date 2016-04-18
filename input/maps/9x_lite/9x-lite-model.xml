@@ -1,67 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RoadNet>
-
-	<nodes>
-
-		<!--  -->
-		<gateway id="W1" x="10" y="250"></gateway>
-
-		<intersection id="WX1" x="105" y="250"></intersection>
-
-		<gateway id="E1" x="850" y="250"></gateway>
-
-	</nodes>
-
-	<roads defaultSpeedLimit="2">
-				
-		<road id="W1WX1" street="ulica Pozioma" from="W1" to="WX1">
-			<uplink>
-				<main length="25" />
-			</uplink>
-			<downlink>
-				<main length="25" />
-			</downlink>
-		</road>
-		
-				
-		<road id="WX1E1" street="ulica Pozioma" from="WX1" to="E1">
-			<uplink>
-				<main length="25" />
-			</uplink>
-			<downlink>
-				<main length="25" />
-			</downlink>
-		</road>
-		
-	</roads>
-
-	<intersectionDescriptions>
-		
-		<intersection id="WX1">
-
-			<armActions arm="W1" dir="WE">
-				<action lane="0" exit="E1" />
-			</armActions>
-
-			<armActions arm="E1" dir="EW">
-				<action lane="0" exit="W1" />
-			</armActions>
-
-			<trafficLightsSchedule>
-
-				<phase num="1" name="WE" duration="68">
-					<inlane arm="W1" lane="0" state="green" />
-					<inlane arm="E1" lane="0" state="green" />
-				</phase>
-				
-				<plan name="WE" >
-					<phase num="1" duration="68" name="WE" />
-				</plan>
-			</trafficLightsSchedule>
-
-		</intersection>
-		
-		
-	</intersectionDescriptions>
-
+  <nodes>
+    <gateway id="W1" x="10" y="250" />
+    <gateway id="E1" x="850" y="250" />
+    <intersection id="WX1" x="105" y="250" />
+  </nodes>
+  <roads>
+    <road id="W1WX1" street="ulica Pozioma" from="W1" to="WX1">
+      <uplink>
+        <main length="25" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="25" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="WX1E1" street="ulica Pozioma" from="WX1" to="E1">
+      <uplink>
+        <main length="25" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="25" numberOfLanes="1" />
+      </downlink>
+    </road>
+  </roads>
+  <intersectionDescriptions>
+    <intersection id="WX1">
+      <armActions arm="E1" dir="EW">
+        <action lane="0" exit="W1" />
+      </armActions>
+      <armActions arm="W1" dir="WE">
+        <action lane="0" exit="E1" />
+      </armActions>
+      <trafficLightsSchedule>
+        <phase num="1" name="WE" duration="68">
+          <inlane arm="E1" lane="0" state="green" />
+          <inlane arm="W1" lane="0" state="green" />
+        </phase>
+      </trafficLightsSchedule>
+    </intersection>
+  </intersectionDescriptions>
 </RoadNet>
+
