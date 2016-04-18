@@ -114,7 +114,6 @@ public class SetUpPanel extends JPanel {
 	}
 
 	public void setMapLocationPath(String filePath) {
-		//TODO: change file
 		cityMapLocation.setText(filePath);
 	}
 
