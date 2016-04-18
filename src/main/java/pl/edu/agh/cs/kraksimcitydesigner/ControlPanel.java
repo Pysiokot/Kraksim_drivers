@@ -1,13 +1,12 @@
 package pl.edu.agh.cs.kraksimcitydesigner;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.ButtonGroup;
-import javax.swing.GroupLayout;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
+import javax.swing.*;
 
 import org.apache.log4j.Logger;
 
@@ -99,13 +98,13 @@ public class ControlPanel extends JPanel {
 			}
 		});
 
-		final JToggleButton doneButton = new JToggleButton("Done");
-		doneButton.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if(doneButton.isSelected()) {
-					mainFrame.setVisible(false);
-					log.trace("Done button");
-				}
+		final JButton doneButton = new JButton("Done");
+		doneButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.updateFilePath();
+				mainFrame.setVisible(false);
+				log.trace("Done button");
 			}
 		});
 
