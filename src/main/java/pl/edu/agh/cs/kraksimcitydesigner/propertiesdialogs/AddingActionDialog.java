@@ -56,9 +56,9 @@ public class AddingActionDialog extends JDialog {
         
         final Map<Integer, List<Node>> availableNodesMap = new HashMap<Integer, List<Node>>();
         for (int laneNum = -1; laneNum <= 1; laneNum++) {
-            if (  (laneNum == -1 && this.incomingLink.getLeftLines().size() > 0)
-               || (laneNum ==  0 && this.incomingLink.getNumberOfLines() > 0)
-               || (laneNum ==  1 && this.incomingLink.getRightLines().size() > 0) )
+            if (  (laneNum == -1 && this.incomingLink.getLeftLanes().size() > 0)
+               || (laneNum ==  0 && this.incomingLink.getNumberOfLanes() > 0)
+               || (laneNum ==  1 && this.incomingLink.getRightLanes().size() > 0) )
             {
                 List<Node> availableNodesFromThisLane = new LinkedList<Node>();
                 

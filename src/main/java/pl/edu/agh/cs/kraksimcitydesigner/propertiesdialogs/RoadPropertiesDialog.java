@@ -88,22 +88,22 @@ public class RoadPropertiesDialog extends JDialog{
     private JFrame mainFrame;
     private Road road;
     private RoadEditableSpecification roadSpecification;
-    private JPanel uplinkRightLinesPanel = new JPanel();
-    private JPanel uplinkLeftLinesPanel = new JPanel();
-    private JPanel downlinkRightLinesPanel = new JPanel();
-    private JPanel downlinkLeftLinesPanel = new JPanel();
+    private JPanel uplinkRightLanesPanel = new JPanel();
+    private JPanel uplinkLeftLanesPanel = new JPanel();
+    private JPanel downlinkRightLanesPanel = new JPanel();
+    private JPanel downlinkLeftLanesPanel = new JPanel();
     // Variables declaration
     private javax.swing.JLabel downlinkLabel;
     private javax.swing.JLabel downlinkDirectionLabel;
-    private javax.swing.JScrollPane downlinkLeftLinesScrollPane;
-    private javax.swing.JButton downlinkLeftTurnLinesAddButton;
-    private javax.swing.JLabel downlinkLeftTurnLinesLabel;
+    private javax.swing.JScrollPane downlinkLeftLanesScrollPane;
+    private javax.swing.JButton downlinkLeftTurnLanesAddButton;
+    private javax.swing.JLabel downlinkLeftTurnLanesLabel;
     private javax.swing.JLabel downlinkLengthLabel;
-    private javax.swing.JLabel downlinkNumOfLinesLabel;
-    private javax.swing.JTextField downlinkNumOfLinesTextField;
-    private javax.swing.JScrollPane downlinkRightLinesScrollPane;
-    private javax.swing.JButton downlinkRightTurnLinesAddButton;
-    private javax.swing.JLabel downlinkRightTurnLinesLabel;
+    private javax.swing.JLabel downlinkNumOfLanesLabel;
+    private javax.swing.JTextField downlinkNumOfLanesTextField;
+    private javax.swing.JScrollPane downlinkRightLanesScrollPane;
+    private javax.swing.JButton downlinkRightTurnLanesAddButton;
+    private javax.swing.JLabel downlinkRightTurnLanesLabel;
     private javax.swing.JSeparator footerSeparator;
     private javax.swing.JSeparator headerSeparator;
     private javax.swing.JButton saveButton;
@@ -118,16 +118,16 @@ public class RoadPropertiesDialog extends JDialog{
     private javax.swing.JTextField streetNameTextField;
     private javax.swing.JLabel uplinkDirectionLabel;
     private javax.swing.JLabel uplinkLabel;
-    private javax.swing.JScrollPane uplinkLeftLinesScrollPane;
-    private javax.swing.JButton uplinkLeftTurnLinesAddButton;
-    private javax.swing.JLabel uplinkLeftTurnLinesLabel;
+    private javax.swing.JScrollPane uplinkLeftLanesScrollPane;
+    private javax.swing.JButton uplinkLeftTurnLanesAddButton;
+    private javax.swing.JLabel uplinkLeftTurnLanesLabel;
     private javax.swing.JLabel uplinkLengthLabel;
     private javax.swing.JTextField uplinkLengthTextField;
-    private javax.swing.JLabel uplinkNumOfLinesLabel;
-    private javax.swing.JTextField uplinkNumOfLinesTextField;
-    private javax.swing.JScrollPane uplinkRightLinesScrollPane;
-    private javax.swing.JButton uplinkRightTurnLinesAddButton;
-    private javax.swing.JLabel uplinkRightTurnLinesLabel;
+    private javax.swing.JLabel uplinkNumOfLanesLabel;
+    private javax.swing.JTextField uplinkNumOfLanesTextField;
+    private javax.swing.JScrollPane uplinkRightLanesScrollPane;
+    private javax.swing.JButton uplinkRightTurnLanesAddButton;
+    private javax.swing.JLabel uplinkRightTurnLanesLabel;
     private javax.swing.JSeparator verticalSeparator;
     // End of variables declaration
     
@@ -161,29 +161,29 @@ public class RoadPropertiesDialog extends JDialog{
         downlinkLabel = new javax.swing.JLabel();
         uplinkDirectionLabel = new javax.swing.JLabel();
         downlinkDirectionLabel = new javax.swing.JLabel();
-        uplinkNumOfLinesLabel = new javax.swing.JLabel();
-        uplinkNumOfLinesTextField = new javax.swing.JTextField();
-        downlinkNumOfLinesLabel = new javax.swing.JLabel();
-        downlinkNumOfLinesTextField = new javax.swing.JTextField();
-        uplinkRightTurnLinesLabel = new javax.swing.JLabel();
-        uplinkLeftTurnLinesLabel = new javax.swing.JLabel();
+        uplinkNumOfLanesLabel = new javax.swing.JLabel();
+        uplinkNumOfLanesTextField = new javax.swing.JTextField();
+        downlinkNumOfLanesLabel = new javax.swing.JLabel();
+        downlinkNumOfLanesTextField = new javax.swing.JTextField();
+        uplinkRightTurnLanesLabel = new javax.swing.JLabel();
+        uplinkLeftTurnLanesLabel = new javax.swing.JLabel();
         uplinkLengthLabel = new javax.swing.JLabel();
         downlinkLengthLabel = new javax.swing.JLabel();
         uplinkLengthTextField = new javax.swing.JTextField();
         downlinkLengthTextField = new javax.swing.JTextField();
-        downlinkRightTurnLinesLabel = new javax.swing.JLabel();
-        downlinkLeftTurnLinesLabel = new javax.swing.JLabel();
-        uplinkLeftTurnLinesAddButton = new javax.swing.JButton();
-        downlinkLeftTurnLinesAddButton = new javax.swing.JButton();
-        uplinkRightTurnLinesAddButton = new javax.swing.JButton();
-        downlinkRightTurnLinesAddButton = new javax.swing.JButton();
+        downlinkRightTurnLanesLabel = new javax.swing.JLabel();
+        downlinkLeftTurnLanesLabel = new javax.swing.JLabel();
+        uplinkLeftTurnLanesAddButton = new javax.swing.JButton();
+        downlinkLeftTurnLanesAddButton = new javax.swing.JButton();
+        uplinkRightTurnLanesAddButton = new javax.swing.JButton();
+        downlinkRightTurnLanesAddButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         footerSeparator = new javax.swing.JSeparator();
-        downlinkRightLinesScrollPane = new javax.swing.JScrollPane();
-        uplinkRightLinesScrollPane = new javax.swing.JScrollPane();
-        downlinkLeftLinesScrollPane = new javax.swing.JScrollPane();
-        uplinkLeftLinesScrollPane = new javax.swing.JScrollPane();
+        downlinkRightLanesScrollPane = new javax.swing.JScrollPane();
+        uplinkRightLanesScrollPane = new javax.swing.JScrollPane();
+        downlinkLeftLanesScrollPane = new javax.swing.JScrollPane();
+        uplinkLeftLanesScrollPane = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -204,18 +204,18 @@ public class RoadPropertiesDialog extends JDialog{
         uplinkLabel.setText("Uplink");
         downlinkLabel.setText("Downlink");
         downlinkDirectionLabel.setText("from to");
-        uplinkNumOfLinesLabel.setText("Number of lines:");
-        downlinkNumOfLinesLabel.setText("Number of lines:");
-        uplinkRightTurnLinesLabel.setText("Right turn lines");
-        uplinkLeftTurnLinesLabel.setText("Left turn lines");
+        uplinkNumOfLanesLabel.setText("Number of lanes:");
+        downlinkNumOfLanesLabel.setText("Number of lanes:");
+        uplinkRightTurnLanesLabel.setText("Right turn lanes");
+        uplinkLeftTurnLanesLabel.setText("Left turn lanes");
         uplinkLengthLabel.setText("Length:");
         downlinkLengthLabel.setText("Length");
-        downlinkRightTurnLinesLabel.setText("Right turn lines");
-        downlinkLeftTurnLinesLabel.setText("Left turn lines");
-        uplinkRightTurnLinesAddButton.setText("Add line");
-        uplinkLeftTurnLinesAddButton.setText("Add line");
-        downlinkLeftTurnLinesAddButton.setText("Add line");
-        downlinkRightTurnLinesAddButton.setText("Add line");
+        downlinkRightTurnLanesLabel.setText("Right turn lanes");
+        downlinkLeftTurnLanesLabel.setText("Left turn lanes");
+        uplinkRightTurnLanesAddButton.setText("Add line");
+        uplinkLeftTurnLanesAddButton.setText("Add line");
+        downlinkLeftTurnLanesAddButton.setText("Add line");
+        downlinkRightTurnLanesAddButton.setText("Add line");
 
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -242,49 +242,49 @@ public class RoadPropertiesDialog extends JDialog{
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(uplinkRightTurnLinesLabel)
+                                .addComponent(uplinkRightTurnLanesLabel)
                                 .addGap(12, 12, 12)
-                                .addComponent(uplinkRightTurnLinesAddButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                                .addComponent(uplinkRightTurnLanesAddButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(uplinkLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(uplinkDirectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(uplinkNumOfLinesLabel)
+                            .addComponent(uplinkNumOfLanesLabel)
                             .addComponent(uplinkLengthLabel)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(uplinkLengthTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(uplinkNumOfLinesTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                                .addComponent(uplinkNumOfLanesTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(uplinkLeftTurnLinesLabel)
+                                .addComponent(uplinkLeftTurnLanesLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(uplinkLeftTurnLinesAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(uplinkLeftTurnLanesAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(saveButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(uplinkRightLinesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(uplinkLeftLinesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(uplinkRightLanesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(uplinkLeftLanesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(verticalSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(downlinkRightTurnLinesLabel)
+                                .addComponent(downlinkRightTurnLanesLabel)
                                 .addGap(12, 12, 12)
-                                .addComponent(downlinkRightTurnLinesAddButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                                .addComponent(downlinkRightTurnLanesAddButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(downlinkLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(downlinkDirectionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
-                            .addComponent(downlinkNumOfLinesLabel)
+                            .addComponent(downlinkNumOfLanesLabel)
                             .addComponent(downlinkLengthLabel)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(downlinkLengthTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(downlinkNumOfLinesTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                                .addComponent(downlinkNumOfLanesTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(downlinkLeftTurnLinesLabel)
+                                .addComponent(downlinkLeftTurnLanesLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(downlinkLeftTurnLinesAddButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                                .addComponent(downlinkLeftTurnLanesAddButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                             .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(downlinkRightLinesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                            .addComponent(downlinkLeftLinesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)))
+                            .addComponent(downlinkRightLanesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                            .addComponent(downlinkLeftLanesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)))
                     .addComponent(headerSeparator, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,50 +323,50 @@ public class RoadPropertiesDialog extends JDialog{
                             .addComponent(downlinkLabel)
                             .addComponent(downlinkDirectionLabel))
                         .addGap(18, 18, 18)
-                        .addComponent(downlinkNumOfLinesLabel)
+                        .addComponent(downlinkNumOfLanesLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(downlinkNumOfLinesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(downlinkNumOfLanesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(downlinkLengthLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(downlinkLengthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(downlinkRightTurnLinesLabel)
-                            .addComponent(downlinkRightTurnLinesAddButton))
+                            .addComponent(downlinkRightTurnLanesLabel)
+                            .addComponent(downlinkRightTurnLanesAddButton))
                         .addGap(5, 5, 5)
-                        .addComponent(downlinkRightLinesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(downlinkRightLanesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(downlinkLeftTurnLinesLabel)
-                            .addComponent(downlinkLeftTurnLinesAddButton))
+                            .addComponent(downlinkLeftTurnLanesLabel)
+                            .addComponent(downlinkLeftTurnLanesAddButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(downlinkLeftLinesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(downlinkLeftLanesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(uplinkDirectionLabel)
                             .addComponent(uplinkLabel))
                         .addGap(18, 18, 18)
-                        .addComponent(uplinkNumOfLinesLabel)
+                        .addComponent(uplinkNumOfLanesLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(uplinkNumOfLinesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(uplinkNumOfLanesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(uplinkLengthLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(uplinkLengthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(uplinkRightTurnLinesLabel)
-                            .addComponent(uplinkRightTurnLinesAddButton))
+                            .addComponent(uplinkRightTurnLanesLabel)
+                            .addComponent(uplinkRightTurnLanesAddButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(uplinkRightLinesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(uplinkRightLanesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(uplinkLeftTurnLinesLabel)
-                            .addComponent(uplinkLeftTurnLinesAddButton))
+                            .addComponent(uplinkLeftTurnLanesLabel)
+                            .addComponent(uplinkLeftTurnLanesAddButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(uplinkLeftLinesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                        .addComponent(uplinkLeftLanesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addComponent(verticalSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
@@ -406,10 +406,10 @@ public class RoadPropertiesDialog extends JDialog{
         //general actions (save/cancel
         this.setTitle("Road properties dialog");
         initStaticContent(road);
-        initLinkContent(uplinkLeftLinesPanel, uplinkLeftLinesScrollPane, uplinkLeftTurnLinesAddButton, roadSpecification.getUplinkLeftLanes());
-        initLinkContent(uplinkRightLinesPanel, uplinkRightLinesScrollPane, uplinkRightTurnLinesAddButton, roadSpecification.getUplinkRightLanes());
-        initLinkContent(downlinkLeftLinesPanel, downlinkLeftLinesScrollPane, downlinkLeftTurnLinesAddButton, roadSpecification.getDownlinkLeftLanes());
-        initLinkContent(downlinkRightLinesPanel, downlinkRightLinesScrollPane, downlinkRightTurnLinesAddButton, roadSpecification.getDownlinkRightLanes());
+        initLinkContent(uplinkLeftLanesPanel, uplinkLeftLanesScrollPane, uplinkLeftTurnLanesAddButton, roadSpecification.getUplinkLeftLanes());
+        initLinkContent(uplinkRightLanesPanel, uplinkRightLanesScrollPane, uplinkRightTurnLanesAddButton, roadSpecification.getUplinkRightLanes());
+        initLinkContent(downlinkLeftLanesPanel, downlinkLeftLanesScrollPane, downlinkLeftTurnLanesAddButton, roadSpecification.getDownlinkLeftLanes());
+        initLinkContent(downlinkRightLanesPanel, downlinkRightLanesScrollPane, downlinkRightTurnLanesAddButton, roadSpecification.getDownlinkRightLanes());
 
         pack();
     }
@@ -427,21 +427,21 @@ public class RoadPropertiesDialog extends JDialog{
                 + " to " + road.getUplink().getEndNode().getId());
         downlinkDirectionLabel.setText("from " + road.getDownlink().getStartNode().getId()
                 + " to " + road.getDownlink().getEndNode().getId());
-        uplinkNumOfLinesTextField.setText(new Integer(road.getUplink().getNumberOfLines()).toString());
-        downlinkNumOfLinesTextField.setText(new Integer(road.getDownlink().getNumberOfLines()).toString());
+        uplinkNumOfLanesTextField.setText(new Integer(road.getUplink().getNumberOfLanes()).toString());
+        downlinkNumOfLanesTextField.setText(new Integer(road.getDownlink().getNumberOfLanes()).toString());
         uplinkLengthTextField.setText(new Integer(road.getUplink().getLength()).toString());
         downlinkLengthTextField.setText(new Integer(road.getUplink().getLength()).toString());
         
-        uplinkLeftTurnLinesAddButton.addActionListener(new AddLaneActionListener(this, 
+        uplinkLeftTurnLanesAddButton.addActionListener(new AddLaneActionListener(this,
                 roadSpecification.getUplinkLeftLanes(),
                 "Add uplink left lane"));
-        uplinkRightTurnLinesAddButton.addActionListener(new AddLaneActionListener(this,
+        uplinkRightTurnLanesAddButton.addActionListener(new AddLaneActionListener(this,
                 roadSpecification.getUplinkRightLanes(),
                 "Add uplink right lane"));
-        downlinkLeftTurnLinesAddButton.addActionListener(new AddLaneActionListener(this,
+        downlinkLeftTurnLanesAddButton.addActionListener(new AddLaneActionListener(this,
                 roadSpecification.getDownlinkLeftLanes(),
                 "Add downlink left lane"));
-        downlinkRightTurnLinesAddButton.addActionListener(new AddLaneActionListener(this,
+        downlinkRightTurnLanesAddButton.addActionListener(new AddLaneActionListener(this,
                 roadSpecification.getDownlinkRightLanes(),
                 "Add downlink right lane"));
     }    
@@ -469,14 +469,14 @@ public class RoadPropertiesDialog extends JDialog{
          Link uplink = road.getUplink();
          Link downlink = road.getDownlink();
          uplink.setLength(Integer.parseInt(this.uplinkLengthTextField.getText()));
-         uplink.setNumberOfLines(Integer.parseInt(this.uplinkNumOfLinesTextField.getText()));
-         uplink.setLeftLines(this.roadSpecification.getUplinkLeftLanes());
-         uplink.setRightLines(this.roadSpecification.getUplinkRightLanes());
+         uplink.setNumberOfLanes(Integer.parseInt(this.uplinkNumOfLanesTextField.getText()));
+         uplink.setLeftLanes(this.roadSpecification.getUplinkLeftLanes());
+         uplink.setRightLanes(this.roadSpecification.getUplinkRightLanes());
          
          downlink.setLength(Integer.parseInt(this.downlinkLengthTextField.getText()));
-         downlink.setNumberOfLines(Integer.parseInt(this.downlinkNumOfLinesTextField.getText()));
-         downlink.setLeftLines(this.roadSpecification.getDownlinkLeftLanes());
-         downlink.setRightLines(this.roadSpecification.getDownlinkRightLanes());
+         downlink.setNumberOfLanes(Integer.parseInt(this.downlinkNumOfLanesTextField.getText()));
+         downlink.setLeftLanes(this.roadSpecification.getDownlinkLeftLanes());
+         downlink.setRightLanes(this.roadSpecification.getDownlinkRightLanes());
          
          if(!mainFrame.getTitle().contains("*")) {
              mainFrame.setTitle(mainFrame.getTitle() + "*");
@@ -529,7 +529,7 @@ public class RoadPropertiesDialog extends JDialog{
         panel.removeAll();
         scrollPane.getViewport().removeAll();
         
-        //Uplink Right Lines Panel
+        //Uplink Right Lanes Panel
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         
         lengthLabel.setPreferredSize(new Dimension(80, 25));
@@ -581,10 +581,10 @@ public class RoadPropertiesDialog extends JDialog{
      * Refresh dynamic content.
      */
     public void refreshDynamicContent(){
-        initLinkContent(uplinkLeftLinesPanel, uplinkLeftLinesScrollPane, uplinkLeftTurnLinesAddButton, roadSpecification.getUplinkLeftLanes());
-        initLinkContent(uplinkRightLinesPanel, uplinkRightLinesScrollPane, uplinkRightTurnLinesAddButton, roadSpecification.getUplinkRightLanes());
-        initLinkContent(downlinkLeftLinesPanel, downlinkLeftLinesScrollPane, downlinkLeftTurnLinesAddButton, roadSpecification.getDownlinkLeftLanes());
-        initLinkContent(downlinkRightLinesPanel, downlinkRightLinesScrollPane, downlinkRightTurnLinesAddButton, roadSpecification.getDownlinkRightLanes());
+        initLinkContent(uplinkLeftLanesPanel, uplinkLeftLanesScrollPane, uplinkLeftTurnLanesAddButton, roadSpecification.getUplinkLeftLanes());
+        initLinkContent(uplinkRightLanesPanel, uplinkRightLanesScrollPane, uplinkRightTurnLanesAddButton, roadSpecification.getUplinkRightLanes());
+        initLinkContent(downlinkLeftLanesPanel, downlinkLeftLanesScrollPane, downlinkLeftTurnLanesAddButton, roadSpecification.getDownlinkLeftLanes());
+        initLinkContent(downlinkRightLanesPanel, downlinkRightLanesScrollPane, downlinkRightTurnLanesAddButton, roadSpecification.getDownlinkRightLanes());
     }
     
 }

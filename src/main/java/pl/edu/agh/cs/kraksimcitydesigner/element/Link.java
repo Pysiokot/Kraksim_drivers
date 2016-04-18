@@ -15,11 +15,11 @@ import pl.edu.agh.cs.kraksimcitydesigner.inf.CityElement;
 public class Link implements CityElement, Clickable {
     private static Logger log = Logger.getLogger(Link.class);
 	
-	private int numberOfLines;
+	private int numberOfLanes;
 
     private int length;
-	private List<Integer> leftLines;
-	private List<Integer> rightLines;
+	private List<Integer> leftLanes;
+	private List<Integer> rightLanes;
 	private Shape shape;
 	private DisplaySettings displaySettings;
 
@@ -40,33 +40,33 @@ public class Link implements CityElement, Clickable {
 	 * 
 	 * @param linkType the link type
 	 * @param length the length
-	 * @param numOfLines the num of lines
-	 * @param leftLines the left lines
-	 * @param rightLines the right lines
+	 * @param numOfLanes the num of lanes
+	 * @param leftLanes the left lanes
+	 * @param rightLanes the right lanes
 	 * @param startNodeOfRaod the start node of raod
 	 * @param endNodeOfRoad the end node of road
 	 */
-	public Link(LinkType linkType, int length, int numOfLines,
-	        List<Integer> leftLines, List<Integer> rightLines, 
+	public Link(LinkType linkType, int length, int numOfLanes,
+	        List<Integer> leftLanes, List<Integer> rightLanes,
 	        Node startNodeOfRaod, Node endNodeOfRoad, DisplaySettings displaySettings) {
 
-		this.numberOfLines = numOfLines;
+		this.numberOfLanes = numOfLanes;
 		this.length = length;
-		this.leftLines = leftLines;
-		this.rightLines = rightLines;
+		this.leftLanes = leftLanes;
+		this.rightLanes = rightLanes;
 		this.startNodeOfRoad = startNodeOfRaod;
 		this.endNodeOfRoad = endNodeOfRoad;
 		this.linkType = linkType;
 		this.displaySettings = displaySettings;
 		
 		this.incomingLanes = new LinkedList<IncomingLane>();
-		if (leftLines.size() > 0) {
+		if (leftLanes.size() > 0) {
 		    this.incomingLanes.add(new IncomingLane(getStartNode(),-1));
 		}
-		if (rightLines.size() > 0) {
+		if (rightLanes.size() > 0) {
 		    this.incomingLanes.add(new IncomingLane(getStartNode(),1));
 		}
-		if (numOfLines > 0) {
+		if (numOfLanes > 0) {
 		    this.incomingLanes.add(new IncomingLane(getStartNode(),0));
 		}
 		
@@ -77,13 +77,13 @@ public class Link implements CityElement, Clickable {
 	 */
 	private void setIncomingLanes() {
 	    this.incomingLanes = new LinkedList<IncomingLane>();
-        if (leftLines.size() > 0) {
+        if (leftLanes.size() > 0) {
             this.incomingLanes.add(new IncomingLane(getStartNode(),-1));
         }
-        if (rightLines.size() > 0) {
+        if (rightLanes.size() > 0) {
             this.incomingLanes.add(new IncomingLane(getStartNode(),1));
         }
-        if (numberOfLines > 0) {
+        if (numberOfLanes > 0) {
             this.incomingLanes.add(new IncomingLane(getStartNode(),0));
         }
 	}
@@ -94,10 +94,10 @@ public class Link implements CityElement, Clickable {
 	 * @return the link
 	 */
 	public Link copyLink() {
-        List<Integer> leftLines = new LinkedList<Integer>(this.leftLines);
-        List<Integer> rightLines = new LinkedList<Integer>(this.rightLines);;
+        List<Integer> leftLanes = new LinkedList<Integer>(this.leftLanes);
+        List<Integer> rightLanes = new LinkedList<Integer>(this.rightLanes);;
 
-        return new Link(linkType, length, numberOfLines, leftLines, rightLines, startNodeOfRoad, endNodeOfRoad, displaySettings);
+        return new Link(linkType, length, numberOfLanes, leftLanes, rightLanes, startNodeOfRoad, endNodeOfRoad, displaySettings);
 	}
 	
 	/**
@@ -129,7 +129,7 @@ public class Link implements CityElement, Clickable {
             new_y2 = y2 - vectorOrtogonal[1] * 5;   
 		}
 		
-		ThickLine tl = new ThickLine((int)new_x1,(int)new_y1,(int)new_x2,(int)new_y2,this.numberOfLines+1);
+		ThickLine tl = new ThickLine((int)new_x1,(int)new_y1,(int)new_x2,(int)new_y2,this.numberOfLanes+1);
 				
 		this.shape = tl.getShape();
 	}
@@ -210,30 +210,30 @@ public class Link implements CityElement, Clickable {
     }
 
     /**
-     * Gets the left lines.
+     * Gets the left lanes.
      * 
-     * @return the left lines
+     * @return the left lanes
      */
-    public List<Integer> getLeftLines() {
-        return leftLines;
+    public List<Integer> getLeftLanes() {
+        return leftLanes;
     }
 
     /**
-     * Gets the right lines.
+     * Gets the right lanes.
      * 
-     * @return the right lines
+     * @return the right lanes
      */
-    public List<Integer> getRightLines() {
-        return rightLines;
+    public List<Integer> getRightLanes() {
+        return rightLanes;
     }
     
     /**
-     * Gets the number of lines.
+     * Gets the number of lanes.
      * 
-     * @return the number of lines
+     * @return the number of lanes
      */
-    public int getNumberOfLines() {
-        return this.numberOfLines;
+    public int getNumberOfLanes() {
+        return this.numberOfLanes;
     }
     
     /* (non-Javadoc)
@@ -271,32 +271,32 @@ public class Link implements CityElement, Clickable {
     }
 
     /**
-     * Sets the number of lines.
+     * Sets the number of lanes.
      * 
-     * @param numberOfLines the new number of lines
+     * @param numberOfLanes the new number of lanes
      */
-    public void setNumberOfLines(int numberOfLines) {
-        this.numberOfLines = numberOfLines;
+    public void setNumberOfLanes(int numberOfLanes) {
+        this.numberOfLanes = numberOfLanes;
         setIncomingLanes();
     }
 
     /**
-     * Sets the left lines.
+     * Sets the left lanes.
      * 
-     * @param leftLines the new left lines
+     * @param leftLanes the new left lanes
      */
-    public void setLeftLines(List<Integer> leftLines) {
-        this.leftLines = leftLines;
+    public void setLeftLanes(List<Integer> leftLanes) {
+        this.leftLanes = leftLanes;
         setIncomingLanes();
     }
 
     /**
-     * Sets the right lines.
+     * Sets the right lanes.
      * 
-     * @param rightLines the new right lines
+     * @param rightLanes the new right lanes
      */
-    public void setRightLines(List<Integer> rightLines) {
-        this.rightLines = rightLines;
+    public void setRightLanes(List<Integer> rightLanes) {
+        this.rightLanes = rightLanes;
         setIncomingLanes();
     }
 
@@ -329,11 +329,11 @@ public class Link implements CityElement, Clickable {
     public void recalculateDistance() {
         
         /*
-        List<Integer> newLeftLines = new LinkedList<Integer>();
-        for (Integer left : leftLines) {
+        List<Integer> newLeftLanes = new LinkedList<Integer>();
+        for (Integer left : leftLanes) {
             int newValue = (int) (left * displaySettings.getCellsPerPixel());
             if (newValue)
-            newLeftLines.add
+            newLeftLanes.add
         }
         */
         

@@ -166,8 +166,8 @@ public class ModelParser {
                               
                               /*
                               Link fromEntranceNodeToIntersectionLink = em.findLinkConnecting(entranceNode,intersection);                   
-                              if (  (ruleLaneNum == -1 && fromEntranceNodeToIntersectionLink.getLeftLines() == null) 
-                                 || (ruleLaneNum == 1 && fromEntranceNodeToIntersectionLink.getRightLines() == null)) {
+                              if (  (ruleLaneNum == -1 && fromEntranceNodeToIntersectionLink.getLeftLanes() == null)
+                                 || (ruleLaneNum == 1 && fromEntranceNodeToIntersectionLink.getRightLanes() == null)) {
                                   throw new ParsingException("Rule that affect non existing lane");
                               }
                               */
@@ -241,15 +241,15 @@ public class ModelParser {
                numberOfLanes = Integer.valueOf(main.getAttributeValue("numberOfLanes"));
           } else numberOfLanes = 1;
 
-        LinkedList<Integer> leftLines = new LinkedList<Integer>();
+        LinkedList<Integer> leftLanes = new LinkedList<Integer>();
         for (Object leftObject : linkElement.getChildren("left")) {
-            leftLines.add(Integer.valueOf(((Element)leftObject).getAttributeValue("length")));
+            leftLanes.add(Integer.valueOf(((Element)leftObject).getAttributeValue("length")));
         }
-        LinkedList<Integer> rightLines = new LinkedList<Integer>();
+        LinkedList<Integer> rightLanes = new LinkedList<Integer>();
         for (Object rightObject : linkElement.getChildren("right")) {
-            rightLines.add(Integer.valueOf(((Element)rightObject).getAttributeValue("length")));
+            rightLanes.add(Integer.valueOf(((Element)rightObject).getAttributeValue("length")));
         }
-        return new Link(linkType,length,numberOfLanes,leftLines,rightLines,startNode,endNode,displaySettings);
+        return new Link(linkType,length,numberOfLanes,leftLanes,rightLanes,startNode,endNode,displaySettings);
     }
 }
 

@@ -154,11 +154,11 @@ public class Intersection extends Node {
         }
         
         /**
-         * Gets the lines nums that have action.
+         * Gets the lanes nums that have action.
          * 
-         * @return the lines nums that have action
+         * @return the lanes nums that have action
          */
-        public Set<Integer> getLinesNumsThatHaveAction() {
+        public Set<Integer> getLanesNumsThatHaveAction() {
             Set<Integer> result = new HashSet<Integer>();
             for (Action action : getActions()) {
                 result.add(action.getLineNum());
