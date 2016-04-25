@@ -36,6 +36,7 @@ class InputPanel extends JPanel {
 							evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
 					for (File file : droppedFiles) {
 						setText(file.getAbsolutePath());
+						fileChooser.setCurrentDirectory(file);
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
