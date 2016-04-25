@@ -10,9 +10,11 @@ import org.jdom.output.XMLOutputter;
 import pl.edu.agh.cs.kraksim.main.gui.SetUpPanel;
 import pl.edu.agh.cs.kraksimcitydesigner.element.DisplaySettings;
 import pl.edu.agh.cs.kraksimcitydesigner.element.ElementManager;
+import pl.edu.agh.cs.kraksimcitydesigner.element.RoadsSettings;
 import pl.edu.agh.cs.kraksimcitydesigner.parser.ModelParser;
 import pl.edu.agh.cs.kraksimcitydesigner.parser.ParsingException;
 import pl.edu.agh.cs.kraksimcitydesigner.propertiesdialogs.AboutConfigDialog;
+import pl.edu.agh.cs.kraksimcitydesigner.propertiesdialogs.RoadSettingsDialog;
 import pl.edu.agh.cs.kraksimcitydesigner.propertiesdialogs.SettingsDialog;
 
 import javax.swing.*;
@@ -28,16 +30,18 @@ public class MainFrame extends JFrame {
 	private static Logger log = Logger.getLogger(MainFrame.class);
 	
 	private final String FRAME_TITLE = "KraksimCityDesigner";
-	
 	private DisplaySettings displaySettings;
+	private RoadsSettings roadsSettings;
+
 	private ElementManager elementManager;
 	private ControlPanel controlPanel;
 	private EditorPanel editorPanel;
 	private InfoPanel infoPanel;
 	private Configuration configuration;
-    private boolean projectChanged;
-    private final JFileChooser fc = new JFileChooser();
-    private final SettingsDialog settingsDialog;
+	private boolean projectChanged;
+	private final JFileChooser fc = new JFileChooser();
+	private final SettingsDialog settingsDialog;
+	private final RoadSettingsDialog roadSettingsDialog;
 	private SetUpPanel setUpPanel;
     
     private File loadedFile = null;
@@ -51,14 +55,16 @@ public class MainFrame extends JFrame {
 		this.setSetUpPanel(setUpPanel);
 	    
 	    displaySettings = new DisplaySettings();
+		roadsSettings = new RoadsSettings();
 	    
 	    configuration = new Configuration();
-	    elementManager = new ElementManager(displaySettings);
+	    elementManager = new ElementManager(displaySettings, roadsSettings);
 	    controlPanel = new ControlPanel(this);
 	    JScrollPane scrollPane = new JScrollPane();
 	    editorPanel = new EditorPanel(this, scrollPane,displaySettings);
 	    infoPanel = new InfoPanel();
 	    settingsDialog = new SettingsDialog(this,fc,true);
+		roadSettingsDialog = new RoadSettingsDialog(this);
 	    
 	    editorPanel.setDoubleBuffered(true);
 	    editorPanel.setPreferredSize(new Dimension(BgImageData.getDefault().getWidth(), BgImageData.getDefault().getHeight()));
@@ -110,6 +116,7 @@ public class MainFrame extends JFrame {
         
 	    JMenu menuRoads = new JMenu("Roads");
         JMenuItem menuItem;
+		JMenuItem roadSettings;
 
         // NEW Menu Item
         menuItem = new JMenuItem("Recalculate distances");
@@ -122,9 +129,21 @@ public class MainFrame extends JFrame {
                 }
             }
         });
-        
-        menuRoads.add(menuItem);
-        return menuRoads;
+
+		roadSettings = new JMenuItem("Road settings");
+		roadSettings.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				roadSettingsDialog.refresh();
+				roadSettingsDialog.setVisible(true);
+			}
+		});
+
+		menuRoads.add(menuItem);
+		menuRoads.add(roadSettings);
+
+
+		return menuRoads;
     }
 	
 	   private JMenu createMenuProject() {
@@ -506,6 +525,10 @@ public class MainFrame extends JFrame {
 
 	public void setSetUpPanel(SetUpPanel setUpPanel) {
 		this.setUpPanel = setUpPanel;
+	}
+
+	public RoadsSettings getRoadsSettings() {
+		return roadsSettings;
 	}
 
 	public void refresh() {
