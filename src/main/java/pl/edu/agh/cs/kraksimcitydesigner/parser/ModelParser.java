@@ -196,7 +196,12 @@ public class ModelParser {
                   String durationStr = phaseEl.getAttributeValue("duration");
                   Integer duration = null;
                   if (durationStr != null) {
-                      duration = Integer.parseInt(durationStr);
+                      try {
+                          duration = Integer.parseInt(durationStr);
+                      } catch(NumberFormatException e) {
+                          duration = 10;
+                          log.error("<Designer> Parameter 'duration' is not valid, setting default value: 10");
+                      }
                   }
                   Intersection.Phase phase = new Intersection.Phase(num,name,duration);
                   for (Element inlaneEl : Util.getChildrenByName(phaseEl, "inlane")) {
