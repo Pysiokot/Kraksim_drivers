@@ -1,6 +1,7 @@
 package pl.edu.agh.cs.kraksimcitydesigner.parser;
 
 import org.apache.log4j.Logger;
+import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
