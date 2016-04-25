@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.Box;
@@ -16,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
@@ -112,7 +109,9 @@ public class RoadPropertiesDialog extends JDialog{
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField downlinkLengthTextField;
     private javax.swing.JLabel roadIdLabel;
+    private javax.swing.JLabel speedLimitLabel;
     private javax.swing.JTextField roadIdTextField;
+    private javax.swing.JTextField speedLimitTextField;
     private javax.swing.JSeparator streetFromLinksSeparator;
     private javax.swing.JLabel streetNameLabel;
     private javax.swing.JTextField streetNameTextField;
@@ -153,7 +152,9 @@ public class RoadPropertiesDialog extends JDialog{
         headerSeparator = new javax.swing.JSeparator();
         streetFromLinksSeparator = new javax.swing.JSeparator();
         roadIdLabel = new javax.swing.JLabel();
+        speedLimitLabel = new javax.swing.JLabel();
         roadIdTextField = new javax.swing.JTextField();
+        speedLimitTextField = new javax.swing.JTextField();
         streetNameLabel = new javax.swing.JLabel();
         streetNameTextField = new javax.swing.JTextField();
         verticalSeparator = new javax.swing.JSeparator();
@@ -199,7 +200,8 @@ public class RoadPropertiesDialog extends JDialog{
         );
 
         roadIdLabel.setText("Road id:");
-        streetNameLabel.setText("Street name:");  
+        speedLimitLabel.setText("Speed limit:");
+        streetNameLabel.setText("Street name:");
         verticalSeparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
         uplinkLabel.setText("Uplink");
         downlinkLabel.setText("Downlink");
@@ -291,7 +293,9 @@ public class RoadPropertiesDialog extends JDialog{
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(streetNameLabel)
                                 .addComponent(streetNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                .addComponent(roadIdTextField))
+                                .addComponent(roadIdTextField)
+                                .addComponent(speedLimitLabel)
+                                .addComponent(speedLimitTextField))
                             .addComponent(roadIdLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -312,7 +316,10 @@ public class RoadPropertiesDialog extends JDialog{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(streetNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(streetNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(streetNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10)
+                            .addComponent(speedLimitLabel)
+                        .addComponent(speedLimitTextField))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(streetFromLinksSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -422,6 +429,7 @@ public class RoadPropertiesDialog extends JDialog{
     private void initStaticContent(Road road) {
         roadIdTextField.setText(road.getId());
         streetNameTextField.setText(road.getStreet());
+        speedLimitTextField.setText(road.getSpeedLimit());
         
         uplinkDirectionLabel.setText("from " + road.getUplink().getStartNode().getId()
                 + " to " + road.getUplink().getEndNode().getId());
@@ -466,6 +474,7 @@ public class RoadPropertiesDialog extends JDialog{
      private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {
          road.setId(this.roadIdTextField.getText());
          road.setStreet(this.streetNameTextField.getText());
+         road.setSpeedLimit(this.speedLimitTextField.getText());
          Link uplink = road.getUplink();
          Link downlink = road.getDownlink();
          uplink.setLength(Integer.parseInt(this.uplinkLengthTextField.getText()));
