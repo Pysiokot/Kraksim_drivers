@@ -11,13 +11,14 @@ public class RoadEditableSpecification {
     
     String roadId;
     String roadStreetName;
+    String roadSpeedLimit;
     
-    int uplinkNumOfLanes;
+    int uplinkNumOfLines;
     int uplinkLength;
     List<Integer> uplinkRightLanes;
     List<Integer> uplinkLeftLanes;
     
-    int downlinkNumOfLanes;
+    int downlinkNumOfLines;
     int downlinkLength;
     List<Integer> downlinkRightLanes;
     List<Integer> downlinkLeftLanes;
@@ -31,16 +32,17 @@ public class RoadEditableSpecification {
         this.road = road;
         this.roadId = road.getId();
         this.roadStreetName = road.getStreet();
+        this.roadSpeedLimit = road.getSpeedLimit();
         
-        this.uplinkNumOfLanes = road.getUplink().getNumberOfLanes();
+        this.uplinkNumOfLines = road.getUplink().getNumberOfLines();
         this.uplinkLength = road.getUplink().getLength();
-        this.uplinkLeftLanes = new LinkedList<Integer>(road.getUplink().getLeftLanes());
-        this.uplinkRightLanes = new LinkedList<Integer>(road.getUplink().getRightLanes());
+        this.uplinkLeftLanes = new LinkedList<Integer>(road.getUplink().getLeftLines());
+        this.uplinkRightLanes = new LinkedList<Integer>(road.getUplink().getRightLines());
         
-        this.downlinkNumOfLanes = road.getDownlink().getNumberOfLanes();
+        this.downlinkNumOfLines = road.getDownlink().getNumberOfLines();
         this.downlinkLength = road.getDownlink().getLength();
-        this.downlinkLeftLanes = new LinkedList<Integer>(road.getDownlink().getLeftLanes());
-        this.downlinkRightLanes = new LinkedList<Integer>(road.getDownlink().getRightLanes());
+        this.downlinkLeftLanes = new LinkedList<Integer>(road.getDownlink().getLeftLines());
+        this.downlinkRightLanes = new LinkedList<Integer>(road.getDownlink().getRightLines());
     }
 
     /**
@@ -80,21 +82,39 @@ public class RoadEditableSpecification {
     }
 
     /**
-     * Gets the uplink num of lanes.
-     * 
-     * @return the uplink num of lanes
+     * Gets the road speed limit.
+     *
+     * @return the road speed limit
      */
-    public int getUplinkNumOfLanes() {
-        return uplinkNumOfLanes;
+    public String getRoadSpeedLimit() {
+        return roadSpeedLimit;
     }
 
     /**
-     * Sets the uplink num of lanes.
-     * 
-     * @param uplinkNumOfLanes the new uplink num of lanes
+     * Sets the road speed limit.
+     *
+     * @param roadSpeedLimit the new road speed limit
      */
-    public void setUplinkNumOfLanes(int uplinkNumOfLanes) {
-        this.uplinkNumOfLanes = uplinkNumOfLanes;
+    public void setRoadSpeedLimit(String roadSpeedLimit) {
+        this.roadSpeedLimit = roadSpeedLimit;
+    }
+
+    /**
+     * Gets the uplink num of lines.
+     * 
+     * @return the uplink num of lines
+     */
+    public int getUplinkNumOfLines() {
+        return uplinkNumOfLines;
+    }
+
+    /**
+     * Sets the uplink num of lines.
+     * 
+     * @param uplinkNumOfLines the new uplink num of lines
+     */
+    public void setUplinkNumOfLines(int uplinkNumOfLines) {
+        this.uplinkNumOfLines = uplinkNumOfLines;
     }
 
     /**
@@ -152,21 +172,21 @@ public class RoadEditableSpecification {
     }
 
     /**
-     * Gets the downlink num of lanes.
+     * Gets the downlink num of lines.
      * 
-     * @return the downlink num of lanes
+     * @return the downlink num of lines
      */
-    public int getDownlinkNumOfLanes() {
-        return downlinkNumOfLanes;
+    public int getDownlinkNumOfLines() {
+        return downlinkNumOfLines;
     }
 
     /**
-     * Sets the downlink num of lanes.
+     * Sets the downlink num of lines.
      * 
-     * @param downlinkNumOfLanes the new downlink num of lanes
+     * @param downlinkNumOfLines the new downlink num of lines
      */
-    public void setDownlinkNumOfLanes(int downlinkNumOfLanes) {
-        this.downlinkNumOfLanes = downlinkNumOfLanes;
+    public void setDownlinkNumOfLines(int downlinkNumOfLines) {
+        this.downlinkNumOfLines = downlinkNumOfLines;
     }
 
     /**

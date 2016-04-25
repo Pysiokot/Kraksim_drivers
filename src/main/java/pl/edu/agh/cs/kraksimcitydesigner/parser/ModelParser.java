@@ -93,6 +93,7 @@ public class ModelParser {
           for (Element road : Util.getChildren(roads)) {
               String id = road.getAttributeValue("id");
               String street = road.getAttributeValue("street");
+              String speedLimit = road.getAttributeValue("speedLimit");
               String from = road.getAttributeValue("from");
               String to = road.getAttributeValue("to");
               
@@ -122,7 +123,7 @@ public class ModelParser {
               if (uplink == null && downlink == null) {
                   throw new ParsingException();
               }
-              em.addRoad(id,street,uplink,downlink);
+              em.addRoad(id,street,speedLimit,uplink,downlink);
           }
           
           Element intersectionDescriptions = root.getChild("intersectionDescriptions");
