@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -83,6 +84,12 @@ public class ModelParser {
               }
           }
           Element roads = root.getChild("roads");
+          String defaultSpeedLimit = roads.getAttributeValue("defaultSpeedLimit");
+
+          if (defaultSpeedLimit != null) {
+              em.getRoadsSettings().setDefaultSpeedLimit(Integer.parseInt(defaultSpeedLimit));
+          }
+
           for (Element road : Util.getChildren(roads)) {
               String id = road.getAttributeValue("id");
               String street = road.getAttributeValue("street");

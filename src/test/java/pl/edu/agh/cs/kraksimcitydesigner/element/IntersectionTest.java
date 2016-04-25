@@ -19,7 +19,8 @@ public class IntersectionTest {
     
         try {
             DisplaySettings ds = new DisplaySettings();
-            ElementManager em = new ElementManager(ds);
+            RoadsSettings rs = new RoadsSettings();
+            ElementManager em = new ElementManager(ds, rs);
             ModelParser.parse(em, sourceFile);
             return em;
         }
@@ -546,7 +547,7 @@ public class IntersectionTest {
         Node node1 = new Intersection("id",10,20,new DisplaySettings());
         Node node2 = new Intersection("id2",10,30,new DisplaySettings());
         
-        ElementManager em = new ElementManager(new DisplaySettings());
+        ElementManager em = new ElementManager(new DisplaySettings(), new RoadsSettings());
         em.addRoad(node1, node2);
         Assert.assertEquals(1, em.getRoads().size());
         
