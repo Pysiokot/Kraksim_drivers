@@ -11,6 +11,7 @@ public class Road implements CityElement,Clickable,Selectable,Comparable<Road> {
     private Link downlink;
 	private String id;
 	private String street;
+    private String speedLimit;
 	private boolean selected = false;
 	
 	/**
@@ -21,11 +22,12 @@ public class Road implements CityElement,Clickable,Selectable,Comparable<Road> {
 	 * @param uplink the uplink
 	 * @param downlink the downlink
 	 */
-	public Road(String id, String street, Link uplink, Link downlink) {
+	public Road(String id, String street, String speedLimit, Link uplink, Link downlink) {
 		this.id = id;
 		this.street = street;
 		this.uplink = uplink;
 		this.downlink = downlink;
+        this.speedLimit = speedLimit;
 	}
 	
 	/**
@@ -36,10 +38,11 @@ public class Road implements CityElement,Clickable,Selectable,Comparable<Road> {
 	public Road copyRoad() {
 	    String id = new String(this.id);
 	    String street = new String(this.street);
+        String speedLimit = new String(this.speedLimit);
 	    Link uplink = this.uplink.copyLink();
 	    Link downlink = this.downlink.copyLink();
 	    
-	    return new Road(id, street, uplink, downlink);
+	    return new Road(id, street, speedLimit, uplink, downlink);
 	}
 	
 	/* (non-Javadoc)
@@ -84,8 +87,17 @@ public class Road implements CityElement,Clickable,Selectable,Comparable<Road> {
     public void setStreet(String street) {
         this.street = street;
     }
-	
-	/**
+
+    /**
+     * Sets the speedLimit.
+     *
+     * @param speedLimit the new speedLimit
+     */
+    public void setSpeedLimit(String speedLimit) {
+        this.speedLimit = speedLimit;
+    }
+
+    /**
 	 * Gets the uplink.
 	 * 
 	 * @return the uplink
@@ -118,6 +130,15 @@ public class Road implements CityElement,Clickable,Selectable,Comparable<Road> {
      */
     public String getStreet() {
         return street;
+    }
+
+    /**
+     * Gets the speedLimit.
+     *
+     * @return the speedLimit
+     */
+    public String getSpeedLimit() {
+        return speedLimit;
     }
 
     /**

@@ -11,6 +11,7 @@ public class RoadEditableSpecification {
     
     String roadId;
     String roadStreetName;
+    String roadSpeedLimit;
     
     int uplinkNumOfLines;
     int uplinkLength;
@@ -31,6 +32,7 @@ public class RoadEditableSpecification {
         this.road = road;
         this.roadId = road.getId();
         this.roadStreetName = road.getStreet();
+        this.roadSpeedLimit = road.getSpeedLimit();
         
         this.uplinkNumOfLines = road.getUplink().getNumberOfLines();
         this.uplinkLength = road.getUplink().getLength();
@@ -77,6 +79,24 @@ public class RoadEditableSpecification {
      */
     public void setRoadStreetName(String roadStreetName) {
         this.roadStreetName = roadStreetName;
+    }
+
+    /**
+     * Gets the road speed limit.
+     *
+     * @return the road speed limit
+     */
+    public String getRoadSpeedLimit() {
+        return roadSpeedLimit;
+    }
+
+    /**
+     * Sets the road speed limit.
+     *
+     * @param roadSpeedLimit the new road speed limit
+     */
+    public void setRoadSpeedLimit(String roadSpeedLimit) {
+        this.roadSpeedLimit = roadSpeedLimit;
     }
 
     /**

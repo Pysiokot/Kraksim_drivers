@@ -188,18 +188,23 @@ public class ElementManager {
      * 
      * @param id the id
      * @param street the street
+     * @param speedLimit the speedLimit
      * @param uplink the uplink
      * @param downlink the downlink
      */
-    public void addRoad(String id, String street, Link uplink, Link downlink) {
+    public void addRoad(String id, String street, String speedLimit, Link uplink, Link downlink) {
         log.trace("adding roads");
-        Road newRoad = new Road(id,street,uplink,downlink);
+        if (speedLimit == null)
+            speedLimit = "2";
+
+        Road newRoad = new Road(id,street,speedLimit,uplink,downlink);
         for (Road road : roads) {
             if (road.getFromNode().getId().equals(newRoad.getToNode().getId())
                     && road.getToNode().getId().equals(newRoad.getFromNode().getId())) {
                 return;
             }
         }
+
         if (this.roads.add(newRoad) == true) {
 
             if (uplink != null) {
@@ -230,7 +235,7 @@ public class ElementManager {
         Link uplink = new Link(LinkType.UPLINK,distanceOnMap,1,new LinkedList<Integer>(),new LinkedList<Integer>(),startNode,endNode,displaySettings);
         Link downlink = new Link(LinkType.DOWNLINK,distanceOnMap,1,new LinkedList<Integer>(),new LinkedList<Integer>(),startNode,endNode,displaySettings);
 
-        addRoad(id,street,uplink,downlink);
+        addRoad(id,street,"2",uplink,downlink);
     }
 
     /**
@@ -413,6 +418,7 @@ public class ElementManager {
             Element roadElement = new Element("road");
             roadElement.setAttribute("id", road.getId());
             roadElement.setAttribute("street",road.getStreet());
+            roadElement.setAttribute("speedLimit", road.getSpeedLimit());
             roadElement.setAttribute("from",road.getUplink().getStartNode().getId());
             roadElement.setAttribute("to",road.getUplink().getEndNode().getId());
 
