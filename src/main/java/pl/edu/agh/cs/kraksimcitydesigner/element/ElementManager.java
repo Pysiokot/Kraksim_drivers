@@ -32,6 +32,7 @@ public class ElementManager {
     private List<Node> nodes = Collections.synchronizedList(new LinkedList<Node>());
 
     private DisplaySettings displaySettings;
+    private RoadsSettings roadsSettings;
 
     private static class Helpers {
 
@@ -74,8 +75,9 @@ public class ElementManager {
      * 
      * @param ds the ds
      */
-    public ElementManager(DisplaySettings ds) {
+    public ElementManager(DisplaySettings ds, RoadsSettings rs) {
         this.displaySettings = ds;
+        this.roadsSettings = rs;
     }
 
     /**
@@ -381,7 +383,7 @@ public class ElementManager {
 
     /**
      * Fill dom.
-     * 
+     *
      * @param document the document
      */
     public Document modelToDocument() {
@@ -414,6 +416,7 @@ public class ElementManager {
 
         // roads
         Element roadsElement = new Element("roads");
+        roadsElement.setAttribute("defaultSpeedLimit", String.valueOf(roadsSettings.getDefaultSpeedLimit()));
         for (Road road : elementManager.getRoads()) {
             Element roadElement = new Element("road");
             roadElement.setAttribute("id", road.getId());
@@ -527,4 +530,7 @@ public class ElementManager {
         return this.displaySettings;
     }
 
+    public RoadsSettings getRoadsSettings() {
+        return roadsSettings;
+    }
 }
