@@ -68,6 +68,8 @@ public class RoadSettingsDialog extends JDialog {
         cancelButton.setText("Cancel"); // NOI18N
         cancelButton.setName("cancelButton"); // NOI18N
 
+        this.setTitle("Road settings");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
