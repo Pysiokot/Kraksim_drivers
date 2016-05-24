@@ -160,14 +160,14 @@ public class OptionsPanel extends JPanel {
 
 				sim = new Simulation(paramsList.toArray(new String[0]));
 
-				SimulationVisualizator vis = sim.getVisualizator();
-				sim.setControler(OptionsPanel.this);
+				SimulationVisualizer vis = sim.getVisualizer();
+				sim.setController(OptionsPanel.this);
 
-				if (vis instanceof GUISimulationVisualizator) {
-					GUISimulationVisualizator simPanel = ((GUISimulationVisualizator) sim.getVisualizator());
+				if (vis instanceof GUISimulationVisualizer) {
+					GUISimulationVisualizer simPanel = ((GUISimulationVisualizer) sim.getVisualizer());
 					hideOptions();
-					addSimPanel(simPanel.getVisualizatorComponent());
-					addControlPanel(simPanel.getControllPane());
+					addSimPanel(simPanel.getVisualizerComponent());
+					addControlPanel(simPanel.getControlPane());
 				}
 
 				Thread runner = new Thread(sim);

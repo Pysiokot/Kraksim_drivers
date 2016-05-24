@@ -47,7 +47,7 @@ public class RoadInfo {
 		return zoneInfo;
 	}
 
-	//we need to swap begining and ending
+	//we need to swap beginning and ending
 	public void setReversed() {
 		Node tmp = from;
 		from = to;

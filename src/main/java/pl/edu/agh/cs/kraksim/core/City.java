@@ -37,7 +37,7 @@ public class City extends Element {
 	/**
 	 * Gateway Factory.
 	 *
-	 * @throws pl.edu.agh.cs.kraksim.core.exceptions.DuplicateIdentifierException if node with specifed id already exists.
+	 * @throws pl.edu.agh.cs.kraksim.core.exceptions.DuplicateIdentifierException if node with specified id already exists.
 	 */
 	public Gateway createGateway(String id, Point2D point) throws DuplicateIdentifierException {
 		if (gatewayMap.containsKey(id) || intersectionMap.containsKey(id)) {
@@ -53,7 +53,7 @@ public class City extends Element {
 	/**
 	 * Intersection Factory.
 	 *
-	 * @throws DuplicateIdentifierException if node with specifed id already exists.
+	 * @throws DuplicateIdentifierException if node with specified id already exists.
 	 */
 	public Intersection createIntersection(String id, Point2D point) throws DuplicateIdentifierException {
 		if (gatewayMap.containsKey(id) || intersectionMap.containsKey(id)) {
@@ -73,7 +73,7 @@ public class City extends Element {
 	 * Lanes length's must decrease from inside to outside. Throws
 	 * IllegalArgumentException otherwise.
 	 * <p/>
-	 * Arrays of lane lenghts are indexed from 0 (the lane nearest to the main
+	 * Arrays of lane lengths are indexed from 0 (the lane nearest to the main
 	 * lane).
 	 *
 	 * @throws DuplicateIdentifierException                                        if link with specified id already exists.
@@ -155,7 +155,7 @@ public class City extends Element {
 
 	/**
 	 * Visits all elements (that is objects of Element class or subclass) and
-	 * calls a visitor method dependind of an element type.
+	 * calls a visitor method depending of an element type.
 	 * <p/>
 	 * See ElementVisitor and VisitingException.
 	 */

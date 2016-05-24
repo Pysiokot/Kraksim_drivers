@@ -82,12 +82,12 @@ public class Agent {
 
 	// mediate and choose solution
 	private void mediate() {
-		boolean trialSucceded = tryLocalChange();
+		boolean trialSucceeded = tryLocalChange();
 		Map<String, Map<Direction, List<Conflict>>> preferences = new HashMap<>();
 		// TODO: check if local trial was success, and do not
 		// mediate!!!!
 		//    System.out.println( "TRIAL SUCcess: " + trialSucceded );
-		if (!trialSucceded) {
+		if (!trialSucceeded) {
 			for (Agent agent : good_list) {
 				Map<Direction, List<Conflict>> conflictsMap = agent.evaluateAsk(this);
 
@@ -344,7 +344,7 @@ public class Agent {
 		return total;
 	}
 
-	private String getInitalName() {
+	private String getInitialName() {
 		return name;
 	}
 
@@ -479,9 +479,9 @@ public class Agent {
 		List<Agent> j_list = getNeighbours(higherTraffic);
 		for (Agent agent_j : j_list) {
 			if (goodList.contains(agent_j)) {
-				double tmpcost = relation(value, agent_j, higherTraffic);
-				//        System.out.println( "\t\t\tRelation for agent " + agent_j.getName() + " = " + tmpcost );
-				conflicts.add(new Conflict(agent_j.name, tmpcost));
+				double tmpCost = relation(value, agent_j, higherTraffic);
+				//        System.out.println( "\t\t\tRelation for agent " + agent_j.getName() + " = " + tmpCost );
+				conflicts.add(new Conflict(agent_j.name, tmpCost));
 			}
 		}
 	}

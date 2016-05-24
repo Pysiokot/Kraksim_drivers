@@ -20,7 +20,7 @@ public class CurrentPredictionContainer {
 		congestionLinks.add(linkInfo);
 	}
 
-	public Set<LinkInfo> getPreditionForCurrentPeriod() {
+	public Set<LinkInfo> getPredictionForCurrentPeriod() {
 		Set<LinkInfo> congestionLinks = predictionMap.get(0);
 		if (congestionLinks == null) {
 			congestionLinks = new HashSet<>();

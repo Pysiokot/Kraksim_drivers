@@ -10,9 +10,9 @@ public class TrafficLevel {
 	private String description;
 	private double maxInfluence;
 
-	// just in case (ok, i know Java has its own List... But i don't want to bind TrafficLevel with Discretiser)
+	// just in case (ok, i know Java has its own List... But i don't want to bind TrafficLevel with Discretizer)
 	private TrafficLevel predecessor;
-	private TrafficLevel proceeder;
+	private TrafficLevel successor;
 
 	/**
 	 *
@@ -89,17 +89,17 @@ public class TrafficLevel {
 	}
 
 	/**
-	 * @return the proceeder
+	 * @return the successor
 	 */
-	public TrafficLevel getProceeder() {
-		return proceeder;
+	public TrafficLevel getSuccessor() {
+		return successor;
 	}
 
 	/**
-	 * @param proceeder the proceeder to set
+	 * @param successor the successor to set
 	 */
-	public void setProceeder(TrafficLevel proceeder) {
-		this.proceeder = proceeder;
+	public void setSuccessor(TrafficLevel successor) {
+		this.successor = successor;
 	}
 
 	@Override

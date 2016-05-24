@@ -1,6 +1,6 @@
 package pl.edu.agh.cs.kraksim.statistics.charts;
 
-import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizator;
+import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizer;
 import pl.edu.agh.cs.kraksim.ministat.CityMiniStatExt;
 import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
 
@@ -10,12 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TooSlowCarsNumberChart extends NumberChart {
-	private final GUISimulationVisualizator simView;
+	private final GUISimulationVisualizer simView;
 	private JTextField valueLabel;
 	private JButton confirmButton;
 	private Float value;
 
-	public TooSlowCarsNumberChart(String title, CityMiniStatExt cityStat, GUISimulationVisualizator simView) {
+	public TooSlowCarsNumberChart(String title, CityMiniStatExt cityStat, GUISimulationVisualizer simView) {
 		super(title, cityStat);
 		this.simView = simView;
 		init();

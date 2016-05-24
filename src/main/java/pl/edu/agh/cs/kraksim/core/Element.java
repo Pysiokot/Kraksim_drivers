@@ -4,7 +4,7 @@ import pl.edu.agh.cs.kraksim.core.exceptions.ExtensionUnsupportedException;
 import pl.edu.agh.cs.kraksim.core.exceptions.InvalidExtensionClassException;
 
 /**
- * Base class for extendable core elements
+ * Base class for extensible core elements
  */
 public abstract class Element {
 	protected final Core core;

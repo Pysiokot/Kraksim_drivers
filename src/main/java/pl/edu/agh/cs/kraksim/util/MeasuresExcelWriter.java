@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import pl.edu.agh.cs.kraksim.core.Node;
-import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityCalculator;
+import pl.edu.agh.cs.kraksim.sna.centrality.CentralityCalculator;
 import pl.edu.agh.cs.kraksim.sna.centrality.MeasureType;
 
 import java.io.File;
@@ -211,7 +211,7 @@ public class MeasuresExcelWriter {
 
 	private String getFileName() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-		MeasureType mType = CentrallityCalculator.measureType;
+		MeasureType mType = CentralityCalculator.measureType;
 		return String.format("%s%s%s_%s_%s.xls", DEFAULT_DIR, File.separator, DEFAULT_FILENAME, format.format(new Date()), mType.toString());
 	}
 }

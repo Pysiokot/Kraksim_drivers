@@ -15,11 +15,11 @@ public class TrafficSchemeParser {
 		try {
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			SAXParser sp = spf.newSAXParser();
-			TrafficDataXmlHandler tdXmlhandler = new TrafficDataXmlHandler(city, parameters);
+			TrafficDataXmlHandler tdXmlHandler = new TrafficDataXmlHandler(city, parameters);
 
-			sp.parse(fileName, tdXmlhandler);
+			sp.parse(fileName, tdXmlHandler);
 
-			return tdXmlhandler.getSchemes();
+			return tdXmlHandler.getSchemes();
 		} catch (Exception e) {
 			throw new ParsingException("Parsing exception : ", e);
 		}

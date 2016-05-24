@@ -1,6 +1,6 @@
 package pl.edu.agh.cs.kraksim.main.gui;
 
-import pl.edu.agh.cs.kraksim.sna.GraphVisualizator;
+import pl.edu.agh.cs.kraksim.sna.GraphVisualizer;
 
 public interface Controllable extends Runnable {
 	void doStep();
@@ -9,9 +9,9 @@ public interface Controllable extends Runnable {
 
 	void doPause();
 
-	void setControler(OptionsPanel panel);
+	void setController(OptionsPanel panel);
 
-	SimulationVisualizator getVisualizator();
+	SimulationVisualizer getVisualizer();
 
-	void setGraphVisualizator(GraphVisualizator graphVisualizator);
+	void setGraphVisualizer(GraphVisualizer graphVisualizer);
 }

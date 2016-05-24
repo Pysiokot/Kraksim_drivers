@@ -15,9 +15,8 @@ import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.core.*;
 import pl.edu.agh.cs.kraksim.main.Simulation;
 import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
-import pl.edu.agh.cs.kraksim.sna.GraphVisualizator;
-import pl.edu.agh.cs.kraksim.sna.SnaConfigurator;
-import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityCalculator;
+import pl.edu.agh.cs.kraksim.sna.GraphVisualizer;
+import pl.edu.agh.cs.kraksim.sna.centrality.CentralityCalculator;
 import pl.edu.agh.cs.kraksim.sna.centrality.KmeansClustering;
 import pl.edu.agh.cs.kraksim.sna.centrality.MeasureType;
 import pl.edu.agh.cs.kraksim.statistics.StatsPanel;
@@ -33,7 +32,7 @@ import java.awt.geom.Point2D;
 import java.util.*;
 import java.util.List;
 
-public class MainVisualisationPanel extends JPanel implements GraphVisualizator {
+public class MainVisualisationPanel extends JPanel implements GraphVisualizer {
 	private static final long serialVersionUID = 2195425331247205783L;
 	private static final Logger LOGGER = Logger.getLogger(MainVisualisationPanel.class);
 
@@ -178,13 +177,13 @@ public class MainVisualisationPanel extends JPanel implements GraphVisualizator 
 		KmeansClustering.setProperties(params);
 
 		sim = new Simulation(KraksimConfigurator.prepareInputParametersForSimulation(params));
-		sim.setGraphVisualizator(this);
-		SimulationVisualizator vis = sim.getVisualizator();
+		sim.setGraphVisualizer(this);
+		SimulationVisualizer vis = sim.getVisualizer();
 
-		if (vis instanceof GUISimulationVisualizator) {
-			GUISimulationVisualizator simPanel = ((GUISimulationVisualizator) sim.getVisualizator());
-			addSimPanel(simPanel.getVisualizatorComponent());
-			addControlPanel(simPanel.getControllPane());
+		if (vis instanceof GUISimulationVisualizer) {
+			GUISimulationVisualizer simPanel = ((GUISimulationVisualizer) sim.getVisualizer());
+			addSimPanel(simPanel.getVisualizerComponent());
+			addControlPanel(simPanel.getControlPane());
 		}
 
 		Thread runner = new Thread(sim);
@@ -366,7 +365,7 @@ public class MainVisualisationPanel extends JPanel implements GraphVisualizator 
 
 	@Override
 	public void refreshGraph() {
-		CentrallityCalculator.calculateCentrallity(getSimulation().getModules().getGraph(), MeasureType.PageRank, 3);
+		CentralityCalculator.calculateCentrality(getSimulation().getModules().getGraph(), MeasureType.PageRank, 3);
 		refreshMeasures(new ArrayList<>(getSimulation().getModules().getGraph().getVertices()));
 		refreshGraphCoolors();
 	}

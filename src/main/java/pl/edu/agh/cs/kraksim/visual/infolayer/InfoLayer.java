@@ -14,6 +14,7 @@ import pl.edu.agh.cs.kraksim.core.Link;
 import pl.edu.agh.cs.kraksim.ministat.GatewayMiniStatExt;
 import pl.edu.agh.cs.kraksim.ministat.LinkMiniStatExt;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
+import pl.edu.agh.cs.kraksim.visual.VisualizerComponent;
 import pl.edu.agh.cs.kraksim.visual.infolayer.messages.MessageWindowThreadFactory;
 import pl.edu.agh.cs.kraksim.visual.infolayer.messages.NodeMessageWindowThread;
 
@@ -47,19 +48,19 @@ public class InfoLayer {
 
     public InfoLayer(MiniStatEView statView) {
 		this.statView = statView;
-		bidiLinkMap = new DualHashBidiMap<Rectangle2D, Link>();
-		bidiIntersectionMap = new DualHashBidiMap<Rectangle2D, Intersection>();
-		bidiGatewayMap = new DualHashBidiMap<Rectangle2D, Gateway>();
-        nodeMessageWindowThreadList = new ArrayList<NodeMessageWindowThread>();
+		bidiLinkMap = new DualHashBidiMap<>();
+		bidiIntersectionMap = new DualHashBidiMap<>();
+		bidiGatewayMap = new DualHashBidiMap<>();
+        nodeMessageWindowThreadList = new ArrayList<>();
 	}
 
 	/**
 	 * Metoda prĂłbuje znaleĹşÄ‡ w mapach dany punkt i odpowiednio wyĹ›wietliÄ‡ w okienku szczegĂłĹ‚owe informacje
-	 * {@link pl.edu.agh.cs.kraksim.visual.VisualizatorComponent}
+	 * {@link VisualizerComponent}
 	 * @param x - wspĂłĹ‚rzÄ™dna x klikniÄ™cia
 	 * @param y
 	 * @param scale - skala podawana przez zoom slidera 
-	 * @see pl.edu.agh.cs.kraksim.visual.VisualizatorComponent
+	 * @see VisualizerComponent
 	 */
 	synchronized public void showInfoMessageWindow(double x, double y, float scale){
 		Point p = new Point(Double.valueOf(x).intValue(), Double.valueOf(y).intValue());

@@ -133,12 +133,12 @@ public class KmeansClustering {
 			case CrossroadsNumber:
 				return 1;
 			case Weight:
-				Map<Node, Node> p=new HashMap<Node, Node>();
+				Map<Node, Node> p= new HashMap<>();
 				p.put(nodeA, nodeB);
 				linkloadMap.put(p,(int) graph.findEdge(nodeA, nodeB).getLoad());
 				return (int) graph.findEdge(nodeA, nodeB).getWeight() * 100;
 			case Load:
-				Map<Node, Node> p2=new HashMap<Node, Node>();
+				Map<Node, Node> p2= new HashMap<>();
 				p2.put(nodeA, nodeB);
 				linkloadMap.put(p2,(int) graph.findEdge(nodeA, nodeB).getLoad());
 				return (int) graph.findEdge(nodeA, nodeB).getLoad() * 100;

@@ -12,7 +12,7 @@ public class TransactionTable implements Iterable<Transaction> {
 		if (transactionArray.isEmpty()) {
 			return 0;
 		}
-		return transactionArray.get(0).getTransacation().size();
+		return transactionArray.get(0).getTransaction().size();
 	}
 
 	public List<Transaction> getTransactions() {
@@ -44,7 +44,7 @@ public class TransactionTable implements Iterable<Transaction> {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		for (Transaction t : transactionArray) {
-			List<Double> ali = t.getTransacation();
+			List<Double> ali = t.getTransaction();
 			for (int i = 0; i < ali.size(); i++) {
 				String attributeName = attributeNames.get(i);
 				Double attributeValue = ali.get(i);

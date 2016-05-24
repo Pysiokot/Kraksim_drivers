@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Klasa przechowujaca informacje dotyczace  preferencji zmian swiatel dla skrzyzowania
  */
-public class OptimalizationInfo {
+public class OptimizationInfo {
 	private Map<Link, Integer> greenLightChanges;
 	private Link link;
 	private int change;

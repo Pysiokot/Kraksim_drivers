@@ -10,7 +10,7 @@ public class ErrorResultCreator {
 	private final Archive<Double> classData;
 	private final Archive<Double> classDataPrediction;
 	private long count = 0;
-	private double mapeSum = 0;
+	private double mapSum = 0;
 
 	public ErrorResultCreator(PredictionSetup setup, Archive<Double> classData, Archive<Double> classDataPrediction) {
 		this.classData = classData;
@@ -30,7 +30,7 @@ public class ErrorResultCreator {
 
 					if (realValue != 0.0) {
 						count++;
-						mapeSum += Math.abs((realValue - predictedValue) / realValue);
+						mapSum += Math.abs((realValue - predictedValue) / realValue);
 					}
 				}
 			}
@@ -44,7 +44,7 @@ public class ErrorResultCreator {
 	}
 
 	public String getResultText(int actualTurn) {
-		double mape = mapeSum / count * 100;
-		return "MAPE: " + mape + '\n';
+		double map = mapSum / count * 100;
+		return "MAPE: " + map + '\n';
 	}
 }

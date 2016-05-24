@@ -13,20 +13,19 @@ import org.apache.log4j.Logger;
 import pl.edu.agh.cs.kraksim.core.*;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoCursor;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
-import pl.edu.agh.cs.kraksim.sna.SnaConfigurator;
 
 import java.util.*;
 
 /**
  * Klasa pomocnicza obliczajaca odpowiednie miary dla grafu
  */
-public class CentrallityCalculator {
-	private static final Logger LOGGER = Logger.getLogger(CentrallityCalculator.class);
+public class CentralityCalculator {
+	private static final Logger LOGGER = Logger.getLogger(CentralityCalculator.class);
 
 	public static CarInfoIView carInfoView = null;
 	public static MeasureType measureType = MeasureType.PageRank;
 
-	public static void calculateCentrallity(City city, MeasureType type) {
+	public static void calculateCentrality(City city, MeasureType type) {
 		Hypergraph<Node, Link> graph = cityToGraph(city);
 
 		switch (type) {
@@ -56,7 +55,7 @@ public class CentrallityCalculator {
 	/**
 	 * Metoda obliczajca wartoci miar dla grafu wg miary wskazanej jako type
 	 */
-	public static void calculateCentrallity(Graph<Node, Link> graph, MeasureType type, int subGraphsNumber) {
+	public static void calculateCentrality(Graph<Node, Link> graph, MeasureType type, int subGraphsNumber) {
 		double max = 0;
 		type = measureType;
 
@@ -149,7 +148,7 @@ public class CentrallityCalculator {
 	}
 
 	public static List<Graph<Node, Link>> getSubGraphs(City city, int subGraphsCount, MeasureType type) {
-		return null;
+		return null; // todo: Make this not null or delete the whole metod, unfinished
 	}
 
 	public static int subGraphNr(Graph<Node, Link> graph, int subGraphsNumber, Node node) {

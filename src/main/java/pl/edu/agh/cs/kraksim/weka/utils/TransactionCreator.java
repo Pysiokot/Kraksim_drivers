@@ -43,14 +43,14 @@ public class TransactionCreator {
 		transactionTable.setAttributeNames(attributeNames);
 
 		while (history.depth() > setup.getMaxNumberOfInfluencedTimesteps()) {
-			Transaction t = createTraningTransaction(history, classRoad);
+			Transaction t = createTrainingTransaction(history, classRoad);
 			transactionTable.addTransaction(t);
 		}
 
 		return transactionTable;
 	}
 
-	private Transaction createTraningTransaction(History history, LinkInfo classRoad) {
+	private Transaction createTrainingTransaction(History history, LinkInfo classRoad) {
 		AssociatedWorldState headState = history.poll();
 
 		List<Double> attributeValues = classValue.createAttributeValuesWithClassValue(classRoad, headState);
@@ -167,9 +167,9 @@ public class TransactionCreator {
 		int congestionPeriods = 0;
 		int allPeriods = 0;
 		for (Transaction transaction : transactionTable) {
-			double classAttributeValue = transaction.getTransacation().get(0);
-			Discretiser discretiser = setup.getDiscretiser();
-			if (discretiser.classBelongsToCongestionClassSet(classAttributeValue)) {
+			double classAttributeValue = transaction.getTransaction().get(0);
+			Discretizer discretizer = setup.getDiscretizer();
+			if (discretizer.classBelongsToCongestionClassSet(classAttributeValue)) {
 				congestionPeriods++;
 			}
 			allPeriods++;

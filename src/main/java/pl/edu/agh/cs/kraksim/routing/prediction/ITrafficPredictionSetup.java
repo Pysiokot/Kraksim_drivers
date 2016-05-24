@@ -15,9 +15,9 @@ public interface ITrafficPredictionSetup {
 
 	void setNumberOfInfluencedLinks(int numberOfInfluencedLinks);
 
-	TrafficLevelDiscretiser getDiscretiser();
+	TrafficLevelDiscretizer getDiscretizer();
 
-	void setDiscretiser(TrafficLevelDiscretiser discretiser);
+	void setDiscretizer(TrafficLevelDiscretizer discretizer);
 
 	double getCutOutProbability();
 

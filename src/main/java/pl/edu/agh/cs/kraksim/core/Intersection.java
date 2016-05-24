@@ -5,7 +5,7 @@ import pl.edu.agh.cs.kraksim.core.exceptions.LinkAttachmentException;
 import pl.edu.agh.cs.kraksim.core.visitors.ElementVisitor;
 import pl.edu.agh.cs.kraksim.core.visitors.VisitingException;
 import pl.edu.agh.cs.kraksim.sna.centrality.KmeansClustering;
-import pl.edu.agh.cs.kraksim.sna.centrality.OptimalizationInfo;
+import pl.edu.agh.cs.kraksim.sna.centrality.OptimizationInfo;
 
 import java.awt.geom.Point2D;
 import java.util.*;
@@ -30,9 +30,9 @@ public class Intersection extends Node {
 	public final List<Phase> phases;
 	public final Map<String, List<PhaseTiming>> timingPlans;
 
-	//Dla organizacji ruchu
-	public List<OptimalizationInfo> optimalisationInfos;
-	public OptimalizationInfo selfOptimalisationInfo;
+	// For traffic organization
+	public List<OptimizationInfo> optimizationInfos;
+	public OptimizationInfo selfOptimizationInfo;
 	public boolean selfCalculate = false;
 
 	public Intersection(Core core, String id, Point2D point) {
@@ -41,8 +41,7 @@ public class Intersection extends Node {
 		outboundLinks = new ArrayList<>();
 		phases = new LinkedList<>();
 		timingPlans = new HashMap<>();
-		//ja pierdole co ja tu za g�wno odpierdalam!
-		optimalisationInfos = new ArrayList<>();
+		optimizationInfos = new ArrayList<>();
 	}
 
 	@Override
@@ -142,22 +141,22 @@ public class Intersection extends Node {
 			if (maxLink == null) {
 				return;
 			}
-			selfOptimalisationInfo = new OptimalizationInfo();
+			selfOptimizationInfo = new OptimizationInfo();
 
 			//Map<Link, Integer> toChange = new LinkedHashMap<Link, Integer>();
 			//toChange.put(maxLink, 10);
-			//selfOptimalisationInfo.setGreenLightChanges(toChange);
-			selfOptimalisationInfo.setLink(maxLink);
-			selfOptimalisationInfo.setChange(10);
-			selfOptimalisationInfo.setIntersection(this);
-			exchangeOptimalizationInfo();
+			//selfOptimizationInfo.setGreenLightChanges(toChange);
+			selfOptimizationInfo.setLink(maxLink);
+			selfOptimizationInfo.setChange(10);
+			selfOptimizationInfo.setIntersection(this);
+			exchangeOptimizationInfo();
 		} else {
-			for (OptimalizationInfo optInfo : optimalisationInfos) {
+			for (OptimizationInfo optInfo : optimizationInfos) {
 				if (areNeighbours(this, optInfo.getIntersection())) {
-					optimalisationNegotiation(selfOptimalisationInfo, optInfo);
+					optimizationNegotiation(selfOptimizationInfo, optInfo);
 				}
 			}
-			optimalisationInfos.clear();
+			optimizationInfos.clear();
 			selfCalculate = false;
 			propagateOptInfoDown();
 		}
@@ -166,7 +165,7 @@ public class Intersection extends Node {
 	public void propagateOptInfoDown() {
 		for (Node n : KmeansClustering.findMyCluster(this)) {
 			if (n != this) {
-				((Intersection) n).addOptimalisationInfo(selfOptimalisationInfo);
+				((Intersection) n).addOptimizationInfo(selfOptimizationInfo);
 			}
 		}
 	}
@@ -184,11 +183,11 @@ public class Intersection extends Node {
 		if (maxLink == null) {
 			return;
 		}
-		selfOptimalisationInfo = new OptimalizationInfo();
+		selfOptimizationInfo = new OptimizationInfo();
 
-		selfOptimalisationInfo.setLink(maxLink);
-		selfOptimalisationInfo.setChange(optimalisationInfos.get(0).getChange() / (far * 2));
-		selfOptimalisationInfo.setIntersection(this);
+		selfOptimizationInfo.setLink(maxLink);
+		selfOptimizationInfo.setChange(optimizationInfos.get(0).getChange() / (far * 2));
+		selfOptimizationInfo.setIntersection(this);
 	}
 
 	public int howFarFromMain() {
@@ -217,16 +216,16 @@ public class Intersection extends Node {
 		return -1;
 	}
 
-	public void exchangeOptimalizationInfo() {
+	public void exchangeOptimizationInfo() {
 		for (Node n : KmeansClustering.currentClustering.keySet()) {
 			if (n != this) {
-				((Intersection) n).addOptimalisationInfo(selfOptimalisationInfo);
+				((Intersection) n).addOptimizationInfo(selfOptimizationInfo);
 			}
 		}
 	}
 
-	public void optimalisationNegotiation(OptimalizationInfo self, OptimalizationInfo foerign) {
-		selfOptimalisationInfo.setChange(self.getChange() + (foerign.getChange() / 5));
+	public void optimizationNegotiation(OptimizationInfo self, OptimizationInfo foreign) {
+		selfOptimizationInfo.setChange(self.getChange() + (foreign.getChange() / 5));
 	}
 
 	public static boolean areNeighbours(Intersection i1, Intersection i2) {
@@ -238,11 +237,11 @@ public class Intersection extends Node {
 		return false;
 	}
 
-	public void addOptimalisationInfo(OptimalizationInfo info) {
-		optimalisationInfos.add(info);
+	public void addOptimizationInfo(OptimizationInfo info) {
+		optimizationInfos.add(info);
 	}
 
-	public void sendInfoToKlusterNeighbours(OptimalizationInfo info) {
+	public void sendInfoToKlusterNeighbours(OptimizationInfo info) {
 		Set<Node> myCluster = KmeansClustering.findMyCluster(this);
 		if (myCluster == null) {
 			return;
@@ -250,7 +249,7 @@ public class Intersection extends Node {
 
 		for (Node n : myCluster) {
 			if (n != this) {
-				((Intersection) n).addOptimalisationInfo(selfOptimalisationInfo);
+				((Intersection) n).addOptimizationInfo(selfOptimizationInfo);
 			}
 		}
 	}

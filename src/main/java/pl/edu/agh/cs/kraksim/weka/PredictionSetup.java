@@ -29,7 +29,7 @@ public class PredictionSetup {
 	private int minNumberOfInfluencedTimesteps;
 	private int maxNumberOfInfluencedLinks;
 
-	private Discretiser discretiser;
+	private Discretizer discretizer;
 	private IClassifierCreator classifierCreator;
 
 	private String trafficFileName;
@@ -188,7 +188,7 @@ public class PredictionSetup {
 
 	private void createDiscretiser(Properties properties) {
 		String voidLevelValue = properties.getProperty("congestionValue");
-		discretiser = new VoidDiscretiser(Double.valueOf(voidLevelValue));
+		discretizer = new VoidDiscretizer(Double.valueOf(voidLevelValue));
 	}
 
 	public long getWorldStateUpdatePeriod() {
@@ -215,8 +215,8 @@ public class PredictionSetup {
 		return maxNumberOfInfluencedLinks;
 	}
 
-	public Discretiser getDiscretiser() {
-		return discretiser;
+	public Discretizer getDiscretizer() {
+		return discretizer;
 	}
 
 	public String getOutputMainFolder() {

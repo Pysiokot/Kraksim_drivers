@@ -13,9 +13,9 @@ public class DecisionHelper {
 	private final int threshold;
 
 	// TODO:
-	public DecisionHelper(Random randomGen, int threashold) {
+	public DecisionHelper(Random randomGen, int threshold) {
 		randomGenerator = randomGen;
-		threshold = threashold;
+		this.threshold = threshold;
 	}
 
 	public boolean decide() {

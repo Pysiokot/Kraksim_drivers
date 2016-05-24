@@ -29,7 +29,7 @@ import pl.edu.agh.cs.kraksim.core.exceptions.UnsatisfiedContractException;
  *    
  *    Then, ext() methods can be used to 'view at an element extension'
  *    automatically returning extension belonging to the module as a
- *    value of apprioprate type (specified by contract in point 1) ).
+ *    value of appropriate type (specified by contract in point 1) ).
  *    
  * Only direct subclassing of ModuleView is allowed!
  */

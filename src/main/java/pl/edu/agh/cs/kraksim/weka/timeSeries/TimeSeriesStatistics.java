@@ -39,7 +39,7 @@ public class TimeSeriesStatistics extends Statistics {
 		for (LinkInfo linkInfo : classifiersMap.keySet()) {
 			double prediction = getClassification(linkInfo, classifiersMap);
 			predictionTable[linkInfo.linkNumber] = prediction;
-			if (discretiser.classBelongsToCongestionClassSet(prediction)) {
+			if (discretizer.classBelongsToCongestionClassSet(prediction)) {
 				currentPredictionContainer.addPrediction(linkInfo, congestionTimePrediction);
 			}
 		}
@@ -191,20 +191,21 @@ public class TimeSeriesStatistics extends Statistics {
 
 	private ClassifierInfo chooseClassifierInfo(ClassifiersInfo classifiersInfo) {
 		String dataType = setup.getRegressionDataType();
-		if (dataType.equals("carsDensity")) {
-			return classifiersInfo.carsDensityInfo;
-		} else if (dataType.equals("carsOut")) {
-			return classifiersInfo.carsOutInfo;
-		} else if (dataType.equals("carsOn")) {
-			return classifiersInfo.carsOnInfo;
-		} else if (dataType.equals("carsIn")) {
-			return classifiersInfo.carsInInfo;
-		} else if (dataType.equals("durationLevel")) {
-			return classifiersInfo.durationLevelInfo;
-		} else if (dataType.equals("evaluation")) {
-			return classifiersInfo.evaluationInfo;
-		} else if (dataType.equals("greenDuration")) {
-			return classifiersInfo.greenDurationInfo;
+		switch (dataType) {
+			case "carsDensity":
+				return classifiersInfo.carsDensityInfo;
+			case "carsOut":
+				return classifiersInfo.carsOutInfo;
+			case "carsOn":
+				return classifiersInfo.carsOnInfo;
+			case "carsIn":
+				return classifiersInfo.carsInInfo;
+			case "durationLevel":
+				return classifiersInfo.durationLevelInfo;
+			case "evaluation":
+				return classifiersInfo.evaluationInfo;
+			case "greenDuration":
+				return classifiersInfo.greenDurationInfo;
 		}
 		return null;
 	}
@@ -214,7 +215,7 @@ public class TimeSeriesStatistics extends Statistics {
 		Instance testInstance = new Instance(attributes.size());
 		for (int i = 0; i < attributes.size(); i++) {
 			Attribute attribute = (Attribute) attributes.elementAt(i);
-			Double value = transaction.getTransacation().get(i);
+			Double value = transaction.getTransaction().get(i);
 			testInstance.setValue(attribute, value);
 		}
 		return testInstance;
@@ -226,7 +227,7 @@ public class TimeSeriesStatistics extends Statistics {
 		Double[] classes = classValue.getClassValues(worldState.roads);
 		classDataArchive.storeStatistics(turn, classes);
 
-		Boolean[] congestions = discretiser.classesToCongestions(classes);
+		Boolean[] congestions = discretizer.classesToCongestions(classes);
 		congestionsArchive.storeStatistics(turn, congestions);
 	}
 

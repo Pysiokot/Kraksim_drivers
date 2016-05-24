@@ -6,7 +6,7 @@ import pl.edu.agh.cs.kraksim.weka.PredictionSetup;
 import pl.edu.agh.cs.kraksim.weka.data.*;
 import pl.edu.agh.cs.kraksim.weka.timeSeries.algorithms.IClassifierCreator;
 import pl.edu.agh.cs.kraksim.weka.utils.RulesWriter;
-import pl.edu.agh.cs.kraksim.weka.utils.VoidDiscretiser;
+import pl.edu.agh.cs.kraksim.weka.utils.VoidDiscretizer;
 import weka.attributeSelection.PrincipalComponents;
 import weka.classifiers.Classifier;
 import weka.core.Attribute;
@@ -37,20 +37,28 @@ public class TimeSeriesTrainer {
 	public ClassifiersInfo generateOnlyClassDataClassifier(History history, LinkInfo linkInfo) {
 		ClassifiersInfo classifiers = new ClassifiersInfo();
 		String dataType = setup.getRegressionDataType();
-		if (dataType.equals("carsDensity")) {
-			classifiers.carsDensityInfo = generateClassifier(history, linkInfo, "carsDensity");
-		} else if (dataType.equals("carsOut")) {
-			classifiers.carsOutInfo = generateClassifier(history, linkInfo, "carsOut");
-		} else if (dataType.equals("carsOn")) {
-			classifiers.carsOnInfo = generateClassifier(history, linkInfo, "carsOn");
-		} else if (dataType.equals("carsIn")) {
-			classifiers.carsInInfo = generateClassifier(history, linkInfo, "carsIn");
-		} else if (dataType.equals("durationLevel")) {
-			classifiers.durationLevelInfo = generateClassifier(history, linkInfo, "durationLevel");
-		} else if (dataType.equals("evaluation")) {
-			classifiers.evaluationInfo = generateClassifier(history, linkInfo, "evaluation");
-		} else if (dataType.equals("greenDuration")) {
-			classifiers.greenDurationInfo = generateClassifier(history, linkInfo, "greenDuration");
+		switch (dataType) {
+			case "carsDensity":
+				classifiers.carsDensityInfo = generateClassifier(history, linkInfo, "carsDensity");
+				break;
+			case "carsOut":
+				classifiers.carsOutInfo = generateClassifier(history, linkInfo, "carsOut");
+				break;
+			case "carsOn":
+				classifiers.carsOnInfo = generateClassifier(history, linkInfo, "carsOn");
+				break;
+			case "carsIn":
+				classifiers.carsInInfo = generateClassifier(history, linkInfo, "carsIn");
+				break;
+			case "durationLevel":
+				classifiers.durationLevelInfo = generateClassifier(history, linkInfo, "durationLevel");
+				break;
+			case "evaluation":
+				classifiers.evaluationInfo = generateClassifier(history, linkInfo, "evaluation");
+				break;
+			case "greenDuration":
+				classifiers.greenDurationInfo = generateClassifier(history, linkInfo, "greenDuration");
+				break;
 		}
 		return classifiers;
 	}
@@ -113,7 +121,7 @@ public class TimeSeriesTrainer {
 			LOGGER.debug("Create trainingHeaderSet");
 			Instances trainingHeaderSet = new Instances(trainingSet, 0);
 
-			if (!(setup.getDiscretiser() instanceof VoidDiscretiser)) {
+			if (!(setup.getDiscretizer() instanceof VoidDiscretizer)) {
 				trainingSet = preprocessData(trainingSet);
 			}
 
@@ -167,7 +175,7 @@ public class TimeSeriesTrainer {
 		Instances instances = new Instances(DEFAULT_INSTANCE_NAME, attributes, 0);
 		instances.setClassIndex(0);
 		for (Transaction transaction : transactionTable) {
-			List<Double> transactionVals = transaction.getTransacation();
+			List<Double> transactionVals = transaction.getTransaction();
 			double[] valsdouble = Doubles.toArray(transactionVals);
 			instances.add(new Instance(1.0, valsdouble));
 		}

@@ -31,12 +31,12 @@ public class RLParams
   }
 
   public String toString(){
-        StringBuffer params_desc = new StringBuffer("RL: ");
-        params_desc.append("Discount : " + discount + "  ");
-        params_desc.append("Halve Period : " + halvePeriod + "  ");
-        params_desc.append("Car start delay : " + carStartDelay + "  ");
-        params_desc.append("Car max velocity : " + carMaxVelocity + "  ");
-        params_desc.append("Minimum green : " + minimumGreen + "  ");
+        StringBuilder params_desc = new StringBuilder("RL: ");
+        params_desc.append("Discount : ").append(discount).append("  ");
+        params_desc.append("Halve Period : ").append(halvePeriod).append("  ");
+        params_desc.append("Car start delay : ").append(carStartDelay).append("  ");
+        params_desc.append("Car max velocity : ").append(carMaxVelocity).append("  ");
+        params_desc.append("Minimum green : ").append(minimumGreen).append("  ");
         return params_desc.toString();
   }
 

@@ -21,7 +21,7 @@ public class CarMoveModel {
 	public static final String MODEL_MULTINAGLE_MOVE_PROB = "decProb";
 
 	private String name;
-	private Map<String, String> parametrs;
+	private Map<String, String> parameters;
 
 	public CarMoveModel(String data) {
 		int index = data.indexOf(':');
@@ -30,12 +30,12 @@ public class CarMoveModel {
 			data = data.substring(index + 1);
 
 			String[] params = data.split(",");
-			parametrs = new HashMap<>();
+			parameters = new HashMap<>();
 
 			for (String par : params) {
 				String[] p = par.split("=");
 				if (p.length == 2) {
-					parametrs.put(p[0], p[1]);
+					parameters.put(p[0], p[1]);
 				}
 			}
 		} else {
@@ -52,10 +52,10 @@ public class CarMoveModel {
 	}
 
 	public float getFloatParameter(String paramName){
-		return Float.parseFloat(parametrs.get(paramName));
+		return Float.parseFloat(parameters.get(paramName));
 	}
 
 	public int getIntParameter(String paramName){
-		return Integer.parseInt(parametrs.get(paramName));
+		return Integer.parseInt(parameters.get(paramName));
 	}
 }

@@ -216,12 +216,12 @@ final class Car {
 		if (!linkIterator.hasNext()) {
 			return;
 		}
-		ListIterator<Link> newlinkIterator;
+		ListIterator<Link> newLinkIterator;
 		if (rerouting) {
-			newlinkIterator = driver.updateRouteFrom(linkIterator.next());
+			newLinkIterator = driver.updateRouteFrom(linkIterator.next());
 			linkIterator.previous();
-			if (newlinkIterator != null) {
-				linkIterator = newlinkIterator;
+			if (newLinkIterator != null) {
+				linkIterator = newLinkIterator;
 
 				LOGGER.trace("New Route ");
 			} else {

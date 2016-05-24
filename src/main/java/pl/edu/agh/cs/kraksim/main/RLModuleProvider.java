@@ -40,29 +40,30 @@ class RLModuleProvider implements EvalModuleProvider
   }
 
   public Iterator<KeyValPair> getParamsDescription() {
-	  return new ArrayIterator<KeyValPair>( paramDesc );
+	  return new ArrayIterator<>(paramDesc);
   }
 
   public void setParam(String key, String val) throws AlgorithmConfigurationException {
-    if ( key.equals( "discount" ) ) {
-      try {
-        float d = Float.parseFloat( val );
-        if ( d <= 0.0f || d >= 1.0f ) throw new NumberFormatException();
-        discount = d;
-      }
-      catch (NumberFormatException e) {
-        throw new AlgorithmConfigurationException( "discount must be a float in range (0,1)" );
-      }
+    switch (key) {
+      case "discount":
+        try {
+          float d = Float.parseFloat(val);
+          if (d <= 0.0f || d >= 1.0f) throw new NumberFormatException();
+          discount = d;
+        } catch (NumberFormatException e) {
+          throw new AlgorithmConfigurationException("discount must be a float in range (0,1)");
+        }
+        break;
+      case "halve":
+        try {
+          halvePeriod = Integer.parseInt(val);
+        } catch (NumberFormatException e) {
+          throw new AlgorithmConfigurationException("halve period must be an integer");
+        }
+        break;
+      default:
+        throw new AlgorithmConfigurationException("invalid algorithm parameter -- " + key);
     }
-    else if ( key.equals( "halve" ) ) {
-      try {
-        halvePeriod = Integer.parseInt( val );
-      }
-      catch (NumberFormatException e) {
-        throw new AlgorithmConfigurationException( "halve period must be an integer" );
-      }
-    }
-    else throw new AlgorithmConfigurationException( "invalid algorithm parameter -- " + key );
   }
 
   public Module provideNew(String name,
