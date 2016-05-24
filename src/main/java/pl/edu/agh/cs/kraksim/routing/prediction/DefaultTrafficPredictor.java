@@ -46,7 +46,7 @@ public class DefaultTrafficPredictor implements ITrafficPredictor {
 		defaultValuesForLinks = new double[linkCount];
 		// separated in case of inheriting with something more clever
 		setupDefaultValuesForLink();
-		this.setup.getDiscretiser().setDefaultsForColumns(defaultValuesForLinks);
+		this.setup.getDiscretizer().setDefaultsForColumns(defaultValuesForLinks);
 
 		neighborsArray = new HashMap<>();
 		// just the same as above...
@@ -122,7 +122,7 @@ public class DefaultTrafficPredictor implements ITrafficPredictor {
 
 	public void adjustCurrentWeightsOfLink(double[] weightsOfLinks) {
 		// if there are no levels then it means that the prediction is off...
-		if (setup.getDiscretiser().getNumberOfLevels() < 1) {
+		if (setup.getDiscretizer().getNumberOfLevels() < 1) {
 			return;
 		}
 
@@ -145,7 +145,7 @@ public class DefaultTrafficPredictor implements ITrafficPredictor {
 			// obtain its level
 			TrafficLevel srcLvl = null;
 			try {
-				srcLvl = setup.getDiscretiser().getLevelForValueInColumn(i, linkState);
+				srcLvl = setup.getDiscretizer().getLevelForValueInColumn(i, linkState);
 			} catch (TrafficPredictionException e) {
 				LOGGER.error(e);
 				continue;
@@ -167,7 +167,7 @@ public class DefaultTrafficPredictor implements ITrafficPredictor {
 					}
 					TrafficLevel winner = null;
 					try {
-						winner = setup.getDiscretiser().getLevelByName(stat.getNameOfMostFrequentLevel());
+						winner = setup.getDiscretizer().getLevelByName(stat.getNameOfMostFrequentLevel());
 					} catch (TrafficPredictionException e) {
 						LOGGER.error(e);
 						continue;
@@ -263,7 +263,7 @@ public class DefaultTrafficPredictor implements ITrafficPredictor {
 			// for each of source links
 			for (int l = 0; l < neighborsArray.size(); l++) {
 				path.setLinkNumber(l);
-				// we're counting the value it has (and discretise it)
+				// we're counting the value it has (and discretize it)
 				double currentValue = source.getStateAt(l);
 
 				// negative values imply there were no cars on the link 
@@ -271,8 +271,8 @@ public class DefaultTrafficPredictor implements ITrafficPredictor {
 				if (currentValue < 0) {
 					continue;
 				}
-				// discretising 
-				TrafficLevel sourceLevel = setup.getDiscretiser().getLevelForValueInColumn(l, currentValue);
+				// discretizing
+				TrafficLevel sourceLevel = setup.getDiscretizer().getLevelForValueInColumn(l, currentValue);
 				// and setting it in the path
 				path.setLevel(sourceLevel);
 
@@ -288,7 +288,7 @@ public class DefaultTrafficPredictor implements ITrafficPredictor {
 					}
 
 					// Discretise the state...
-					TrafficLevel level = setup.getDiscretiser().getLevelForValueInColumn(dest, currentValue);
+					TrafficLevel level = setup.getDiscretizer().getLevelForValueInColumn(dest, currentValue);
 					// finally, we reached it! Now, we increment the counter
 					String strPath = path.toString();
 					TrafficStatisticsForResult stats = resultsMap.get(strPath);

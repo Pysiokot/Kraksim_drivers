@@ -2,25 +2,25 @@ package pl.edu.agh.cs.kraksim.weka.utils;
 
 import java.util.List;
 
-public class VoidDiscretiser extends Discretiser {
+public class VoidDiscretizer extends Discretizer {
 	private double levelValue = 1;
 
-	public VoidDiscretiser(double levelValue) {
+	public VoidDiscretizer(double levelValue) {
 		this.levelValue = levelValue;
 	}
 
 	@Override
-	public double discretiseDurationLevel(double durationLevel) {
+	public double discretizeDurationLevel(double durationLevel) {
 		return durationLevel;
 	}
 
 	@Override
-	public double discretiseCarsLeavingLink(double carsLeavingLink) {
+	public double discretizeCarsLeavingLink(double carsLeavingLink) {
 		return carsLeavingLink;
 	}
 
 	@Override
-	public double discretiseCarsDensity(double carsOnLink) {
+	public double discretizeCarsDensity(double carsOnLink) {
 		return carsOnLink;
 	}
 

@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-public class TrafficLevelDiscretiser {
+public class TrafficLevelDiscretizer {
 	private final List<TrafficLevel> levels;
 	private double[] defaultsForColumns;
 
@@ -14,14 +14,14 @@ public class TrafficLevelDiscretiser {
 	/**
 	 *
 	 */
-	public TrafficLevelDiscretiser() {
+	public TrafficLevelDiscretizer() {
 		levels = Lists.newArrayList();
 	}
 
 	/**
-	 * @param value value to be discretised
+	 * @param value value to be discretized
 	 * @return discrete value - in percents
-	 * @throws TrafficPredictionException if the value does not lay in any of discretisation levels
+	 * @throws TrafficPredictionException if the value does not lay in any of discretization levels
 	 */
 	private TrafficLevel getLevelForValue(double value) throws TrafficPredictionException {
 		for (TrafficLevel level : levels) {
@@ -29,7 +29,7 @@ public class TrafficLevelDiscretiser {
 				return level;
 			}
 		}
-		throw new TrafficPredictionException("Discretisation definition is incomplete: no value for " + value);
+		throw new TrafficPredictionException("Discretization definition is incomplete: no value for " + value);
 	}
 
 	public void addTrafficLevel(TrafficLevel newLevel) throws TrafficPredictionException {
@@ -72,13 +72,13 @@ public class TrafficLevelDiscretiser {
 		TrafficLevel highLevel = new TrafficLevel(DEFAULT_MED_U_LIMIT, Double.MAX_VALUE);
 
 		lowLevel.setPredecessor(null);
-		lowLevel.setProceeder(mediumLevel);
+		lowLevel.setSuccessor(mediumLevel);
 
 		mediumLevel.setPredecessor(lowLevel);
-		mediumLevel.setProceeder(highLevel);
+		mediumLevel.setSuccessor(highLevel);
 
 		highLevel.setPredecessor(mediumLevel);
-		highLevel.setProceeder(null);
+		highLevel.setSuccessor(null);
 
 		lowLevel.setDescription("Empty");
 		mediumLevel.setDescription("Occupied");
@@ -111,11 +111,11 @@ public class TrafficLevelDiscretiser {
 	}
 
 	/**
-	 * Discretises the value for the given column (relates it to the
+	 * Discretizes the value for the given column (relates it to the
 	 * default value for this column
 	 *
 	 * @param column number of column the value lies in (link number)
-	 * @param value  the value to bi discretised
+	 * @param value  the value to bi discretized
 	 * @return traffic level representing that value
 	 * @throws TrafficPredictionException if value does not lie within any valid range
 	 */
@@ -136,6 +136,6 @@ public class TrafficLevelDiscretiser {
 				return temp;
 			}
 		}
-		throw new TrafficPredictionException("Discretisation definition is incomplete: no level of name " + name);
+		throw new TrafficPredictionException("Discretization definition is incomplete: no level of name " + name);
 	}
 }

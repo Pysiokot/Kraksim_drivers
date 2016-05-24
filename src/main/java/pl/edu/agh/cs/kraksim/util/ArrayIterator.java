@@ -1,4 +1,4 @@
-// TODO: komentarz
+// TODO: comment this
 package pl.edu.agh.cs.kraksim.util;
 
 import java.util.Iterator;

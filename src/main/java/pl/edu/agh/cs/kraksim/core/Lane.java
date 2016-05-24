@@ -49,8 +49,8 @@ public class Lane extends Element {
 
 	// TODO: LDZ WIELEPASOW!!!
 	//public int getRelativeNumber() {
-	//  final int ofset = owner.leftLaneCount();
-	//  return (num - ofset);
+	//  final int offset = owner.leftLaneCount();
+	//  return (num - offset);
 	//}
 	public int getRelativeNumber() {
 		return relativeNumber;

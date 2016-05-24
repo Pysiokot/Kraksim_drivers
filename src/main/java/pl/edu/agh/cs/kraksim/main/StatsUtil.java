@@ -15,8 +15,6 @@ import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
 import java.io.PrintWriter;
 import java.util.*;
 
-import org.apache.log4j.Logger;
-
 public class StatsUtil {
 	static final int dumpStatsInterval = 60;
 	static final int dumpLinkStatsInterval = 300;

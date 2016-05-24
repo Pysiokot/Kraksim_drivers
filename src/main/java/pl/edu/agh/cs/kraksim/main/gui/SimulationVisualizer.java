@@ -1,6 +1,6 @@
 package pl.edu.agh.cs.kraksim.main.gui;
 
-public interface SimulationVisualizator {
+public interface SimulationVisualizer {
 
 	void startLearningPhase(int phaseNum);
 

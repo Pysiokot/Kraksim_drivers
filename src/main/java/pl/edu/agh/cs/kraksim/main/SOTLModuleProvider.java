@@ -35,7 +35,7 @@ class SOTLModuleProvider implements EvalModuleProvider
   }
 
   public Iterator<KeyValPair> getParamsDescription() {
-    return new ArrayIterator<KeyValPair>( paramDesc );
+    return new ArrayIterator<>(paramDesc);
   }
 
   public void setParam(String key, String val) throws AlgorithmConfigurationException {

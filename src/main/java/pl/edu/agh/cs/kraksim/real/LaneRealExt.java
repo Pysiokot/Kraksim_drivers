@@ -322,60 +322,63 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 				float decisionChance = params.getRandomGenerator().nextFloat();
 
 				// 3. Deceleration when nagle
-				if (carMoveModel.getName().equals(CarMoveModel.MODEL_NAGLE)) {
-					if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGLE_MOVE_PROB)) {
-						velocity--;
-					}
-				} else if (carMoveModel.getName().equals(CarMoveModel.MODEL_MULTINAGLE)) {
-					if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGLE_MOVE_PROB)) {
-						velocity--;
-					}
+				switch (carMoveModel.getName()) {
+					case CarMoveModel.MODEL_NAGLE:
+						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGLE_MOVE_PROB)) {
+							velocity--;
+						}
+						break;
+					case CarMoveModel.MODEL_MULTINAGLE:
+						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGLE_MOVE_PROB)) {
+							velocity--;
+						}
 
-					setActionMultiNagle(car);
-				}
-				// deceleration if vdr
-				else if (carMoveModel.getName().equals(CarMoveModel.MODEL_VDR)) {
-					//if v = 0 => different (greater) chance of deceleration
-					if (velocityZero) {
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_0_PROB)) {
-							--velocity;
+						setActionMultiNagle(car);
+						break;
+					// deceleration if vdr
+					case CarMoveModel.MODEL_VDR:
+						//if v = 0 => different (greater) chance of deceleration
+						if (velocityZero) {
+							if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_0_PROB)) {
+								--velocity;
+							}
+						} else {
+							if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_MOVE_PROB)) {
+								--velocity;
+							}
 						}
-					} else {
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_MOVE_PROB)) {
-							--velocity;
-						}
-					}
-				}
-				//Brake light model
-				else if (carMoveModel.getName().equals(CarMoveModel.MODEL_BRAKELIGHT)) {
-					if (velocityZero) {
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_0_PROB)) {
-							--velocity;
-						}
-					} else {
-						if (nextCar != null && nextCar.isBraking()) {
-							int threshold = carMoveModel.getIntParameter(CarMoveModel.MODEL_BRAKELIGHT_DISTANCE_THRESHOLD);
-							double ts = (threshold < velocity) ? threshold : velocity;
-							double th = (nextCar.getPosition() - car.getPosition()) / (double) velocity;
-							if (th < ts) {
-								if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_BRAKE_PROB)) {
+						break;
+					//Brake light model
+					case CarMoveModel.MODEL_BRAKELIGHT:
+						if (velocityZero) {
+							if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_0_PROB)) {
+								--velocity;
+							}
+						} else {
+							if (nextCar != null && nextCar.isBraking()) {
+								int threshold = carMoveModel.getIntParameter(CarMoveModel.MODEL_BRAKELIGHT_DISTANCE_THRESHOLD);
+								double ts = (threshold < velocity) ? threshold : velocity;
+								double th = (nextCar.getPosition() - car.getPosition()) / (double) velocity;
+								if (th < ts) {
+									if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_BRAKE_PROB)) {
+										--velocity;
+										car.setBraking(true);
+									} else {
+										car.setBraking(false);
+									}
+								}
+							} else {
+								if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_MOVE_PROB)) {
 									--velocity;
 									car.setBraking(true);
 								} else {
 									car.setBraking(false);
 								}
 							}
-						} else {
-							if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_MOVE_PROB)) {
-								--velocity;
-								car.setBraking(true);
-							} else {
-								car.setBraking(false);
-							}
 						}
-					}
-				} else {
-					throw new RuntimeException("unknown model! " + carMoveModel.getName());
+						break;
+					default:
+						throw new RuntimeException("unknown model! " + carMoveModel.getName());
 				}
 
 				// 4. Drive (Move the car)

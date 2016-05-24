@@ -5,7 +5,7 @@ import org.xml.sax.SAXException;
 import pl.edu.agh.cs.kraksim.parser.PredictionConfigurationXmlHandler;
 import pl.edu.agh.cs.kraksim.routing.prediction.DefaultTrafficPredictionSetup;
 import pl.edu.agh.cs.kraksim.routing.prediction.ITrafficPredictionSetup;
-import pl.edu.agh.cs.kraksim.routing.prediction.TrafficLevelDiscretiser;
+import pl.edu.agh.cs.kraksim.routing.prediction.TrafficLevelDiscretizer;
 import pl.edu.agh.cs.kraksim.routing.prediction.TrafficPredictionFactory;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -168,7 +168,7 @@ public class KraksimConfigurator {
 		ITrafficPredictionSetup predictionSetup = new DefaultTrafficPredictionSetup();
 		predictionSetup.setCutOutProbability(0.75);
 		predictionSetup.setCutOutMinimumCounter(3);
-		predictionSetup.setDiscretiser(createDefaultDiscretiser());
+		predictionSetup.setDiscretizer(createDefaultDiscretiser());
 		predictionSetup.setNumberOfInfluencedLinks(3);
 		predictionSetup.setNumberOfInfluencedTimesteps(3);
 		TrafficPredictionFactory.setPropertiesForPredictionSetup(predictionSetup);
@@ -178,14 +178,14 @@ public class KraksimConfigurator {
 		ITrafficPredictionSetup predictionSetup = new DefaultTrafficPredictionSetup();
 		predictionSetup.setCutOutProbability(1.5);
 		predictionSetup.setCutOutMinimumCounter(Integer.MAX_VALUE);
-		predictionSetup.setDiscretiser(new TrafficLevelDiscretiser());
+		predictionSetup.setDiscretizer(new TrafficLevelDiscretizer());
 		predictionSetup.setNumberOfInfluencedLinks(0);
 		predictionSetup.setNumberOfInfluencedTimesteps(0);
 		TrafficPredictionFactory.setPropertiesForPredictionSetup(predictionSetup);
 	}
 
-	public static TrafficLevelDiscretiser createDefaultDiscretiser() {
-		TrafficLevelDiscretiser result = new TrafficLevelDiscretiser();
+	public static TrafficLevelDiscretizer createDefaultDiscretiser() {
+		TrafficLevelDiscretizer result = new TrafficLevelDiscretizer();
 		result.populateTrafficLevels();
 		return result;
 	}

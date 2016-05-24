@@ -13,16 +13,15 @@ import pl.edu.agh.cs.kraksim.iface.decision.DecisionIView;
 import pl.edu.agh.cs.kraksim.iface.eval.EvalIView;
 import pl.edu.agh.cs.kraksim.iface.mon.MonIView;
 import pl.edu.agh.cs.kraksim.iface.sim.SimIView;
-import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizator;
-import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizator;
+import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizer;
+import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizer;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatModuleCreator;
-import pl.edu.agh.cs.kraksim.real.RealModuleCreator;
 import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
 import pl.edu.agh.cs.kraksim.routing.*;
 import pl.edu.agh.cs.kraksim.simpledecision.SimpleDecisionEView;
 import pl.edu.agh.cs.kraksim.simpledecision.SimpleDecisionModuleCreator;
-import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityCalculator;
+import pl.edu.agh.cs.kraksim.sna.centrality.CentralityCalculator;
 import pl.edu.agh.cs.kraksim.sna.centrality.MeasureType;
 import pl.edu.agh.cs.kraksim.weka.WekaPredictionModule;
 import pl.edu.agh.cs.kraksim.weka.WekaPredictionModuleHandler;
@@ -50,11 +49,11 @@ public class SampleModuleConfiguration {
 	 * @param core
 	 * @param evalProvider
 	 */
-	public SimulationVisualizator setUpModules(final Core core, final EvalModuleProvider evalProvider, ModuleCreator physModuleCreator, Clock clock, StartupParameters params) {
-		SimulationVisualizator visualizator = null;
+	public SimulationVisualizer setUpModules(final Core core, final EvalModuleProvider evalProvider, ModuleCreator physModuleCreator, Clock clock, StartupParameters params) {
+		SimulationVisualizer visualizator = null;
 		city = core.getCity();
 
-		graph = CentrallityCalculator.cityToGraph(city);
+		graph = CentralityCalculator.cityToGraph(city);
 
 		try {
 			// this is Nagel-Schreckenberg Simulation Module
@@ -65,14 +64,14 @@ public class SampleModuleConfiguration {
 			blockView = new BlockIView(physModule);
 
 			//TMP
-			CentrallityCalculator.carInfoView = carInfoView;
+			CentralityCalculator.carInfoView = carInfoView;
 			Iterator<Link> it = city.linkIterator();
 			while (it.hasNext()) {
 				it.next().calculateWeight(0);
 			}
-			CentrallityCalculator.calculateCentrallity(graph, MeasureType.PageRank, 3);
+			CentralityCalculator.calculateCentrality(graph, MeasureType.PageRank, 3);
 			//tylko do wypisywania
-			//CentrallityCalculator.calculateCentrallity(city, MeasureType.PageRank);
+			//CentralityCalculator.calculateCentrality(city, MeasureType.PageRank);
 			//END TMP
 
 			Module statModule = core.newModule("stat", new MiniStatModuleCreator(monView, clock));
@@ -119,9 +118,9 @@ public class SampleModuleConfiguration {
 			}
 
 			if (params.isVisualization()) {
-				visualizator = new GUISimulationVisualizator(city, carInfoView, blockView, statView);
+				visualizator = new GUISimulationVisualizer(city, carInfoView, blockView, statView);
 			} else {
-				visualizator = new ConsoleSimulationVisualizator(city, statView);
+				visualizator = new ConsoleSimulationVisualizer(city, statView);
 			}
 		} catch (InvalidClassSetDefException e) {
 			error("Internal error", e);

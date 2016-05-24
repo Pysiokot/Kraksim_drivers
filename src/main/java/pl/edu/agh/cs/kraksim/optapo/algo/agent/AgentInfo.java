@@ -9,7 +9,7 @@ public class AgentInfo {
 	private int incoming;
 
 	public AgentInfo(String name, Direction d, int i) {
-		LOGGER.trace("AgentiNFO " + name + ' ' + d + ' ' + incoming);
+		LOGGER.trace("AgentINFO " + name + ' ' + d + ' ' + incoming);
 		this.name = name;
 		dir = d;
 		incoming = i;

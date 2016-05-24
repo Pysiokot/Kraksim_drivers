@@ -35,7 +35,7 @@ public class RLCDModuleProvider implements EvalModuleProvider {
 	}
 
 	public Iterator<KeyValPair> getParamsDescription() {
-		return new ArrayIterator<KeyValPair>(PARAM_DESC);
+		return new ArrayIterator<>(PARAM_DESC);
 	}
 
 	public void setParam(String key, String val) throws AlgorithmConfigurationException {

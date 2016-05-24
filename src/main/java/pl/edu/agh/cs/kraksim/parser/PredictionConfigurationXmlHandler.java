@@ -10,7 +10,7 @@ import pl.edu.agh.cs.kraksim.routing.prediction.*;
 public class PredictionConfigurationXmlHandler extends DefaultHandler {
 	private static final Logger LOGGER = Logger.getLogger(PredictionConfigurationXmlHandler.class);
 	private Level level = Level.INIT;
-	private TrafficLevelDiscretiser discretiser = null;
+	private TrafficLevelDiscretizer discretizer = null;
 	private ITrafficPredictionSetup setup = null;
 
 	private enum Level {
@@ -19,8 +19,8 @@ public class PredictionConfigurationXmlHandler extends DefaultHandler {
 
 	public void startDocument() {
 		setup = new DefaultTrafficPredictionSetup();
-		discretiser = new TrafficLevelDiscretiser();
-		setup.setDiscretiser(discretiser);
+		discretizer = new TrafficLevelDiscretizer();
+		setup.setDiscretizer(discretizer);
 	}
 
 	/**
@@ -28,10 +28,10 @@ public class PredictionConfigurationXmlHandler extends DefaultHandler {
 	 */
 	@Override
 	public void endDocument() {
-		if (discretiser.getNumberOfLevels() < 1) {
-			discretiser.populateTrafficLevels();
+		if (discretizer.getNumberOfLevels() < 1) {
+			discretizer.populateTrafficLevels();
 		}
-		setup.setDiscretiser(discretiser);
+		setup.setDiscretizer(discretizer);
 		TrafficPredictionFactory.setPropertiesForPredictionSetup(setup);
 	}
 
@@ -98,24 +98,26 @@ public class PredictionConfigurationXmlHandler extends DefaultHandler {
 		trLvl.setMaxInfluence(maxInfluence);
 
 		try {
-			discretiser.addTrafficLevel(trLvl);
+			discretizer.addTrafficLevel(trLvl);
 		} catch (TrafficPredictionException e) {
 			LOGGER.error(e);
 			return;
 		}
 
 		try {
-			TrafficLevel temp = discretiser.getLevelByName(prevDescription);
-			temp.setProceeder(trLvl);
+			TrafficLevel temp = discretizer.getLevelByName(prevDescription);
+			temp.setSuccessor(trLvl);
 			trLvl.setPredecessor(temp);
 		} catch (TrafficPredictionException ex) {
+			// todo: Handle it
 		}
 
 		try {
-			TrafficLevel temp = discretiser.getLevelByName(nextDescription);
-			trLvl.setProceeder(trLvl);
+			TrafficLevel temp = discretizer.getLevelByName(nextDescription);
+			trLvl.setSuccessor(trLvl);
 			temp.setPredecessor(temp);
 		} catch (TrafficPredictionException ex) {
+            // todo: Handle it
 		}
 	}
 
@@ -135,7 +137,7 @@ public class PredictionConfigurationXmlHandler extends DefaultHandler {
 			case TRAFFIC_CONF:
 				if (rawName.equals("trafficLevels")) {
 					level = Level.PREDICTION;
-					setup.setDiscretiser(discretiser);
+					setup.setDiscretizer(discretizer);
 				}
 				break;
 			case LEVEL:

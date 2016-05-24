@@ -52,7 +52,7 @@ public class WekaPredictionModule {
 			predictor.createClassifiers();
 		}
 		if (needPrediction()) {
-			LOGGER.debug("Predict congestiosn");
+			LOGGER.debug("Predict congestions");
 			predictor.predictCongestions(turn);
 		}
 		if (needEvaluation()) {

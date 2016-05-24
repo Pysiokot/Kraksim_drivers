@@ -1,8 +1,8 @@
 package pl.edu.agh.cs.kraksim.statistics;
 
 import pl.edu.agh.cs.kraksim.main.gui.Controllable;
-import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizator;
-import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizator;
+import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizer;
+import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizer;
 import pl.edu.agh.cs.kraksim.main.UpdateHook;
 import pl.edu.agh.cs.kraksim.ministat.CityMiniStatExt;
 import pl.edu.agh.cs.kraksim.statistics.charts.NumberChart;
@@ -25,10 +25,10 @@ public class StatsPanel extends JPanel {
 		grid.setVgap(10);
 		setLayout(grid);
 
-		SimulationVisualizator vis = sim.getVisualizator();
+		SimulationVisualizer vis = sim.getVisualizer();
 
-		if (vis instanceof GUISimulationVisualizator) {
-			final GUISimulationVisualizator visPanel = ((GUISimulationVisualizator) sim.getVisualizator());
+		if (vis instanceof GUISimulationVisualizer) {
+			final GUISimulationVisualizer visPanel = ((GUISimulationVisualizer) sim.getVisualizer());
 
 			final NumberChart cnc = new NumberChart("Car count", visPanel.cityStat) {
 				@Override

@@ -20,7 +20,7 @@ public class ZoneAwareDriver extends Driver {
 	}
 
 	public ListIterator<Link> updateRouteFrom(Link sourceLink) {
-		if (chageRoute()) {
+		if (changeRoute()) {
 			try {
 			return router.getRouteIncludingZone(sourceLink, destGateway(), allowedZones).linkIterator();
 		} catch (NoRouteException e) {
@@ -29,7 +29,7 @@ public class ZoneAwareDriver extends Driver {
 		return null;
 	}
 
-	private boolean chageRoute() {
+	private boolean changeRoute() {
 		boolean decision = false;
 
 		if (decisionHelper != null) {
