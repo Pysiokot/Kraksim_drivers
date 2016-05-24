@@ -10,7 +10,7 @@ import pl.edu.agh.cs.kraksim.weka.data.WorldStateIntersections;
 import pl.edu.agh.cs.kraksim.weka.data.WorldStateRoads;
 import pl.edu.agh.cs.kraksim.weka.timeSeries.algorithms.RepTreeCreator;
 import pl.edu.agh.cs.kraksim.weka.utils.Neighbours;
-import pl.edu.agh.cs.kraksim.weka.utils.VoidDiscretiser;
+import pl.edu.agh.cs.kraksim.weka.utils.VoidDiscretizer;
 import pl.edu.agh.cs.kraksim.weka.utils.VoidMovingAverage;
 
 import java.util.*;
@@ -42,7 +42,7 @@ public class TimeSeriesPrediction_CongestionAmountTest {
 		Mockito.when(setup.getNeighbourArray()).thenReturn(neighboursArray);
 
 		double levelValue = 0.5;
-		Mockito.when(setup.getDiscretiser()).thenReturn(new VoidDiscretiser(levelValue));
+		Mockito.when(setup.getDiscretizer()).thenReturn(new VoidDiscretizer(levelValue));
 
 		Mockito.when(setup.getClassifierCreator()).thenReturn(new RepTreeCreator());
 

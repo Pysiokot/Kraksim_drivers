@@ -33,9 +33,9 @@ public class TrafficDataXmlHandler extends DefaultHandler {
 	private int count;
 	private Color driverColor = null;
 
-	public TrafficDataXmlHandler(City c, StartupParameters parmeters) {
+	public TrafficDataXmlHandler(City c, StartupParameters parameters) {
 		this.c = c;
-		this.parameters = parmeters;
+		this.parameters = parameters;
 	}
 
 	@Override

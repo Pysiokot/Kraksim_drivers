@@ -8,7 +8,6 @@ import pl.edu.agh.cs.kraksim.core.visitors.VisitingException;
 
 import java.awt.geom.Point2D;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Gateway extends Node {
@@ -24,7 +23,7 @@ public class Gateway extends Node {
 	}
 
 	/*
-	   * Throws LinkAttachementException if an inbound link has been already attached.
+	   * Throws LinkAttachmentException if an inbound link has been already attached.
 	   */
 	@Override
 	public void attachInboundLink(Link link) throws LinkAttachmentException {

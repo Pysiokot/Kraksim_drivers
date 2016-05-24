@@ -22,7 +22,7 @@ import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
 import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
 import pl.edu.agh.cs.kraksim.visual.infolayer.InfoLayer;
 
-public class CityMapVisualisator {
+public class CityMapVisualizer {
 	private class VisualLinkStat {
 		public String stat;
 		public Color color = Color.WHITE;
@@ -91,8 +91,8 @@ public class CityMapVisualisator {
 	 */
 	private final InfoLayer infoLayer;
 	
-	public CityMapVisualisator(City city, BlockIView blockView,
-			MiniStatEView statView, int width, int height) {
+	public CityMapVisualizer(City city, BlockIView blockView,
+							 MiniStatEView statView, int width, int height) {
 		cityMap = new BufferedImage((int) (width + NODE_THICKNESS + MARGIN)
 				* multipplier, (int) (height + NODE_THICKNESS + MARGIN)
 				* multipplier, BufferedImage.TYPE_INT_RGB);
@@ -178,7 +178,7 @@ public class CityMapVisualisator {
 		vectorAB = new double[] { vectorPair[0], vectorPair[1] };
 		vectorOrtogonal = new double[] { -vectorPair[1], vectorPair[0] };
 
-		float offset = CityMapVisualisator.NODE_THICKNESS + 2.0f;
+		float offset = CityMapVisualizer.NODE_THICKNESS + 2.0f;
 
 		double xStart = start.getX() * multipplier + vectorAB[0]
 				* (offset / 2.0);
@@ -194,7 +194,7 @@ public class CityMapVisualisator {
 		VisualLinkStat linkStat = new VisualLinkStat(link);
 		/*
 		 * double celluarWidth = (start.distance(end) 
-		 * CityMapVisualisator.NODE_THICKNESS) / link.getLength();
+		 * CityMapVisualizer.NODE_THICKNESS) / link.getLength();
 		 */
 		double celluarWidth = start.distance(end) / link.getLength();
 

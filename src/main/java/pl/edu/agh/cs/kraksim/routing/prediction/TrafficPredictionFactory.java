@@ -33,7 +33,7 @@ public class TrafficPredictionFactory {
 
 		setup.setCutOutProbability(newSetup.getCutOutProbability());
 		setup.setCutOutMinimumCounter(newSetup.getCutOutMinimumCounter());
-		setup.setDiscretiser(newSetup.getDiscretiser());
+		setup.setDiscretizer(newSetup.getDiscretizer());
 		setup.setNumberOfInfluencedLinks(newSetup.getNumberOfInfluencedLinks());
 		setup.setNumberOfInfluencedTimesteps(newSetup.getNumberOfInfluencedTimesteps());
 		setup.setAgeingRate(newSetup.getAgeingRate());

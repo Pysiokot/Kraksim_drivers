@@ -6,7 +6,7 @@ public class DefaultTrafficPredictionSetup implements ITrafficPredictionSetup {
 	private int numberOfInfluencedTimesteps;
 	private City city;
 	private int numberOfInfluencedLinks;
-	private TrafficLevelDiscretiser discretiser;
+	private TrafficLevelDiscretizer discretiser;
 	private double cutOutProbability;
 	private int cutOutMinimumCounter;
 	private double ageingRate;
@@ -54,17 +54,17 @@ public class DefaultTrafficPredictionSetup implements ITrafficPredictionSetup {
 	}
 
 	/**
-	 * @return the discretiser
+	 * @return the discretizer
 	 */
-	public TrafficLevelDiscretiser getDiscretiser() {
+	public TrafficLevelDiscretizer getDiscretizer() {
 		return discretiser;
 	}
 
 	/**
-	 * @param discretiser the discretiser to set
+	 * @param discretizer the discretizer to set
 	 */
-	public void setDiscretiser(TrafficLevelDiscretiser discretiser) {
-		this.discretiser = discretiser;
+	public void setDiscretizer(TrafficLevelDiscretizer discretizer) {
+		this.discretiser = discretizer;
 	}
 
 	/**

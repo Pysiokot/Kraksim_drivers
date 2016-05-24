@@ -63,17 +63,17 @@ public class Core {
 	 * MyCityExt, node extensions will be objects of class MyNodeExt, ...
 	 * <p/>
 	 * ModuleCreator create*Extension() methods will be called to assign an
-	 * apprioprate extension to every element in the core.
+	 * appropriate extension to every element in the core.
 	 * <p/>
 	 * After creating all extensions, postCreate() method is called on every
 	 * extension which class implements PostCreateOp interface.
 	 * <p/>
-	 * All created extensions are instances of apprioprate classes - it is
+	 * All created extensions are instances of appropriate classes - it is
 	 * guaranteed by create*Extension() methods' return types.
 	 *
 	 * @throws InvalidClassSetDefException                                   if creator class does not meet the
 	 *                                                                       mentioned requirements.
-	 * @throws pl.edu.agh.cs.kraksim.core.exceptions.ModuleCreationException if an error occured, probably some
+	 * @throws pl.edu.agh.cs.kraksim.core.exceptions.ModuleCreationException if an error occurred, probably some
 	 *                                                                       extension in the module cannot be created (ExtensionCreationException) or
 	 *                                                                       an extension was returned, where it was not expected
 	 *                                                                       (ExtensionUnsupportedException). You can use the inner exception to get

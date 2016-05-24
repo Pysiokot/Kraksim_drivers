@@ -23,7 +23,7 @@ final class DijkstraRoute implements Route {
 	}
 
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(getSource().getId());
 
 		for (Link lnk : route) {

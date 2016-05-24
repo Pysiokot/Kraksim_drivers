@@ -19,7 +19,7 @@ import pl.edu.agh.cs.kraksim.core.exceptions.ExtensionCreationException;
  *    If a module is to be created but not yet filled with extensions,
  *    passing subclass (not its instance as a parameter to Core.newModule() suffices. 
  *    
- * 2) provide methods to create extensions of apprioprate types.
+ * 2) provide methods to create extensions of appropriate types.
  *    
  *    If a module is to be created and filled automatically with extensions,
  *    passing subclass instance is required to Core.newModule().

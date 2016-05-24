@@ -3,7 +3,6 @@
  */
 package pl.edu.agh.cs.kraksim.main;
 
-import org.apache.commons.lang3.tuple.Pair;
 import pl.edu.agh.cs.kraksim.core.Core;
 import pl.edu.agh.cs.kraksim.core.Module;
 import pl.edu.agh.cs.kraksim.core.exceptions.InvalidClassSetDefException;

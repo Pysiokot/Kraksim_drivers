@@ -103,8 +103,8 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 				if (!SnaConfigurator.getSnaEnabled()) {
 					prolongCurrentPhase(10);
 				} else {
-					if (intersection.selfOptimalisationInfo != null) {
-						prolongCurrentPhase(intersection.selfOptimalisationInfo.getChange());
+					if (intersection.selfOptimizationInfo != null) {
+						prolongCurrentPhase(intersection.selfOptimizationInfo.getChange());
 					}
 				}
 			}
@@ -183,10 +183,10 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 					if (!SnaConfigurator.getSnaEnabled()) {
 						durationSum += minGreenDuration;
 					} else {
-						if (intersection.selfOptimalisationInfo == null) {
+						if (intersection.selfOptimizationInfo == null) {
 							continue;
 						}
-						durationSum += intersection.selfOptimalisationInfo.getChange();
+						durationSum += intersection.selfOptimizationInfo.getChange();
 					}
 				} else {
 					blockView.ext(lane).block();

@@ -8,7 +8,6 @@ import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoCursor;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
 import pl.edu.agh.cs.kraksim.main.EvalModuleProvider;
-import pl.edu.agh.cs.kraksim.ministat.LinkMiniStatExt;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,15 +17,11 @@ import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-/**
- * Created by Ostah on 2014-05-06.
- */
 public class IntersectionPanel extends JPanel{
 
     Intersection crossroad;
@@ -112,7 +107,7 @@ public class IntersectionPanel extends JPanel{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawBackground(g);
-        drawCenter(g, new Dimension((int)15*oneUnitLength,(int) 15*oneUnitLength));
+        drawCenter(g, new Dimension(15 *oneUnitLength, 15 *oneUnitLength));
         drawLanes(g);
     }
 
@@ -256,7 +251,7 @@ public class IntersectionPanel extends JPanel{
 
         String toWrite = String.valueOf(InfoProvider.getInstance().getEvalIView().ext(lane).getEvaluation());
         if(toWrite.isEmpty()) toWrite = "0.0";
-        drawTexts(g2,toWrite, algorithmInfoPosition, color.ORANGE, 12);
+        drawTexts(g2,toWrite, algorithmInfoPosition, Color.ORANGE, 12);
     }
 
     private void drawCar(Graphics2D g2, Lane lane, int position, int drawnLanes, Vector2d direction, Vector2d perpendicual, Color color, Boolean inbound ){
@@ -325,7 +320,7 @@ public class IntersectionPanel extends JPanel{
         currentStart.add(currentPerpendicual);
 
         g2.draw(new Line2D.Double(currentStart.x, currentStart.y, currentDirection.x, currentDirection.y));
-        drawTexts(g2,String.valueOf(howManyCars(lane)), textPosition, color.WHITE, 15);
+        drawTexts(g2,String.valueOf(howManyCars(lane)), textPosition, Color.WHITE, 15);
         drawArrows(g2, lane, direction, lightsPosition, arrowsPosition);
        }
 
@@ -372,14 +367,14 @@ public class IntersectionPanel extends JPanel{
     private void populateMap(Map<Node, ArrayList<Link>> map, Link l, Node n){
         ArrayList<Link> values = map.get(n);
         if (values == null) {
-            values = new ArrayList<Link>();
+            values = new ArrayList<>();
             map.put(n, values);
         }
         values.add(l);
     }
 
     private Map<Node, ArrayList<Link>> getLanesMap(Iterator<Link> outgoing, Iterator<Link> ingoing){
-        Map<Node, ArrayList<Link>> map = new HashMap<Node, ArrayList<Link>>();
+        Map<Node, ArrayList<Link>> map = new HashMap<>();
         while (outgoing.hasNext()) {
             Link out = outgoing.next();
             populateMap(map, out, out.getEnd());

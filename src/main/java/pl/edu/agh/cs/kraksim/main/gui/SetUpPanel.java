@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableList;
 import org.apache.log4j.Priority;
 import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
-import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityCalculator;
+import pl.edu.agh.cs.kraksim.sna.centrality.CentralityCalculator;
 import pl.edu.agh.cs.kraksim.sna.centrality.MeasureType;
 import pl.edu.agh.cs.kraksim.sna.centrality.SNADistanceType;
 
@@ -157,7 +157,7 @@ public class SetUpPanel extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox) e.getSource();
-				CentrallityCalculator.measureType = (MeasureType) cb.getSelectedItem();
+				CentralityCalculator.measureType = (MeasureType) cb.getSelectedItem();
 			}
 		});
 
@@ -235,7 +235,7 @@ public class SetUpPanel extends JPanel {
 						metricTypeComboBox.getSelectedItem();
 				props.setProperty("centralNodesAlgMod", algStr);
 				storeParam("centralNodesAlgMod", algStr);
-				props.setProperty("numberOfWiners", numberOfWinnersSpinner.getValue().toString());
+				props.setProperty("numberOfWinners", numberOfWinnersSpinner.getValue().toString());
 				props.setProperty("carMoveModel", carMoveModel);
 				storeParam("carMoveModel", carMoveModel);
 
@@ -279,7 +279,7 @@ public class SetUpPanel extends JPanel {
 		commandsPane.add(cancel);
 
 		initVotingAlgorithmPanel();
-		initZoneAwarnessPanel();
+		initZoneAwarenessPanel();
 
 		add(commandsPane, BorderLayout.NORTH);
 	}
@@ -337,13 +337,13 @@ public class SetUpPanel extends JPanel {
 		add(votingAlgorithmsPanel);
 	}
 
-	private void initZoneAwarnessPanel() {
-		JPanel zoneAwarnessPanel = new JPanel();
-		zoneAwarnessPanel.setBorder(BorderFactory.createTitledBorder("Zone awareness"));
-		zoneAwarnessPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
-		zoneAwarnessPanel.setPreferredSize(new Dimension(600, 55));
-		zoneAwarnessPanel.setMinimumSize(new Dimension(600, 55));
-		zoneAwarnessPanel.setMaximumSize(new Dimension(1600, 55));
+	private void initZoneAwarenessPanel() {
+		JPanel zoneAwarenessPanel = new JPanel();
+		zoneAwarenessPanel.setBorder(BorderFactory.createTitledBorder("Zone awareness"));
+		zoneAwarenessPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
+		zoneAwarenessPanel.setPreferredSize(new Dimension(600, 55));
+		zoneAwarenessPanel.setMinimumSize(new Dimension(600, 55));
+		zoneAwarenessPanel.setMaximumSize(new Dimension(1600, 55));
 
 		JRadioButton zoneEnabledButton = new JRadioButton("Enabled");
 		zoneEnabledButton.setSelected(true);
@@ -357,10 +357,10 @@ public class SetUpPanel extends JPanel {
 		zoneAwareGroup.add(zoneEnabledButton);
 		zoneAwareGroup.add(zoneDisabledButton);
 
-		zoneAwarnessPanel.add(zoneEnabledButton);
-		zoneAwarnessPanel.add(zoneDisabledButton);
+		zoneAwarenessPanel.add(zoneEnabledButton);
+		zoneAwarenessPanel.add(zoneDisabledButton);
 
-		add(zoneAwarnessPanel);
+		add(zoneAwarenessPanel);
 	}
 
 	public void end() {

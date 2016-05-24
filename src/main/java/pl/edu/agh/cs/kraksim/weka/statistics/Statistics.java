@@ -5,7 +5,7 @@ import pl.edu.agh.cs.kraksim.weka.PredictionSetup;
 import pl.edu.agh.cs.kraksim.weka.data.AssociatedWorldState;
 import pl.edu.agh.cs.kraksim.weka.data.History;
 import pl.edu.agh.cs.kraksim.weka.data.LinkInfo;
-import pl.edu.agh.cs.kraksim.weka.utils.Discretiser;
+import pl.edu.agh.cs.kraksim.weka.utils.Discretizer;
 
 import java.util.Set;
 
@@ -16,7 +16,7 @@ public abstract class Statistics {
 	private final ResultWriter resultWriter;
 	private final ErrorResultCreator errorResultCreator;
 	protected PredictionSetup setup;
-	protected Discretiser discretiser;
+	protected Discretizer discretizer;
 	protected Archive<Boolean> congestionsArchive;
 	protected Archive<Double> classDataArchive;
 	protected Archive<Double> classDataPredictionArchive;
@@ -25,7 +25,7 @@ public abstract class Statistics {
 
 	protected Statistics(PredictionSetup setup) {
 		this.setup = setup;
-		discretiser = setup.getDiscretiser();
+		discretizer = setup.getDiscretizer();
 		predictionsArchive = new PredictionArchive();
 		congestionsArchive = new Archive<>();
 		classDataArchive = new Archive<>();
@@ -74,7 +74,7 @@ public abstract class Statistics {
 	public abstract void add(int turn, AssociatedWorldState worldState);
 
 	void storePredictionInArchive(int turn) {
-		Set<LinkInfo> predictedLinks = currentPredictionContainer.getPreditionForCurrentPeriod();
+		Set<LinkInfo> predictedLinks = currentPredictionContainer.getPredictionForCurrentPeriod();
 		currentPredictionContainer.nextPeriod();
 		predictionsArchive.storePrediction(turn, predictedLinks);
 	}

@@ -20,12 +20,10 @@ public class SOTLParams
   }
 
   public String toString(){
-      StringBuffer params_desc = new StringBuffer("SOTL : ");
-      params_desc.append("Zone Length : " + zoneLength + "  ");
-      params_desc.append("Car start delay : " + carStartDelay + "  ");
-      params_desc.append("Car max velocity : " + carMaxVelocity + "  ");
-      params_desc.append("Minimum green : " + minimumGreen + "  ");
-      params_desc.append("Threshold : " + threshold + "  ");
-      return params_desc.toString();
+      return "SOTL : " + "Zone Length : " + zoneLength + "  " +
+              "Car start delay : " + carStartDelay + "  " +
+              "Car max velocity : " + carMaxVelocity + "  " +
+              "Minimum green : " + minimumGreen + "  " +
+              "Threshold : " + threshold + "  ";
   }
 }

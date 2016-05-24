@@ -9,7 +9,7 @@ public class Transaction {
 		this.transaction = transaction;
 	}
 
-	public List<Double> getTransacation() {
+	public List<Double> getTransaction() {
 		return transaction;
 	}
 }

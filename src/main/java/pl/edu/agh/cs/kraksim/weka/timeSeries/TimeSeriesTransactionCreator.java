@@ -28,14 +28,14 @@ public class TimeSeriesTransactionCreator extends TransactionCreator {
 		transactionTable.setAttributeNames(attributeNames);
 
 		while (history.depth() > setup.getMaxNumberOfInfluencedTimesteps()) {
-			Transaction t = createTraningTransaction(history, classRoad, classifierType);
+			Transaction t = createTrainingTransaction(history, classRoad, classifierType);
 			transactionTable.addTransaction(t);
 		}
 
 		return transactionTable;
 	}
 
-	private Transaction createTraningTransaction(History history, Info classRoad, String classifierType) {
+	private Transaction createTrainingTransaction(History history, Info classRoad, String classifierType) {
 		AssociatedWorldState headState = history.poll();
 
 		List<Double> attributeValues = classValue.createAttributeValuesWithClassValue(classRoad, headState, classifierType);
@@ -48,8 +48,8 @@ public class TimeSeriesTransactionCreator extends TransactionCreator {
 
 	public Transaction createTestTransaction(History historyArchive, Info classRoad) {
 		List<Double> attributeValues = new ArrayList<>();
-		double valueForClassAttribue = Instance.missingValue();
-		attributeValues.add(valueForClassAttribue);
+		double valueForClassAttribute = Instance.missingValue();
+		attributeValues.add(valueForClassAttribute);
 		int historyDepth = setup.getMaxNumberOfInfluencedTimesteps() - setup.getMinNumberOfInfluencedTimesteps() + 1;
 		addNoClassAttributeValues(historyArchive, classRoad, attributeValues, 0, historyDepth);
 

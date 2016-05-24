@@ -25,7 +25,7 @@ import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
 import pl.edu.agh.cs.kraksim.visual.infolayer.InfoProvider;
 
 @SuppressWarnings("serial")
-public class VisualizatorComponent extends JPanel {
+public class VisualizerComponent extends JPanel {
 
 	private transient Dimension modelSize;
 
@@ -34,7 +34,7 @@ public class VisualizatorComponent extends JPanel {
 	public static final Dimension defaultDimension = new Dimension(640, 480);
 
 	private transient City city;
-	private transient CityMapVisualisator cityMapVisualisator; // NOPMD by
+	private transient CityMapVisualizer cityMapVisualizer; // NOPMD by
 	// Bartosz
 	// Rybacki on
 	// 7/16/07 10:07
@@ -47,7 +47,7 @@ public class VisualizatorComponent extends JPanel {
 
 	private MiniStatEView statView;
 
-	public VisualizatorComponent() {
+	public VisualizerComponent() {
 		super();
 		setPreferredSize(defaultDimension);
 		setMaximumSize(defaultDimension);
@@ -70,9 +70,9 @@ public class VisualizatorComponent extends JPanel {
 		
 		modelSize = computeModelSize(city);
 
-		cityMapVisualisator = new CityMapVisualisator(city, blockView,
+		cityMapVisualizer = new CityMapVisualizer(city, blockView,
 				statView, modelSize.width, modelSize.height);
-		final BufferedImage cityMap = cityMapVisualisator.getCityMap();
+		final BufferedImage cityMap = cityMapVisualizer.getCityMap();
 
 		// stworzenie buforaSieciDrog
 		// pierwszy snapshot = mapa miasta bez samochodow
@@ -120,8 +120,8 @@ public class VisualizatorComponent extends JPanel {
 			final float scale) {
 		final Dimension dim = new Dimension();
 
-		dim.width = (int) ((((float) modelSize.width * 2) + CityMapVisualisator.NODE_THICKNESS * 2) * scale);
-		dim.height = (int) ((((float) modelSize.height * 2) + CityMapVisualisator.NODE_THICKNESS * 2) * scale);
+		dim.width = (int) ((((float) modelSize.width * 2) + CityMapVisualizer.NODE_THICKNESS * 2) * scale);
+		dim.height = (int) ((((float) modelSize.height * 2) + CityMapVisualizer.NODE_THICKNESS * 2) * scale);
 
 		return dim;
 	}
@@ -154,9 +154,9 @@ public class VisualizatorComponent extends JPanel {
 		// wyswietlenie buforaSieciDrog
 		// wyswietlenie snapshot
 
-		BufferedImage cityMap = cityMapVisualisator.getCityMap();
+		BufferedImage cityMap = cityMapVisualizer.getCityMap();
 
-		Graphics2D g2d = (Graphics2D) snapshot.createGraphics();
+		Graphics2D g2d = snapshot.createGraphics();
 		// stworzenie buforaSieciDrog
 		// pierwszy snapshot = mapa miasta bez samochodow
 		// setPreferredSize(new Dimension(2020, 2020));
@@ -189,25 +189,25 @@ public class VisualizatorComponent extends JPanel {
 			vectorOrtogonal = new double[] { -vectorPair[1], vectorPair[0] };
 
 			double xStart = start.getX() * 2 + vectorAB[0]
-					* CityMapVisualisator.NODE_THICKNESS / 2.0;
+					* CityMapVisualizer.NODE_THICKNESS / 2.0;
 			double yStart = start.getY() * 2 + vectorAB[1]
-					* CityMapVisualisator.NODE_THICKNESS / 2.0;
+					* CityMapVisualizer.NODE_THICKNESS / 2.0;
 			double xEnd = end.getX() * 2 - vectorAB[0]
-					* CityMapVisualisator.NODE_THICKNESS / 2.0;
+					* CityMapVisualizer.NODE_THICKNESS / 2.0;
 			double yEnd = end.getY() * 2 - vectorAB[1]
-					* CityMapVisualisator.NODE_THICKNESS / 2.0;
+					* CityMapVisualizer.NODE_THICKNESS / 2.0;
 
 			start = new Point2D.Double(xStart, yStart);
 			end = new Point2D.Double(xEnd, yEnd);
 			/*
 			 * double celluarWidth = (start.distance(end) -
-			 * CityMapVisualisator.NODE_THICKNESS) / link.getLength();
+			 * CityMapVisualizer.NODE_THICKNESS) / link.getLength();
 			 */
 			double celluarWidth = start.distance(end) / link.getLength();
 
 			assert celluarWidth != 0;
 			// odleglosc krawedzi pasa od osi jezdni
-			float laneRoadAxisOffset = CityMapVisualisator.LANE_WIDTH;
+			float laneRoadAxisOffset = CityMapVisualizer.LANE_WIDTH;
 			// iterator pozycji samochodow w komorkach
 
 			CarInfoCursor cursor;
@@ -225,7 +225,7 @@ public class VisualizatorComponent extends JPanel {
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
-				laneRoadAxisOffset += CityMapVisualisator.LANE_WIDTH;
+				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]
 			// [START] rysowanie aut na glownych pasach
@@ -240,7 +240,7 @@ public class VisualizatorComponent extends JPanel {
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
-				laneRoadAxisOffset += CityMapVisualisator.LANE_WIDTH;
+				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]
 			// [START] rysowanie aut na prawych pasach
@@ -255,7 +255,7 @@ public class VisualizatorComponent extends JPanel {
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
-				laneRoadAxisOffset += CityMapVisualisator.LANE_WIDTH;
+				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]
 
@@ -313,7 +313,7 @@ public class VisualizatorComponent extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cityMapVisualisator.showInfoMessageBox(e.getX(), e.getY(), scale);
+				cityMapVisualizer.showInfoMessageBox(e.getX(), e.getY(), scale);
 			}
 		});
 	}

@@ -4,24 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TrafficStatisticsForResult {
-	private final Map<String, Double> levelOccurances;
+	private final Map<String, Double> levelOccurrences;
 
 	public TrafficStatisticsForResult() {
-		levelOccurances = new HashMap<>();
+		levelOccurrences = new HashMap<>();
 	}
 
 	public void incrementCounterForLevel(TrafficLevel level) {
-		if (levelOccurances.containsKey(level.toString())) {
-			Double counter = levelOccurances.get(level.toString());
-			levelOccurances.remove(level.toString());
-			levelOccurances.put(level.toString(), counter + 1);
+		if (levelOccurrences.containsKey(level.toString())) {
+			Double counter = levelOccurrences.get(level.toString());
+			levelOccurrences.remove(level.toString());
+			levelOccurrences.put(level.toString(), counter + 1);
 		} else {
-			levelOccurances.put(level.toString(), 1.0);
+			levelOccurrences.put(level.toString(), 1.0);
 		}
 	}
 
 	public double getCounterForLevel(TrafficLevel level) {
-		Double counter = levelOccurances.get(level.toString());
+		Double counter = levelOccurrences.get(level.toString());
 		if (counter == null) {
 			return 0;
 		} else {
@@ -32,7 +32,7 @@ public class TrafficStatisticsForResult {
 	public double getProbabilityForLevel(TrafficLevel level) {
 		double levelCount = getCounterForLevel(level);
 		int sum = 0;
-		for (Double value : levelOccurances.values()) {
+		for (Double value : levelOccurrences.values()) {
 			sum += value;
 		}
 		return levelCount / sum;
@@ -40,12 +40,12 @@ public class TrafficStatisticsForResult {
 
 	public String getNameOfMostFrequentLevel() {
 		String result = null;
-		double maxOccurences = -1;
-		for (String name : levelOccurances.keySet()) {
-			double temp = levelOccurances.get(name);
-			if (temp > maxOccurences) {
+		double maxOccurrences = -1;
+		for (String name : levelOccurrences.keySet()) {
+			double temp = levelOccurrences.get(name);
+			if (temp > maxOccurrences) {
 				result = name;
-				maxOccurences = temp;
+				maxOccurrences = temp;
 			}
 		}
 		return result;
@@ -60,10 +60,10 @@ public class TrafficStatisticsForResult {
 		if (ageingRate == 1.0) {
 			return;
 		}
-		for (String name : levelOccurances.keySet()) {
-			Double temp = levelOccurances.get(name);
+		for (String name : levelOccurrences.keySet()) {
+			Double temp = levelOccurrences.get(name);
 			temp *= ageingRate;
-			levelOccurances.put(name, temp);
+			levelOccurrences.put(name, temp);
 		}
 	}
 }

@@ -4,12 +4,12 @@ import pl.edu.agh.cs.kraksim.weka.data.AssociatedWorldState;
 
 import java.util.List;
 
-public abstract class Discretiser {
+public abstract class Discretizer {
 	public abstract boolean classBelongsToCongestionClassSet(double value);
 
 	public abstract boolean classBelongsToHighTrafficClassSet(double value);
 
-	public abstract List<Double> getPossibleClassList();
+	public abstract List<Double> getPossibleClassList(); // todo: Find use for this
 
 	public Boolean[] classesToCongestions(Double[] classTables) {
 		Boolean[] congestions = new Boolean[classTables.length];
@@ -24,19 +24,19 @@ public abstract class Discretiser {
 		double[] carsLeavingLinkTable = worldState.roads.getCarsOutLinkTable();
 		double[] carDensityTable = worldState.roads.getCarsDensityTable();
 		for (int i = 0; i < durationLevelTable.length; i++) {
-			double durationClass = discretiseDurationLevel(durationLevelTable[i]);
+			double durationClass = discretizeDurationLevel(durationLevelTable[i]);
 			durationLevelTable[i] = durationClass;
-			double carsLeavingLinkClass = discretiseCarsLeavingLink(carsLeavingLinkTable[i]);
+			double carsLeavingLinkClass = discretizeCarsLeavingLink(carsLeavingLinkTable[i]);
 			carsLeavingLinkTable[i] = carsLeavingLinkClass;
-			double carsDensityClass = discretiseCarsDensity(carDensityTable[i]);
+			double carsDensityClass = discretizeCarsDensity(carDensityTable[i]);
 			carDensityTable[i] = carsDensityClass;
 		}
 		return worldState;
 	}
 
-	public abstract double discretiseDurationLevel(double durationLevel);
+	public abstract double discretizeDurationLevel(double durationLevel);
 
-	public abstract double discretiseCarsLeavingLink(double carsLeavingLink);
+	public abstract double discretizeCarsLeavingLink(double carsLeavingLink);
 
-	public abstract double discretiseCarsDensity(double carsOnLink);
+	public abstract double discretizeCarsDensity(double carsOnLink);
 }

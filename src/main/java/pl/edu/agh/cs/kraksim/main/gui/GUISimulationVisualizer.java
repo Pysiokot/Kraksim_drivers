@@ -13,7 +13,7 @@ import pl.edu.agh.cs.kraksim.ministat.CityMiniStatExt;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
 import pl.edu.agh.cs.kraksim.sna.SnaConfigurator;
 import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityStatistics;
-import pl.edu.agh.cs.kraksim.visual.VisualizatorComponent;
+import pl.edu.agh.cs.kraksim.visual.VisualizerComponent;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -25,14 +25,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @SuppressWarnings("serial")
-public class GUISimulationVisualizator implements SimulationVisualizator {
-	private static final Logger LOGGER = Logger.getLogger(GUISimulationVisualizator.class);
-	private final VisualizatorComponent visualizatorComponent;
+public class GUISimulationVisualizer implements SimulationVisualizer {
+	private static final Logger LOGGER = Logger.getLogger(GUISimulationVisualizer.class);
+	private final VisualizerComponent visualizerComponent;
 	private final List<UpdateHook> hooks;
 	private final City city;
 	private final CarInfoIView carInfoView;
 	public transient CityMiniStatExt cityStat;
-	Container controllPane;
+	Container controlPane;
 	private JLabel phaseDisp;
 	private JLabel turnDisp;
 	private JLabel carCountDisp;
@@ -41,17 +41,17 @@ public class GUISimulationVisualizator implements SimulationVisualizator {
 	private int refreshPeriod;
 	private int turnDelay;
 
-	public GUISimulationVisualizator(City city, CarInfoIView carInfoView, BlockIView blockView, MiniStatEView statView) {
+	public GUISimulationVisualizer(City city, CarInfoIView carInfoView, BlockIView blockView, MiniStatEView statView) {
 		// setToolTipText( "kraksim" );
 		this.city = city;
 		this.carInfoView = carInfoView;
 
 		cityStat = statView.ext(city);
 
-		visualizatorComponent = createVisualizator();
-		controllPane = createControlPane(visualizatorComponent);
+		visualizerComponent = createVisualizator();
+		controlPane = createControlPane(visualizerComponent);
 
-		visualizatorComponent.loadMap(city, carInfoView, blockView, statView);
+		visualizerComponent.loadMap(city, carInfoView, blockView, statView);
 
 		hooks = new LinkedList<>();
 	}
@@ -59,8 +59,8 @@ public class GUISimulationVisualizator implements SimulationVisualizator {
 	/**
 	 * @return
 	 */
-	private static VisualizatorComponent createVisualizator() {
-		VisualizatorComponent visComp = new VisualizatorComponent();
+	private static VisualizerComponent createVisualizator() {
+		VisualizerComponent visComp = new VisualizerComponent();
 		JScrollPane scroller = new JScrollPane(visComp, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroller.setPreferredSize(new Dimension(600, 400));
 		scroller.setMinimumSize(new Dimension(600, 100));
@@ -72,7 +72,7 @@ public class GUISimulationVisualizator implements SimulationVisualizator {
 	/**
 	 * @return
 	 */
-	private Container createControlPane(final VisualizatorComponent visualizatorComponent) {
+	private Container createControlPane(final VisualizerComponent visualizerComponent) {
 		Container ctrllPane = Box.createHorizontalBox();
 		ctrllPane.setPreferredSize(new Dimension(600, 55));
 		ctrllPane.setMinimumSize(new Dimension(600, 55));
@@ -98,7 +98,7 @@ public class GUISimulationVisualizator implements SimulationVisualizator {
 			public void stateChanged(ChangeEvent e) {
 				JSlider slider = (JSlider) e.getSource();
 				float zoom = slider.getValue() / 100.0f;
-				visualizatorComponent.setScale(zoom);
+				visualizerComponent.setScale(zoom);
 			}
 		});
 
@@ -170,7 +170,7 @@ public class GUISimulationVisualizator implements SimulationVisualizator {
 		}
 
 		if (turn % refreshPeriod == 0) {
-			visualizatorComponent.update();
+			visualizerComponent.update();
 			turnDisp.setText(String.valueOf(turn));
 			carCountDisp.setText(String.valueOf(cityStat.getCarCount()));
 			travelCountDisp.setText(String.valueOf(cityStat.getTravelCount()));
@@ -213,8 +213,8 @@ public class GUISimulationVisualizator implements SimulationVisualizator {
 		}
 
 		final JPanel panel = new JPanel();
-		panel.add(controllPane);
-		panel.add(visualizatorComponent);
+		panel.add(controlPane);
+		panel.add(visualizerComponent);
 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -227,12 +227,12 @@ public class GUISimulationVisualizator implements SimulationVisualizator {
 		});
 	}
 
-	public Container getControllPane() {
-		return controllPane;
+	public Container getControlPane() {
+		return controlPane;
 	}
 
-	public VisualizatorComponent getVisualizatorComponent() {
-		return visualizatorComponent;
+	public VisualizerComponent getVisualizerComponent() {
+		return visualizerComponent;
 	}
 
 	public long getNumberOfCarBelowValue(double value) {

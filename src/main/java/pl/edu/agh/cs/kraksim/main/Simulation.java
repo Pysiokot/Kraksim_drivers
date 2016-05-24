@@ -26,14 +26,14 @@ import pl.edu.agh.cs.kraksim.main.drivers.DecisionHelper;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 import pl.edu.agh.cs.kraksim.main.gui.Controllable;
 import pl.edu.agh.cs.kraksim.main.gui.OptionsPanel;
-import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizator;
+import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizer;
 import pl.edu.agh.cs.kraksim.parser.ModelParser;
 import pl.edu.agh.cs.kraksim.parser.ParsingException;
 import pl.edu.agh.cs.kraksim.parser.TrafficSchemeParser;
 import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 import pl.edu.agh.cs.kraksim.routing.NoRouteException;
 import pl.edu.agh.cs.kraksim.routing.prediction.TrafficPredictionFactory;
-import pl.edu.agh.cs.kraksim.sna.GraphVisualizator;
+import pl.edu.agh.cs.kraksim.sna.GraphVisualizer;
 import pl.edu.agh.cs.kraksim.sna.SnaConfigurator;
 import pl.edu.agh.cs.kraksim.traffic.TravellingScheme;
 import pl.edu.agh.cs.kraksim.visual.infolayer.InfoProvider;
@@ -47,12 +47,12 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 	private PrintWriter statWriter;
 	private PrintWriter summaryStatWriter;
 	private PrintWriter linkStatWriter;
-	private SimulationVisualizator visualizator;
+	private SimulationVisualizer visualizer;
 	private StatsUtil.LinkStat linkStat;
 	private StatsUtil.LinkStat linkRidingStat;
 	
 	//do grafu
-	private GraphVisualizator graphVisualizator;
+	private GraphVisualizer graphVisualizer;
 	
 	
 	private Collection<TravellingScheme> trafficScheme;
@@ -88,7 +88,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 	public Simulation(String[] args) {
 		// logger.info( "STARTING SIMULATION with params: " + Arrays.toString(
 		// args ) );
-		departureQueue = new PriorityQueue<Driver>();
+		departureQueue = new PriorityQueue<>();
 
 		try {
 			params.parseOptions(args, console);
@@ -119,7 +119,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		            }
 		        }
 		
-		visualizator = modules.setUpModules(core, evalProvider, physModuleCreator, this, params);
+		visualizer = modules.setUpModules(core, evalProvider, physModuleCreator, this, params);
 		console.println("");
 
 		isDriverRoutingHelper = new DecisionHelper(params.getDriverRoutingRg(),
@@ -206,9 +206,9 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		}
 
 		EvalModuleProvider modProvider = null;
-		for (int i = 0; i < providers.length; i++) {
-			if (providers[i].getAlgorithmCode().equals(algCode)) {
-				modProvider = providers[i];
+		for (EvalModuleProvider provider : providers) {
+			if (provider.getAlgorithmCode().equals(algCode)) {
+				modProvider = provider;
 				break;
 			}
 		}
@@ -221,8 +221,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		if (colonIndex != -1) {
 			String algParams = algConf.substring(colonIndex + 1);
 			String[] params = algParams.split(",");
-			for (int i = 0; i < params.length; i++) {
-				String parameter = params[i];
+			for (String parameter : params) {
 				int y = parameter.indexOf('=');
 				if (y == -1) {
 					throw new AlgorithmConfigurationException(
@@ -241,12 +240,12 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 				this);
 
 		for (int i = 0; i < params.getLearnPhaseCount(); i++) {
-			visualizator.startLearningPhase(i);
+			visualizer.startLearningPhase(i);
 			runPhase();
-			visualizator.endPhase();
+			visualizer.endPhase();
 		}
 		startTime = System.currentTimeMillis();
-		visualizator.startTestingPhase();
+		visualizer.startTestingPhase();
 		// ===================================================================================
 		// --- INITIALIZE TEST RUN
 		// ===================================================================================
@@ -295,8 +294,8 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		// FINILIZE TEST RUN
 		// ===================================================================================
 		long elapsed = System.currentTimeMillis() - startTime;
-		visualizator.endPhase();
-		visualizator.end(elapsed);
+		visualizer.endPhase();
+		visualizer.end(elapsed);
 
 		if (summaryStatWriter != null) {
 			StatsUtil.dumpStats(modules.getCity(), modules.getStatView(), turn,
@@ -399,7 +398,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		}
 
 
-		visualizator.update(turn);
+		visualizer.update(turn);
 		StatsUtil.dumpCarStats(modules.getCity(), modules.getStatView(), turn,
 				statWriter);
 		
@@ -484,26 +483,25 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		return turn;
 	}
 
-	public SimulationVisualizator getVisualizator() {
-		return visualizator;
+	public SimulationVisualizer getVisualizer() {
+		return visualizer;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see pl.edu.agh.cs.kraksim.main.Controllable#setControler(pl.edu.agh.cs.kraksim.main.OptionsPanel)
+	 * @see pl.edu.agh.cs.kraksim.main.Controllable#setController(pl.edu.agh.cs.kraksim.main.OptionsPanel)
 	 */
-	public void setControler(final OptionsPanel panel) {
+	public void setController(final OptionsPanel panel) {
 		controler = panel;
 	}
 
-	@Override
-	public void setGraphVisualizator(GraphVisualizator graphVisualizator) {
-		this.graphVisualizator = graphVisualizator;		
+	public void setGraphVisualizer(GraphVisualizer graphVisualizer) {
+		this.graphVisualizer = graphVisualizer;
 	}
 	
 	private void refreshGraph(){
-		this.graphVisualizator.refreshGraph();
+		this.graphVisualizer.refreshGraph();
 	}
 	
 	public SampleModuleConfiguration getModules() {

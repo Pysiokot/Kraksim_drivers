@@ -1,17 +1,17 @@
 package pl.edu.agh.cs.kraksim.main;
 
 import pl.edu.agh.cs.kraksim.core.City;
-import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizator;
+import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizer;
 import pl.edu.agh.cs.kraksim.ministat.CityMiniStatExt;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
 
 import java.io.PrintWriter;
 
-class ConsoleSimulationVisualizator implements SimulationVisualizator {
+class ConsoleSimulationVisualizer implements SimulationVisualizer {
 	private final CityMiniStatExt stat;
 	private final PrintWriter writer = new PrintWriter(System.out);
 
-	public ConsoleSimulationVisualizator(final City city, final MiniStatEView statView) {
+	public ConsoleSimulationVisualizer(final City city, final MiniStatEView statView) {
 		stat = statView.ext(city);
 		//    System.out.println( "\n\n     Starting Krasim Simulation     " );
 		//    System.out.println( "------------------------------------" );
