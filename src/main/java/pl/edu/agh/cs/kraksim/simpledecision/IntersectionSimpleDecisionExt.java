@@ -49,7 +49,7 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 			evaluationOut.write("");
 			evaluationOut.close();
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 

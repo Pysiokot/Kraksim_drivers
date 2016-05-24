@@ -303,12 +303,6 @@ public class IntersectionPanel extends JPanel{
         Vector2d arrowsPosition = new Vector2d(direction);
         Vector2d textPosition = new Vector2d(direction);
 
-
-
-
-
-
-
         textPosition.scale(95);
         textPosition.add(currentStart);
 
@@ -398,8 +392,9 @@ public class IntersectionPanel extends JPanel{
     }
 
     public Vector2d getDirection(Link lane){
-        Vector2d a = new Vector2d(lane.getEnd().getPoint().getX() - lane.getBeginning().getPoint().getX(), lane.getEnd().getPoint().getY() -lane.getBeginning().getPoint().getY());
-        return a;
+        double dx = lane.getEnd().getPoint().getX() - lane.getBeginning().getPoint().getX();
+        double dy = lane.getEnd().getPoint().getY() -lane.getBeginning().getPoint().getY();
+        return new Vector2d(dx,dy);
     }
 
     public Boolean isInbound(Link l){
@@ -415,8 +410,6 @@ public class IntersectionPanel extends JPanel{
 
     public void update() {
         EvalModuleProvider evalProvider = InfoProvider.getInstance().getEvalProvider();
-       // System.out.println(evalProvider.toString());
-       //System.out.println(evalProvider.getClass().toString());
         if(statsLabel != null) statsLabel.setText(evalProvider.toString());
         validate();
         repaint();
