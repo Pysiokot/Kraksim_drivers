@@ -145,7 +145,7 @@ public class KraksimConfigurator {
 		paramsList.add(params.getProperty("cityMapFile"));
 		paramsList.add(params.getProperty("travelSchemeFile"));
 
-		return paramsList.toArray(new String[paramsList.size()]);
+		return paramsList.toArray(new String[0]);
 	}
 
 	public static void configurePrediction(String configFile) {
@@ -158,32 +158,29 @@ public class KraksimConfigurator {
 			SAXParser sp = spf.newSAXParser();
 
 			sp.parse(configFile, new PredictionConfigurationXmlHandler());
-		} catch (ParserConfigurationException | SAXException e) {
+		} catch (ParserConfigurationException | SAXException | IOException e) {
 			disablePrediction();
-			LOGGER.error("Error when parsing configuration.", e);
-		} catch (IOException e) {
-			disablePrediction();
-			LOGGER.error(String.format("File: %s couldn't be read.", configFile), e);
+			LOGGER.error("Error when parsing configuration", e);
 		}
 	}
 
 	private static void createDefaultPrediction() {
-		ITrafficPredictionSetup predictionSetup = new DefaultTrafficPredictionSetup()
-				.setCutOutProbability(0.75)
-				.setCutOutMinimumCounter(3)
-				.setDiscretizer(createDefaultDiscretiser())
-				.setNumberOfInfluencedLinks(3)
-				.setNumberOfInfluencedTimesteps(3);
+		ITrafficPredictionSetup predictionSetup = new DefaultTrafficPredictionSetup();
+		predictionSetup.setCutOutProbability(0.75);
+		predictionSetup.setCutOutMinimumCounter(3);
+		predictionSetup.setDiscretizer(createDefaultDiscretiser());
+		predictionSetup.setNumberOfInfluencedLinks(3);
+		predictionSetup.setNumberOfInfluencedTimesteps(3);
 		TrafficPredictionFactory.setPropertiesForPredictionSetup(predictionSetup);
 	}
 
 	public static void disablePrediction() {
-		ITrafficPredictionSetup predictionSetup = new DefaultTrafficPredictionSetup()
-				.setCutOutProbability(1.5)
-				.setCutOutMinimumCounter(Integer.MAX_VALUE)
-				.setDiscretizer(new TrafficLevelDiscretizer())
-				.setNumberOfInfluencedLinks(0)
-				.setNumberOfInfluencedTimesteps(0);
+		ITrafficPredictionSetup predictionSetup = new DefaultTrafficPredictionSetup();
+		predictionSetup.setCutOutProbability(1.5);
+		predictionSetup.setCutOutMinimumCounter(Integer.MAX_VALUE);
+		predictionSetup.setDiscretizer(new TrafficLevelDiscretizer());
+		predictionSetup.setNumberOfInfluencedLinks(0);
+		predictionSetup.setNumberOfInfluencedTimesteps(0);
 		TrafficPredictionFactory.setPropertiesForPredictionSetup(predictionSetup);
 	}
 
