@@ -17,7 +17,7 @@ public interface EvalModuleProvider
 
   String getAlgorithmName();
 
-  public String toString();
+  String toString();
 
   Iterator<KeyValPair> getParamsDescription();
 

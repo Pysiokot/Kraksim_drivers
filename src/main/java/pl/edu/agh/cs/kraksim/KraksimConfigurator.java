@@ -20,8 +20,8 @@ public class KraksimConfigurator {
 	private static final Logger LOGGER = Logger.getLogger(KraksimConfigurator.class);
 	private static String CONFIG_PATH = "configuration/kraksim.properties";
 
-    public static void setConfigPath(String confingPath){
-        CONFIG_PATH = confingPath;
+    public static void setConfigPath(String configPath){
+        CONFIG_PATH = configPath;
     }
 
 	public static Properties getPropertiesFromFile() {

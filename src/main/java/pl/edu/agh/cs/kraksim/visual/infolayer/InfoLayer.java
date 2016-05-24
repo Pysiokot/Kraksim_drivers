@@ -83,7 +83,6 @@ public class InfoLayer {
 		if(gateway != null){
 			GatewayMiniStatExt gatewayMiniStatExt = statView.ext(gateway);
 			MessageWindowThreadFactory.create(gateway, gatewayMiniStatExt, p).start();
-			return;
 		}
 		
 	}
