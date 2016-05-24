@@ -322,7 +322,7 @@ public class CityMapVisualisator {
 		g2d.setStroke(stroke);
 		g2d.draw(line);
 
-		if (red == true) {
+		if (red) {
 			g2d.setColor(Color.red);
 		} else {
 			g2d.setColor(Color.green);
