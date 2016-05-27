@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
-import java.io.File;
 
 public class TrafficGeneratorGUI {
     private TrafficGenerator generator;
@@ -33,21 +32,12 @@ public class TrafficGeneratorGUI {
     private JLabel lblEnd;
     private JSpinner spinnerNumberOfGateways;
 
-    private GenerateCallback callback;
-
-    public interface GenerateCallback {
-        void call();
-    }
 
     public String getPathToFile() {
-        return pathToFile + tfFileName.getText() + ".xml";
+        return pathToFile + tfFileName.getText();
     }
 
     public void setPathToFile(String pathToFile) {
-        File file = new File(pathToFile);
-        if(!file.exists()) {
-            file.mkdir();
-        }
         this.pathToFile = pathToFile;
     }
 
@@ -59,7 +49,7 @@ public class TrafficGeneratorGUI {
             public void run() {
                 try {
                     window = new TrafficGeneratorGUI();
-                    window.setVisible(true);
+                    window.frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -67,23 +57,15 @@ public class TrafficGeneratorGUI {
         });
     }
 
-    public void setVisible(boolean visible) {
-        frame.setVisible(visible);
-    }
-
     /**
      * Create the application.
      */
     public TrafficGeneratorGUI() {
-        this(null);
-    }
-
-    public TrafficGeneratorGUI(GenerateCallback callback) {
-        this.callback = callback;
         initialize();
         addListeners();
         fillValues();
     }
+
 
     /**
      * Initialize the contents of the frame.
@@ -205,9 +187,6 @@ public class TrafficGeneratorGUI {
                             .build();
                     generator.generateFile();
                     frame.dispose();
-                    if (callback != null) {
-                        callback.call();
-                    }
                 }
             }
         });
