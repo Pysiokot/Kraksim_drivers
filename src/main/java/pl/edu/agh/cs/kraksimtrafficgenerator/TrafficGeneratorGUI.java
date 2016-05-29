@@ -39,6 +39,7 @@ public class TrafficGeneratorGUI {
 
     public void setPathToFile(String pathToFile) {
         this.pathToFile = pathToFile;
+        this.tfFileName.setText(pathToFile);
     }
 
     /**
@@ -49,12 +50,16 @@ public class TrafficGeneratorGUI {
             public void run() {
                 try {
                     window = new TrafficGeneratorGUI();
-                    window.frame.setVisible(true);
+                    window.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    public void setVisible(boolean visible) {
+        frame.setVisible(visible);
     }
 
     /**
