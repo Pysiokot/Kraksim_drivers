@@ -12,6 +12,7 @@ import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityCalculator;
 import pl.edu.agh.cs.kraksim.sna.centrality.MeasureType;
 import pl.edu.agh.cs.kraksim.sna.centrality.SNADistanceType;
 import pl.edu.agh.cs.kraksimcitydesigner.AppRunner;
+import pl.edu.agh.cs.kraksimtrafficgenerator.TrafficGeneratorGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +37,7 @@ public class SetUpPanel extends JPanel {
 	private InputPanel algorithm;
 	private InputPanel yellowTransition;
 	private JButton designer;
+	private JButton trafficGenerator;
 
 	private JFrame myFrame = null;
 
@@ -53,6 +55,7 @@ public class SetUpPanel extends JPanel {
 	private Properties params;
 	private Properties lastSessionParams;
 	private String carMoveModel;
+	private TrafficGeneratorGUI trafficGeneratorGUI = new TrafficGeneratorGUI();
 
 	public SetUpPanel(MainVisualisationPanel parent, Properties params) {
 		this.parent = parent;
@@ -138,6 +141,7 @@ public class SetUpPanel extends JPanel {
 		algorithm = new InputPanel("Algorithm", getParam("algorithm"), 20, null);
 		yellowTransition = new InputPanel("Yellow Duration", "3", 20, null);
 		designer = new JButton("Open CityDesigner");
+		trafficGenerator = new JButton("Open Traffic Generator");
 
 		designer.addActionListener(new ActionListener() {
 			@Override
@@ -151,7 +155,25 @@ public class SetUpPanel extends JPanel {
 			}
 		});
 
+		trafficGenerator.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				javax.swing.SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							trafficGeneratorGUI.setPathToFile(travellingSchemeLocation.getText());
+							trafficGeneratorGUI.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+
 		filesPane.add(designer);
+		filesPane.add(trafficGenerator);
 		filesPane.add(cityMapLocation);
 		filesPane.add(travellingSchemeLocation);
 		filesPane.add(statsOutputLocation);
