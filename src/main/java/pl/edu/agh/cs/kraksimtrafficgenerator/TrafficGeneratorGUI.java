@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.io.File;
 
 public class TrafficGeneratorGUI {
     private TrafficGenerator generator;
@@ -32,14 +33,22 @@ public class TrafficGeneratorGUI {
     private JLabel lblEnd;
     private JSpinner spinnerNumberOfGateways;
 
+    private GenerateCallback callback;
+
+    public interface GenerateCallback {
+        void call();
+    }
 
     public String getPathToFile() {
-        return pathToFile + tfFileName.getText();
+        return pathToFile + tfFileName.getText() + ".xml";
     }
 
     public void setPathToFile(String pathToFile) {
+        File file = new File(pathToFile);
+        if(!file.exists()) {
+            file.mkdir();
+        }
         this.pathToFile = pathToFile;
-        this.tfFileName.setText(pathToFile);
     }
 
     /**
@@ -66,11 +75,15 @@ public class TrafficGeneratorGUI {
      * Create the application.
      */
     public TrafficGeneratorGUI() {
+        this(null);
+    }
+
+    public TrafficGeneratorGUI(GenerateCallback callback) {
+        this.callback = callback;
         initialize();
         addListeners();
         fillValues();
     }
-
 
     /**
      * Initialize the contents of the frame.
@@ -192,6 +205,9 @@ public class TrafficGeneratorGUI {
                             .build();
                     generator.generateFile();
                     frame.dispose();
+                    if (callback != null) {
+                        callback.call();
+                    }
                 }
             }
         });
