@@ -29,6 +29,8 @@ import java.util.Properties;
 public class SetUpPanel extends JPanel {
 	private static final long serialVersionUID = -4635082252841397559L;
 
+	private static final String TRAFFIC_SCHEMES_DIRECTORY = "trafficSchemes";
+
 	private static final List<String> availableMoveModels = ImmutableList.of(CarMoveModel.MODEL_NAGLE, CarMoveModel.MODEL_VDR, CarMoveModel.MODEL_BRAKELIGHT, CarMoveModel.MODEL_MULTINAGLE);
 
 	private InputPanel cityMapLocation;
@@ -55,18 +57,29 @@ public class SetUpPanel extends JPanel {
 	private Properties params;
 	private Properties lastSessionParams;
 	private String carMoveModel;
-	private TrafficGeneratorGUI trafficGeneratorGUI = new TrafficGeneratorGUI();
+	private TrafficGeneratorGUI trafficGeneratorGUI;
 
 	public SetUpPanel(MainVisualisationPanel parent, Properties params) {
 		this.parent = parent;
 		initParams(params);
 		initLayout();
+		initTrafficGenerator();
 	}
 
 	public SetUpPanel(MainVisualisationPanel parent) {
 		this.parent = parent;
 		initParams(new Properties());
 		initLayout();
+		initTrafficGenerator();
+	}
+
+	private void initTrafficGenerator() {
+		trafficGeneratorGUI = new TrafficGeneratorGUI(new TrafficGeneratorGUI.GenerateCallback() {
+			@Override
+			public void call() {
+				travellingSchemeLocation.setText(trafficGeneratorGUI.getPathToFile());
+			}
+		});
 	}
 
 	private void initParams(Properties params) {
@@ -162,7 +175,7 @@ public class SetUpPanel extends JPanel {
 					@Override
 					public void run() {
 						try {
-							trafficGeneratorGUI.setPathToFile(travellingSchemeLocation.getText());
+							trafficGeneratorGUI.setPathToFile(getParentPath(cityMapLocation.getText()) + File.separator + TRAFFIC_SCHEMES_DIRECTORY + File.separator);
 							trafficGeneratorGUI.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -402,6 +415,11 @@ public class SetUpPanel extends JPanel {
 		zoneAwarnessPanel.add(zoneDisabledButton);
 
 		add(zoneAwarnessPanel);
+	}
+
+	private String getParentPath(String path) {
+		File file = new File(path);
+		return file.getAbsoluteFile().getParent();
 	}
 
 	public void end() {
