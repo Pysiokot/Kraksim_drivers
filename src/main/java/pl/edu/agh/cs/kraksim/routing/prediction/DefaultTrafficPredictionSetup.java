@@ -21,8 +21,9 @@ public class DefaultTrafficPredictionSetup implements ITrafficPredictionSetup {
 	/**
 	 * @param numberOfInfluencedTimesteps the numberOfInfluencedTimesteps to set
 	 */
-	public void setNumberOfInfluencedTimesteps(int numberOfInfluencedTimesteps) {
+	public ITrafficPredictionSetup setNumberOfInfluencedTimesteps(int numberOfInfluencedTimesteps) {
 		this.numberOfInfluencedTimesteps = numberOfInfluencedTimesteps;
+		return this;
 	}
 
 	/**
@@ -35,8 +36,9 @@ public class DefaultTrafficPredictionSetup implements ITrafficPredictionSetup {
 	/**
 	 * @param city the city to set
 	 */
-	public void setCity(City city) {
+	public ITrafficPredictionSetup setCity(City city) {
 		this.city = city;
+		return this;
 	}
 
 	/**
@@ -49,8 +51,9 @@ public class DefaultTrafficPredictionSetup implements ITrafficPredictionSetup {
 	/**
 	 * @param numberOfInfluencedLinks the numberOfInfluencedLinks to set
 	 */
-	public void setNumberOfInfluencedLinks(int numberOfInfluencedLinks) {
+	public ITrafficPredictionSetup setNumberOfInfluencedLinks(int numberOfInfluencedLinks) {
 		this.numberOfInfluencedLinks = numberOfInfluencedLinks;
+		return this;
 	}
 
 	/**
@@ -63,8 +66,9 @@ public class DefaultTrafficPredictionSetup implements ITrafficPredictionSetup {
 	/**
 	 * @param discretizer the discretizer to set
 	 */
-	public void setDiscretizer(TrafficLevelDiscretizer discretizer) {
+	public ITrafficPredictionSetup setDiscretizer(TrafficLevelDiscretizer discretizer) {
 		this.discretiser = discretizer;
+		return this;
 	}
 
 	/**
@@ -77,8 +81,9 @@ public class DefaultTrafficPredictionSetup implements ITrafficPredictionSetup {
 	/**
 	 * @param cutOutProbability the cutOutProbability to set
 	 */
-	public void setCutOutProbability(double cutOutProbability) {
+	public ITrafficPredictionSetup setCutOutProbability(double cutOutProbability) {
 		this.cutOutProbability = cutOutProbability;
+		return this;
 	}
 
 	/**
@@ -91,13 +96,15 @@ public class DefaultTrafficPredictionSetup implements ITrafficPredictionSetup {
 	/**
 	 * @param cutOutMinimumCounter the cutOutMinimumCounter to set
 	 */
-	public void setCutOutMinimumCounter(int cutOutMinimumCounter) {
+	public ITrafficPredictionSetup setCutOutMinimumCounter(int cutOutMinimumCounter) {
 		this.cutOutMinimumCounter = cutOutMinimumCounter;
+		return this;
 	}
 
 	@Override
-	public void setAgeingRate(double ageingRate) {
+	public ITrafficPredictionSetup setAgeingRate(double ageingRate) {
 		this.ageingRate = ageingRate;
+		return this;
 	}
 
 	@Override
