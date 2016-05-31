@@ -5,6 +5,7 @@ import pl.edu.agh.cs.kraksim.main.Simulation;
 import pl.edu.agh.cs.kraksim.main.gui.MainVisualisationPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Properties;
 
 public class KraksimRunner {
@@ -24,21 +25,18 @@ public class KraksimRunner {
 
 		// we assume that if there is no word about visualisation in config,
 		// then it is necessary...
-		boolean visualise = true;
 		// but if there is...
-		if (props.containsKey("visualization") && props.getProperty("visualization").equals("false")) {
-			visualise = false;
-		}
+		boolean visualise = !(props.containsKey("visualization") && props.getProperty("visualization").equals("false"));
 
 		// set up the prediction
-		String predictionConfig = props.getProperty("enablePrediction");
+		String predictionEnabled = props.getProperty("enablePrediction");
 		String predictionFileConfig = props.getProperty("predictionFile");
-		if (!"true".equals(predictionConfig)) {
+		if (!"true".equals(predictionEnabled)) {
 			KraksimConfigurator.disablePrediction();
 			LOGGER.info("Prediction disabled");
 		} else {
 			KraksimConfigurator.configurePrediction(predictionFileConfig);
-			LOGGER.info("Prediction configured");
+			LOGGER.info("Prediction configured with file: " + predictionFileConfig);
 		}
 
 		// start simulation - with or without visualisation
@@ -56,8 +54,12 @@ public class KraksimRunner {
 					frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 					frame.getContentPane().add(new MainVisualisationPanel(props));
-					frame.setSize(370, 270);
-					frame.setVisible(true);
+					frame.setSize(800, 600);
+                    frame.setVisible(true);
+                    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+                    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+                    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+                    frame.setLocation(x, y);
 				}
 			});
 		} else {

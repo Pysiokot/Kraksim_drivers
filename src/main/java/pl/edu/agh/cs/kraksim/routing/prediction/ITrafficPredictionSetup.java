@@ -2,32 +2,34 @@ package pl.edu.agh.cs.kraksim.routing.prediction;
 
 import pl.edu.agh.cs.kraksim.core.City;
 
+import java.util.Iterator;
+
 public interface ITrafficPredictionSetup {
 	int getNumberOfInfluencedTimesteps();
 
-	void setNumberOfInfluencedTimesteps(int numberOfInfluencedTimesteps);
+	ITrafficPredictionSetup setNumberOfInfluencedTimesteps(int numberOfInfluencedTimesteps);
 
 	City getCity();
 
-	void setCity(City city);
+	ITrafficPredictionSetup setCity(City city);
 
 	int getNumberOfInfluencedLinks();
 
-	void setNumberOfInfluencedLinks(int numberOfInfluencedLinks);
+	ITrafficPredictionSetup setNumberOfInfluencedLinks(int numberOfInfluencedLinks);
 
 	TrafficLevelDiscretizer getDiscretizer();
 
-	void setDiscretizer(TrafficLevelDiscretizer discretizer);
+	ITrafficPredictionSetup setDiscretizer(TrafficLevelDiscretizer discretizer);
 
 	double getCutOutProbability();
 
-	void setCutOutProbability(double cutOutProbability);
+	ITrafficPredictionSetup setCutOutProbability(double cutOutProbability);
 
 	int getCutOutMinimumCounter();
 
-	void setCutOutMinimumCounter(int cutOutMinimumCounter);
+	ITrafficPredictionSetup setCutOutMinimumCounter(int cutOutMinimumCounter);
 
-	void setAgeingRate(double ageingRate);
+	ITrafficPredictionSetup setAgeingRate(double ageingRate);
 
 	double getAgeingRate();
 }
