@@ -1,25 +1,19 @@
 package pl.edu.agh.cs.kraksimcitydesigner.parser;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
-import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-
-import pl.edu.agh.cs.kraksimcitydesigner.element.DisplaySettings;
-import pl.edu.agh.cs.kraksimcitydesigner.element.ElementManager;
-import pl.edu.agh.cs.kraksimcitydesigner.element.Intersection;
-import pl.edu.agh.cs.kraksimcitydesigner.element.Link;
-import pl.edu.agh.cs.kraksimcitydesigner.element.Node;
+import pl.edu.agh.cs.kraksimcitydesigner.element.*;
 import pl.edu.agh.cs.kraksimcitydesigner.element.Intersection.LightState;
 import pl.edu.agh.cs.kraksimcitydesigner.element.Intersection.TrafficLightsSchedule;
 import pl.edu.agh.cs.kraksimcitydesigner.element.Link.LinkType;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 // TODO: Auto-generated Javadoc
 public class ModelParser {
@@ -247,18 +241,18 @@ public class ModelParser {
    * @return the link
    */
   private static Link createLink(Element linkElement, LinkType linkType, Node startNode, Node endNode, DisplaySettings displaySettings) {
-        Element main = (Element) linkElement.getChild("main");
+        Element main = linkElement.getChild("main");
         int length = Integer.valueOf(main.getAttributeValue("length"));
         int numberOfLanes;
           if (main.getAttributeValue("numberOfLanes") != null) {
                numberOfLanes = Integer.valueOf(main.getAttributeValue("numberOfLanes"));
           } else numberOfLanes = 1;
 
-        LinkedList<Integer> leftLanes = new LinkedList<Integer>();
+        LinkedList<Integer> leftLanes = new LinkedList<>();
         for (Object leftObject : linkElement.getChildren("left")) {
             leftLanes.add(Integer.valueOf(((Element)leftObject).getAttributeValue("length")));
         }
-        LinkedList<Integer> rightLanes = new LinkedList<Integer>();
+        LinkedList<Integer> rightLanes = new LinkedList<>();
         for (Object rightObject : linkElement.getChildren("right")) {
             rightLanes.add(Integer.valueOf(((Element)rightObject).getAttributeValue("length")));
         }
