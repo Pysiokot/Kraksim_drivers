@@ -5,6 +5,8 @@ import pl.edu.agh.cs.kraksimcitydesigner.element.Road;
 import java.util.LinkedList;
 import java.util.List;
 
+import pl.edu.agh.cs.kraksimcitydesigner.element.Road;
+
 // TODO: Auto-generated Javadoc
 public class RoadEditableSpecification {
     Road road;
@@ -12,8 +14,8 @@ public class RoadEditableSpecification {
     String roadId;
     String roadStreetName;
     String roadSpeedLimit;
-    
-    int uplinkNumOfLines;
+
+    int uplinkNumOfLanes;
     int uplinkLength;
     List<Integer> uplinkRightLanes;
     List<Integer> uplinkLeftLanes;
@@ -33,8 +35,8 @@ public class RoadEditableSpecification {
         this.roadId = road.getId();
         this.roadStreetName = road.getStreet();
         this.roadSpeedLimit = road.getSpeedLimit();
-        
-        this.uplinkNumOfLines = road.getUplink().getNumberOfLanes();
+
+        this.uplinkNumOfLanes = road.getUplink().getNumberOfLanes();
         this.uplinkLength = road.getUplink().getLength();
         this.uplinkLeftLanes = new LinkedList<Integer>(road.getUplink().getLeftLanes());
         this.uplinkRightLanes = new LinkedList<Integer>(road.getUplink().getRightLanes());
@@ -100,8 +102,26 @@ public class RoadEditableSpecification {
     }
 
     /**
+     * Gets the road speed limit.
+     *
+     * @return the road speed limit
+     */
+    public String getRoadSpeedLimit() {
+        return roadSpeedLimit;
+    }
+
+    /**
+     * Sets the road speed limit.
+     *
+     * @param roadSpeedLimit the new road speed limit
+     */
+    public void setRoadSpeedLimit(String roadSpeedLimit) {
+        this.roadSpeedLimit = roadSpeedLimit;
+    }
+
+    /**
      * Gets the uplink num of lines.
-     * 
+     *
      * @return the uplink num of lines
      */
     public int getUplinkNumOfLines() {
@@ -110,7 +130,7 @@ public class RoadEditableSpecification {
 
     /**
      * Sets the uplink num of lines.
-     * 
+     *
      * @param uplinkNumOfLines the new uplink num of lines
      */
     public void setUplinkNumOfLines(int uplinkNumOfLines) {
