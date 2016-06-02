@@ -106,8 +106,8 @@ public class EditorPanel extends JPanel {
 		    List<Node> nodes = mf.getElementManager().getNodes();
 		    
 		    clickedNode = null;
-		    
-		    System.out.println("Mouse pressed");
+
+			log.debug("Mouse pressed");
 
 			if (editorMode == EditorMode.SELECTING) {	
 				log.trace("mousePressed");
@@ -206,7 +206,7 @@ public class EditorPanel extends JPanel {
 			maybeShowPopup(e);
 	         
 			repaint();
-			System.out.println("repaint ");
+			log.debug("repaint");
 		}
 		
 	}

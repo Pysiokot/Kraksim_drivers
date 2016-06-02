@@ -49,13 +49,13 @@ public class ElementManager {
             Element linkElement = new Element(linkTypeStr);
 
             // lefts
-            for (Integer leftLength : link.getLeftLines()) {
+            for (Integer leftLength : link.getLeftLanes()) {
                 Element leftElement = new Element("left");
                 leftElement.setAttribute("length",leftLength.toString());       
                 linkElement.addContent(leftElement);
             }
             // rights
-            for (Integer rightLength : link.getRightLines()) {
+            for (Integer rightLength : link.getRightLanes()) {
                 Element rightElement = new Element("right");
                 rightElement.setAttribute("length",rightLength.toString());       
                 linkElement.addContent(rightElement);
@@ -63,7 +63,7 @@ public class ElementManager {
             // main
             Element mainElement = new Element("main");
             mainElement.setAttribute("length", String.valueOf(link.getLength()));
-            mainElement.setAttribute("numberOfLanes", String.valueOf(link.getNumberOfLines()));           
+            mainElement.setAttribute("numberOfLanes", String.valueOf(link.getNumberOfLanes()));
             linkElement.addContent(mainElement);
 
             return linkElement;
