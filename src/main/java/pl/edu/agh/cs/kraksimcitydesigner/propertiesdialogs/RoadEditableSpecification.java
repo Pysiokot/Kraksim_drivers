@@ -18,7 +18,7 @@ public class RoadEditableSpecification {
     List<Integer> uplinkRightLanes;
     List<Integer> uplinkLeftLanes;
     
-    int downlinkNumOfLines;
+    int downlinkNumOfLanes;
     int downlinkLength;
     List<Integer> downlinkRightLanes;
     List<Integer> downlinkLeftLanes;
@@ -36,13 +36,13 @@ public class RoadEditableSpecification {
         
         this.uplinkNumOfLines = road.getUplink().getNumberOfLanes();
         this.uplinkLength = road.getUplink().getLength();
-        this.uplinkLeftLanes = new LinkedList<Integer>(road.getUplink().getLeftLanes());
-        this.uplinkRightLanes = new LinkedList<Integer>(road.getUplink().getRightLanes());
-        
-        this.downlinkNumOfLines = road.getDownlink().getNumberOfLanes();
+        this.uplinkLeftLanes = new LinkedList<>(road.getUplink().getLeftLanes());
+        this.uplinkRightLanes = new LinkedList<>(road.getUplink().getRightLanes());
+
+        this.downlinkNumOfLanes = road.getDownlink().getNumberOfLanes();
         this.downlinkLength = road.getDownlink().getLength();
-        this.downlinkLeftLanes = new LinkedList<Integer>(road.getDownlink().getLeftLanes());
-        this.downlinkRightLanes = new LinkedList<Integer>(road.getDownlink().getRightLanes());
+        this.downlinkLeftLanes = new LinkedList<>(road.getDownlink().getLeftLanes());
+        this.downlinkRightLanes = new LinkedList<>(road.getDownlink().getRightLanes());
     }
 
     /**
@@ -105,7 +105,7 @@ public class RoadEditableSpecification {
      * @return the uplink num of lines
      */
     public int getUplinkNumOfLines() {
-        return uplinkNumOfLines;
+        return uplinkNumOfLanes;
     }
 
     /**
@@ -114,7 +114,7 @@ public class RoadEditableSpecification {
      * @param uplinkNumOfLines the new uplink num of lines
      */
     public void setUplinkNumOfLines(int uplinkNumOfLines) {
-        this.uplinkNumOfLines = uplinkNumOfLines;
+        this.uplinkNumOfLanes = uplinkNumOfLines;
     }
 
     /**
@@ -177,7 +177,7 @@ public class RoadEditableSpecification {
      * @return the downlink num of lines
      */
     public int getDownlinkNumOfLines() {
-        return downlinkNumOfLines;
+        return downlinkNumOfLanes;
     }
 
     /**
@@ -186,7 +186,7 @@ public class RoadEditableSpecification {
      * @param downlinkNumOfLines the new downlink num of lines
      */
     public void setDownlinkNumOfLines(int downlinkNumOfLines) {
-        this.downlinkNumOfLines = downlinkNumOfLines;
+        this.downlinkNumOfLanes = downlinkNumOfLines;
     }
 
     /**
