@@ -11,8 +11,7 @@
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
-.idea/inspectionProfiles/
-.idea/inspectionProfiles/profile_setting.xml
+.idea/inspectionProfiles
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
