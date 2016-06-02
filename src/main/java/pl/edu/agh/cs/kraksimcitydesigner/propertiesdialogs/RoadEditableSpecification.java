@@ -12,7 +12,7 @@ public class RoadEditableSpecification {
     String roadId;
     String roadStreetName;
     String roadSpeedLimit;
-    
+
     int uplinkNumOfLanes;
     int uplinkLength;
     List<Integer> uplinkRightLanes;
@@ -33,7 +33,7 @@ public class RoadEditableSpecification {
         this.roadId = road.getId();
         this.roadStreetName = road.getStreet();
         this.roadSpeedLimit = road.getSpeedLimit();
-        
+
         this.uplinkNumOfLanes = road.getUplink().getNumberOfLanes();
         this.uplinkLength = road.getUplink().getLength();
         this.uplinkLeftLanes = new LinkedList<>(road.getUplink().getLeftLanes());
@@ -101,7 +101,7 @@ public class RoadEditableSpecification {
 
     /**
      * Gets the uplink num of lines.
-     * 
+     *
      * @return the uplink num of lines
      */
     public int getUplinkNumOfLines() {
@@ -110,7 +110,7 @@ public class RoadEditableSpecification {
 
     /**
      * Sets the uplink num of lines.
-     * 
+     *
      * @param uplinkNumOfLines the new uplink num of lines
      */
     public void setUplinkNumOfLines(int uplinkNumOfLines) {
