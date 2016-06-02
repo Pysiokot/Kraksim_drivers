@@ -4,12 +4,15 @@
 package pl.edu.agh.cs.kraksim.main.gui;
 
 import com.google.common.collect.ImmutableList;
+import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
 import pl.edu.agh.cs.kraksim.sna.centrality.CentralityCalculator;
 import pl.edu.agh.cs.kraksim.sna.centrality.MeasureType;
 import pl.edu.agh.cs.kraksim.sna.centrality.SNADistanceType;
+import pl.edu.agh.cs.kraksimcitydesigner.AppRunner;
+import pl.edu.agh.cs.kraksimtrafficgenerator.TrafficGeneratorGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,10 +26,10 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
 public class SetUpPanel extends JPanel {
 	private static final long serialVersionUID = -4635082252841397559L;
+
+	private static final String TRAFFIC_SCHEMES_DIRECTORY = "trafficSchemes";
 
 	private static final List<String> availableMoveModels = ImmutableList.of(CarMoveModel.MODEL_NAGLE, CarMoveModel.MODEL_VDR, CarMoveModel.MODEL_BRAKELIGHT, CarMoveModel.MODEL_MULTINAGLE);
 
@@ -35,6 +38,8 @@ public class SetUpPanel extends JPanel {
 	private InputPanel statsOutputLocation;
 	private InputPanel algorithm;
 	private InputPanel yellowTransition;
+	private JButton designer;
+	private JButton trafficGenerator;
 
 	private JFrame myFrame = null;
 
@@ -52,17 +57,29 @@ public class SetUpPanel extends JPanel {
 	private Properties params;
 	private Properties lastSessionParams;
 	private String carMoveModel;
+	private TrafficGeneratorGUI trafficGeneratorGUI;
 
 	public SetUpPanel(MainVisualisationPanel parent, Properties params) {
 		this.parent = parent;
 		initParams(params);
 		initLayout();
+		initTrafficGenerator();
 	}
 
 	public SetUpPanel(MainVisualisationPanel parent) {
 		this.parent = parent;
 		initParams(new Properties());
 		initLayout();
+		initTrafficGenerator();
+	}
+
+	private void initTrafficGenerator() {
+		trafficGeneratorGUI = new TrafficGeneratorGUI(new TrafficGeneratorGUI.GenerateCallback() {
+			@Override
+			public void call() {
+				travellingSchemeLocation.setText(trafficGeneratorGUI.getPathToFile());
+			}
+		});
 	}
 
 	private void initParams(Properties params) {
@@ -112,6 +129,10 @@ public class SetUpPanel extends JPanel {
 		myFrame.pack();
 	}
 
+	public void setMapLocationPath(String filePath) {
+		cityMapLocation.setText(filePath);
+	}
+
 	private void createLayout() {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -132,7 +153,40 @@ public class SetUpPanel extends JPanel {
 		statsOutputLocation = new InputPanel("Statistics", fileLocation, 20, fc);
 		algorithm = new InputPanel("Algorithm", getParam("algorithm"), 20, null);
 		yellowTransition = new InputPanel("Yellow Duration", "3", 20, null);
+		designer = new JButton("Open CityDesigner");
+		trafficGenerator = new JButton("Open Traffic Generator");
 
+		designer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				javax.swing.SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						AppRunner.createAndShowGUI(cityMapLocation.getText(), SetUpPanel.this);
+					}
+				});
+			}
+		});
+
+		trafficGenerator.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				javax.swing.SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							trafficGeneratorGUI.setPathToFile(getParentPath(cityMapLocation.getText()) + File.separator + TRAFFIC_SCHEMES_DIRECTORY + File.separator);
+							trafficGeneratorGUI.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+
+		filesPane.add(designer);
+		filesPane.add(trafficGenerator);
 		filesPane.add(cityMapLocation);
 		filesPane.add(travellingSchemeLocation);
 		filesPane.add(statsOutputLocation);
@@ -361,6 +415,11 @@ public class SetUpPanel extends JPanel {
 		zoneAwarenessPanel.add(zoneDisabledButton);
 
 		add(zoneAwarenessPanel);
+	}
+
+	private String getParentPath(String path) {
+		File file = new File(path);
+		return file.getAbsoluteFile().getParent();
 	}
 
 	public void end() {

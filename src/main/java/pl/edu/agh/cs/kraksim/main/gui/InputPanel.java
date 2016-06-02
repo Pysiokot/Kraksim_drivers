@@ -4,6 +4,11 @@ import com.google.common.base.Objects;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -21,6 +26,24 @@ class InputPanel extends JPanel {
 	private void initLayout(String inputName, String defaultValue, int initialSize) {
 		setLayout(new FlowLayout(FlowLayout.RIGHT));
 		textField = new JTextField(defaultValue, initialSize);
+		textField.setDropTarget(new DropTarget(){
+
+			@SuppressWarnings("unchecked")
+			public synchronized void drop(DropTargetDropEvent evt) {
+				try {
+					evt.acceptDrop(DnDConstants.ACTION_COPY);
+					List<File> droppedFiles = (List<File>)
+							evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+					for (File file : droppedFiles) {
+						setText(file.getAbsolutePath());
+						fileChooser.setCurrentDirectory(file);
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+
+		});
 		JLabel label = new JLabel(inputName + ": ");
 		label.setLabelFor(textField);
 
@@ -58,5 +81,9 @@ class InputPanel extends JPanel {
 
 	public String getText() {
 		return textField.getText();
+	}
+
+	public void setText(String text) {
+		textField.setText(text);
 	}
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<RoadNet>
+	<nodes>
+		<gateway id="GN" x="60" y="10" />
+		<gateway id="GS" x="60" y="400" />
+
+		<intersection id="X1" x="60" y="150" />
+		<intersection id="X2" x="60" y="270" />
+	</nodes>
+	<roads>
+		<road id="GN_X1" street="ulica Pionowa" from="GN" to="X1">
+			<uplink>
+				<main length="60" numberOfLanes="3" />
+			</uplink>
+			<downlink>
+				<main length="60" numberOfLanes="3" />
+				<right length="40" />
+			</downlink>
+		</road>
+	</roads>
+
+	<intersectionDescription>
+		<intersection id="X1">
+			<armActions arm="X11" dir="NS">
+				<action lane="0" exit="X2" />
+				<action lane="-1" exit="X3" />
+			</armActions>
+
+			<armActions arm="X2" dir="NS">
+				<action lane="0" exit="X11" />
+				<action lane="1" exit="X3">
+					<rule entrance="X11" lane="-1" />
+				</action>
+			</armActions>
+			<trafficLightsSchedule>
+				<phase num="1">
+					<inlane arm="X11" lane="0" state="green" />
+					<inlane arm="X11" lane="-1" state="green" />
+
+					<inlane arm="X2" lane="0" state="red" />
+					<inlane arm="X2" lane="1" state="red" />
+				</phase>
+				<phase num="2">
+					<inlane arm="X11" lane="0" state="red" />
+					<inlane arm="X11" lane="-1" state="red" />
+
+					<inlane arm="X2" lane="0" state="green" />
+					<inlane arm="X2" lane="1" state="green" />
+				</phase>
+			</trafficLightsSchedule>
+		</intersection>
+	</intersectionDescription>
+</RoadNet>
