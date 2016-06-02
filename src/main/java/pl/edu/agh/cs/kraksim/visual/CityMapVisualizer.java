@@ -66,7 +66,7 @@ public class CityMapVisualizer {
 	public final static Color DESCRIPTION_COLOR = Color.WHITE;//Color.WHITE;
 	public static final Color BACKGROUND_COLOR = Color.GRAY;//Color.GRAY;
 
-	int multipplier = 2;
+	int multiplier = 2;
 	public final static BasicStroke LANE_STROKE = new BasicStroke(
 			LINE_THICKNESS);
 	/*
@@ -94,8 +94,8 @@ public class CityMapVisualizer {
 	public CityMapVisualizer(City city, BlockIView blockView,
 							 MiniStatEView statView, int width, int height) {
 		cityMap = new BufferedImage((int) (width + NODE_THICKNESS + MARGIN)
-				* multipplier, (int) (height + NODE_THICKNESS + MARGIN)
-				* multipplier, BufferedImage.TYPE_INT_RGB);
+				* multiplier, (int) (height + NODE_THICKNESS + MARGIN)
+				* multiplier, BufferedImage.TYPE_INT_RGB);
 		g2d = (Graphics2D) cityMap.getGraphics();
 		this.city = city;
 		this.blockView = blockView;
@@ -112,9 +112,9 @@ public class CityMapVisualizer {
 	
 	public BufferedImage getCityMap() {
 		g2d.setColor(BACKGROUND_COLOR);
-		g2d.fillRect(0, 0, cityMap.getWidth() * multipplier, cityMap
+		g2d.fillRect(0, 0, cityMap.getWidth() * multiplier, cityMap
 				.getHeight()
-				* multipplier);
+				* multiplier);
 
 		// rysowanie wezlow
 		for (Iterator<Gateway> it = city.gatewayIterator(); it.hasNext();) {
@@ -123,9 +123,9 @@ public class CityMapVisualizer {
 
 			Rectangle2D rectangle = new Rectangle2D.Double(gateway.getPoint()
 					.getX()
-					* multipplier - NODE_THICKNESS / 2.0, gateway.getPoint()
+					* multiplier - NODE_THICKNESS / 2.0, gateway.getPoint()
 					.getY()
-					* multipplier - NODE_THICKNESS / 2.0, NODE_THICKNESS,
+					* multiplier - NODE_THICKNESS / 2.0, NODE_THICKNESS,
 					NODE_THICKNESS);
 			g2d.fill(rectangle);
 			infoLayer.putGateway(rectangle, gateway);
@@ -141,8 +141,8 @@ public class CityMapVisualizer {
 
 			Rectangle2D rectangle = new Rectangle2D.Double(its.getPoint()
 					.getX()
-					* multipplier - NODE_THICKNESS / 2.0, its.getPoint().getY()
-					* multipplier - NODE_THICKNESS / 2.0, NODE_THICKNESS,
+					* multiplier - NODE_THICKNESS / 2.0, its.getPoint().getY()
+					* multiplier - NODE_THICKNESS / 2.0, NODE_THICKNESS,
 					NODE_THICKNESS);
 			g2d.fill(rectangle);
 			infoLayer.putIntersection(rectangle, its);
@@ -180,13 +180,13 @@ public class CityMapVisualizer {
 
 		float offset = CityMapVisualizer.NODE_THICKNESS + 2.0f;
 
-		double xStart = start.getX() * multipplier + vectorAB[0]
+		double xStart = start.getX() * multiplier + vectorAB[0]
 				* (offset / 2.0);
-		double yStart = start.getY() * multipplier + vectorAB[1]
+		double yStart = start.getY() * multiplier + vectorAB[1]
 				* (offset / 2.0);
 
-		double xEnd = end.getX() * multipplier - vectorAB[0] * (offset / 2.0);
-		double yEnd = end.getY() * multipplier - vectorAB[1] * (offset / 2.0);
+		double xEnd = end.getX() * multiplier - vectorAB[0] * (offset / 2.0);
+		double yEnd = end.getY() * multiplier - vectorAB[1] * (offset / 2.0);
 
 		start = new Point2D.Double(xStart, yStart);
 		end = new Point2D.Double(xEnd, yEnd);
@@ -285,8 +285,8 @@ public class CityMapVisualizer {
 
 	private void drawNames(Point2D namedObject, Point2D offset, String name,
 			Color color) {
-		double x = namedObject.getX() * multipplier + offset.getX();
-		double y = namedObject.getY() * multipplier + offset.getY();
+		double x = namedObject.getX() * multiplier + offset.getX();
+		double y = namedObject.getY() * multiplier + offset.getY();
 
 		g2d.setColor(color);
 		//g2d.setFont(g2d.getFont().deriveFont( 124 ));
