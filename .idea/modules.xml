@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/kraksim.iml" filepath="$PROJECT_DIR$/kraksim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/kraksim.iml" filepath="$PROJECT_DIR$/.idea/kraksim.iml" />
     </modules>
   </component>
 </project>
