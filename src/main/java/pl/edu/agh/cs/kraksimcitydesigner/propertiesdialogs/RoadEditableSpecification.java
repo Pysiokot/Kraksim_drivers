@@ -1,9 +1,9 @@
 package pl.edu.agh.cs.kraksimcitydesigner.propertiesdialogs;
 
+import pl.edu.agh.cs.kraksimcitydesigner.element.Road;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import pl.edu.agh.cs.kraksimcitydesigner.element.Road;
 
 // TODO: Auto-generated Javadoc
 public class RoadEditableSpecification {
@@ -34,15 +34,15 @@ public class RoadEditableSpecification {
         this.roadStreetName = road.getStreet();
         this.roadSpeedLimit = road.getSpeedLimit();
         
-        this.uplinkNumOfLines = road.getUplink().getNumberOfLines();
+        this.uplinkNumOfLines = road.getUplink().getNumberOfLanes();
         this.uplinkLength = road.getUplink().getLength();
-        this.uplinkLeftLanes = new LinkedList<Integer>(road.getUplink().getLeftLines());
-        this.uplinkRightLanes = new LinkedList<Integer>(road.getUplink().getRightLines());
+        this.uplinkLeftLanes = new LinkedList<Integer>(road.getUplink().getLeftLanes());
+        this.uplinkRightLanes = new LinkedList<Integer>(road.getUplink().getRightLanes());
         
-        this.downlinkNumOfLines = road.getDownlink().getNumberOfLines();
+        this.downlinkNumOfLines = road.getDownlink().getNumberOfLanes();
         this.downlinkLength = road.getDownlink().getLength();
-        this.downlinkLeftLanes = new LinkedList<Integer>(road.getDownlink().getLeftLines());
-        this.downlinkRightLanes = new LinkedList<Integer>(road.getDownlink().getRightLines());
+        this.downlinkLeftLanes = new LinkedList<Integer>(road.getDownlink().getLeftLanes());
+        this.downlinkRightLanes = new LinkedList<Integer>(road.getDownlink().getRightLanes());
     }
 
     /**
