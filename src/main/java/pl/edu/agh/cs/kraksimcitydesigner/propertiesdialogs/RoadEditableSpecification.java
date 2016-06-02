@@ -5,8 +5,6 @@ import pl.edu.agh.cs.kraksimcitydesigner.element.Road;
 import java.util.LinkedList;
 import java.util.List;
 
-import pl.edu.agh.cs.kraksimcitydesigner.element.Road;
-
 // TODO: Auto-generated Javadoc
 public class RoadEditableSpecification {
     Road road;
@@ -20,7 +18,7 @@ public class RoadEditableSpecification {
     List<Integer> uplinkRightLanes;
     List<Integer> uplinkLeftLanes;
     
-    int downlinkNumOfLines;
+    int downlinkNumOfLanes;
     int downlinkLength;
     List<Integer> downlinkRightLanes;
     List<Integer> downlinkLeftLanes;
@@ -38,13 +36,13 @@ public class RoadEditableSpecification {
 
         this.uplinkNumOfLanes = road.getUplink().getNumberOfLanes();
         this.uplinkLength = road.getUplink().getLength();
-        this.uplinkLeftLanes = new LinkedList<Integer>(road.getUplink().getLeftLanes());
-        this.uplinkRightLanes = new LinkedList<Integer>(road.getUplink().getRightLanes());
-        
-        this.downlinkNumOfLines = road.getDownlink().getNumberOfLanes();
+        this.uplinkLeftLanes = new LinkedList<>(road.getUplink().getLeftLanes());
+        this.uplinkRightLanes = new LinkedList<>(road.getUplink().getRightLanes());
+
+        this.downlinkNumOfLanes = road.getDownlink().getNumberOfLanes();
         this.downlinkLength = road.getDownlink().getLength();
-        this.downlinkLeftLanes = new LinkedList<Integer>(road.getDownlink().getLeftLanes());
-        this.downlinkRightLanes = new LinkedList<Integer>(road.getDownlink().getRightLanes());
+        this.downlinkLeftLanes = new LinkedList<>(road.getDownlink().getLeftLanes());
+        this.downlinkRightLanes = new LinkedList<>(road.getDownlink().getRightLanes());
     }
 
     /**
@@ -102,30 +100,12 @@ public class RoadEditableSpecification {
     }
 
     /**
-     * Gets the road speed limit.
-     *
-     * @return the road speed limit
-     */
-    public String getRoadSpeedLimit() {
-        return roadSpeedLimit;
-    }
-
-    /**
-     * Sets the road speed limit.
-     *
-     * @param roadSpeedLimit the new road speed limit
-     */
-    public void setRoadSpeedLimit(String roadSpeedLimit) {
-        this.roadSpeedLimit = roadSpeedLimit;
-    }
-
-    /**
      * Gets the uplink num of lines.
      *
      * @return the uplink num of lines
      */
     public int getUplinkNumOfLines() {
-        return uplinkNumOfLines;
+        return uplinkNumOfLanes;
     }
 
     /**
@@ -134,7 +114,7 @@ public class RoadEditableSpecification {
      * @param uplinkNumOfLines the new uplink num of lines
      */
     public void setUplinkNumOfLines(int uplinkNumOfLines) {
-        this.uplinkNumOfLines = uplinkNumOfLines;
+        this.uplinkNumOfLanes = uplinkNumOfLines;
     }
 
     /**
@@ -197,7 +177,7 @@ public class RoadEditableSpecification {
      * @return the downlink num of lines
      */
     public int getDownlinkNumOfLines() {
-        return downlinkNumOfLines;
+        return downlinkNumOfLanes;
     }
 
     /**
@@ -206,7 +186,7 @@ public class RoadEditableSpecification {
      * @param downlinkNumOfLines the new downlink num of lines
      */
     public void setDownlinkNumOfLines(int downlinkNumOfLines) {
-        this.downlinkNumOfLines = downlinkNumOfLines;
+        this.downlinkNumOfLanes = downlinkNumOfLines;
     }
 
     /**
