@@ -13,7 +13,7 @@ public class RoadEditableSpecification {
     String roadStreetName;
     String roadSpeedLimit;
     
-    int uplinkNumOfLines;
+    int uplinkNumOfLanes;
     int uplinkLength;
     List<Integer> uplinkRightLanes;
     List<Integer> uplinkLeftLanes;
@@ -34,7 +34,7 @@ public class RoadEditableSpecification {
         this.roadStreetName = road.getStreet();
         this.roadSpeedLimit = road.getSpeedLimit();
         
-        this.uplinkNumOfLines = road.getUplink().getNumberOfLanes();
+        this.uplinkNumOfLanes = road.getUplink().getNumberOfLanes();
         this.uplinkLength = road.getUplink().getLength();
         this.uplinkLeftLanes = new LinkedList<>(road.getUplink().getLeftLanes());
         this.uplinkRightLanes = new LinkedList<>(road.getUplink().getRightLanes());
