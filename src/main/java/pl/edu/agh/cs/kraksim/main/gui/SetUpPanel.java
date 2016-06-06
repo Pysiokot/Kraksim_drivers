@@ -176,6 +176,7 @@ public class SetUpPanel extends JPanel {
 					public void run() {
 						try {
 							trafficGeneratorGUI.setPathToFile(getParentPath(cityMapLocation.getText()) + File.separator + TRAFFIC_SCHEMES_DIRECTORY + File.separator);
+							trafficGeneratorGUI.readValuesFromFile(travellingSchemeLocation.getText());
 							trafficGeneratorGUI.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

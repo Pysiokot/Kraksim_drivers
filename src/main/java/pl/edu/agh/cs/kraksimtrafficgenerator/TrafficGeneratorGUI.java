@@ -1,5 +1,10 @@
 package pl.edu.agh.cs.kraksimtrafficgenerator;
 
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.io.File;
+import java.io.IOException;
 
 public class TrafficGeneratorGUI {
     private TrafficGenerator generator;
@@ -229,6 +235,62 @@ public class TrafficGeneratorGUI {
         tfEnd.setText("8000");
         tfCarCount.setText("100");
         spinnerNumberOfGateways.setValue(14);
+    }
+
+    public void readValuesFromFile(String filePath) {
+        SAXBuilder builder = new SAXBuilder();
+        Document doc = null;
+        try {
+            doc = builder.build(new File(filePath));
+            Element root = doc.getRootElement();
+
+            int schemeCount = root.getChildren().size();
+
+            Element firstScheme = (Element) root.getChildren().get(0);
+
+            String carCount = firstScheme.getAttributeValue("count");
+
+            int gatewayCount = (int)(Math.sqrt(1 + 4*schemeCount) - 1) / 2;
+
+            Element gateway = firstScheme.getChild("gateway");
+            String gatewayId = gateway.getAttributeValue("id");
+
+            String gatewaySymbol = gatewayId.substring(0, 1);
+
+            Element scheduleElement = (Element) gateway.getChildren().get(0);
+
+            String scheduleName = scheduleElement.getName();
+
+            String start;
+            String end;
+
+            switch(scheduleName) {
+                case "normal":
+                    start = scheduleElement.getAttributeValue("y");
+                    end = scheduleElement.getAttributeValue("dev");
+                    break;
+
+                case "point":
+                    start = scheduleElement.getAttributeValue("y");
+                    end = "8000";
+                    break;
+
+                default:
+                    start = scheduleElement.getAttributeValue("a");
+                    end = scheduleElement.getAttributeValue("b");
+
+            }
+
+            comboBoxSchedule.setSelectedItem(scheduleName);
+            comboBoxGatewaySymbol.setSelectedItem(gatewaySymbol);
+            tfStart.setText(start);
+            tfEnd.setText(end);
+            tfCarCount.setText(carCount);
+            spinnerNumberOfGateways.setValue(gatewayCount);
+
+        } catch (Exception ignored) {
+
+        }
     }
 
 }

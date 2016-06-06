@@ -1,5 +1,11 @@
 package pl.edu.agh.cs.kraksimtrafficgenerator;
 
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
+
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -10,6 +16,7 @@ import java.util.List;
 
 public class TrafficGenerator {
     private List<String> lines;
+    private Element traffic;
     private String pathToFile;
 
     private final String fileName;
@@ -84,8 +91,10 @@ public class TrafficGenerator {
 
 
     public void generateFile() {
-        generateValues();
-        writeToFile(fileName);
+//        generateValues();
+//        writeToFile(fileName);
+        generateValuesJdom();
+        writeToFileJdom(fileName);
     }
 
     private void generateValues() {
@@ -120,10 +129,61 @@ public class TrafficGenerator {
 
     }
 
+    private void generateValuesJdom() {
+        traffic = new Element("traffic");
+        Element chosenSchedule;
+
+        switch (schedule) {
+            case "normal":
+                chosenSchedule = new Element("normal");
+                chosenSchedule.setAttribute("y", start);
+                chosenSchedule.setAttribute("dev", end);
+
+                break;
+            case "point":
+                chosenSchedule = new Element("point");
+                chosenSchedule.setAttribute("y", start);
+                break;
+            default:
+                chosenSchedule = new Element("uniform");
+                chosenSchedule.setAttribute("a", start);
+                chosenSchedule.setAttribute("b", end);
+        }
+
+
+        for (int i = 0; i < gatewaysCount; i++) {
+            for (int j = 0; j < gatewaysCount; j++) {
+                if (i == j) continue;
+                traffic.addContent(new Element("scheme")
+                        .setAttribute("count", carCount)
+                        .addContent(
+                                new Element("gateway")
+                                        .setAttribute("id", gatewaySymbol + i)
+                                        .addContent((Element)chosenSchedule.clone()))
+                        .addContent(new Element("gateway")
+                            .setAttribute("id", gatewaySymbol + j))
+                );
+            }
+        }
+    }
+
     private void writeToFile(String fileName) {
         Path file = Paths.get(pathToFile + fileName + ".xml");
         try {
             Files.write(file, lines, Charset.forName("UTF-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeToFileJdom(String fileName) {
+        Document document = new Document(traffic);
+
+        XMLOutputter outp = new XMLOutputter();
+        outp.setFormat(Format.getPrettyFormat());
+
+        try {
+            outp.output(document, new FileWriter(pathToFile + fileName + ".xml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
