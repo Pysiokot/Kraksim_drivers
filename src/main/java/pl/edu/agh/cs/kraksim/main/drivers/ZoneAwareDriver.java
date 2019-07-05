@@ -13,8 +13,8 @@ public class ZoneAwareDriver extends Driver {
 	private final DriverZones allowedZones;
 	private final DecisionHelper decisionHelper;
 
-	public ZoneAwareDriver(int id, TravellingScheme scheme, Router router, DecisionHelper decisionHelper, DriverZones allowedZones) {
-		super(id, scheme, router);
+	public ZoneAwareDriver(int id, TravellingScheme scheme, Router router, boolean emergency, DecisionHelper decisionHelper, DriverZones allowedZones) {
+		super(id, scheme, router, emergency);
 		this.allowedZones = allowedZones;
 		this.decisionHelper = decisionHelper;
 	}

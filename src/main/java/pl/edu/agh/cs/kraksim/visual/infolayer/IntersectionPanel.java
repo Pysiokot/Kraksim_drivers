@@ -7,7 +7,10 @@ import pl.edu.agh.cs.kraksim.core.Node;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoCursor;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
+import pl.edu.agh.cs.kraksim.iface.eval.EvalIView;
+import pl.edu.agh.cs.kraksim.iface.eval.LaneEvalIface;
 import pl.edu.agh.cs.kraksim.main.EvalModuleProvider;
+import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,7 +23,10 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class IntersectionPanel extends JPanel{
 
@@ -161,7 +167,6 @@ public class IntersectionPanel extends JPanel{
 
         direction.normalize();
         perpendicual.normalize();
-        Color col = Color.YELLOW;
         CarInfoIView carInfoView = ip.getCarInfoIView();
         for(Link lane : lanes){
             CarInfoCursor cursor;
@@ -199,10 +204,10 @@ public class IntersectionPanel extends JPanel{
 
         while (infoForwardCursor != null && infoForwardCursor.isValid()) {
             int position = infoForwardCursor.currentPos() + (offset);
-            drawCar(g2, lane, infoForwardCursor.currentPos(), drawnLanesGlobal, direction, perpendicual, Color.yellow, isInbound(lane.getOwner()));
+            drawCar(g2, lane, infoForwardCursor.currentPos(), drawnLanesGlobal, direction, perpendicual, ((Driver)infoForwardCursor.currentDriver()).getCarColor(), isInbound(lane.getOwner()));
             infoForwardCursor.next();
         }
-        drawTextForLane(g2, lane, drawnLanesGlobal, direction, perpendicual, Color.yellow);
+        drawTextForLane(g2, lane, drawnLanesGlobal, direction, perpendicual, Color.YELLOW);
     }
 
     public void drawBundleOfLanes(Graphics g, ArrayList<Link> lanes){
@@ -220,17 +225,17 @@ public class IntersectionPanel extends JPanel{
         for(Link lane : lanes){
             CarInfoCursor cursor;
             if(isInbound(lane)&&lane.leftLaneCount()>0){
-               drawLane(g2, lane.getLeftLane(0), (lane.getLeftLane(0).getLength() + 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
+               drawLane(g2, lane.getLeftLane(0),	(lane.getLeftLane(0).getLength() + 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
                drawnLanesGlobal++;
             }
 
             for(int i = 0; i < lane.mainLaneCount(); i++){
-                drawLane(g2, lane.getMainLane(i),( lane.getMainLane(0).getLength()+ 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
+                drawLane(g2, lane.getMainLane(i),	(lane.getMainLane(0).getLength()+ 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
                 drawnLanesGlobal++;
             }
 
             if(isInbound(lane) && lane.rightLaneCount()>0){
-                drawLane(g2, lane.getRightLane(0),(lane.getRightLane(0).getLength()+ 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
+                drawLane(g2, lane.getRightLane(0),	(lane.getRightLane(0).getLength()+ 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
                 drawnLanesGlobal++;
             }
         }
@@ -249,7 +254,11 @@ public class IntersectionPanel extends JPanel{
 
         algorithmInfoPosition.add(currentPerpendicual);
 
-        String toWrite = String.valueOf(InfoProvider.getInstance().getEvalIView().ext(lane).getEvaluation());
+        InfoProvider info = InfoProvider.getInstance();
+        EvalIView eval = info.getEvalIView();
+        LaneEvalIface laneEvel = eval.ext(lane);
+        
+        String toWrite = String.valueOf(laneEvel.getEvaluation());
         if(toWrite.isEmpty()) toWrite = "0.0";
         drawTexts(g2,toWrite, algorithmInfoPosition, Color.ORANGE, 12);
     }

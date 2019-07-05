@@ -19,6 +19,7 @@ class IntersectionRealExt extends NodeRealExt {
 	void findApproachingCars() {
 		LOGGER.trace(intersection.getId());
 		for (Iterator<Link> iter = intersection.inboundLinkIterator(); iter.hasNext(); ) {
+			//	sets <bool> carApproaching for each lane in link
 			ev.ext(iter.next()).findApproachingCars();
 		}
 	}

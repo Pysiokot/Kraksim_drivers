@@ -1,0 +1,2 @@
+Wroad:67	Sroad:67	Nroad:67	
+1	1	1	0	0	

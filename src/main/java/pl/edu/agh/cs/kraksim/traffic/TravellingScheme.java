@@ -2,6 +2,7 @@ package pl.edu.agh.cs.kraksim.traffic;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.tuple.Pair;
+import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.core.Gateway;
 import pl.edu.agh.cs.kraksim.main.StartupParameters;
 import pl.edu.agh.cs.kraksim.main.drivers.DecisionHelper;
@@ -11,16 +12,20 @@ import pl.edu.agh.cs.kraksim.main.drivers.ZoneAwareDriver;
 import pl.edu.agh.cs.kraksim.routing.TimeBasedRouter;
 
 import java.awt.*;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Random;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
 public class TravellingScheme {
+	private final String emergencyVehiclesConfiguration;
 	private final int count;
+	private final int emergencyVehicles;
 	private final Gateway[] gateways;
 	private final Distribution[] departureDists;
 	private final Color driverColor;
+    private final Color emergencyVehicleColor;
 	private final Iterator<DriverZones> driver_zones;
 	private final StartupParameters parameters;
 
@@ -31,29 +36,46 @@ public class TravellingScheme {
 	 *                       gateways.length == departureDists.length + 1 (z ostatniego
 	 *                       węzła nie ma odjazdu)
 	 */
-	public TravellingScheme(StartupParameters parameters, int count, Gateway[] gateways, Distribution[] departureDists, Collection<Pair<String, Double>> zones, Color driverColor) throws IllegalArgumentException {
+	public TravellingScheme(StartupParameters parameters, int count, Gateway[] gateways, Distribution[] departureDists, Collection<Pair<String, Double>> zones, Color driverColor, Color emergencyVehicleColor) throws IllegalArgumentException {
 		Preconditions.checkArgument(gateways.length >= 2, "There should be at least two gateways in travelling scheme");
 		Preconditions.checkArgument(gateways.length == departureDists.length + 1, "There should be one gateway more than departure distributions");
 		this.parameters = parameters;
-		this.count = count;
+		emergencyVehiclesConfiguration = KraksimConfigurator.getPropertiesFromFile().getProperty("emergencyVehiclesConfiguration");
+		Properties properties = new Properties();
+		try {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(emergencyVehiclesConfiguration));
+			properties.load(bis);
+			bis.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.emergencyVehicles = Integer.valueOf(properties.getProperty("emergencyVehiclesNr"));
+		this.count = count - emergencyVehicles;
 		this.gateways = gateways;
 		this.departureDists = departureDists;
+        driver_zones = prepareDriverZones(zones);
 		this.driverColor = driverColor;
-		driver_zones = prepareDriverZones(zones);
+        this.emergencyVehicleColor = emergencyVehicleColor;
 	}
 
 	public int getCount() {
 		return count;
 	}
 
+    public int getEmergencyVehicles() {
+        return emergencyVehicles;
+    }
+
 	public Cursor cursor() {
 		return new Cursor();
 	}
 
-	public Driver generateDriver(int id, TravellingScheme travelScheme, TimeBasedRouter dynamicRouter, DecisionHelper decisionHelper) {
+	public Driver generateDriver(int id, boolean emergency, TravellingScheme travelScheme, TimeBasedRouter dynamicRouter, DecisionHelper decisionHelper) {
 		DriverZones allowed_zones = getDriverZones();
 
-		return new ZoneAwareDriver(id, travelScheme, dynamicRouter, decisionHelper, allowed_zones);
+		return new ZoneAwareDriver(id, travelScheme, dynamicRouter, emergency, decisionHelper, allowed_zones);
 	}
 
 	public class Cursor {
@@ -99,6 +121,10 @@ public class TravellingScheme {
 		return driverColor;
 	}
 
+    public Color getEmergencyVehicleColor() {
+        return emergencyVehicleColor;
+    }
+
 	private DriverZones getDriverZones() {
 		if (parameters.isZoneInfoIncluded()) {
 			if (driver_zones == null) {
@@ -115,7 +141,7 @@ public class TravellingScheme {
 		if (zones.isEmpty()) {
 			return null;
 		} else {
-			return new ZonePreparator(count, zones).getIterator();
+			return new ZonePreparator(count, emergencyVehicles, zones).getIterator();
 		}
 	}
 }

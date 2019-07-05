@@ -1,17 +1,15 @@
 package pl.edu.agh.cs.kraksim.statistics;
 
+import org.apache.log4j.Logger;
+import pl.edu.agh.cs.kraksim.main.UpdateHook;
 import pl.edu.agh.cs.kraksim.main.gui.Controllable;
 import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizer;
 import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizer;
-import pl.edu.agh.cs.kraksim.main.UpdateHook;
 import pl.edu.agh.cs.kraksim.ministat.CityMiniStatExt;
 import pl.edu.agh.cs.kraksim.statistics.charts.NumberChart;
 import pl.edu.agh.cs.kraksim.statistics.charts.TooSlowCarsNumberChart;
 
 import javax.swing.*;
-
-import org.apache.log4j.Logger;
-
 import java.awt.*;
 
 public class StatsPanel extends JPanel {
@@ -81,7 +79,7 @@ public class StatsPanel extends JPanel {
 					csc.refresh();
 					wcc.refresh();
 					carVelocityBelowValue.refresh();
-					LOGGER.info(visPanel.cityStat.getAllCarsOnRedLight());
+					//LOGGER.info(visPanel.cityStat.getAllCarsOnRedLight());
 				}
 			});
 		}

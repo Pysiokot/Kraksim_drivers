@@ -1,9 +1,8 @@
 package pl.edu.agh.cs.kraksim.real_extended;
 
 import com.google.common.collect.Sets;
-
 import org.apache.log4j.Logger;
-
+import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.core.Action;
 import pl.edu.agh.cs.kraksim.core.Lane;
 import pl.edu.agh.cs.kraksim.core.Link;
@@ -15,10 +14,15 @@ import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.LaneMonIface;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
-class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
+public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 	private static final Logger LOGGER = Logger.getLogger(LaneRealExt.class);
+	private final String emergencyVehiclesConfiguration;
 
 	private final Lane lane;
 	private final RealEView realView;
@@ -28,23 +32,44 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 	private final List<Car> enteringCars = new LinkedList<>();
 	private final List<InductionLoop> loops;
 	private final int speedLimit;
+	private final int emergencySpeedLimit;
+	private final int emergencySpeedLimitTimesHigher;
+	private final int emergencyAcceleration;
+	private final double laneChangeDesire;
+	private final double rightLaneChangeDesire;
 	private final CarMoveModel carMoveModel;
 	private boolean blocked;
 	private int firstCarPos;
 	private boolean carApproaching;
 	private boolean wait;
 
-    private int SWITCH_TIME;
-    private int MIN_SAFE_DISTANCE;
+	private int SWITCH_TIME;
+	private int MIN_SAFE_DISTANCE;
 
 	LinkedList<Car> cars;
 
 	LaneRealExt(Lane lane, RealEView ev, RealSimulationParams params) {
 		LOGGER.trace("Constructing LaneRealExt ");
+		emergencyVehiclesConfiguration = KraksimConfigurator.getPropertiesFromFile().getProperty("emergencyVehiclesConfiguration");
+		Properties properties = new Properties();
+		try {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(emergencyVehiclesConfiguration));
+			properties.load(bis);
+			bis.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.emergencySpeedLimitTimesHigher = Integer.valueOf(properties.getProperty("emergencySpeedLimitTimesHigher"));
+		this.emergencyAcceleration = Integer.valueOf(properties.getProperty("emergencyAcceleration"));
+		this.laneChangeDesire = Double.valueOf(properties.getProperty("laneChangeDesire"));
+		this.rightLaneChangeDesire = Double.valueOf(properties.getProperty("rightLaneChangeDesire"));
 		this.lane = lane;
 		realView = ev;
 		this.params = params;
 		speedLimit = lane.getSpeedLimit();
+		emergencySpeedLimit = speedLimit * emergencySpeedLimitTimesHigher;
 		carMoveModel = params.carMoveModel;
 
 		offset = lane.getOffset();// linkLength() - lane.getLength();
@@ -52,8 +77,8 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 		blocked = false;
 		loops = new ArrayList<>(0);
 
-        SWITCH_TIME = params.getSwitchTime();
-        MIN_SAFE_DISTANCE = params.getMinSafeDistance();
+		SWITCH_TIME = params.getSwitchTime();
+		MIN_SAFE_DISTANCE = params.getMinSafeDistance();
 	}
 
 	public CarMoveModel getCarMoveModel() {
@@ -158,7 +183,7 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 		/* last line of this link crossed by the car in this turn */
 		int lastCrossedLine;
 
-		if (!equals(sourceLane)) {
+		if (!this.equals(sourceLane)) {
 			int laneChangePos = Math.max(sourceLane.offset - 1, car.getPosition());
 			pos = Math.min(Math.min(range, freePos), laneChangePos);
 
@@ -295,14 +320,16 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 	 */
 	void simulateTurn() {
 		LOGGER.trace(lane);
+
 		ListIterator<Car> carIterator = cars.listIterator();
 		if (carIterator.hasNext()) {
-			InductionLoopPointer ilp = new InductionLoopPointer();
+			InductionLoopPointer ilp = new InductionLoopPointer();	// idk what it does <yet?>
 			Car car = carIterator.next();
 			Car nextCar;
 
-			do {
+			do {	// ~ for car in carIterator
 				nextCar = carIterator.hasNext() ? carIterator.next() : null;
+				// carIterator on next for nextCar || on next of next of car
 
 				// remember starting point
 				car.setBeforeLane(lane);
@@ -313,20 +340,26 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 
 				// 2. Acceleration
 				int velocity = car.getVelocity();
-				if (velocity < speedLimit) {
-					velocity += 1;
+				if (car.isEmergency()) {
+					if (velocity < emergencySpeedLimit) {
+						velocity += emergencyAcceleration;
+					}
+				} else {
+					if (velocity < speedLimit) {
+						velocity += 1;
+					}
 				}
 
 				float decisionChance = params.getRandomGenerator().nextFloat();
 
-				// 3. Deceleration when nagle
+				// 3. Deceleration when nagEL
 				switch (carMoveModel.getName()) {
-					case CarMoveModel.MODEL_NAGLE:
+					case CarMoveModel.MODEL_NAGLE:	// NAGEL - correct name TODO: Change 
 						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGLE_MOVE_PROB)) {
 							velocity--;
 						}
 						break;
-					case CarMoveModel.MODEL_MULTINAGLE:
+					case CarMoveModel.MODEL_MULTINAGLE:	// is used by default
 						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGLE_MOVE_PROB)) {
 							velocity--;
 						}
@@ -360,17 +393,17 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 								if (th < ts) {
 									if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_BRAKE_PROB)) {
 										--velocity;
-										car.setBraking(true);
+										car.setBraking(true, car.isEmergency());
 									} else {
-										car.setBraking(false);
+										car.setBraking(false, car.isEmergency());
 									}
 								}
 							} else {
 								if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_MOVE_PROB)) {
 									--velocity;
-									car.setBraking(true);
+									car.setBraking(true, car.isEmergency());
 								} else {
-									car.setBraking(false);
+									car.setBraking(false, car.isEmergency());
 								}
 							}
 						}
@@ -384,19 +417,23 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 				if (nextCar != null) {
 					freePos = nextCar.getPosition() - 1;
 				}
-
+				//	drive car to MIN(car.pos + car.vel , freePos)
 				boolean stay = driveCar(car, car.getPosition(), freePos, velocity, 0, ilp, false);
 
+				// carIterator is on next for nextCar || on next of next of car -> [c] [n] [*] where * -> iterator or [c] * if on the end
+				// stay -> if stay on the same lane
 				if (!stay) {
 					if (nextCar != null) {
-						carIterator.previous();
+						carIterator.previous();	//	[c] [n*] []	
 					}
-					carIterator.previous();
+					carIterator.previous();	// [c*] ...
+					// remove car from lane if it is not longer on it
 					carIterator.remove();
 					if (nextCar != null) {
 						carIterator.next();
 					}
 					Car cx = cars.peek();
+					// update lane firstCarPos 
 					if (cx != null) {
 						firstCarPos = cx.getPosition();
 					} else {
@@ -416,14 +453,14 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 			Action newAction = new Action(sourceAction.getSource(), sourceAction.getTarget(), sourceAction.getPriorLanes());
 
 			switchLanes(car, newAction);
-            car.setAction(newAction);
+			car.setAction(newAction);
 
 		}
 	}
 
 	void finalizeTurnSimulation() {
 		LOGGER.trace(lane);
-		if (!enteringCars.isEmpty()) {
+		if (!enteringCars.isEmpty()) {	// ?? why is this here
 			for (Car c : enteringCars) {
 				if (c.getAction() != null && c.getAction().getTarget().equals(owner())) {
 					c.setPosition(0);
@@ -472,136 +509,158 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 		return cars.peek().getPosition();
 	}
 
-    /**
-     * Check if there is need to switch lanes and, if it's possible, do so.
-     * @param action action for car that will be switching lanes
-     */
-    private void switchLanes(Car car, Action action){
-        LaneSwitch direction;
-        if(car.getLaneSwitch() == LaneSwitch.NO_CHANGE) {
-            direction = getLaneToSwitch(car, action.getSource());
-        } else {
-            direction = car.getLaneSwitch();
-        }
+	/**
+	 * Check if there is need to switch lanes and, if it's possible, do so.
+	 * @param action action for car that will be switching lanes
+	 */
+	private void switchLanes(Car car, Action action){
+		//	action.getSource() - current line
+		//	action.getTarget() - line to switch to
+		Lane sourceLane = action.getSource();
+		if (car == null || getBehindCar(car, sourceLane) == null) {
+			return;
+		}
 
-        LaneRealExt sourceLane = realView.ext(action.getSource());
+		LaneSwitch direction;
+		//	if car is emergency or car behind me is emergency - dont switch
+		//	if car dont want to switch - check getLaneToSwitch - maybe it will switch
+		//	if car want to switch - switch to that line
+		if ((!car.isEmergency()) && (getBehindCar(car, sourceLane).isEmergency())) {	// ???? not targetLine
+			direction = LaneSwitch.CHANGE_RIGHT;
+		} else if (car.getLaneSwitch() == LaneSwitch.NO_CHANGE) {
+			direction = getLaneToSwitch(car, sourceLane);
+		} else {
+			direction = car.getLaneSwitch();	// where was it set? setLaneSwitch() | maybe its a random chance to go right
+		}
 
-        /* check if lane can be switched to, if so, switch */
-        List<Car> neighbourCars;
-        Lane newSourceLane;
+		LaneRealExt sourceLaneExt = realView.ext(sourceLane);
 
-        int laneCount = action.getSource().getOwner().laneCount();
-        int laneAbsouteNumber = action.getSource().getAbsoluteNumber();
+		/* check if lane can be switched to, if so, switch */
+		List<Car> neighbourCars;	// cars on new lane (if not switched it is not importatnt)
+		Lane newSourceLane;
 
-        if (direction == LaneSwitch.CHANGE_RIGHT) {
-            if(laneAbsouteNumber + 1 > laneCount - 1){
-                car.setLaneSwitch(LaneSwitch.NO_CHANGE);
-                return;
-            }
-            neighbourCars = sourceLane.rightNeighbor().cars;
-            newSourceLane = sourceLane.rightNeighbor().lane;
-        } else if (direction == LaneSwitch.CHANGE_LEFT) {
-            if(laneAbsouteNumber - 1 < 0){
-                car.setLaneSwitch(LaneSwitch.NO_CHANGE);
-                return;
-            }
-            neighbourCars = sourceLane.leftNeighbor().cars;
-            newSourceLane = sourceLane.leftNeighbor().lane;
-        } else return; // do not switch lanes
+		int laneCount = sourceLane.getOwner().laneCount();
+		int laneAbsouteNumber = sourceLane.getAbsoluteNumber();	// lane number in line (not index in list)
 
-        // find car right after and behind current car in neighbouring lane
-        Car behindCar = null, afterCar = null;
+		if (direction == LaneSwitch.CHANGE_RIGHT) {
+			if(laneAbsouteNumber + 1 > laneCount - 1){	// if there is no line on right cant switch to right
+				car.setLaneSwitch(LaneSwitch.NO_CHANGE);
+				return;
+			}
+			neighbourCars = sourceLaneExt.rightNeighbor().cars;
+			newSourceLane = sourceLaneExt.rightNeighbor().lane;
+		} else if (direction == LaneSwitch.CHANGE_LEFT) {
+			if(laneAbsouteNumber - 1 < 0){
+				car.setLaneSwitch(LaneSwitch.NO_CHANGE);
+				return;
+			}
+			neighbourCars = sourceLaneExt.leftNeighbor().cars;
+			newSourceLane = sourceLaneExt.leftNeighbor().lane;
+		} else return; // do not switch lanes
 
-        // cars not necessarily must be listed in any order on the lane
-        int minPositiveDistance = Integer.MAX_VALUE;
-        int minNegativeDistance = Integer.MIN_VALUE;
-        for (Car _car : neighbourCars) {
-            int carsDistance = car.getPosition() - _car.getPosition();
-            if (minPositiveDistance > carsDistance && carsDistance >= 0 ) {
-                minPositiveDistance = carsDistance;
-                behindCar = _car;
-            } else if (minNegativeDistance < carsDistance && carsDistance < 0){
-                minNegativeDistance = carsDistance;
-                afterCar = _car;
-            }
-        }
+		// find car right after and behind current car in neighbouring lane
+		Car behindCar = null, afterCar = null;
 
-        int distance, vRelative, vCurrentCar = car.getVelocity();
-        double crashTime;
+		// cars not necessarily must be listed in any order on the lane
+		int minPositiveDistance = Integer.MAX_VALUE;
+		int minNegativeDistance = Integer.MIN_VALUE;
+		for (Car _car : neighbourCars) {
+			int carsDistance = car.getPosition() - _car.getPosition();
+			if (minPositiveDistance > carsDistance && carsDistance >= 0 ) {
+				minPositiveDistance = carsDistance;
+				behindCar = _car;
+			} else if (minNegativeDistance < carsDistance && carsDistance < 0){
+				minNegativeDistance = carsDistance;
+				afterCar = _car;
+			}
+		}
 
-        boolean behindCond = true, afterCond = true;
+		int distance, vRelative, vCurrentCar = car.getVelocity();
+		double crashTime;
 
-        // car behind current car
-        if(behindCar != null) {
-            distance = minPositiveDistance;
-            vRelative = vCurrentCar - behindCar.getVelocity();
+		boolean behindCond = true, afterCond = true;
 
-            crashTime = vRelative != 0 ? distance/(double)vRelative : 0;
-            if (Math.abs(crashTime) < SWITCH_TIME || minPositiveDistance < MIN_SAFE_DISTANCE) {
-                behindCond = false;
+		// car behind current car
+		if(behindCar != null) {
+			distance = minPositiveDistance;
+			vRelative = vCurrentCar - behindCar.getVelocity();
 
-                // TODO:  velocity correction, car has to increase its speed in order to attempt lane switching in next turn
-                car.setVelocity(car.getVelocity()-1);
-            }
-        }
+			crashTime = vRelative != 0 ? distance/(double)vRelative : 0;
+			if (Math.abs(crashTime) < SWITCH_TIME || minPositiveDistance < MIN_SAFE_DISTANCE) {
+				behindCond = false;
 
-        if (afterCar != null) {
-            distance = minNegativeDistance;
-            vRelative = vCurrentCar - afterCar.getVelocity();
+				// TODO:  velocity correction, car has to increase its speed in order to attempt lane switching in next turn
+				car.setVelocity(car.getVelocity()-1);
+			}
+		}
+		// switch if there will be no crash 
+		if (afterCar != null) {
+			distance = minNegativeDistance;
+			vRelative = vCurrentCar - afterCar.getVelocity();
 
-            crashTime = vRelative != 0 ? distance/(double)vRelative : Integer.MAX_VALUE;
-            if(Math.abs(crashTime) < SWITCH_TIME || Math.abs(minNegativeDistance) < MIN_SAFE_DISTANCE){
-                afterCond = false;
+			crashTime = vRelative != 0 ? distance/(double)vRelative : Integer.MAX_VALUE;
+			if(Math.abs(crashTime) < SWITCH_TIME || Math.abs(minNegativeDistance) < MIN_SAFE_DISTANCE){
+				afterCond = false;
 
-                // velocity correction
-                car.setVelocity(car.getVelocity() - 1);
-            }
-        }
+				// velocity correction
+				car.setVelocity(car.getVelocity() - 1);
+			}
+		}
 
-        if (afterCond && behindCond && afterCar != null && behindCar != null) {
-            action.setSource(newSourceLane);
-            car.setLaneSwitch(LaneSwitch.NO_CHANGE); // lanes switched
-        } else {
+		if (afterCond && behindCond && afterCar != null && behindCar != null) {
+			action.setSource(newSourceLane);
+			car.setLaneSwitch(LaneSwitch.NO_CHANGE); // lanes switched
+		} else {
 			car.setLaneSwitch(direction);
 		}
-    }
+	}
 
-    /**
-     * Choose lane to switch to.
-     * @param sourceLane line car is currently in
-     * @return
-     */
-    private LaneSwitch getLaneToSwitch(Car car, Lane sourceLane){
-        int laneCount = sourceLane.getOwner().laneCount();
-        int laneAbsouteNumber = sourceLane.getAbsoluteNumber();
+	/**
+	 * Choose lane to switch to.
+	 * @param sourceLane line car is currently in
+	 * @return
+	 */
+	private LaneSwitch getLaneToSwitch(Car car, Lane sourceLane){
+		int laneCount = sourceLane.getOwner().laneCount();
+		int laneAbsoluteNumber = sourceLane.getAbsoluteNumber();
 
-        LaneSwitch direction;
-        float prob = params.getRandomGenerator().nextFloat();
-        
-        if(car.getPreferableAction().getSource().getAbsoluteNumber() == car.getAction().getSource().getAbsoluteNumber()){
-	        if(prob < 0.3){
-	        	prob = params.getRandomGenerator().nextFloat();
-	        	
-	        	if (prob < 0.5 && laneAbsouteNumber < (laneCount - 1))  direction = LaneSwitch.CHANGE_RIGHT;
-		        else if (prob > 0.5 && laneAbsouteNumber > 0) direction = LaneSwitch.CHANGE_LEFT;
-		        else direction = LaneSwitch.NO_CHANGE;
-	        } else {
-	        	direction = LaneSwitch.NO_CHANGE;
-	        }
-        } else {
-        	if(lane.getAbsoluteNumber()-1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
-        		direction = LaneSwitch.CHANGE_RIGHT;
-        	}
-        	else if(lane.getAbsoluteNumber()+1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
-        		direction = LaneSwitch.CHANGE_LEFT;
-        	}
-        	else {
-            	direction = LaneSwitch.NO_CHANGE;
-        	}
-        }
-        
-        return direction;
-    }
+		LaneSwitch direction;
+		float prob = params.getRandomGenerator().nextFloat();
+
+		if(car.getPreferableAction().getSource().getAbsoluteNumber() == car.getAction().getSource().getAbsoluteNumber()){
+			if(car.isEmergency()) {
+				if(prob < laneChangeDesire){
+					prob = params.getRandomGenerator().nextFloat();
+
+					if (prob < rightLaneChangeDesire && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.CHANGE_RIGHT;
+					else if (prob > rightLaneChangeDesire && laneAbsoluteNumber > 0) direction = LaneSwitch.CHANGE_LEFT;
+					else direction = LaneSwitch.NO_CHANGE;
+				} else {
+					direction = LaneSwitch.NO_CHANGE;
+				}
+			} else if(prob < 0.3){
+				prob = params.getRandomGenerator().nextFloat();
+
+				if (prob < 0.5 && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.CHANGE_RIGHT;
+				else if (prob > 0.5 && laneAbsoluteNumber > 0) direction = LaneSwitch.CHANGE_LEFT;
+				else direction = LaneSwitch.NO_CHANGE;
+			} else {
+				direction = LaneSwitch.NO_CHANGE;
+			}
+		} else {
+			if(lane.getAbsoluteNumber()-1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
+				direction = LaneSwitch.CHANGE_RIGHT;
+			}
+			else if(lane.getAbsoluteNumber()+1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
+				direction = LaneSwitch.CHANGE_LEFT;
+			}
+			else {
+				direction = LaneSwitch.NO_CHANGE;
+			}
+		}
+
+		return direction;
+	}
 
 	/**
 	 * This method returns a total number of cars on the lane
@@ -612,6 +671,53 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 	 */
 	public int getAllCarsNumber() {
 		return cars.size() + enteringCars.size();
+	}
+
+	public Car getBehindCar(Car car, Lane lane) {
+		int minPositiveDistance = Integer.MAX_VALUE;
+		Car behindCar = null;
+		List<Car> carsOnLane = realView.ext(lane).cars;
+
+		for (Car _car : carsOnLane) {
+			int carsDistance = car.getPosition() - _car.getPosition();
+			if (minPositiveDistance > carsDistance && carsDistance >= 0) {
+				minPositiveDistance = carsDistance;
+				behindCar = _car;
+			}
+		}
+		return behindCar;
+	}
+
+	public boolean anyEmergencyCarsOnLane() {
+		for (Car car : cars) {
+			if (car.isEmergency()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int getEmergencyCarsOnLaneNr() {
+		int counter = 0;
+		for (Car car : cars) {
+			if (car.isEmergency()) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+	public synchronized int getClosestEmergencyCarDistance() {
+		int closestDistance = linkLength();
+		for (Car car : cars) {
+			if (car.isEmergency()) {
+				int distance = linkLength() - 1 - car.getPosition();
+				if (distance < closestDistance) {
+					closestDistance = distance;
+				}
+			}
+		}
+		return closestDistance;
 	}
 
 	public CarInfoCursor carInfoForwardCursor() {

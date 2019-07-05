@@ -108,15 +108,27 @@ final class Car {
 		this.enterPos = enterPos;
 	}
 
+	public boolean isEmergency() {
+		return getDriver().isEmergency();
+	}
+
 	public boolean isBraking() {
 		return braking;
 	}
 
-	public void setBraking(boolean braking) {
-		if (braking) {
-			driver.setColor(Color.RED);
+	public void setBraking(boolean braking, boolean emergency) {
+		if (emergency) {
+			if (braking) {
+				driver.setCarColor(Color.BLACK);
+			} else {
+				driver.setCarColor(Color.BLUE);
+			}
 		} else {
-			driver.setColor(Color.YELLOW);
+			if (braking) {
+				driver.setCarColor(Color.RED);
+			} else {
+				driver.setCarColor(Color.YELLOW);
+			}
 		}
 		this.braking = braking;
 	}

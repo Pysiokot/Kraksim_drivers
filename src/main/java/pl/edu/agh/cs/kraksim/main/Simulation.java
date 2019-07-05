@@ -2,18 +2,8 @@ package pl.edu.agh.cs.kraksim.main;
 
 // on 7/15/07 3:41 PM
 
-import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.Collection;
-import java.util.PriorityQueue;
-
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
-
 import pl.edu.agh.cs.kraksim.core.Core;
 import pl.edu.agh.cs.kraksim.core.Gateway;
 import pl.edu.agh.cs.kraksim.core.Link;
@@ -37,6 +27,10 @@ import pl.edu.agh.cs.kraksim.sna.GraphVisualizer;
 import pl.edu.agh.cs.kraksim.sna.SnaConfigurator;
 import pl.edu.agh.cs.kraksim.traffic.TravellingScheme;
 import pl.edu.agh.cs.kraksim.visual.infolayer.InfoProvider;
+
+import java.io.*;
+import java.util.Collection;
+import java.util.PriorityQueue;
 
 public class Simulation implements Clock, TravelEndHandler, Controllable {
 	private static final Logger logger = Logger.getLogger(Simulation.class);
@@ -424,22 +418,41 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 		for (TravellingScheme travelScheme : trafficScheme) {
 			for (int i = 0; i < travelScheme.getCount(); i++) {
+				boolean emergency = false;
 				boolean isDriverReRoutingDecision = isDriverRoutingHelper
 						.decide();
 				if (isDriverReRoutingDecision) {
-					Driver driver = travelScheme.generateDriver(activeDriverCount++,
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
 							travelScheme, modules.getDynamicRouter(),
 							new DecisionHelper(params.getDecisionRg(), params
 									.getRouteDecisionTh()));
 					driver.setDepartureTurn(params.getGenRg());
 					departureQueue.add(driver);
 				} else {
-					Driver driver = travelScheme.generateDriver(activeDriverCount++,
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
 							travelScheme, null, null);
 					driver.setDepartureTurn(params.getGenRg());
 					departureQueue.add(driver);
 				}
 
+			}
+			for (int j = 0; j < travelScheme.getEmergencyVehicles(); j++) {
+				boolean emergency = true;
+				boolean isDriverReRoutingDecision = isDriverRoutingHelper
+						.decide();
+				if (isDriverReRoutingDecision) {
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
+							travelScheme, modules.getDynamicRouter(),
+							new DecisionHelper(params.getDecisionRg(), params
+									.getRouteDecisionTh()));
+					driver.setDepartureTurn(params.getGenRg());
+					departureQueue.add(driver);
+				} else {
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
+							travelScheme, null, null);
+					driver.setDepartureTurn(params.getGenRg());
+					departureQueue.add(driver);
+				}
 			}
 		}
 	}

@@ -1,19 +1,5 @@
 package pl.edu.agh.cs.kraksim.visual;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.Iterator;
-
-import javax.swing.JPanel;
-
 import pl.edu.agh.cs.kraksim.core.City;
 import pl.edu.agh.cs.kraksim.core.Link;
 import pl.edu.agh.cs.kraksim.core.Node;
@@ -24,13 +10,22 @@ import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
 import pl.edu.agh.cs.kraksim.visual.infolayer.InfoProvider;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.Iterator;
+
 @SuppressWarnings("serial")
 public class VisualizerComponent extends JPanel {
 
 	private transient Dimension modelSize;
 
 	private static final float VEHICLE_SIZE = 2.4f;
-	private static final Color VEHICLE_COLOR = Color.YELLOW;
 	public static final Dimension defaultDimension = new Dimension(640, 480);
 
 	private transient City city;
@@ -220,7 +215,7 @@ public class VisualizerComponent extends JPanel {
 				offset = link.getLeftLane(j).getOffset();
 				while (cursor.isValid()) {
 					position = cursor.currentPos() + offset;
-					Color color = ((Driver)cursor.currentDriver()).getColor();
+					Color color = ((Driver)cursor.currentDriver()).getCarColor();
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
@@ -235,7 +230,7 @@ public class VisualizerComponent extends JPanel {
 				offset = link.getMainLane(j).getOffset();
 				while (cursor.isValid()) {
 					position = cursor.currentPos() + offset;
-					Color color = ((Driver)cursor.currentDriver()).getColor();
+					Color color = ((Driver)cursor.currentDriver()).getCarColor();
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
@@ -250,7 +245,7 @@ public class VisualizerComponent extends JPanel {
 				offset = link.getRightLane(j).getOffset();
 				while (cursor.isValid()) {
 					position = cursor.currentPos() + offset;
-					Color color = ((Driver)cursor.currentDriver()).getColor();
+					Color color = ((Driver)cursor.currentDriver()).getCarColor();
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
@@ -273,11 +268,7 @@ public class VisualizerComponent extends JPanel {
 		double delta = VEHICLE_SIZE / 2;
 		Rectangle2D vehicle = new Rectangle2D.Double(centerX - delta, centerY
 				- delta, 2 * delta, 2 * delta);
-		if (color == null) {
-		    g2d.setColor(VEHICLE_COLOR);
-		} else {
-		    g2d.setColor(color);
-		}
+		g2d.setColor(color);
 		g2d.draw(vehicle);
 		g2d.fill(vehicle);
 	}

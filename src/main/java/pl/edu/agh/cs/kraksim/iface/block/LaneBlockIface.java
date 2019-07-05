@@ -7,4 +7,10 @@ public interface LaneBlockIface {
 	void block();
 
 	void unblock();
+
+	boolean anyEmergencyCarsOnLane();
+
+	int getEmergencyCarsOnLaneNr();
+
+	int getClosestEmergencyCarDistance();
 }

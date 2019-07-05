@@ -12,20 +12,20 @@ public class ZonePreparator {
 
 	private final Iterator<DriverZones> iterator;
 
-	public ZonePreparator(int count, Collection<Pair<String, Double>> zones) {
-		iterator = makeIterator(count, zones);
+	public ZonePreparator(int count, int emergencyVehicles, Collection<Pair<String, Double>> zones) {
+		iterator = makeIterator(count, emergencyVehicles, zones);
 	}
 
 	public Iterator<DriverZones> getIterator() {
 		return iterator;
 	}
 
-	private static Iterator<DriverZones> makeIterator(int count, Collection<Pair<String, Double>> zones) {
+	private static Iterator<DriverZones> makeIterator(int count, int emergencyVehicles, Collection<Pair<String, Double>> zones) {
 		Map<String, Double> weight = calculateWeight(zones);
 		List<DriverZones> baseDrivers = prepareBaseDrivers(weight);
-		List<DriverZones> drivers = Lists.newArrayListWithCapacity(count);
+		List<DriverZones> drivers = Lists.newArrayListWithCapacity(count + emergencyVehicles);
 
-		while(drivers.size() < count){
+		while(drivers.size() < (count + emergencyVehicles)){
 			drivers.addAll(baseDrivers);
 			Collections.shuffle(baseDrivers);
 		}

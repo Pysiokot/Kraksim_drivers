@@ -1,336 +1,2714 @@
-Nodes in clusters: X5, X4, X8, X6, X2
-Cluster nr. 1: X5
-Cluster nr. 2: X4, WX1, XN1, XS1, X1, WX3, X7, WX2
-Cluster nr. 3: XN2, X8
-Cluster nr. 4: X9, X3, XN3, XE2, XS3, XE1, X6, XE3
-Cluster nr. 5: X2, XS2
-Nodes in clusters: X5, X4, X8, X6, X2
-Cluster nr. 1: X5
-Cluster nr. 2: X4, WX1, XN1, XS1, X1, WX3, X7, WX2
-Cluster nr. 3: XN2, X8
-Cluster nr. 4: X9, X3, XN3, XE2, XS3, XE1, X6, XE3
-Cluster nr. 5: X2, XS2
-Nodes in clusters: X5, X4, X8, X6, X2
-Cluster nr. 1: X5
-Cluster nr. 2: X4, WX1, XN1, XS1, X1, WX3, X7, WX2
-Cluster nr. 3: XN2, X8
-Cluster nr. 4: X9, X3, XN3, XE2, XS3, XE1, X6, XE3
-Cluster nr. 5: X2, XS2
-Nodes in clusters: X5, X8, X2, X4, X1
-Cluster nr. 1: XE2, X5, X6
-Cluster nr. 2: XE1, XN2, X9, X8, XN3
-Cluster nr. 3: XS3, X2, X3, XS2, XE3
-Cluster nr. 4: X4, WX1, XN1, X7, WX2
-Cluster nr. 5: X1, XS1, WX3
-Nodes in clusters: X5, X8, X2, X4, X1
-Cluster nr. 1: XE2, X5, X6
-Cluster nr. 2: XE1, XN2, X9, X8, XN3
-Cluster nr. 3: XS3, X2, X3, XS2, XE3
-Cluster nr. 4: X4, WX1, XN1, X7, WX2
-Cluster nr. 5: X1, XS1, WX3
-Nodes in clusters: X5, X2, X8, XS2, XN2
-Cluster nr. 1: X4, XE2, X5, X6, WX2
-Cluster nr. 2: X1, WX3, X2, X3, XE3
-Cluster nr. 3: WX1, XE1, X9, X8, X7
-Cluster nr. 4: XS3, XS1, XS2
-Cluster nr. 5: XN2, XN1, XN3
-Nodes in clusters: X2, X5, X8, XS2, X3
-Cluster nr. 1: X2, X1, WX3
-Cluster nr. 2: X4, X5, WX2
-Cluster nr. 3: WX1, XN1, XN2, X8, X7, XN3
-Cluster nr. 4: XS1, XS2
-Cluster nr. 5: X9, X3, XE2, XS3, XE1, X6, XE3
-Nodes in clusters: X2, X5, X8, XS2, X3
-Cluster nr. 1: X2, X1, WX3
-Cluster nr. 2: X4, X5, WX2
-Cluster nr. 3: WX1, XN1, XN2, X8, X7, XN3
-Cluster nr. 4: XS1, XS2
-Cluster nr. 5: X9, X3, XE2, XS3, XE1, X6, XE3
-Nodes in clusters: X2, X4, X5, X8, X1
-Cluster nr. 1: XS3, X2, X3, XS2, XE3
-Cluster nr. 2: X4, WX1, XN1, X7, WX2
-Cluster nr. 3: XE2, X5, X6
-Cluster nr. 4: XE1, XN2, X9, X8, XN3
-Cluster nr. 5: X1, XS1, WX3
-Nodes in clusters: X2, X1, X5, X8, X3
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: X4, WX1, XS1, X1, WX3, X7, WX2
-Cluster nr. 3: X5
-Cluster nr. 4: XN1, XN2, X8, XN3
-Cluster nr. 5: X9, X3, XE2, XS3, XE1, X6, XE3
-Nodes in clusters: X2, X1, X5, X8, X3
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: X4, WX1, XS1, X1, WX3, X7, WX2
-Cluster nr. 3: X5
-Cluster nr. 4: XN1, XN2, X8, XN3
-Cluster nr. 5: X9, X3, XE2, XS3, XE1, X6, XE3
-Nodes in clusters: X2, X3, X5, X1, X6
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: X3, XS3, XE3
-Cluster nr. 3: XN1, XN2, X5, X8
-Cluster nr. 4: X4, WX1, XS1, X1, WX3, X7, WX2
-Cluster nr. 5: XE2, XE1, X9, X6, XN3
-Nodes in clusters: X2, X3, X5, X1, X6
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: X3, XS3, XE3
-Cluster nr. 3: XN1, XN2, X5, X8
-Cluster nr. 4: X4, WX1, XS1, X1, WX3, X7, WX2
-Cluster nr. 5: XE2, XE1, X9, X6, XN3
-Nodes in clusters: X2, X3, X5, X1, X6
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: X3, XS3, XE3
-Cluster nr. 3: XN1, XN2, X5, X8
-Cluster nr. 4: X4, WX1, XS1, X1, WX3, X7, WX2
-Cluster nr. 5: XE2, XE1, X9, X6, XN3
-Nodes in clusters: X5, X2, X6, X4, X3
-Cluster nr. 1: XN2, X5, X8
-Cluster nr. 2: X2, XS2
-Cluster nr. 3: XE2, XE1, X9, X6, XN3
-Cluster nr. 4: X4, WX1, XN1, XS1, X1, WX3, X7, WX2
-Cluster nr. 5: X3, XS3, XE3
-Nodes in clusters: X5, X1, X4, X8, X6
-Cluster nr. 1: X5, X2, XS2
-Cluster nr. 2: XS1, X1, WX3
-Cluster nr. 3: XN1, X7, WX1, X4, WX2
-Cluster nr. 4: XN3, X8, X9, XN2, XE1
-Cluster nr. 5: X6, XE3, X3, XE2, XS3
-Nodes in clusters: X5, X1, X4, X8, X6
-Cluster nr. 1: X5, X2, XS2
-Cluster nr. 2: XS1, X1, WX3
-Cluster nr. 3: XN1, X7, WX1, X4, WX2
-Cluster nr. 4: XN3, X8, X9, XN2, XE1
-Cluster nr. 5: X6, XE3, X3, XE2, XS3
-Nodes in clusters: X5, X1, X4, X8, X6
-Cluster nr. 1: X5, X2, XS2
-Cluster nr. 2: XS1, X1, WX3
-Cluster nr. 3: XN1, X7, WX1, X4, WX2
-Cluster nr. 4: XN3, X8, X9, XN2, XE1
-Cluster nr. 5: X6, XE3, X3, XE2, XS3
-Nodes in clusters: X5, X8, X1, X6, X3
-Cluster nr. 1: XS2, X5, X2, X4, WX2
-Cluster nr. 2: XN3, X8, X7, XN2, WX1, XN1, X9, XE1
-Cluster nr. 3: XS1, X1, WX3
-Cluster nr. 4: X6, XE2
-Cluster nr. 5: X3, XE3, XS3
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X8, X2, X4, X1
-Cluster nr. 1: X6, X5, XE2
-Cluster nr. 2: XN2, XN3, XE1, X9, X8
-Cluster nr. 3: X2, X3, XE3, XS3, XS2
-Cluster nr. 4: X4, XN1, X7, WX2, WX1
-Cluster nr. 5: WX3, X1, XS1
-Nodes in clusters: X5, X8, X2, X4, X1
-Cluster nr. 1: X6, X5, XE2
-Cluster nr. 2: XN2, XN3, XE1, X9, X8
-Cluster nr. 3: X2, X3, XE3, XS3, XS2
-Cluster nr. 4: X4, XN1, X7, WX2, WX1
-Cluster nr. 5: WX3, X1, XS1
-Nodes in clusters: X5, X2, X8, XS2, XN2
-Cluster nr. 1: X4, X6, WX2, X5, XE2
-Cluster nr. 2: X2, X3, XE3, WX3, X1
-Cluster nr. 3: XE1, X9, X7, X8, WX1
-Cluster nr. 4: XS2, XS1, XS3
-Cluster nr. 5: XN2, XN1, XN3
-Nodes in clusters: X2, X5, X8, XS2, X3
-Cluster nr. 1: X2, WX3, X1
-Cluster nr. 2: X4, X5, WX2
-Cluster nr. 3: XN1, XN2, XN3, X7, X8, WX1
-Cluster nr. 4: XS2, XS1
-Cluster nr. 5: X6, XE3, X3, XE1, X9, XS3, XE2
-Nodes in clusters: X2, X5, X8, XS2, X3
-Cluster nr. 1: X2, WX3, X1
-Cluster nr. 2: X4, X5, WX2
-Cluster nr. 3: XN1, XN2, XN3, X7, X8, WX1
-Cluster nr. 4: XS2, XS1
-Cluster nr. 5: X6, XE3, X3, XE1, X9, XS3, XE2
-Nodes in clusters: X2, X4, X5, X8, X1
-Cluster nr. 1: X2, X3, XE3, XS3, XS2
-Cluster nr. 2: X4, XN1, X7, WX2, WX1
-Cluster nr. 3: X6, X5, XE2
-Cluster nr. 4: XN2, XN3, XE1, X9, X8
-Cluster nr. 5: WX3, X1, XS1
-Nodes in clusters: X2, X1, X5, X8, X3
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, WX3
-Cluster nr. 3: X5
-Cluster nr. 4: XN1, XN2, XN3, X8
-Cluster nr. 5: X6, XE3, X3, XE1, X9, XS3, XE2
-Nodes in clusters: X2, X1, X5, X8, X3
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, WX3
-Cluster nr. 3: X5
-Cluster nr. 4: XN1, XN2, XN3, X8
-Cluster nr. 5: X6, XE3, X3, XE1, X9, XS3, XE2
-Nodes in clusters: X2, X3, X5, X1, X6
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: X3, XE3, XS3
-Cluster nr. 3: XN1, XN2, X5, X8
-Cluster nr. 4: XS1, X7, WX2, X1, WX1, X4, WX3
-Cluster nr. 5: X6, XN3, XE1, X9, XE2
-Nodes in clusters: X2, X3, X5, X1, X6
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: X3, XE3, XS3
-Cluster nr. 3: XN1, XN2, X5, X8
-Cluster nr. 4: XS1, X7, WX2, X1, WX1, X4, WX3
-Cluster nr. 5: X6, XN3, XE1, X9, XE2
-Nodes in clusters: X2, X3, X5, X1, X6
-Cluster nr. 1: X2, XS2
-Cluster nr. 2: X3, XE3, XS3
-Cluster nr. 3: XN1, XN2, X5, X8
-Cluster nr. 4: XS1, X7, WX2, X1, WX1, X4, WX3
-Cluster nr. 5: X6, XN3, XE1, X9, XE2
-Nodes in clusters: X5, X2, X6, X4, X3
-Cluster nr. 1: XN2, X5, X8
-Cluster nr. 2: X2, XS2
-Cluster nr. 3: X6, XN3, XE1, X9, XE2
-Cluster nr. 4: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 5: X3, XE3, XS3
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X4, X2, X6, X8
-Cluster nr. 1: X5
-Cluster nr. 2: XS1, X7, WX2, X1, WX1, X4, XN1, WX3
-Cluster nr. 3: X2, XS2
-Cluster nr. 4: X6, XN3, XE3, X3, XE1, X9, XS3, XE2
-Cluster nr. 5: XN2, X8
-Nodes in clusters: X5, X8, X4, X6, X2
-Cluster nr. 1: X5
-Cluster nr. 2: XN2, X8
-Cluster nr. 3: X4, X1, WX2, X7, XN1, WX3, WX1, XS1
-Cluster nr. 4: XE1, XE2, XE3, X3, XS3, XN3, X6, X9
-Cluster nr. 5: XS2, X2
-Nodes in clusters: X5, X8, X4, X6, X2
-Cluster nr. 1: X5
-Cluster nr. 2: XN2, X8
-Cluster nr. 3: X4, X1, WX2, X7, XN1, WX3, WX1, XS1
-Cluster nr. 4: XE1, XE2, XE3, X3, XS3, XN3, X6, X9
-Cluster nr. 5: XS2, X2
-Nodes in clusters: X5, X8, X4, X6, X2
-Cluster nr. 1: X5
-Cluster nr. 2: XN2, X8
-Cluster nr. 3: X4, X1, WX2, X7, XN1, WX3, WX1, XS1
-Cluster nr. 4: XE1, XE2, XE3, X3, XS3, XN3, X6, X9
-Cluster nr. 5: XS2, X2
-Nodes in clusters: X5, X8, X2, X4, X1
-Cluster nr. 1: X5, XE2, X6
-Cluster nr. 2: XE1, XN2, XN3, X9, X8
-Cluster nr. 3: XS2, X2, XS3, XE3, X3
-Cluster nr. 4: XN1, X4, WX2, WX1, X7
-Cluster nr. 5: WX3, X1, XS1
-Nodes in clusters: X5, X8, X2, X4, X1
-Cluster nr. 1: X5, XE2, X6
-Cluster nr. 2: XE1, XN2, XN3, X9, X8
-Cluster nr. 3: XS2, X2, XS3, XE3, X3
-Cluster nr. 4: XN1, X4, WX2, WX1, X7
-Cluster nr. 5: WX3, X1, XS1
-Nodes in clusters: X5, X2, X8, XS2, XN2
-Cluster nr. 1: X5, XE2, X4, X6, WX2
-Cluster nr. 2: X2, WX3, X1, XE3, X3
-Cluster nr. 3: XE1, X9, X8, WX1, X7
-Cluster nr. 4: XS2, XS3, XS1
-Cluster nr. 5: XN1, XN2, XN3
-Nodes in clusters: X2, X5, X8, XS2, X3
-Cluster nr. 1: X2, WX3, X1
-Cluster nr. 2: X5, WX2, X4
-Cluster nr. 3: XN1, XN2, XN3, X8, WX1, X7
-Cluster nr. 4: XS2, XS1
-Cluster nr. 5: XE1, XE2, XE3, X3, XS3, X6, X9
-Nodes in clusters: X5, X2, X8, X4, X6
-Cluster nr. 1: X5
-Cluster nr. 2: X2, XS2
-Cluster nr. 3: X8, XN2
-Cluster nr. 4: WX2, X4, X1, XS1, WX3, XN1, X7, WX1
-Cluster nr. 5: X3, X9, XE2, XS3, XE3, X6, XN3, XE1
-Nodes in clusters: X5, X2, X8, X4, X6
-Cluster nr. 1: X5
-Cluster nr. 2: X2, XS2
-Cluster nr. 3: X8, XN2
-Cluster nr. 4: WX2, X4, X1, XS1, WX3, XN1, X7, WX1
-Cluster nr. 5: X3, X9, XE2, XS3, XE3, X6, XN3, XE1
-Nodes in clusters: W1, E1
-Cluster nr. 1: W1
-Cluster nr. 2: E1
-Nodes in clusters: W1, E1
-Cluster nr. 1: W1
-Cluster nr. 2: E1
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 2: I32, I59, I58, I33, I26, I53, I34, I82, A24, A23, A25, I31
+Cluster nr. 3: C74, I63, C76, I90, I75, I77, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: I38, I13, I0, I46, I47, I5, A60, A15, A61, I12, I3, I2, I49, I66, I64, I9, I69, I48, I39, I99, A20, I43, I42, I50, I40, I8, A14, I11, I4, I7, I37, A17, A18, I6, I10, A22, I51, I52, I72, I62, A19, I1, I41, I65, I36, A21, A16
+Cluster nr. 5: I35, I44, I45, I27, I30, I29, C28
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 2: I32, I59, I58, I33, I26, I53, I34, I82, A24, A23, A25, I31
+Cluster nr. 3: C74, I63, C76, I90, I75, I77, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: I38, I13, I0, I46, I47, I5, A60, A15, A61, I12, I3, I2, I49, I66, I64, I9, I69, I48, I39, I99, A20, I43, I42, I50, I40, I8, A14, I11, I4, I7, I37, A17, A18, I6, I10, A22, I51, I52, I72, I62, A19, I1, I41, I65, I36, A21, A16
+Cluster nr. 5: I35, I44, I45, I27, I30, I29, C28
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 2: I32, I59, I58, I33, I26, I53, I34, I82, A24, A23, A25, I31
+Cluster nr. 3: C74, I63, C76, I90, I75, I77, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: I38, I13, I0, I46, I47, I5, A60, A15, A61, I12, I3, I2, I49, I66, I64, I9, I69, I48, I39, I99, A20, I43, I42, I50, I40, I8, A14, I11, I4, I7, I37, A17, A18, I6, I10, A22, I51, I52, I72, I62, A19, I1, I41, I65, I36, A21, A16
+Cluster nr. 5: I35, I44, I45, I27, I30, I29, C28
+Nodes in clusters: A19, A16, A15, A17, A20
+Cluster nr. 1: I38, A19, I39
+Cluster nr. 2: I52, I72, I3, I4, I7, I37, I5, I6, I50, A16, I40
+Cluster nr. 3: I2, I49, I11, I1, I0, I46, I9, A15, I10, I51, I12, I8
+Cluster nr. 4: I59, I63, C76, I27, A60, A61, I77, C28, C92, I89, I44, I64, I93, I99, I43, I42, C91, I35, B88, C74, I45, A17, I90, A18, I75, I87, C96, I62, I41, I36, I94, C97, C95, I73, I84, I78, B86
+Cluster nr. 5: I32, I13, I67, I81, I47, I79, I68, I34, A24, A98, I71, I66, I30, I69, I58, B56, I29, I48, I70, A20, A25, I31, A14, B55, I26, I53, A22, I82, I80, A23, B57, I65, I33, I85, B54, I83, A21
+Nodes in clusters: A19, A16, A15, A17, A20
+Cluster nr. 1: I38, A19, I39
+Cluster nr. 2: I52, I72, I3, I4, I7, I37, I5, I6, I50, A16, I40
+Cluster nr. 3: I2, I49, I11, I1, I0, I46, I9, A15, I10, I51, I12, I8
+Cluster nr. 4: I59, I63, C76, I27, A60, A61, I77, C28, C92, I89, I44, I64, I93, I99, I43, I42, C91, I35, B88, C74, I45, A17, I90, A18, I75, I87, C96, I62, I41, I36, I94, C97, C95, I73, I84, I78, B86
+Cluster nr. 5: I32, I13, I67, I81, I47, I79, I68, I34, A24, A98, I71, I66, I30, I69, I58, B56, I29, I48, I70, A20, A25, I31, A14, B55, I26, I53, A22, I82, I80, A23, B57, I65, I33, I85, B54, I83, A21
+Nodes in clusters: A23, A24, A22, A25, A21
+Cluster nr. 1: A23, I31
+Cluster nr. 2: I32, A24
+Cluster nr. 3: I26, A22, I82
+Cluster nr. 4: I59, I67, I81, I79, I68, I34, A98, I71, I89, I58, B56, I70, A25, B88, B55, I53, I80, I87, B57, I33, I85, I84, B54, I83, B86
+Cluster nr. 5: I38, I13, I0, C76, I46, I27, A60, I12, C92, I2, I49, I44, I64, I9, I30, I69, I93, I29, I48, I99, I50, C91, I8, A14, C74, I4, I7, A17, A18, I75, I6, I10, I72, C96, I62, I65, I36, I94, C95, I73, A21, I63, I47, I5, A15, A61, I77, C28, I3, I66, I39, A20, I43, I42, I40, I35, I11, I45, I37, I90, I51, I52, A19, I1, I41, C97, I78, A16
+Nodes in clusters: A19, A16, A17, A15, A20
+Cluster nr. 1: I38, A19, I39
+Cluster nr. 2: I52, I72, I3, I4, I7, I37, I5, I6, I50, A16, I40
+Cluster nr. 3: I59, I63, C76, I27, A60, A61, I77, C28, C92, I89, I44, I64, I93, I99, I43, I42, C91, I35, B88, C74, I45, A17, I90, A18, I75, I87, C96, I62, I41, I36, I94, C97, C95, I73, I84, I78, B86
+Cluster nr. 4: I2, I49, I11, I1, I0, I46, I9, A15, I10, I51, I12, I8
+Cluster nr. 5: I32, I13, I67, I81, I47, I79, I68, I34, A24, A98, I71, I66, I30, I69, I58, B56, I29, I48, I70, A20, A25, I31, A14, B55, I26, I53, A22, I82, I80, A23, B57, I65, I33, I85, B54, I83, A21
+Nodes in clusters: A19, A16, A17, A15, A20
+Cluster nr. 1: I38, A19, I39
+Cluster nr. 2: I52, I72, I3, I4, I7, I37, I5, I6, I50, A16, I40
+Cluster nr. 3: I59, I63, C76, I27, A60, A61, I77, C28, C92, I89, I44, I64, I93, I99, I43, I42, C91, I35, B88, C74, I45, A17, I90, A18, I75, I87, C96, I62, I41, I36, I94, C97, C95, I73, I84, I78, B86
+Cluster nr. 4: I2, I49, I11, I1, I0, I46, I9, A15, I10, I51, I12, I8
+Cluster nr. 5: I32, I13, I67, I81, I47, I79, I68, I34, A24, A98, I71, I66, I30, I69, I58, B56, I29, I48, I70, A20, A25, I31, A14, B55, I26, I53, A22, I82, I80, A23, B57, I65, I33, I85, B54, I83, A21
+Nodes in clusters: B56, I58, B57, B55, A25
+Cluster nr. 1: I68, B56, I83, I87
+Cluster nr. 2: I38, I0, C76, I46, I27, A60, I12, C92, I2, I49, I89, I44, I64, I9, I30, I93, I29, I48, I99, I50, C91, I8, C74, I4, I7, A17, A18, I75, I6, I10, I72, C96, I62, I36, I94, C95, I73, I59, I63, I47, I5, A15, A61, I77, C28, I3, I66, I58, I39, A20, I43, I42, I40, I31, I35, I11, I45, I26, I37, I90, I51, I52, A19, I1, I41, C97, I78, A16
+Cluster nr. 3: B88, I84, B57, B86
+Cluster nr. 4: I71, B55, I67, I81, I70, I85, I79, B54, I80, A98
+Cluster nr. 5: I32, A14, I13, I53, I34, A22, I82, A24, A23, I69, I65, I33, A21, A25
+Nodes in clusters: I59, C28, I58, I35, B57
+Cluster nr. 1: I59
+Cluster nr. 2: I63, C76, C74, I90, I75, I77, C28, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 3: I32, I58, I33, I53, I34, A24, A25
+Cluster nr. 4: I38, I13, I0, I46, I27, A60, I12, I2, I49, I44, I64, I9, I30, I69, I29, I48, I99, I50, I8, A14, I4, I7, A17, A18, I6, I10, I72, I62, I65, I36, A21, I47, I5, A15, A61, I3, I66, I39, A20, I43, I42, I40, I31, I35, I11, I45, I26, I37, A22, I51, I82, A23, I52, A19, I1, I41, A16
+Cluster nr. 5: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Nodes in clusters: I59, C28, I58, I35, B57
+Cluster nr. 1: I59
+Cluster nr. 2: I63, C76, C74, I90, I75, I77, C28, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 3: I32, I58, I33, I53, I34, A24, A25
+Cluster nr. 4: I38, I13, I0, I46, I27, A60, I12, I2, I49, I44, I64, I9, I30, I69, I29, I48, I99, I50, I8, A14, I4, I7, A17, A18, I6, I10, I72, I62, I65, I36, A21, I47, I5, A15, A61, I3, I66, I39, A20, I43, I42, I40, I31, I35, I11, I45, I26, I37, A22, I51, I82, A23, I52, A19, I1, I41, A16
+Cluster nr. 5: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Nodes in clusters: I58, I59, C28, B57, I35
+Cluster nr. 1: I32, I58, I33, I53, I34, A24, A25
+Cluster nr. 2: I59
+Cluster nr. 3: I63, C76, C74, I90, I75, I77, C28, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 5: I38, I13, I0, I46, I27, A60, I12, I2, I49, I44, I64, I9, I30, I69, I29, I48, I99, I50, I8, A14, I4, I7, A17, A18, I6, I10, I72, I62, I65, I36, A21, I47, I5, A15, A61, I3, I66, I39, A20, I43, I42, I40, I31, I35, I11, I45, I26, I37, A22, I51, I82, A23, I52, A19, I1, I41, A16
+Nodes in clusters: I58, I59, B57, C28, I35
+Cluster nr. 1: I32, I58, I33, I53, I34, A24, A25
+Cluster nr. 2: I59
+Cluster nr. 3: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 4: I63, C76, C74, I90, I75, I77, C28, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 5: I38, I13, I0, I46, I27, A60, I12, I2, I49, I44, I64, I9, I30, I69, I29, I48, I99, I50, I8, A14, I4, I7, A17, A18, I6, I10, I72, I62, I65, I36, A21, I47, I5, A15, A61, I3, I66, I39, A20, I43, I42, I40, I31, I35, I11, I45, I26, I37, A22, I51, I82, A23, I52, A19, I1, I41, A16
+Nodes in clusters: I58, I59, B57, C28, I35
+Cluster nr. 1: I32, I58, I33, I53, I34, A24, A25
+Cluster nr. 2: I59
+Cluster nr. 3: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 4: I63, C76, C74, I90, I75, I77, C28, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 5: I38, I13, I0, I46, I27, A60, I12, I2, I49, I44, I64, I9, I30, I69, I29, I48, I99, I50, I8, A14, I4, I7, A17, A18, I6, I10, I72, I62, I65, I36, A21, I47, I5, A15, A61, I3, I66, I39, A20, I43, I42, I40, I31, I35, I11, I45, I26, I37, A22, I51, I82, A23, I52, A19, I1, I41, A16
+Nodes in clusters: I59, I58, C28, B57, I35
+Cluster nr. 1: I59
+Cluster nr. 2: I32, I58, I33, I53, I34, A24, A25
+Cluster nr. 3: I63, C76, C74, I90, I75, I77, C28, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 5: I38, I13, I0, I46, I27, A60, I12, I2, I49, I44, I64, I9, I30, I69, I29, I48, I99, I50, I8, A14, I4, I7, A17, A18, I6, I10, I72, I62, I65, I36, A21, I47, I5, A15, A61, I3, I66, I39, A20, I43, I42, I40, I31, I35, I11, I45, I26, I37, A22, I51, I82, A23, I52, A19, I1, I41, A16
+Nodes in clusters: B57, I58, I59, B56, I83
+Cluster nr. 1: B88, B57
+Cluster nr. 2: I32, I26, I47, I53, A22, I82, A24, A23, I58, I30, I69, I65, I33, A21, A25, I31
+Cluster nr. 3: I38, I13, I0, C76, I46, I27, A60, I12, C92, I2, I49, I89, I44, I64, I9, I93, I29, I48, I99, I50, C91, I8, A14, C74, I4, I7, A17, A18, I75, I6, I10, I72, C96, I62, I36, I94, C95, I73, I59, I63, I5, A15, A61, I77, C28, I3, I66, I39, A20, I43, I42, I40, I35, I11, I45, I37, I90, I51, I52, A19, I1, I41, C97, I78, A16
+Cluster nr. 4: B55, B56, I67, I70, I68, B54, I34, A98
+Cluster nr. 5: I71, I81, I85, I79, I84, I80, I83, I87, B86
+Nodes in clusters: B57, I58, I59, B56, I83
+Cluster nr. 1: B88, B57
+Cluster nr. 2: I32, I26, I47, I53, A22, I82, A24, A23, I58, I30, I69, I65, I33, A21, A25, I31
+Cluster nr. 3: I38, I13, I0, C76, I46, I27, A60, I12, C92, I2, I49, I89, I44, I64, I9, I93, I29, I48, I99, I50, C91, I8, A14, C74, I4, I7, A17, A18, I75, I6, I10, I72, C96, I62, I36, I94, C95, I73, I59, I63, I5, A15, A61, I77, C28, I3, I66, I39, A20, I43, I42, I40, I35, I11, I45, I37, I90, I51, I52, A19, I1, I41, C97, I78, A16
+Cluster nr. 4: B55, B56, I67, I70, I68, B54, I34, A98
+Cluster nr. 5: I71, I81, I85, I79, I84, I80, I83, I87, B86
+Nodes in clusters: B57, I58, I83, B56, I59
+Cluster nr. 1: B88, B57
+Cluster nr. 2: I32, I26, I47, I53, A22, I82, A24, A23, I58, I30, I69, I65, I33, A21, A25, I31
+Cluster nr. 3: I71, I81, I85, I79, I84, I80, I83, I87, B86
+Cluster nr. 4: B55, B56, I67, I70, I68, B54, I34, A98
+Cluster nr. 5: I38, I13, I0, C76, I46, I27, A60, I12, C92, I2, I49, I89, I44, I64, I9, I93, I29, I48, I99, I50, C91, I8, A14, C74, I4, I7, A17, A18, I75, I6, I10, I72, C96, I62, I36, I94, C95, I73, I59, I63, I5, A15, A61, I77, C28, I3, I66, I39, A20, I43, I42, I40, I35, I11, I45, I37, I90, I51, I52, A19, I1, I41, C97, I78, A16
+Nodes in clusters: B57, I58, B56, I83, I59
+Cluster nr. 1: B88, B57
+Cluster nr. 2: I32, I26, I47, I53, A22, I82, A24, A23, I58, I30, I69, I65, I33, A21, A25, I31
+Cluster nr. 3: B55, B56, I67, I70, I68, B54, I34, A98
+Cluster nr. 4: I71, I81, I85, I79, I84, I80, I83, I87, B86
+Cluster nr. 5: I38, I13, I0, C76, I46, I27, A60, I12, C92, I2, I49, I89, I44, I64, I9, I93, I29, I48, I99, I50, C91, I8, A14, C74, I4, I7, A17, A18, I75, I6, I10, I72, C96, I62, I36, I94, C95, I73, I59, I63, I5, A15, A61, I77, C28, I3, I66, I39, A20, I43, I42, I40, I35, I11, I45, I37, I90, I51, I52, A19, I1, I41, C97, I78, A16
+Nodes in clusters: B57, I58, B56, I83, I59
+Cluster nr. 1: B88, B57
+Cluster nr. 2: I32, I26, I47, I53, A22, I82, A24, A23, I58, I30, I69, I65, I33, A21, A25, I31
+Cluster nr. 3: B55, B56, I67, I70, I68, B54, I34, A98
+Cluster nr. 4: I71, I81, I85, I79, I84, I80, I83, I87, B86
+Cluster nr. 5: I38, I13, I0, C76, I46, I27, A60, I12, C92, I2, I49, I89, I44, I64, I9, I93, I29, I48, I99, I50, C91, I8, A14, C74, I4, I7, A17, A18, I75, I6, I10, I72, C96, I62, I36, I94, C95, I73, I59, I63, I5, A15, A61, I77, C28, I3, I66, I39, A20, I43, I42, I40, I35, I11, I45, I37, I90, I51, I52, A19, I1, I41, C97, I78, A16
+Nodes in clusters: B57, I58, B56, I83, I59
+Cluster nr. 1: B88, B57
+Cluster nr. 2: I32, I26, I47, I53, A22, I82, A24, A23, I58, I30, I69, I65, I33, A21, A25, I31
+Cluster nr. 3: B55, B56, I67, I70, I68, B54, I34, A98
+Cluster nr. 4: I71, I81, I85, I79, I84, I80, I83, I87, B86
+Cluster nr. 5: I38, I13, I0, C76, I46, I27, A60, I12, C92, I2, I49, I89, I44, I64, I9, I93, I29, I48, I99, I50, C91, I8, A14, C74, I4, I7, A17, A18, I75, I6, I10, I72, C96, I62, I36, I94, C95, I73, I59, I63, I5, A15, A61, I77, C28, I3, I66, I39, A20, I43, I42, I40, I35, I11, I45, I37, I90, I51, I52, A19, I1, I41, C97, I78, A16
+Nodes in clusters: B57, I58, C28, C74, B56
+Cluster nr. 1: B88, I84, B57, B86
+Cluster nr. 2: I32, I59, I26, I53, A22, I82, A24, A23, I58, I69, I65, I33, A21, A25, I31
+Cluster nr. 3: I38, I13, I0, I46, I27, I47, I5, A60, A15, C28, I12, I3, I2, I49, I66, I44, I64, I9, I30, I29, I48, I39, I99, A20, I43, I42, I50, I40, I8, I35, A14, I11, I45, I4, I7, I37, A17, A18, I6, I10, I51, I52, I72, A19, I1, I41, I36, A16
+Cluster nr. 4: C74, I63, C76, I90, I75, A61, I77, C92, C96, I62, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 5: B55, I67, I81, I79, I68, I34, I80, A98, I87, I71, B56, I70, I85, B54, I83
+Nodes in clusters: B57, I58, C28, C74, B56
+Cluster nr. 1: B88, I84, B57, B86
+Cluster nr. 2: I32, I59, I26, I53, A22, I82, A24, A23, I58, I69, I65, I33, A21, A25, I31
+Cluster nr. 3: I38, I13, I0, I46, I27, I47, I5, A60, A15, C28, I12, I3, I2, I49, I66, I44, I64, I9, I30, I29, I48, I39, I99, A20, I43, I42, I50, I40, I8, I35, A14, I11, I45, I4, I7, I37, A17, A18, I6, I10, I51, I52, I72, A19, I1, I41, I36, A16
+Cluster nr. 4: C74, I63, C76, I90, I75, A61, I77, C92, C96, I62, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 5: B55, I67, I81, I79, I68, I34, I80, A98, I87, I71, B56, I70, I85, B54, I83
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 2: I32, I59, I58, I33, I26, I53, I34, I82, A24, A23, A25, I31
+Cluster nr. 3: C74, I63, C76, I90, I75, I77, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: I38, I13, I0, I46, I47, I5, A60, A15, A61, I12, I3, I2, I49, I66, I64, I9, I69, I48, I39, I99, A20, I43, I42, I50, I40, I8, A14, I11, I4, I7, I37, A17, A18, I6, I10, A22, I51, I52, I72, I62, A19, I1, I41, I65, I36, A21, A16
+Cluster nr. 5: I35, I44, I45, I27, I30, I29, C28
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 2: I32, I59, I58, I33, I26, I53, I34, I82, A24, A23, A25, I31
+Cluster nr. 3: C74, I63, C76, I90, I75, I77, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: I38, I13, I0, I46, I47, I5, A60, A15, A61, I12, I3, I2, I49, I66, I64, I9, I69, I48, I39, I99, A20, I43, I42, I50, I40, I8, A14, I11, I4, I7, I37, A17, A18, I6, I10, A22, I51, I52, I72, I62, A19, I1, I41, I65, I36, A21, A16
+Cluster nr. 5: I35, I44, I45, I27, I30, I29, C28
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 2: I32, I59, I58, I33, I26, I53, I34, I82, A24, A23, A25, I31
+Cluster nr. 3: C74, I63, C76, I90, I75, I77, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: I38, I13, I0, I46, I47, I5, A60, A15, A61, I12, I3, I2, I49, I66, I64, I9, I69, I48, I39, I99, A20, I43, I42, I50, I40, I8, A14, I11, I4, I7, I37, A17, A18, I6, I10, A22, I51, I52, I72, I62, A19, I1, I41, I65, I36, A21, A16
+Cluster nr. 5: I35, I44, I45, I27, I30, I29, C28
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 2: I32, I59, I58, I33, I26, I53, I34, I82, A24, A23, A25, I31
+Cluster nr. 3: C74, I63, C76, I90, I75, I77, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: I38, I13, I0, I46, I47, I5, A60, A15, A61, I12, I3, I2, I49, I66, I64, I9, I69, I48, I39, I99, A20, I43, I42, I50, I40, I8, A14, I11, I4, I7, I37, A17, A18, I6, I10, A22, I51, I52, I72, I62, A19, I1, I41, I65, I36, A21, A16
+Cluster nr. 5: I35, I44, I45, I27, I30, I29, C28
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B88, B55, I67, I81, I79, I68, I80, A98, I87, I71, B57, B56, I70, I85, I84, B54, I83, B86
+Cluster nr. 2: I32, I59, I58, I33, I26, I53, I34, I82, A24, A23, A25, I31
+Cluster nr. 3: C74, I63, C76, I90, I75, I77, C92, C96, I89, I94, I93, C97, C95, I73, I78, C91
+Cluster nr. 4: I38, I13, I0, I46, I47, I5, A60, A15, A61, I12, I3, I2, I49, I66, I64, I9, I69, I48, I39, I99, A20, I43, I42, I50, I40, I8, A14, I11, I4, I7, I37, A17, A18, I6, I10, A22, I51, I52, I72, I62, A19, I1, I41, I65, I36, A21, A16
+Cluster nr. 5: I35, I44, I45, I27, I30, I29, C28
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B56, I87, I67, B54, I83, I84, B57, I81, I70, A98, I80, I71, I79, I68, I85, B86, B88, B55
+Cluster nr. 2: I33, A23, I53, I31, A25, I59, I58, I32, I34, I82, I26, A24
+Cluster nr. 3: C92, C91, I89, C96, I90, I94, C95, I63, I75, I77, I93, I73, C76, C74, C97, I78
+Cluster nr. 4: I47, I52, I5, I40, I3, A60, A61, I66, A19, I99, I37, I69, I7, I1, I46, I64, I11, I62, I13, I49, I38, I51, I43, I48, A17, I39, I36, I42, I10, A15, A18, A22, I4, I65, I9, I2, A21, I6, A16, A20, I50, A14, I72, I41, I0, I8, I12
+Cluster nr. 5: I44, I30, I45, I29, C28, I27, I35
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B56, I87, I67, B54, I83, I84, B57, I81, I70, A98, I80, I71, I79, I68, I85, B86, B88, B55
+Cluster nr. 2: I33, A23, I53, I31, A25, I59, I58, I32, I34, I82, I26, A24
+Cluster nr. 3: C92, C91, I89, C96, I90, I94, C95, I63, I75, I77, I93, I73, C76, C74, C97, I78
+Cluster nr. 4: I47, I52, I5, I40, I3, A60, A61, I66, A19, I99, I37, I69, I7, I1, I46, I64, I11, I62, I13, I49, I38, I51, I43, I48, A17, I39, I36, I42, I10, A15, A18, A22, I4, I65, I9, I2, A21, I6, A16, A20, I50, A14, I72, I41, I0, I8, I12
+Cluster nr. 5: I44, I30, I45, I29, C28, I27, I35
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B56, I87, I67, B54, I83, I84, B57, I81, I70, A98, I80, I71, I79, I68, I85, B86, B88, B55
+Cluster nr. 2: I33, A23, I53, I31, A25, I59, I58, I32, I34, I82, I26, A24
+Cluster nr. 3: C92, C91, I89, C96, I90, I94, C95, I63, I75, I77, I93, I73, C76, C74, C97, I78
+Cluster nr. 4: I47, I52, I5, I40, I3, A60, A61, I66, A19, I99, I37, I69, I7, I1, I46, I64, I11, I62, I13, I49, I38, I51, I43, I48, A17, I39, I36, I42, I10, A15, A18, A22, I4, I65, I9, I2, A21, I6, A16, A20, I50, A14, I72, I41, I0, I8, I12
+Cluster nr. 5: I44, I30, I45, I29, C28, I27, I35
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: A17, A19, A18, A16, A15
+Cluster nr. 1: I64, A17, I41, I36
+Cluster nr. 2: A19, I39, I38
+Cluster nr. 3: B57, I43, I44, I42, I58, I84, I71, B88, I93, I75, C91, I90, C74, C95, I59, I45, I94, I89, I35, I78, C28, A18, A60, C92, I80, I77, I73, C96, I27, I62, C76, C97, I83, I99, I87, A61, I85, B86, I63
+Cluster nr. 4: I37, I6, A16, I3, I40, I72, I50, I52, I7, I4, I5
+Cluster nr. 5: I33, I47, I66, I0, I79, I9, A25, B56, I70, A21, A22, I46, I67, I13, I49, B55, I32, I29, I68, A15, I10, I30, I11, B54, A20, I8, I2, I65, I34, I53, I82, A98, I81, I48, A14, I12, I26, I69, A23, I51, A24, I1, I31
+Nodes in clusters: A17, A19, A18, A16, A15
+Cluster nr. 1: I64, A17, I41, I36
+Cluster nr. 2: A19, I39, I38
+Cluster nr. 3: B57, I43, I44, I42, I58, I84, I71, B88, I93, I75, C91, I90, C74, C95, I59, I45, I94, I89, I35, I78, C28, A18, A60, C92, I80, I77, I73, C96, I27, I62, C76, C97, I83, I99, I87, A61, I85, B86, I63
+Cluster nr. 4: I37, I6, A16, I3, I40, I72, I50, I52, I7, I4, I5
+Cluster nr. 5: I33, I47, I66, I0, I79, I9, A25, B56, I70, A21, A22, I46, I67, I13, I49, B55, I32, I29, I68, A15, I10, I30, I11, B54, A20, I8, I2, I65, I34, I53, I82, A98, I81, I48, A14, I12, I26, I69, A23, I51, A24, I1, I31
+Nodes in clusters: A25, A24, A21, A14, A98
+Cluster nr. 1: I33, I58, I34, I53, A25, I68, I59
+Cluster nr. 2: I32, A23, A24, I31
+Cluster nr. 3: I65, I82, I26, I69, A21, I30, A22
+Cluster nr. 4: I43, I44, I40, I0, I4, I46, I75, C91, I90, I50, A19, A17, I10, C74, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I51, I64, I42, I47, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I5, I11, I89, I78, A18, I2, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I1
+Cluster nr. 5: B57, B54, I84, I71, I80, I79, B56, I70, B88, A98, I83, I67, I87, I81, I85, B55, B86
+Nodes in clusters: B54, A98, B55, A25, A24
+Cluster nr. 1: B54, I79
+Cluster nr. 2: A98
+Cluster nr. 3: B57, I58, I84, I71, B56, I70, B88, I93, I67, I75, C91, I90, B55, I68, C74, C95, I59, I94, I89, I78, C28, C92, I80, I77, I73, C96, C76, C97, I83, I87, I81, I85, B86, I63
+Cluster nr. 4: I34, I53, A25, I33
+Cluster nr. 5: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, I32, A17, I10, I45, I35, I6, A20, I8, A60, I62, I48, I26, A23, I51, I64, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, A24, I1, I31
+Nodes in clusters: B54, A98, B55, A25, A24
+Cluster nr. 1: B54, I79
+Cluster nr. 2: A98
+Cluster nr. 3: B57, I58, I84, I71, B56, I70, B88, I93, I67, I75, C91, I90, B55, I68, C74, C95, I59, I94, I89, I78, C28, C92, I80, I77, I73, C96, C76, C97, I83, I87, I81, I85, B86, I63
+Cluster nr. 4: I34, I53, A25, I33
+Cluster nr. 5: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, I32, A17, I10, I45, I35, I6, A20, I8, A60, I62, I48, I26, A23, I51, I64, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, A24, I1, I31
+Nodes in clusters: B57, B56, B55, I83, A98
+Cluster nr. 1: B57, I43, I44, I40, I0, I4, A21, I46, I75, C91, I90, I50, A19, I32, A17, I10, C74, I59, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I26, I51, I64, I42, I58, I47, I66, I9, I39, B88, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I30, I5, I11, I89, I78, A18, I2, I65, I82, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I69, I1, I31
+Cluster nr. 2: B56, I33, I68
+Cluster nr. 3: I67, B54, I81, B55, I34, I79, I70
+Cluster nr. 4: I87, I84, I85, I71, B86, I80, I83
+Cluster nr. 5: I53, A25, A23, A98, A22, A24
+Nodes in clusters: B57, I58, I33, B88, I34
+Cluster nr. 1: B57, I81, I85, B55, I71, I80, I79, I68, B56, I70, I83
+Cluster nr. 2: I43, I64, I35, C28, I58, I44, I42, A18, A60, I27, I62, I99, I36, A61, I41, A17, I59, I45
+Cluster nr. 3: I33, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I13, I49, I72, I50, I52, A19, I32, I7, I29, I10, A15, I30, I5, I11, I6, A20, I8, I2, I65, I53, I82, I37, I3, A16, I38, I48, A14, I12, I26, I69, A23, I51, A24, I1, I31
+Cluster nr. 4: I89, I78, I84, C92, I77, I73, C96, C76, B88, I93, C97, I75, I87, C91, I90, B86, I63, C74, C95, I94
+Cluster nr. 5: I67, I34, B54, A25, A98
+Nodes in clusters: B57, I58, I33, B88, I34
+Cluster nr. 1: B57, I81, I85, B55, I71, I80, I79, I68, B56, I70, I83
+Cluster nr. 2: I43, I64, I35, C28, I58, I44, I42, A18, A60, I27, I62, I99, I36, A61, I41, A17, I59, I45
+Cluster nr. 3: I33, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I13, I49, I72, I50, I52, A19, I32, I7, I29, I10, A15, I30, I5, I11, I6, A20, I8, I2, I65, I53, I82, I37, I3, A16, I38, I48, A14, I12, I26, I69, A23, I51, A24, I1, I31
+Cluster nr. 4: I89, I78, I84, C92, I77, I73, C96, C76, B88, I93, C97, I75, I87, C91, I90, B86, I63, C74, C95, I94
+Cluster nr. 5: I67, I34, B54, A25, A98
+Nodes in clusters: C74, C76, B57, C91, I58
+Cluster nr. 1: I43, I89, I64, C28, I44, I42, A18, A60, I4, I73, I62, I39, I99, I36, I75, A61, I41, I38, A19, I7, A17, C74, I45, I5
+Cluster nr. 2: C76, I90, I93, I94
+Cluster nr. 3: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, I68
+Cluster nr. 4: I78, C91, C92, B86, I77, I63, C96, C95, C97
+Cluster nr. 5: I33, I58, I40, I47, I66, I0, I9, A25, A21, A22, I46, I13, I49, I72, I50, I52, I32, I29, I10, A15, I59, I30, I11, I35, I6, A20, I8, I2, I65, I34, I53, I82, I27, I37, I3, A16, I48, A14, I12, I26, I69, A23, I51, A24, I1, I31
+Nodes in clusters: B57, I58, B56, I68, I83
+Cluster nr. 1: B57, B88
+Cluster nr. 2: I43, I44, I40, I0, I4, A21, A22, I46, I75, C91, I90, I50, A19, I32, A17, I10, C74, I59, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I26, A23, I51, I64, I58, I42, I47, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I30, I5, I11, I89, I78, A18, I2, I65, I82, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I69, I1, I31
+Cluster nr. 3: B56, I70, B55
+Cluster nr. 4: I67, B54, I33, I34, I53, A25, I68, A24, A98
+Cluster nr. 5: I87, I84, I81, I85, I71, B86, I80, I79, I83
+Nodes in clusters: B57, I58, B56, I68, I83
+Cluster nr. 1: B57, B88
+Cluster nr. 2: I43, I44, I40, I0, I4, A21, A22, I46, I75, C91, I90, I50, A19, I32, A17, I10, C74, I59, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I26, A23, I51, I64, I58, I42, I47, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I30, I5, I11, I89, I78, A18, I2, I65, I82, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I69, I1, I31
+Cluster nr. 3: B56, I70, B55
+Cluster nr. 4: I67, B54, I33, I34, I53, A25, I68, A24, A98
+Cluster nr. 5: I87, I84, I81, I85, I71, B86, I80, I79, I83
+Nodes in clusters: I58, I68, B57, I67, I34
+Cluster nr. 1: I43, I44, I40, I0, I4, I46, I75, C91, I90, I50, A19, A17, I10, C74, I59, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I26, I51, I64, I58, I42, I47, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I30, I5, I11, I89, I78, A18, I2, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I1, I31
+Cluster nr. 2: I68
+Cluster nr. 3: B57, I87, I84, I85, I71, B86, I80, B56, B88, I83
+Cluster nr. 4: I67, B54, I79, I70, I81, B55
+Cluster nr. 5: I33, I65, I34, I53, A25, I82, A21, A22, A98, I32, I69, A23, A24
+Nodes in clusters: I35, C28, I27, I29, I59
+Cluster nr. 1: I35, A61, I44, A60, I62, I45
+Cluster nr. 2: I89, I78, C28, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 3: I43, I64, I42, A18, I41, A17, I27, I99, I36
+Cluster nr. 4: I33, I40, I47, I66, I0, I9, A25, I4, A21, I39, A22, I46, I13, I49, I72, I50, I52, A19, I29, I32, I7, I10, A15, I30, I5, I11, I6, A20, I8, I2, I65, I53, I82, I37, I3, A16, I38, I48, A14, I12, I26, I69, A23, I51, A24, I1, I31
+Cluster nr. 5: B57, B54, I58, I84, I71, I80, I34, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68, I59
+Nodes in clusters: I35, C28, I27, I29, I59
+Cluster nr. 1: I35, A61, I44, A60, I62, I45
+Cluster nr. 2: I89, I78, C28, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 3: I43, I64, I42, A18, I41, A17, I27, I99, I36
+Cluster nr. 4: I33, I40, I47, I66, I0, I9, A25, I4, A21, I39, A22, I46, I13, I49, I72, I50, I52, A19, I29, I32, I7, I10, A15, I30, I5, I11, I6, A20, I8, I2, I65, I53, I82, I37, I3, A16, I38, I48, A14, I12, I26, I69, A23, I51, A24, I1, I31
+Cluster nr. 5: B57, B54, I58, I84, I71, I80, I34, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68, I59
+Nodes in clusters: I59, I58, C28, B57, I35
+Cluster nr. 1: I59
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, A24
+Cluster nr. 3: I89, I78, C28, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 5: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, A17, I10, I45, I35, I6, A20, I8, A60, I62, I48, I26, A23, I51, I64, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, I1, I31
+Nodes in clusters: I58, B57, I59, C28, I68
+Cluster nr. 1: I58, I65, I32, I82, I26, I69, A21, A23, A22, I31
+Cluster nr. 2: B57, I87, I84, I85, I71, B86, I80, B56, B88, I83
+Cluster nr. 3: I59
+Cluster nr. 4: I43, I44, I40, I0, I4, I46, I75, C91, I90, I50, A19, A17, I10, C74, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I51, I64, I42, I47, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I30, I5, I11, I89, I78, A18, I2, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I1
+Cluster nr. 5: B54, I33, I34, I53, I79, A25, I70, A98, I67, I81, B55, I68, A24
+Nodes in clusters: I58, B57, I59, C28, I68
+Cluster nr. 1: I58, I65, I32, I82, I26, I69, A21, A23, A22, I31
+Cluster nr. 2: B57, I87, I84, I85, I71, B86, I80, B56, B88, I83
+Cluster nr. 3: I59
+Cluster nr. 4: I43, I44, I40, I0, I4, I46, I75, C91, I90, I50, A19, A17, I10, C74, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I51, I64, I42, I47, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I30, I5, I11, I89, I78, A18, I2, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I1
+Cluster nr. 5: B54, I33, I34, I53, I79, A25, I70, A98, I67, I81, B55, I68, A24
+Nodes in clusters: B57, I58, C28, I59, I83
+Cluster nr. 1: B57, I67, B54, B55, I68, B56, B88, A98
+Cluster nr. 2: I33, I58, I65, I34, I53, A25, I82, A21, A22, I32, I26, I69, A23, A24, I31
+Cluster nr. 3: I43, I44, I40, I0, I4, I46, I75, C91, I90, I50, A19, A17, I10, C74, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I51, I64, I42, I47, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I30, I5, I11, I89, I78, A18, I2, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I1
+Cluster nr. 4: I59
+Cluster nr. 5: I87, I84, I81, I85, I71, B86, I80, I79, I70, I83
+Nodes in clusters: C91, C95, C76, C74, B86
+Cluster nr. 1: I77, I78, C91, I63, C92
+Cluster nr. 2: C96, C95, C97
+Cluster nr. 3: C76, I90, I93, I94
+Cluster nr. 4: I43, I44, I40, I0, A25, I4, A21, A22, I46, I75, I50, A19, I32, A17, I68, I10, C74, I59, I45, I35, C28, I6, A20, I8, A60, I34, I53, I73, I62, I48, I26, A23, I51, I64, I33, I42, I58, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, I89, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, A24, I1, I31
+Cluster nr. 5: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86
+Nodes in clusters: C91, C95, C76, C74, B86
+Cluster nr. 1: I77, I78, C91, I63, C92
+Cluster nr. 2: C96, C95, C97
+Cluster nr. 3: C76, I90, I93, I94
+Cluster nr. 4: I43, I44, I40, I0, A25, I4, A21, A22, I46, I75, I50, A19, I32, A17, I68, I10, C74, I59, I45, I35, C28, I6, A20, I8, A60, I34, I53, I73, I62, I48, I26, A23, I51, I64, I33, I42, I58, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, I89, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, A24, I1, I31
+Cluster nr. 5: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86
+Nodes in clusters: C95, B86, C91, B88, C76
+Cluster nr. 1: C96, C95, C97
+Cluster nr. 2: I80, I87, I84, B86
+Cluster nr. 3: I77, I78, C91, I63, C92
+Cluster nr. 4: B57, I33, I58, I47, I71, I79, A25, B56, I70, B88, A21, A22, I67, B55, I32, I29, I68, I59, I30, B54, I65, I34, I53, I82, I83, A98, I81, I85, I48, A14, I26, I69, A23, A24, I31
+Cluster nr. 5: I43, I44, I40, I0, I4, I46, I75, I90, I50, A19, A17, I10, C74, I45, I94, I35, C28, I6, A20, I8, A60, I73, I62, I51, I64, I42, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, A15, I5, I11, I89, A18, I2, C76, I27, I99, I37, A61, I3, A16, I38, I12, I1
+Nodes in clusters: I34, I67, I33, I68, B56
+Cluster nr. 1: I34, A25, A98
+Cluster nr. 2: I67, B54, I79, I70, I81, B55
+Cluster nr. 3: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, I32, A17, I10, I45, I35, I6, A20, I8, A60, I53, I62, I48, I26, A23, I51, I64, I33, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, A24, I1, I31
+Cluster nr. 4: C28, I68, I58, I59
+Cluster nr. 5: B57, I84, I71, B56, B88, I93, I75, C91, I90, C74, C95, I94, I89, I78, C92, I80, I77, I73, C96, C76, C97, I83, I87, I85, B86, I63
+Nodes in clusters: I34, I67, I33, I68, B56
+Cluster nr. 1: I34, A25, A98
+Cluster nr. 2: I67, B54, I79, I70, I81, B55
+Cluster nr. 3: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, I32, A17, I10, I45, I35, I6, A20, I8, A60, I53, I62, I48, I26, A23, I51, I64, I33, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, A24, I1, I31
+Cluster nr. 4: C28, I68, I58, I59
+Cluster nr. 5: B57, I84, I71, B56, B88, I93, I75, C91, I90, C74, C95, I94, I89, I78, C92, I80, I77, I73, C96, C76, C97, I83, I87, I85, B86, I63
+Nodes in clusters: I32, I33, I34, I67, A24
+Cluster nr. 1: I43, I44, I40, I4, I46, I75, I50, A19, I32, A17, I10, C74, I45, I94, I35, C28, I6, A20, I8, A60, I77, I73, I62, I48, I26, I51, I64, I42, I47, I66, I9, I39, I93, I36, I49, I41, I72, I52, I7, I29, A15, I30, I5, I78, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I63, I69, I1, I31
+Cluster nr. 2: I53, I59, I33
+Cluster nr. 3: I34, A98
+Cluster nr. 4: B57, I58, I84, I71, I79, B56, I70, B88, I67, C91, I90, B55, I68, C95, I89, B54, C92, I80, C96, C76, C97, I83, I87, I81, I85, B86
+Cluster nr. 5: I11, I13, I0, A25, A21, A23, A24, A22
+Nodes in clusters: I58, B57, I59, I83, B88
+Cluster nr. 1: I33, I58, I65, I47, I34, I53, A25, I82, A21, A22, I32, I26, I69, A23, I30, A24, I31
+Cluster nr. 2: B57, I67, B54, B55, I68, B56, A98
+Cluster nr. 3: I43, I44, I40, I0, I4, I46, I75, I50, A19, A17, I10, I59, C74, I45, I35, C28, I6, A20, I8, A60, I77, I73, I62, I48, I51, I64, I42, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I5, I11, I78, A18, I2, I27, I99, I37, A61, I3, A16, I38, A14, I12, I63, I1
+Cluster nr. 4: I87, I84, I81, I85, I71, I80, I79, I70, I83
+Cluster nr. 5: I89, C91, C92, I90, B86, C96, C76, B88, C95, I93, C97, I94
+Nodes in clusters: I58, B57, I59, I83, B88
+Cluster nr. 1: I33, I58, I65, I47, I34, I53, A25, I82, A21, A22, I32, I26, I69, A23, I30, A24, I31
+Cluster nr. 2: B57, I67, B54, B55, I68, B56, A98
+Cluster nr. 3: I43, I44, I40, I0, I4, I46, I75, I50, A19, A17, I10, I59, C74, I45, I35, C28, I6, A20, I8, A60, I77, I73, I62, I48, I51, I64, I42, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I5, I11, I78, A18, I2, I27, I99, I37, A61, I3, A16, I38, A14, I12, I63, I1
+Cluster nr. 4: I87, I84, I81, I85, I71, I80, I79, I70, I83
+Cluster nr. 5: I89, C91, C92, I90, B86, C96, C76, B88, C95, I93, C97, I94
+Nodes in clusters: I58, I59, B57, C28, I68
+Cluster nr. 1: I58, I65, I32, I82, I26, I69, A21, A23, A22, I31
+Cluster nr. 2: I59
+Cluster nr. 3: B57, I87, I84, I85, I71, B86, I80, B56, B88, I83
+Cluster nr. 4: I43, I44, I40, I0, I4, I46, I75, C91, I90, I50, A19, A17, I10, C74, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I51, I64, I42, I47, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I30, I5, I11, I89, I78, A18, I2, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I1
+Cluster nr. 5: B54, I33, I34, I53, I79, A25, I70, A98, I67, I81, B55, I68, A24
+Nodes in clusters: I59, I58, C28, B57, I35
+Cluster nr. 1: I59
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, A24
+Cluster nr. 3: I89, I78, C28, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 5: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, A17, I10, I45, I35, I6, A20, I8, A60, I62, I48, I26, A23, I51, I64, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, I1, I31
+Nodes in clusters: I59, I58, C28, B57, I35
+Cluster nr. 1: I59
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, A24
+Cluster nr. 3: I89, I78, C28, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 5: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, A17, I10, I45, I35, I6, A20, I8, A60, I62, I48, I26, A23, I51, I64, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, I1, I31
+Nodes in clusters: B55, B54, I70, B57, I58
+Cluster nr. 1: I67, B55
+Cluster nr. 2: B54, I34, I53, A25, A98
+Cluster nr. 3: I81, I85, I71, I80, I79, I70, I83
+Cluster nr. 4: B57, I87, I84, B86, I68, B56, B88
+Cluster nr. 5: I43, I44, I40, I0, I4, A21, A22, I46, I75, C91, I90, I50, A19, I32, A17, I10, C74, I59, I45, I94, I35, C28, I6, A20, I8, A60, C92, I77, I73, C96, I62, I48, I26, A23, I51, I64, I33, I58, I42, I47, I66, I9, I39, I93, I36, I13, I49, I41, I72, I52, I7, I29, A15, C95, I30, I5, I11, I89, I78, A18, I2, I65, I82, I27, C76, C97, I99, I37, A61, I3, A16, I38, A14, I12, I63, I69, A24, I1, I31
+Nodes in clusters: B55, B56, B57, I68, I67
+Cluster nr. 1: B54, I81, I85, B55, I71, I80, I79, I70, A98
+Cluster nr. 2: B56, I87, I83
+Cluster nr. 3: B57, I43, I44, I58, I84, B88, I93, I75, C91, I90, C74, C95, I59, I45, I94, I89, I35, I78, C28, A18, A60, C92, I77, I73, C96, I62, C76, C97, I99, A61, B86, I63
+Cluster nr. 4: I40, I0, I4, A21, A22, I46, I50, A19, I32, A17, I68, I10, I6, A20, I8, I48, I26, A23, I51, I64, I33, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, I2, I65, I82, I27, I37, I3, A16, I38, A14, I12, I69, A24, I1, I31
+Cluster nr. 5: I67, I34, I53, A25
+Nodes in clusters: B55, B56, B57, I68, I67
+Cluster nr. 1: B54, I81, I85, B55, I71, I80, I79, I70, A98
+Cluster nr. 2: B56, I87, I83
+Cluster nr. 3: B57, I43, I44, I58, I84, B88, I93, I75, C91, I90, C74, C95, I59, I45, I94, I89, I35, I78, C28, A18, A60, C92, I77, I73, C96, I62, C76, C97, I99, A61, B86, I63
+Cluster nr. 4: I40, I0, I4, A21, A22, I46, I50, A19, I32, A17, I68, I10, I6, A20, I8, I48, I26, A23, I51, I64, I33, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, I2, I65, I82, I27, I37, I3, A16, I38, A14, I12, I69, A24, I1, I31
+Cluster nr. 5: I67, I34, I53, A25
+Nodes in clusters: B57, I58, B56, I68, B88
+Cluster nr. 1: B57
+Cluster nr. 2: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, I32, A17, I10, I59, I45, I35, C28, I6, A20, I8, A60, I62, I48, I26, A23, I51, I64, I58, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, I1, I31
+Cluster nr. 3: I87, I81, I85, B55, I71, I80, I79, B56, I70, I83
+Cluster nr. 4: I67, B54, I33, I34, I53, A25, I68, A24, A98
+Cluster nr. 5: I89, I78, I84, C92, I77, I73, C96, C76, B88, I93, C97, I75, C91, I90, B86, I63, C74, C95, I94
+Nodes in clusters: B57, I58, B88, B56, I68
+Cluster nr. 1: B57
+Cluster nr. 2: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, I32, A17, I10, I59, I45, I35, C28, I6, A20, I8, A60, I62, I48, I26, A23, I51, I64, I58, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, I1, I31
+Cluster nr. 3: I89, I78, I84, C92, I77, I73, C96, C76, B88, I93, C97, I75, C91, I90, B86, I63, C74, C95, I94
+Cluster nr. 4: I87, I81, I85, B55, I71, I80, I79, B56, I70, I83
+Cluster nr. 5: I67, B54, I33, I34, I53, A25, I68, A24, A98
+Nodes in clusters: B57, I58, B88, B56, I68
+Cluster nr. 1: B57
+Cluster nr. 2: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, I32, A17, I10, I59, I45, I35, C28, I6, A20, I8, A60, I62, I48, I26, A23, I51, I64, I58, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, I1, I31
+Cluster nr. 3: I89, I78, I84, C92, I77, I73, C96, C76, B88, I93, C97, I75, C91, I90, B86, I63, C74, C95, I94
+Cluster nr. 4: I87, I81, I85, B55, I71, I80, I79, B56, I70, I83
+Cluster nr. 5: I67, B54, I33, I34, I53, A25, I68, A24, A98
+Nodes in clusters: C28, I35, B57, C74, I59
+Cluster nr. 1: C28
+Cluster nr. 2: I43, I44, I40, I0, I4, A21, A22, I46, I50, A19, A17, I10, I45, I35, I6, A20, I8, A60, I48, I26, A23, I51, I64, I42, I47, I66, I9, I39, I36, I13, I49, I41, I72, I52, I7, I29, A15, I30, I5, I11, A18, I2, I65, I82, I27, I99, I37, A61, I3, A16, I38, A14, I12, I69, I1, I31
+Cluster nr. 3: B57, B54, I84, I71, I80, I34, I53, I79, A25, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 4: I89, I78, C92, I77, I73, C96, I62, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 5: I32, I33, I58, I59, A24
+Nodes in clusters: B57, C74, A17, I58, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 3: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 4: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, C74, A17, I58, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 3: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 4: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B54, I84, I71, I80, I79, B56, I70, B88, I83, A98, I67, I87, I81, I85, B55, B86, I68
+Cluster nr. 2: I33, I58, I32, I34, I53, A25, I82, I26, I59, A23, A24, I31
+Cluster nr. 3: I89, I78, C92, I77, I73, C96, C76, I93, C97, I75, C91, I90, I63, C74, C95, I94
+Cluster nr. 4: I43, I64, I42, I40, I47, I66, I0, I9, I4, A21, I39, A22, I46, I36, I13, I49, I41, I72, I50, I52, A19, I7, A17, I10, A15, I5, I11, I6, A20, A18, I8, A60, I2, I65, I62, I99, I37, A61, I3, A16, I38, I48, A14, I12, I69, I51, I1
+Cluster nr. 5: I35, C28, I44, I29, I27, I30, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: A17, A19, A18, A16, A20
+Cluster nr. 1: I64, I36, I41, A17
+Cluster nr. 2: A19, I38, I39
+Cluster nr. 3: C96, C76, I75, C92, I77, I87, B86, I35, A18, I90, C74, I93, B57, I78, I73, I62, I44, C95, I83, C97, I99, I42, I63, I84, A60, I45, A61, B88, I94, I59, I89, C28, I58, I80, I27, I43, C91
+Cluster nr. 4: I2, I50, I40, I12, A16, I49, I72, I5, I6, I4, I51, I37, I7, I52, I3
+Cluster nr. 5: I53, I69, I11, I67, B54, I66, I33, I0, I30, B55, B56, I32, I8, I9, A14, A98, I85, I68, A23, A21, I71, A15, I31, I46, A24, I34, I47, I70, I13, I65, A25, A22, A20, I81, I82, I29, I10, I79, I26, I1, I48
+Nodes in clusters: A17, A19, A18, A16, A20
+Cluster nr. 1: I64, I36, I41, A17
+Cluster nr. 2: A19, I38, I39
+Cluster nr. 3: C96, C76, I75, C92, I77, I87, B86, I35, A18, I90, C74, I93, B57, I78, I73, I62, I44, C95, I83, C97, I99, I42, I63, I84, A60, I45, A61, B88, I94, I59, I89, C28, I58, I80, I27, I43, C91
+Cluster nr. 4: I2, I50, I40, I12, A16, I49, I72, I5, I6, I4, I51, I37, I7, I52, I3
+Cluster nr. 5: I53, I69, I11, I67, B54, I66, I33, I0, I30, B55, B56, I32, I8, I9, A14, A98, I85, I68, A23, A21, I71, A15, I31, I46, A24, I34, I47, I70, I13, I65, A25, A22, A20, I81, I82, I29, I10, I79, I26, I1, I48
+Nodes in clusters: A25, A24, A98, A23, B54
+Cluster nr. 1: I53, I33, I34, A25
+Cluster nr. 2: C28, I32, A24
+Cluster nr. 3: A98
+Cluster nr. 4: I69, I50, I75, I49, I72, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, I63, I6, I45, A61, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I77, I66, I39, I35, I4, I78, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I10, I26, I1
+Cluster nr. 5: C96, C76, I67, C92, B54, I87, B86, B55, B56, I90, C74, I93, B57, I73, I85, I68, C95, I83, I71, C97, I84, B88, I94, I59, I70, I89, I81, I58, I80, I79, C91
+Nodes in clusters: C28, I59, I58, B55, B57
+Cluster nr. 1: C96, I50, I75, I49, I72, I0, I5, I30, I90, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A15, A17, I99, I63, I6, I45, A61, C28, I51, A20, I38, I64, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, I39, I35, I4, I93, I78, I7, I3, I36, C95, I40, C97, I42, I46, A60, I47, I94, I89, A19, I13, I37, I10, I1, C91
+Cluster nr. 2: I59
+Cluster nr. 3: I53, I69, A23, A21, I31, I33, A24, I32, I65, A22, I58, I82, I26
+Cluster nr. 4: I83, I71, I67, B54, I34, B55, I70, A25, A98, I81, I80, I85, I79
+Cluster nr. 5: B88, I87, B57, B86, I84, I68, B56
+Nodes in clusters: C28, I59, I58, B55, B57
+Cluster nr. 1: C96, I50, I75, I49, I72, I0, I5, I30, I90, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A15, A17, I99, I63, I6, I45, A61, C28, I51, A20, I38, I64, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, I39, I35, I4, I93, I78, I7, I3, I36, C95, I40, C97, I42, I46, A60, I47, I94, I89, A19, I13, I37, I10, I1, C91
+Cluster nr. 2: I59
+Cluster nr. 3: I53, I69, A23, A21, I31, I33, A24, I32, I65, A22, I58, I82, I26
+Cluster nr. 4: I83, I71, I67, B54, I34, B55, I70, A25, A98, I81, I80, I85, I79
+Cluster nr. 5: B88, I87, B57, B86, I84, I68, B56
+Nodes in clusters: B55, I67, I68, B54, I58
+Cluster nr. 1: I70, I83, I71, I87, I81, I80, I84, I85, B55
+Cluster nr. 2: I53, I34, I67, A25
+Cluster nr. 3: I33, B57, A24, I68, B56
+Cluster nr. 4: B54, I79, A98
+Cluster nr. 5: C96, I69, I50, I75, I49, I72, I0, I5, I30, I90, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A23, A15, A17, I99, I63, I6, I45, A61, B88, I59, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, B86, I39, I35, I4, I32, I93, I78, I7, I3, I36, C95, I40, A21, C97, I31, I42, I46, A60, I47, I94, I89, A19, I13, I65, I37, I58, I10, I26, I1, C91
+Nodes in clusters: I33, I67, I34, I68, I32
+Cluster nr. 1: I33, I53
+Cluster nr. 2: I70, I83, I71, I67, B54, I81, I80, I85, B55, I79
+Cluster nr. 3: A25, I34, A98
+Cluster nr. 4: C96, C95, C76, C97, I75, C92, I87, B86, I84, B56, B88, I94, I59, I90, I89, C74, I93, I58, B57, I73, I68, C91
+Cluster nr. 5: I69, I50, I49, I72, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, A24, I63, I6, I45, A61, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I77, I66, I39, I35, I4, I32, I78, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I10, I26, I1
+Nodes in clusters: I33, I67, I34, I68, I32
+Cluster nr. 1: I33, I53
+Cluster nr. 2: I70, I83, I71, I67, B54, I81, I80, I85, B55, I79
+Cluster nr. 3: A25, I34, A98
+Cluster nr. 4: C96, C95, C76, C97, I75, C92, I87, B86, I84, B56, B88, I94, I59, I90, I89, C74, I93, I58, B57, I73, I68, C91
+Cluster nr. 5: I69, I50, I49, I72, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, A24, I63, I6, I45, A61, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I77, I66, I39, I35, I4, I32, I78, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I10, I26, I1
+Nodes in clusters: I58, B57, I68, I59, I67
+Cluster nr. 1: I69, I32, A23, A21, I65, A22, I31, I58, I30, I82, I26, I47
+Cluster nr. 2: B88, I83, I71, I87, B57, I80, B86, I84, I85, B56
+Cluster nr. 3: I33, A24, I68
+Cluster nr. 4: C96, I50, I75, I49, I72, I0, I5, I90, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A15, A17, I99, I63, I6, I45, A61, I59, C28, I51, A20, I38, I64, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, I39, I35, I4, I93, I78, I7, I3, I36, C95, I40, C97, I42, I46, A60, I94, I89, A19, I13, I37, I10, I1, C91
+Cluster nr. 5: I53, I70, I67, B54, A25, A98, I81, I34, B55, I79
+Nodes in clusters: I32, I33, I34, I53, A24
+Cluster nr. 1: C96, I69, I50, I75, I49, I72, I5, I30, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A15, A17, I99, I63, I6, I45, A61, C28, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, C76, I12, C92, A16, I77, I66, I39, I35, I4, I32, I93, I78, I7, I3, I36, C95, I40, C97, I31, I42, I46, A60, I47, I94, A19, I65, I37, I10, I26, I1, C91
+Cluster nr. 2: I33, I58, I59, I90, I89
+Cluster nr. 3: I83, I71, I67, B54, I87, B86, I84, I34, B55, B56, B88, I70, A98, I81, B57, I80, I85, I68, I79
+Cluster nr. 4: I53, A25
+Cluster nr. 5: A23, A21, I11, I13, A22, I0, A24
+Nodes in clusters: I32, I33, I34, I53, A24
+Cluster nr. 1: C96, I69, I50, I75, I49, I72, I5, I30, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A15, A17, I99, I63, I6, I45, A61, C28, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, C76, I12, C92, A16, I77, I66, I39, I35, I4, I32, I93, I78, I7, I3, I36, C95, I40, C97, I31, I42, I46, A60, I47, I94, A19, I65, I37, I10, I26, I1, C91
+Cluster nr. 2: I33, I58, I59, I90, I89
+Cluster nr. 3: I83, I71, I67, B54, I87, B86, I84, I34, B55, B56, B88, I70, A98, I81, B57, I80, I85, I68, I79
+Cluster nr. 4: I53, A25
+Cluster nr. 5: A23, A21, I11, I13, A22, I0, A24
+Nodes in clusters: I32, I33, I34, I53, A25
+Cluster nr. 1: C96, I69, I50, I75, I49, I72, I0, I5, I30, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A23, A15, A17, I99, I63, I6, I45, A61, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, I39, I35, I4, I32, I93, I78, I7, I3, I36, C95, I40, A21, C97, I31, I42, I46, A60, I47, I94, A19, I13, I65, I37, I10, I26, I1, C91
+Cluster nr. 2: I33, I58, I59, I90, I89
+Cluster nr. 3: I83, I71, I67, B54, I87, B86, I84, I34, B55, B56, B88, I70, A98, I81, B57, I80, I85, I68, I79
+Cluster nr. 4: I53, A24
+Cluster nr. 5: A25
+Nodes in clusters: I67, I34, B55, I33, B54
+Cluster nr. 1: C96, C95, C76, I67, C97, C92, B56, B88, I90, I89, I58, B57, I68, C91
+Cluster nr. 2: A25, I34
+Cluster nr. 3: I70, I83, I71, I87, I81, I80, B86, I84, I85, B55
+Cluster nr. 4: I69, I50, I75, I49, I72, I33, I0, I5, I30, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A23, A15, A17, I99, A24, I63, I6, I45, A61, I59, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I53, I11, I12, A16, I77, I66, I39, I35, I4, I32, I93, I78, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, I94, A19, I13, I65, I37, I10, I26, I1
+Cluster nr. 5: B54, I79, A98
+Nodes in clusters: I67, I34, B55, I33, B54
+Cluster nr. 1: C96, C95, C76, I67, C97, C92, B56, B88, I90, I89, I58, B57, I68, C91
+Cluster nr. 2: A25, I34
+Cluster nr. 3: I70, I83, I71, I87, I81, I80, B86, I84, I85, B55
+Cluster nr. 4: I69, I50, I75, I49, I72, I33, I0, I5, I30, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A23, A15, A17, I99, A24, I63, I6, I45, A61, I59, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I53, I11, I12, A16, I77, I66, I39, I35, I4, I32, I93, I78, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, I94, A19, I13, I65, I37, I10, I26, I1
+Cluster nr. 5: B54, I79, A98
+Nodes in clusters: B55, B56, B57, B54, I67
+Cluster nr. 1: I81, I80, I70, I85, I71, B55
+Cluster nr. 2: I87, I83, B56
+Cluster nr. 3: C96, I50, I75, I49, I72, I5, I90, A18, I8, I9, C74, B57, I73, I62, I52, I44, I2, A15, A17, I99, I63, I84, I6, I45, A61, B88, I59, C28, I51, I38, I64, I29, I41, I27, I43, C76, I12, C92, A16, I77, B86, I39, I35, I4, I93, I78, I7, I3, I36, C95, I40, C97, I42, I46, A60, I94, I89, A19, I37, I58, I1, C91
+Cluster nr. 4: B54, I79, A98
+Cluster nr. 5: I53, I69, I11, I67, I66, I33, I0, I30, I32, A14, I68, A23, A21, I31, A24, I34, I47, I13, I65, A25, A22, A20, I82, I10, I26, I48
+Nodes in clusters: B57, I58, B88, B56, B55
+Cluster nr. 1: B57
+Cluster nr. 2: I69, I50, I49, I72, I33, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, A24, I6, I45, A61, I59, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I53, I11, I12, A16, I66, I39, I35, I4, I32, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I58, I10, I26, I1
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, B86, I84, B88, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I87, I83, I68, B56
+Cluster nr. 5: I70, I71, I67, B54, A25, A98, I81, I80, I85, I34, B55, I79
+Nodes in clusters: B57, I58, B88, B56, B55
+Cluster nr. 1: B57
+Cluster nr. 2: I69, I50, I49, I72, I33, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, A24, I6, I45, A61, I59, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I53, I11, I12, A16, I66, I39, I35, I4, I32, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I58, I10, I26, I1
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, B86, I84, B88, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I87, I83, I68, B56
+Cluster nr. 5: I70, I71, I67, B54, A25, A98, I81, I80, I85, I34, B55, I79
+Nodes in clusters: B57, B88, I58, I68, I87
+Cluster nr. 1: B57, B56
+Cluster nr. 2: C96, C95, C76, C97, I75, C92, I77, I63, B86, B88, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 3: I69, I50, I49, I72, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, I6, I45, A61, I59, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I66, I39, I35, I4, I32, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I58, I10, I26, I1
+Cluster nr. 4: I53, I70, I67, B54, A25, A98, I33, I81, A24, I68, I34, B55
+Cluster nr. 5: I83, I71, I87, I80, I84, I85, I79
+Nodes in clusters: C95, C91, B57, B86, C76
+Cluster nr. 1: C96, C97, C95
+Cluster nr. 2: I78, I63, C92, I77, C91
+Cluster nr. 3: I53, I69, I67, B54, I66, I33, I30, B55, B56, I32, A14, A98, B57, I85, I68, A23, I83, A21, I71, I31, I46, A24, I34, I47, B88, I59, I70, I13, I65, A25, A22, A20, I81, I58, I80, I82, I29, I79, I26, I48
+Cluster nr. 4: I87, B86, I84
+Cluster nr. 5: I50, I75, I49, I72, I0, I5, I90, A18, I8, I9, C74, I73, I62, I52, I44, I2, A15, A17, I99, I6, I45, A61, C28, I51, I38, I64, I41, I27, I43, C76, I11, I12, A16, I39, I35, I4, I93, I7, I3, I36, I40, I42, A60, I94, I89, A19, I37, I10, I1
+Nodes in clusters: C95, C91, B57, B86, C76
+Cluster nr. 1: C96, C97, C95
+Cluster nr. 2: I78, I63, C92, I77, C91
+Cluster nr. 3: I53, I69, I67, B54, I66, I33, I30, B55, B56, I32, A14, A98, B57, I85, I68, A23, I83, A21, I71, I31, I46, A24, I34, I47, B88, I59, I70, I13, I65, A25, A22, A20, I81, I58, I80, I82, I29, I79, I26, I48
+Cluster nr. 4: I87, B86, I84
+Cluster nr. 5: I50, I75, I49, I72, I0, I5, I90, A18, I8, I9, C74, I73, I62, I52, I44, I2, A15, A17, I99, I6, I45, A61, C28, I51, I38, I64, I41, I27, I43, C76, I11, I12, A16, I39, I35, I4, I93, I7, I3, I36, I40, I42, A60, I94, I89, A19, I37, I10, I1
+Nodes in clusters: C28, C74, C76, I59, I35
+Cluster nr. 1: C28
+Cluster nr. 2: I73, I62, I89, I75, C74
+Cluster nr. 3: C96, C95, C76, C97, C92, I77, I63, B86, I84, I94, I90, I93, I78, C91
+Cluster nr. 4: I53, I83, I71, I67, B54, I87, I33, A24, I34, B55, B56, I59, B88, I32, I70, A25, A98, I81, I58, B57, I80, I85, I68, I79
+Cluster nr. 5: I69, I50, I49, I72, I0, I5, I30, A18, I8, I9, A14, I52, I44, I2, A23, A15, A17, I99, I6, I45, A61, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I66, I39, I35, I4, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I10, I26, I1
+Nodes in clusters: B55, B54, A98, B56, B57
+Cluster nr. 1: I70, I71, I67, I81, I80, I85, B55
+Cluster nr. 2: B54, I79, I34
+Cluster nr. 3: I53, A23, A24, A25, A22, A98
+Cluster nr. 4: I87, I33, I83, I68, B56
+Cluster nr. 5: C96, I69, I50, I75, I49, I72, I0, I5, I30, I90, A18, I8, I9, A14, C74, B57, I73, I62, I52, I44, I2, A15, A17, I99, I63, I84, I6, I45, A61, B88, I59, C28, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, B86, I39, I35, I4, I32, I93, I78, I7, I3, I36, C95, I40, A21, C97, I31, I42, I46, A60, I47, I94, I89, A19, I13, I65, I37, I58, I10, I26, I1, C91
+Nodes in clusters: B55, B54, A98, B56, B57
+Cluster nr. 1: I70, I71, I67, I81, I80, I85, B55
+Cluster nr. 2: B54, I79, I34
+Cluster nr. 3: I53, A23, A24, A25, A22, A98
+Cluster nr. 4: I87, I33, I83, I68, B56
+Cluster nr. 5: C96, I69, I50, I75, I49, I72, I0, I5, I30, I90, A18, I8, I9, A14, C74, B57, I73, I62, I52, I44, I2, A15, A17, I99, I63, I84, I6, I45, A61, B88, I59, C28, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, B86, I39, I35, I4, I32, I93, I78, I7, I3, I36, C95, I40, A21, C97, I31, I42, I46, A60, I47, I94, I89, A19, I13, I65, I37, I58, I10, I26, I1, C91
+Nodes in clusters: I32, I34, I33, I67, B57
+Cluster nr. 1: I69, I50, I49, I72, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, A24, I6, I45, A61, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I66, I39, I35, I4, I32, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I10, I26, I1
+Cluster nr. 2: A25, I34, A98
+Cluster nr. 3: I33, I53
+Cluster nr. 4: I70, I67, B54, I81, I68, B55, I79
+Cluster nr. 5: C96, C76, I75, C92, I77, I87, B86, B56, I90, C74, I93, B57, I78, I73, I85, C95, I83, I71, C97, I63, I84, B88, I94, I59, I89, C28, I58, I80, C91
+Nodes in clusters: I32, B54, B55, A98, I31
+Cluster nr. 1: I53, I32, I59, A25, I33, I58, A24
+Cluster nr. 2: B54, I79, I34
+Cluster nr. 3: C95, I83, I71, I67, C97, I87, B86, I84, B55, B56, B88, I90, I70, I81, B57, I80, I85, I68
+Cluster nr. 4: A98
+Cluster nr. 5: C96, I69, I50, I75, I49, I72, I0, I5, I30, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A23, A15, A17, I99, I63, I6, I45, A61, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, I39, I35, I4, I93, I78, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, I94, I89, A19, I13, I65, I37, I10, I26, I1, C91
+Nodes in clusters: I32, B54, B55, A98, I31
+Cluster nr. 1: I53, I32, I59, A25, I33, I58, A24
+Cluster nr. 2: B54, I79, I34
+Cluster nr. 3: C95, I83, I71, I67, C97, I87, B86, I84, B55, B56, B88, I90, I70, I81, B57, I80, I85, I68
+Cluster nr. 4: A98
+Cluster nr. 5: C96, I69, I50, I75, I49, I72, I0, I5, I30, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A23, A15, A17, I99, I63, I6, I45, A61, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, I39, I35, I4, I93, I78, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, I94, I89, A19, I13, I65, I37, I10, I26, I1, C91
+Nodes in clusters: B57, I58, B55, I67, B54
+Cluster nr. 1: I87, B57, B88, B86, I84, B56
+Cluster nr. 2: C96, I69, I50, I75, I49, I72, I33, I0, I5, I30, I90, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A23, A15, A17, I99, I63, I6, I45, A61, I59, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, C76, I12, C92, A16, I77, I66, I39, I35, I4, I32, I93, I78, I7, I3, I36, C95, I40, A21, C97, I31, I42, I46, A60, I47, I94, I89, A19, I13, I65, I37, I58, I10, I26, I1, C91
+Cluster nr. 3: I70, I83, I71, I81, I80, I85, B55
+Cluster nr. 4: I53, A24, I68, I34, I67, A25
+Cluster nr. 5: B54, I79, A98
+Nodes in clusters: B57, I58, I68, I59, B88
+Cluster nr. 1: B57, I80, I83, I85, I71, B56
+Cluster nr. 2: I69, I32, A23, A21, I65, A22, I31, I58, I30, I82, I26, I47
+Cluster nr. 3: I53, I67, B54, I33, A24, I34, B55, I70, A25, A98, I81, I68, I79
+Cluster nr. 4: I50, I75, I49, I72, I0, I5, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A15, A17, I99, I63, I6, I45, A61, I59, C28, I51, A20, I38, I64, I29, I41, I27, I48, I43, I11, I12, A16, I77, I66, I39, I35, I4, I78, I7, I3, I36, I40, I42, I46, A60, A19, I13, I37, I10, I1
+Cluster nr. 5: C96, C95, C76, C97, C92, I87, B86, I84, B88, I94, I90, I89, I93, C91
+Nodes in clusters: B57, I58, I68, I59, B88
+Cluster nr. 1: B57, I80, I83, I85, I71, B56
+Cluster nr. 2: I69, I32, A23, A21, I65, A22, I31, I58, I30, I82, I26, I47
+Cluster nr. 3: I53, I67, B54, I33, A24, I34, B55, I70, A25, A98, I81, I68, I79
+Cluster nr. 4: I50, I75, I49, I72, I0, I5, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A15, A17, I99, I63, I6, I45, A61, I59, C28, I51, A20, I38, I64, I29, I41, I27, I48, I43, I11, I12, A16, I77, I66, I39, I35, I4, I78, I7, I3, I36, I40, I42, I46, A60, A19, I13, I37, I10, I1
+Cluster nr. 5: C96, C95, C76, C97, C92, I87, B86, I84, B88, I94, I90, I89, I93, C91
+Nodes in clusters: B57, I58, I83, B56, B88
+Cluster nr. 1: B57
+Cluster nr. 2: I69, I50, I49, I72, I33, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, A24, I6, I45, A61, I59, A25, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I53, I11, I12, A16, I66, I39, I35, I4, I32, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I58, I10, I26, I1
+Cluster nr. 3: I83, I71, I87, I81, I80, I84, I85, I79
+Cluster nr. 4: I70, I67, B54, A98, I68, I34, B55, B56
+Cluster nr. 5: C96, C95, C76, C97, I75, C92, I77, I63, B86, B88, I94, I90, I89, C74, I93, I78, I73, C91
+Nodes in clusters: C28, C74, I35, C76, I59
+Cluster nr. 1: C28
+Cluster nr. 2: I73, I62, I89, I75, C74
+Cluster nr. 3: I69, I50, I49, I72, I0, I5, I30, A18, I8, I9, A14, I52, I44, I2, A23, A15, A17, I99, I6, I45, A61, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I66, I39, I35, I4, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I10, I26, I1
+Cluster nr. 4: C96, C95, C76, C97, C92, I77, I63, B86, I84, I94, I90, I93, I78, C91
+Cluster nr. 5: I53, I83, I71, I67, B54, I87, I33, A24, I34, B55, B56, I59, B88, I32, I70, A25, A98, I81, I58, B57, I80, I85, I68, I79
+Nodes in clusters: C28, C74, I35, C76, I59
+Cluster nr. 1: C28
+Cluster nr. 2: I73, I62, I89, I75, C74
+Cluster nr. 3: I69, I50, I49, I72, I0, I5, I30, A18, I8, I9, A14, I52, I44, I2, A23, A15, A17, I99, I6, I45, A61, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I66, I39, I35, I4, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I10, I26, I1
+Cluster nr. 4: C96, C95, C76, C97, C92, I77, I63, B86, I84, I94, I90, I93, I78, C91
+Cluster nr. 5: I53, I83, I71, I67, B54, I87, I33, A24, I34, B55, B56, I59, B88, I32, I70, A25, A98, I81, I58, B57, I80, I85, I68, I79
+Nodes in clusters: C74, C28, C76, I35, C91
+Cluster nr. 1: B88, I83, I89, I75, C74, I87, I80, I73, I62
+Cluster nr. 2: I71, I67, B54, B55, B56, I59, I70, C28, A98, I81, I58, B57, I85, I68, I79
+Cluster nr. 3: I93, I94, I90, C76
+Cluster nr. 4: I69, I50, I49, I72, I33, I0, I5, I30, A18, I8, I9, A14, I52, I44, I2, A23, A15, A17, I99, A24, I34, I6, I45, A61, A25, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I53, I11, I12, A16, I66, I39, I35, I4, I32, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I10, I26, I1
+Cluster nr. 5: C96, C95, C97, C92, I77, I78, I63, B86, I84, C91
+Nodes in clusters: B55, B54, I67, B56, I68
+Cluster nr. 1: I81, I80, I70, I85, I71, B55
+Cluster nr. 2: B54, I79, A98
+Cluster nr. 3: I53, I34, I67, A25
+Cluster nr. 4: C96, C95, I83, C76, C97, I75, C92, I77, I87, I63, B86, I84, B56, B88, I94, I90, I89, C74, I93, B57, I78, I73, C91
+Cluster nr. 5: I69, I50, I49, I72, I33, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, A24, I6, I45, A61, I59, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I66, I39, I35, I4, I32, I68, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I58, I10, I26, I1
+Nodes in clusters: B55, B54, I67, B56, I68
+Cluster nr. 1: I81, I80, I70, I85, I71, B55
+Cluster nr. 2: B54, I79, A98
+Cluster nr. 3: I53, I34, I67, A25
+Cluster nr. 4: C96, C95, I83, C76, C97, I75, C92, I77, I87, I63, B86, I84, B56, B88, I94, I90, I89, C74, I93, B57, I78, I73, C91
+Cluster nr. 5: I69, I50, I49, I72, I33, I0, I5, I30, A18, I8, I9, A14, I62, I52, I44, I2, A23, A15, A17, I99, A24, I6, I45, A61, I59, C28, A22, I51, A20, I38, I64, I82, I29, I41, I27, I48, I43, I11, I12, A16, I66, I39, I35, I4, I32, I68, I7, I3, I36, I40, A21, I31, I42, I46, A60, I47, A19, I13, I65, I37, I58, I10, I26, I1
+Nodes in clusters: I58, B57, I68, I59, B88
+Cluster nr. 1: I69, I32, A23, A21, I65, A22, I31, I58, I30, I82, I26, I47
+Cluster nr. 2: B57, I80, I83, I85, I71, B56
+Cluster nr. 3: I53, I67, B54, I33, A24, I34, B55, I70, A25, A98, I81, I68, I79
+Cluster nr. 4: I50, I75, I49, I72, I0, I5, A18, I8, I9, A14, C74, I73, I62, I52, I44, I2, A15, A17, I99, I63, I6, I45, A61, I59, C28, I51, A20, I38, I64, I29, I41, I27, I48, I43, I11, I12, A16, I77, I66, I39, I35, I4, I78, I7, I3, I36, I40, I42, I46, A60, A19, I13, I37, I10, I1
+Cluster nr. 5: C96, C95, C76, C97, C92, I87, B86, I84, B88, I94, I90, I89, I93, C91
+Nodes in clusters: B57, I58, C74, C28, A17
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: C28, I30, I29, I45, I35, I44, I27
+Cluster nr. 5: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Nodes in clusters: B57, I58, C74, C28, A17
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: C28, I30, I29, I45, I35, I44, I27
+Cluster nr. 5: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I83, I71, I67, B54, I87, B86, I84, B55, B56, B88, I70, A98, B57, I81, I80, I85, I68, I79
+Cluster nr. 2: I53, I59, I32, A23, A25, I31, I33, I58, A24, I82, I34, I26
+Cluster nr. 3: C96, C95, C76, C97, I75, C92, I77, I63, I94, I90, I89, C74, I93, I78, I73, C91
+Cluster nr. 4: I69, I50, I11, I12, A16, I49, I72, I66, I0, I5, I39, I4, A18, I8, I9, A14, I62, I7, I52, I3, I36, I2, I40, A21, A15, A17, I99, I42, I46, A60, I6, A61, I47, A19, I13, I65, A22, I51, I37, A20, I38, I64, I41, I10, I1, I48, I43
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, I81, B86, B88, I71, A98, I87, B55, B54, I83, B56, I80, I68, I79, I84, I70, I67, I85
+Cluster nr. 2: I34, I82, A24, I31, I53, I33, I26, I32, A25, I58, A23, I59
+Cluster nr. 3: I78, I77, I73, I90, C74, C91, C96, I94, C92, I93, C76, I89, I75, I63, C95, C97
+Cluster nr. 4: I43, I0, A19, A22, I62, I11, I12, A15, I5, I38, I6, I1, I72, I10, I8, I41, I52, I49, I2, I40, I47, I36, A17, I46, I66, I9, I69, I48, I50, I4, A18, A16, I39, A21, I7, I37, I51, A60, I42, A20, I3, A14, I13, A61, I64, I99, I65
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, I81, B86, B88, I71, A98, I87, B55, B54, I83, B56, I80, I68, I79, I84, I70, I67, I85
+Cluster nr. 2: I34, I82, A24, I31, I53, I33, I26, I32, A25, I58, A23, I59
+Cluster nr. 3: I78, I77, I73, I90, C74, C91, C96, I94, C92, I93, C76, I89, I75, I63, C95, C97
+Cluster nr. 4: I43, I0, A19, A22, I62, I11, I12, A15, I5, I38, I6, I1, I72, I10, I8, I41, I52, I49, I2, I40, I47, I36, A17, I46, I66, I9, I69, I48, I50, I4, A18, A16, I39, A21, I7, I37, I51, A60, I42, A20, I3, A14, I13, A61, I64, I99, I65
+Cluster nr. 5: C28, I30, I29, I45, I35, I44, I27
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Nroad, Wroad, Sroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Sroad
+Nodes in clusters: Nroad, Wroad, Sroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Sroad
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: Sroad, Wroad, Nroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Sroad, Wroad, Nroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Nroad, Wroad, Sroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Sroad
+Nodes in clusters: Nroad, Wroad, Sroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Sroad
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Sroad, Nroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Nroad
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: W, X2, X1, X
+Cluster nr. 1: W
+Cluster nr. 2: X2
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, X1, W, X
+Cluster nr. 1: X2
+Cluster nr. 2: X1
+Cluster nr. 3: W
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X2, W, X1, X
+Cluster nr. 1: X2
+Cluster nr. 2: W
+Cluster nr. 3: X1
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: X1, W, X2, X
+Cluster nr. 1: X1
+Cluster nr. 2: W
+Cluster nr. 3: X2
+Cluster nr. 4: X
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B55, I68, I87, I84, I67, B56, I71, I83, B86, I79, B88, I81, I70, I80, B54, A98, I85
+Cluster nr. 2: I26, A23, I59, I53, I34, I31, I82, I32, A25, I58, I33, A24
+Cluster nr. 3: C74, I94, C91, C92, C76, I75, I93, I63, I78, C97, I89, C96, C95, I73, I90, I77
+Cluster nr. 4: I1, I50, I8, I62, I0, I5, A20, I65, I7, I72, I42, A21, I4, I40, I9, I46, I51, I36, I13, A18, I52, I11, I99, A61, I64, A15, I37, A19, I48, I66, I43, I2, I38, A17, I41, A60, I10, A16, I47, I49, A22, I6, I12, A14, I69, I39, I3
+Cluster nr. 5: I44, I45, I29, C28, I35, I30, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B55, I68, I87, I84, I67, B56, I71, I83, B86, I79, B88, I81, I70, I80, B54, A98, I85
+Cluster nr. 2: I26, A23, I59, I53, I34, I31, I82, I32, A25, I58, I33, A24
+Cluster nr. 3: C74, I94, C91, C92, C76, I75, I93, I63, I78, C97, I89, C96, C95, I73, I90, I77
+Cluster nr. 4: I1, I50, I8, I62, I0, I5, A20, I65, I7, I72, I42, A21, I4, I40, I9, I46, I51, I36, I13, A18, I52, I11, I99, A61, I64, A15, I37, A19, I48, I66, I43, I2, I38, A17, I41, A60, I10, A16, I47, I49, A22, I6, I12, A14, I69, I39, I3
+Cluster nr. 5: I44, I45, I29, C28, I35, I30, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: B57, B55, I68, I87, I84, I67, B56, I71, I83, B86, I79, B88, I81, I70, I80, B54, A98, I85
+Cluster nr. 2: I26, A23, I59, I53, I34, I31, I82, I32, A25, I58, I33, A24
+Cluster nr. 3: C74, I94, C91, C92, C76, I75, I93, I63, I78, C97, I89, C96, C95, I73, I90, I77
+Cluster nr. 4: I1, I50, I8, I62, I0, I5, A20, I65, I7, I72, I42, A21, I4, I40, I9, I46, I51, I36, I13, A18, I52, I11, I99, A61, I64, A15, I37, A19, I48, I66, I43, I2, I38, A17, I41, A60, I10, A16, I47, I49, A22, I6, I12, A14, I69, I39, I3
+Cluster nr. 5: I44, I45, I29, C28, I35, I30, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I79, I68, I87, I67, B86, A98, I71, I80, B57, I84, B54, I70, B55, I81, I83, B88, I85, B56
+Cluster nr. 2: I58, I26, A23, A25, I33, A24, I59, I34, I31, I32, I53, I82
+Cluster nr. 3: I78, I73, I93, C96, I63, C76, C92, C91, C95, I90, I77, I75, I89, C74, C97, I94
+Cluster nr. 4: A61, I38, I69, I8, I13, I6, I12, I43, I7, I1, I0, A21, I40, I36, I37, A20, I72, I42, I4, I64, I46, I50, I39, A18, I62, I41, I47, I3, A17, A14, I11, I2, A19, I9, I65, A15, I51, A60, I49, I66, I52, I10, A22, I48, I5, I99, A16
+Cluster nr. 5: I35, I29, I30, I27, C28, I44, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I79, I68, I87, I67, B86, A98, I71, I80, B57, I84, B54, I70, B55, I81, I83, B88, I85, B56
+Cluster nr. 2: I58, I26, A23, A25, I33, A24, I59, I34, I31, I32, I53, I82
+Cluster nr. 3: I78, I73, I93, C96, I63, C76, C92, C91, C95, I90, I77, I75, I89, C74, C97, I94
+Cluster nr. 4: A61, I38, I69, I8, I13, I6, I12, I43, I7, I1, I0, A21, I40, I36, I37, A20, I72, I42, I4, I64, I46, I50, I39, A18, I62, I41, I47, I3, A17, A14, I11, I2, A19, I9, I65, A15, I51, A60, I49, I66, I52, I10, A22, I48, I5, I99, A16
+Cluster nr. 5: I35, I29, I30, I27, C28, I44, I45
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I87, B57, I70, I83, B88, B54, I85, B55, I68, B56, I67, I81, I71, I80, A98, I84, B86, I79
+Cluster nr. 2: A25, I34, I82, A23, I26, A24, I53, I31, I33, I58, I59, I32
+Cluster nr. 3: C74, I63, I90, I93, C96, C97, I77, I78, I94, I73, C95, C92, C76, C91, I89, I75
+Cluster nr. 4: I64, I4, I39, I6, A61, I12, I3, I99, I72, A14, I41, I46, A19, A20, I11, I5, I13, I2, I8, I47, I43, A16, I7, I42, I36, I65, I50, I52, I37, I9, A60, I69, I51, A21, A18, I49, I1, A17, I10, I38, A22, I0, A15, I66, I48, I62, I40
+Cluster nr. 5: I35, C28, I30, I45, I29, I44, I27
+Nodes in clusters: B57, I58, C74, A17, C28
+Cluster nr. 1: I87, B57, I70, I83, B88, B54, I85, B55, I68, B56, I67, I81, I71, I80, A98, I84, B86, I79
+Cluster nr. 2: A25, I34, I82, A23, I26, A24, I53, I31, I33, I58, I59, I32
+Cluster nr. 3: C74, I63, I90, I93, C96, C97, I77, I78, I94, I73, C95, C92, C76, C91, I89, I75
+Cluster nr. 4: I64, I4, I39, I6, A61, I12, I3, I99, I72, A14, I41, I46, A19, A20, I11, I5, I13, I2, I8, I47, I43, A16, I7, I42, I36, I65, I50, I52, I37, I9, A60, I69, I51, A21, A18, I49, I1, A17, I10, I38, A22, I0, A15, I66, I48, I62, I40
+Cluster nr. 5: I35, C28, I30, I45, I29, I44, I27
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: Wroad, Nroad, Sroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Sroad
+Nodes in clusters: Wroad, Nroad, Sroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Sroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Wroad, Nroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Sroad, Wroad, Nroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Wroad, Nroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Sroad, Wroad, Nroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Nroad
+Nodes in clusters: Wroad, Nroad, Sroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Sroad
+Nodes in clusters: Wroad, Nroad, Sroad
+Cluster nr. 1: Wroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Sroad
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: X1
+Cluster nr. 1: X1
+Nodes in clusters: Nroad, Wroad, Sroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Sroad
+Nodes in clusters: Nroad, Wroad, Sroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Wroad
+Cluster nr. 3: Sroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Sroad, Nroad, Wroad
+Cluster nr. 1: Sroad
+Cluster nr. 2: Nroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Nroad, Sroad, Wroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Nroad, Sroad, Wroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Nroad, Sroad, Wroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Nroad, Sroad, Wroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Nroad, Sroad, Wroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Nroad, Sroad, Wroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Wroad
+Nodes in clusters: Nroad, Sroad, Wroad
+Cluster nr. 1: Nroad
+Cluster nr. 2: Sroad
+Cluster nr. 3: Wroad

@@ -83,7 +83,7 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 	}
 
 	private void switchPhase() {
-		 Lane chosenLane;
+        Lane chosenLane;
 		if (interruptingLane != null) {
 			chosenLane = interruptingLane;
 			interruptingLane = null;
@@ -94,7 +94,7 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 		LOGGER.trace(chosenLane);
 
 		if (chosenLane != null) {
-			 Phase chosenPhase = getPhaseForLane(chosenLane);
+			Phase chosenPhase = getPhaseForLane(chosenLane);
 
 			if (chosenPhase != null && !chosenPhase.equals(nextPhase)) {
 				blockView.ext(intersection).blockInboundLinks();
@@ -108,14 +108,53 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 					}
 				}
 			}
+			if (blockView.ext(chosenLane).anyEmergencyCarsOnLane()) {
+				Lane bestLane = getMostEmergencyLane();
+				synchronized (this) {
+					if (blockView.ext(bestLane).isBlocked()) {
+						for (Iterator<Link> iter = intersection.inboundLinkIterator(); iter.hasNext(); ) {
+							Link link = iter.next();
+							for (Iterator<Lane> laneIter = link.laneIterator(); laneIter.hasNext(); ) {
+								Lane lane = laneIter.next();
+								blockView.ext(lane).block();
+							}
+						}
+						Link bestLink = bestLane.getOwner();
+						blockView.ext(bestLink).unblock();
+						initFirstPhase();
+					}
+				}
+			}
 		}
 	}
-
 
 	private void setNextPhase() {
 		if (isPhaseFinished()) {
 			turnOfPhaseChange = clock.getTurn();
 			setGreen(nextPhase);
+			for (Iterator<Link> iter = intersection.inboundLinkIterator(); iter.hasNext(); ) {
+				Link link = iter.next();
+				for (Iterator<Lane> laneIter = link.laneIterator(); laneIter.hasNext(); ) {
+					Lane lane = laneIter.next();
+					if (blockView.ext(lane).anyEmergencyCarsOnLane()) {
+						Lane bestLane = getMostEmergencyLane();
+						synchronized (this) {
+							if (blockView.ext(bestLane).isBlocked()) {
+								for (Iterator<Link> it = intersection.inboundLinkIterator(); it.hasNext(); ) {
+									Link link1 = it.next();
+									for (Iterator<Lane> laneIt = link1.laneIterator(); laneIt.hasNext(); ) {
+										Lane lane1 = laneIt.next();
+										blockView.ext(lane1).block();
+									}
+								}
+								Link bestLink = bestLane.getOwner();
+								blockView.ext(bestLink).unblock();
+								initFirstPhase();
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -132,7 +171,7 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 		}
 	}
 
-	private Phase getPhaseForLane(final Lane l) {
+	public Phase getPhaseForLane(final Lane l) {
 		Iterator<Phase> it = intersection.trafficLightPhaseIterator();
 		Phase selected = null;
 
@@ -448,5 +487,30 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 
 	public long getTurnOfLastPhaseChange() {
 		return turnOfPhaseChange;
+	}
+
+	public Lane getMostEmergencyLane() {
+		Lane bestLane = null;
+		int biggestEmergencyCarsNr = 0;
+		int closestDistance = Integer.MAX_VALUE;
+		int emergencyCarsNr;
+		int distance;
+
+		for (Iterator<Link> iter = intersection.inboundLinkIterator(); iter.hasNext(); ) {
+			Link link = iter.next();
+			for (Iterator<Lane> laneIter = link.laneIterator(); laneIter.hasNext(); ) {
+				Lane lane = laneIter.next();
+				if (blockView.ext(lane).anyEmergencyCarsOnLane()) {
+					emergencyCarsNr = blockView.ext(lane).getEmergencyCarsOnLaneNr();
+					distance = blockView.ext(lane).getClosestEmergencyCarDistance();
+					if ((bestLane == null) || (emergencyCarsNr > biggestEmergencyCarsNr)
+							|| (emergencyCarsNr == biggestEmergencyCarsNr && distance < closestDistance)) {
+						bestLane = lane;
+					}
+				}
+			}
+		}
+
+		return bestLane;
 	}
 }

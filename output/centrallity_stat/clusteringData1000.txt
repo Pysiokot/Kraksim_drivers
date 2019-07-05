@@ -1,2 +1,2 @@
-X5:5	X8:5	X4:3	X6:1	X2:5	X1:2	XS2:2	XN2:1	X3:1	
-3	3	6	2	7	
+Nroad:5	Sroad:5	Wroad:5	
+1	1	1	0	0	

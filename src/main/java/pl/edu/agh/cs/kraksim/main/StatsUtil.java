@@ -9,6 +9,7 @@ import pl.edu.agh.cs.kraksim.iface.block.LaneBlockIface;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoCursor;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
+import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 import pl.edu.agh.cs.kraksim.ministat.*;
 import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
 
@@ -168,6 +169,8 @@ public class StatsUtil {
 	public static void collectLinkStats(final City city, final CarInfoIView carInfoView, final BlockIView blockView, final MiniStatEView statView, int turn, LinkStat linkStat, LinkStat linkRidingStat) {
 		CityMiniStatExt cityMiniStat = statView.ext(city);
 		long allCarsOnRedLigth = 0;
+		long emergencyVehiclesOnRedLight = 0;
+		long normalCarsOnRedLight = 0;
 		for (Iterator<Link> i = city.linkIterator(); i.hasNext(); ) {
 			Link link = i.next();
 			LinkMiniStatExt linkMiniStatExt = statView.ext(link);
@@ -186,6 +189,8 @@ public class StatsUtil {
 
 			long linkRidingDriveLength = 0;
 			long linkRidingMovementCount = 0;
+			long emergencyVehiclesLinkRidingMovementCount = 0;
+			long normalCarsLinkRidingMovementCount = 0;
 
 			for (int lineNum = 0; lineNum < link.laneCount(); lineNum++) {
 				Lane lane = link.getLaneAbs(lineNum);
@@ -236,8 +241,15 @@ public class StatsUtil {
 						}
 
 						if (!skipingMode) {
+							Driver d = (Driver) infoBackwardCursor.currentDriver();
+							boolean emergency = d.isEmergency();
 							linkRidingDriveLength += infoBackwardCursor.currentVelocity();
 							linkRidingMovementCount++;
+							if (emergency) {
+								emergencyVehiclesLinkRidingMovementCount++;
+							} else {
+								normalCarsLinkRidingMovementCount++;
+							}
 						}
 						lastPos = currentPos;
 					} catch (NoSuchElementException e) {
@@ -272,11 +284,17 @@ public class StatsUtil {
 			linkMiniStatExt.setAvarageRidingVelocity(linkRidingAvgVelocity == null ? Double.valueOf(0) : linkRidingAvgVelocity);
 
 			long carOnRedLightInLink = linkMiniStatExt.getCarCount() - linkRidingMovementCount;
+			long emergencyVehiclesOrRedLightInLink = linkMiniStatExt.getEmergencyVehiclesCount() - emergencyVehiclesLinkRidingMovementCount;
+			long normalCarsOrRedLightInLink = linkMiniStatExt.getNormalCarsCount() - normalCarsLinkRidingMovementCount;
 			linkMiniStatExt.setCarCountOnRedLigth(carOnRedLightInLink);
 			allCarsOnRedLigth += carOnRedLightInLink;
+			emergencyVehiclesOnRedLight += emergencyVehiclesOrRedLightInLink;
+			normalCarsOnRedLight += normalCarsOrRedLightInLink;
 		}
 		
 		cityMiniStat.setAllCarsOnRedLight(allCarsOnRedLigth);
+		cityMiniStat.setEmergencyVehiclesOnRedLight(emergencyVehiclesOnRedLight);
+		cityMiniStat.setNormalCarsOnRedLight(normalCarsOnRedLight);
 		
 	}
 

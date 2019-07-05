@@ -6,6 +6,7 @@ import pl.edu.agh.cs.kraksim.iface.Clock;
 import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.LinkMonIface;
 import pl.edu.agh.cs.kraksim.iface.mon.MonIView;
+import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,8 @@ public class LinkMiniStatExt {
 	private final LastPeriodCarCount lastPeriodCarInCount;
 	private final Link link;
 	private int carCount;
+	private int emergencyVehiclesCount;
+	private int normalCarsCount;
 	private int driveCount;
 	private long carOnRedLight;
 	private double totalDriveLength;
@@ -47,7 +50,14 @@ public class LinkMiniStatExt {
 		LinkMonIface l = monView.ext(link);
 		l.installInductionLoops(0, new CarDriveHandler() {
 			public void handleCarDrive(int velocity, Object driver) {
+				Driver d = (Driver) driver;
+				boolean emergency = d.isEmergency();
 				carCount++;
+				if (emergency) {
+					emergencyVehiclesCount++;
+				} else {
+					normalCarsCount++;
+				}
 				lastPeriodCarInCount.update();
 				entranceTurnMap.put(driver, clock.getTurn());
 			}
@@ -55,7 +65,14 @@ public class LinkMiniStatExt {
 
 		l.installInductionLoops(link.getLength(), new CarDriveHandler() {
 			public void handleCarDrive(int velocity, Object driver) {
+				Driver d = (Driver) driver;
+				boolean emergency = d.isEmergency();
 				carCount--;
+				if (emergency) {
+					emergencyVehiclesCount--;
+				} else {
+					normalCarsCount--;
+				}
 				int length = link.getLength();
 				Integer tmp = entranceTurnMap.remove(driver);
 				int duration = clock.getTurn() - ((tmp == null) ? (0) : (tmp));
@@ -79,6 +96,8 @@ public class LinkMiniStatExt {
 		LOGGER.trace("LinkMiniStatExt clear() ");
 		entranceTurnMap.clear();
 		carCount = 0;
+		emergencyVehiclesCount = 0;
+		normalCarsCount = 0;
 		driveCount = 0;
 		totalDriveLength = 0.0f;
 		totalDriveDuration = 0.0f;
@@ -87,6 +106,14 @@ public class LinkMiniStatExt {
 
 	public int getCarCount() {
 		return carCount;
+	}
+
+	public int getEmergencyVehiclesCount() {
+		return emergencyVehiclesCount;
+	}
+
+	public int getNormalCarsCount() {
+		return normalCarsCount;
 	}
 
 	public int getDriveCount() {

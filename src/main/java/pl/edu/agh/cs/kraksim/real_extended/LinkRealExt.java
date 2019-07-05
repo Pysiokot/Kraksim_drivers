@@ -31,6 +31,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		LOGGER.trace(link);
 
 		for (int i = 0; i < laneCount(); i++) {
+			// sets firstCarPos for lane
 			laneExt(i).prepareTurnSimulation();
 		}
 	}
@@ -39,7 +40,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		return link.laneCount();
 	}
 
-	/* in absolute numbering, from left to right, starting fom 0 */
+	/* in absolute numbering, from left to right, starting from 0 */
 	private LaneRealExt laneExt(int n) {
 		return ev.ext(link.getLaneAbs(n));
 	}
@@ -49,6 +50,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		LOGGER.trace(link);
 
 		for (int i = 0; i < laneCount(); i++) {
+			// sets <bool> carApproaching for each lane
 			laneExt(i).findApproachingCar();
 		}
 	}
@@ -107,6 +109,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		LOGGER.trace(link);
 
 		for (int i = 0; i < laneCount(); i++) {
+			// for each car on link	switch lanes (if needed) and drive car, maybe leave lane 
 			laneExt(i).simulateTurn();
 		}
 	}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <traffic>
-	<scheme count="51">
+	<scheme count="510">
         <gateway id="S1">
             <point y="0"/>
         </gateway>

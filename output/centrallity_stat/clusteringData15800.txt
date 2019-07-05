@@ -1,0 +1,2 @@
+Wroad:79	Sroad:79	Nroad:79	
+1	1	1	0	0	

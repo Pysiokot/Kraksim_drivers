@@ -14,13 +14,19 @@ public abstract class Driver implements Comparable<Driver> {
 	protected final TravellingScheme.Cursor cursor;
 	protected final Router router;
 	protected int departureTurn;
-	protected Color color;
+	protected Color carColor;
+	protected boolean emergency;
 
-	protected Driver(int id, TravellingScheme scheme, Router router) {
+	protected Driver(int id, TravellingScheme scheme, Router router, boolean emergency) {
 		this.id = id;
 		this.router = router;
-		color = scheme.getDriverColor();
 		cursor = scheme.cursor();
+		if (emergency) {
+			carColor = scheme.getEmergencyVehicleColor();
+		} else {
+			carColor = scheme.getDriverColor();
+		}
+		this.emergency = emergency;
 	}
 
 	public abstract ListIterator<Link> updateRouteFrom(Link sourceLink);
@@ -61,12 +67,20 @@ public abstract class Driver implements Comparable<Driver> {
 		departureTurn = cursor.drawDepartureTurn(rg);
 	}
 
-	public Color getColor() {
-		return color;
+	public Color getCarColor() {
+		return carColor;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setCarColor(Color carColor) {
+		this.carColor = carColor;
+	}
+
+	public boolean isEmergency() {
+		return emergency;
+	}
+
+	public void setEmergency(boolean emergency) {
+		this.emergency = emergency;
 	}
 
 	public DriverZones getAllowedZones() {

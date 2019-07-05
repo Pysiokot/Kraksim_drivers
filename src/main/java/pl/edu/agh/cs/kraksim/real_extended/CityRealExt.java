@@ -43,21 +43,25 @@ class CityRealExt implements CitySimIface, CityBlockIface {
 		LOGGER.trace("TURN STARTED");
 		LOGGER.trace("TURN - PREPARE");
 		for (Iterator<Link> iter = city.linkIterator(); iter.hasNext(); ) {
+			//	sets firstCarPos for each lane in every link
 			evalView.ext(iter.next()).prepareTurnSimulation();
 		}
 
 		LOGGER.trace("TURN - FIND CARS");
 		for (Iterator<Intersection> iter = city.intersectionIterator(); iter.hasNext(); ) {
+			//	sets <bool> carApproaching for each lane in link in intersection
 			evalView.ext(iter.next()).findApproachingCars();
 		}
 
 		LOGGER.trace("TURN - SIMULATE on Gateways");
 		for (Iterator<Gateway> iter = city.gatewayIterator(); iter.hasNext(); ) {
+			//	adds handlers to new cars and puts 1 car on the line (if was in new car quueue in this turn and is possible)
 			evalView.ext(iter.next()).simulateTurn();
 		}
 
 		LOGGER.trace("TURN - SIMULATE on Links");
 		for (Iterator<Link> iter = city.linkIterator(); iter.hasNext(); ) {
+			//	for each car in every link switch lanes (if needed) and drive car
 			evalView.ext(iter.next()).simulateTurn();
 		}
 

@@ -9,10 +9,10 @@ import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoCursor;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
 import pl.edu.agh.cs.kraksim.main.UpdateHook;
-import pl.edu.agh.cs.kraksim.ministat.CityMiniStatExt;
-import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
+import pl.edu.agh.cs.kraksim.ministat.*;
 import pl.edu.agh.cs.kraksim.sna.SnaConfigurator;
 import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityStatistics;
+import pl.edu.agh.cs.kraksim.statistics.StatsPanel;
 import pl.edu.agh.cs.kraksim.visual.VisualizerComponent;
 
 import javax.swing.*;
@@ -27,6 +27,14 @@ import java.util.NoSuchElementException;
 @SuppressWarnings("serial")
 public class GUISimulationVisualizer implements SimulationVisualizer {
 	private static final Logger LOGGER = Logger.getLogger(GUISimulationVisualizer.class);
+	private static final Logger LOGGER2 = Logger.getLogger(StatsPanel.class);
+	private static final Logger LOGGER3 = Logger.getLogger(CentrallityStatistics.class);
+	private static final Logger LOGGER4 = Logger.getLogger(GatewayMiniStatExt.class);
+	private static final Logger LOGGER5 = Logger.getLogger(LastPeriodAvgDuration.class);
+	private static final Logger LOGGER6 = Logger.getLogger(LastPeriodAvgVelocity.class);
+	private static final Logger LOGGER7 = Logger.getLogger(LastPeriodCarCount.class);
+	private static final Logger LOGGER8 = Logger.getLogger(LinkMiniStatExt.class);
+	private static final Logger LOGGER9 = Logger.getLogger(MiniStatModuleCreator.class);
 	private final VisualizerComponent visualizerComponent;
 	private final List<UpdateHook> hooks;
 	private final City city;
@@ -181,6 +189,14 @@ public class GUISimulationVisualizer implements SimulationVisualizer {
 		if (turn % 100 == 0) {
 			//LOGGER.info(turn + ";" + cityStat.getAvgVelocity() + ";"  + cityStat.getAvgCarSpeed());
 			LOGGER.info(turn + "," + cityStat.getAvgVelocity());
+			LOGGER2.info(turn + "," + cityStat.getAllCarsOnRedLight());
+			LOGGER3.info(turn + "," + cityStat.getCarCount());
+			LOGGER4.info(turn + "," + cityStat.getAvgEmergencyVehiclesVelocity());
+			LOGGER5.info(turn + "," + cityStat.getAvgNormalCarsVelocity());
+			LOGGER6.info(turn + "," + cityStat.getEmergencyVehiclesOnRedLight());
+			LOGGER7.info(turn + "," + cityStat.getNormalCarsOnRedLight());
+			LOGGER8.info(turn + "," + cityStat.getEmergencyVehiclesCount());
+			LOGGER9.info(turn + "," + cityStat.getNormalCarsCount());
 		}
 
 		//Centrallity stats

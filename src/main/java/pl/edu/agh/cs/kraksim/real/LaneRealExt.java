@@ -2,6 +2,7 @@ package pl.edu.agh.cs.kraksim.real;
 
 import com.google.common.collect.Sets;
 import org.apache.log4j.Logger;
+import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.core.Action;
 import pl.edu.agh.cs.kraksim.core.Lane;
 import pl.edu.agh.cs.kraksim.core.Link;
@@ -13,10 +14,15 @@ import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.LaneMonIface;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
-class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
+public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 	private static final Logger LOGGER = Logger.getLogger(LaneRealExt.class);
+	private final String emergencyVehiclesConfiguration;
 
 	private final Lane lane;
 	private final RealEView realView;
@@ -26,6 +32,9 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 	private final List<Car> enteringCars = new LinkedList<>();
 	private final List<InductionLoop> loops;
 	private final int speedLimit;
+	private final int emergencySpeedLimit;
+	private final int emergencySpeedLimitTimesHigher;
+	private final int emergencyAcceleration;
 	private final CarMoveModel carMoveModel;
 	private boolean blocked;
 	private int firstCarPos;
@@ -35,10 +44,24 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 
 	LaneRealExt(Lane lane, RealEView ev, RealSimulationParams params) {
 		LOGGER.trace("Constructing LaneRealExt ");
+		emergencyVehiclesConfiguration = KraksimConfigurator.getPropertiesFromFile().getProperty("emergencyVehiclesConfiguration");
+		Properties properties = new Properties();
+		try {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(emergencyVehiclesConfiguration));
+			properties.load(bis);
+			bis.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.emergencySpeedLimitTimesHigher = Integer.valueOf(properties.getProperty("emergencySpeedLimitTimesHigher"));
+		this.emergencyAcceleration = Integer.valueOf(properties.getProperty("emergencyAcceleration"));
 		this.lane = lane;
 		realView = ev;
 		this.params = params;
 		speedLimit = lane.getSpeedLimit();
+		emergencySpeedLimit = speedLimit * emergencySpeedLimitTimesHigher;
 		carMoveModel = params.carMoveModel;
 
 		offset = lane.getOffset();// linkLength() - lane.getLength();
@@ -315,8 +338,14 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 
 				// 2. Acceleration
 				int velocity = car.getVelocity();
-				if (velocity < speedLimit) {
-					velocity += 1;
+				if (car.isEmergency()) {
+					if (velocity < emergencySpeedLimit) {
+						velocity += emergencyAcceleration;
+					}
+				} else {
+					if (velocity < speedLimit) {
+						velocity += 1;
+					}
 				}
 
 				float decisionChance = params.getRandomGenerator().nextFloat();
@@ -362,17 +391,17 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 								if (th < ts) {
 									if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_BRAKE_PROB)) {
 										--velocity;
-										car.setBraking(true);
+										car.setBraking(true, car.isEmergency());
 									} else {
-										car.setBraking(false);
+										car.setBraking(false, car.isEmergency());
 									}
 								}
 							} else {
 								if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_MOVE_PROB)) {
 									--velocity;
-									car.setBraking(true);
+									car.setBraking(true, car.isEmergency());
 								} else {
-									car.setBraking(false);
+									car.setBraking(false, car.isEmergency());
 								}
 							}
 						}
@@ -491,6 +520,38 @@ class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 	 */
 	public int getAllCarsNumber() {
 		return cars.size() + enteringCars.size();
+	}
+
+	public boolean anyEmergencyCarsOnLane() {
+		for (Car car : cars) {
+			if (car.isEmergency()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int getEmergencyCarsOnLaneNr() {
+		int counter = 0;
+		for (Car car : cars) {
+			if (car.isEmergency()) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+	public synchronized int getClosestEmergencyCarDistance() {
+		int closestDistance = linkLength();
+		for (Car car : cars) {
+			if (car.isEmergency()) {
+				int distance = linkLength() - 1 - car.getPosition();
+				if (distance < closestDistance) {
+					closestDistance = distance;
+				}
+			}
+		}
+		return closestDistance;
 	}
 
 	public CarInfoCursor carInfoForwardCursor() {
