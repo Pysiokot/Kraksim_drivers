@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoadNet>
+  <nodes>
+    <gateway id="G0" x="240" y="108" />
+    <gateway id="G1" x="233" y="477" />
+    <intersection id="I0" x="234" y="146" />
+  </nodes>
+  <roads defaultSpeedLimit="1">
+    <road id="roads_0" street="roads_0" speedLimit="2" from="G1" to="I0">
+      <uplink>
+        <main length="295" numberOfLanes="3" />
+      </uplink>
+      <downlink>
+        <main length="295" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_1" street="roads_1" speedLimit="2" from="I0" to="G0">
+      <uplink>
+        <main length="165" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="165" numberOfLanes="1" />
+      </downlink>
+    </road>
+  </roads>
+  <intersectionDescriptions>
+    <intersection id="I0">
+      <armActions arm="G0" dir="NS">
+        <action lane="0" exit="G1" />
+      </armActions>
+      <armActions arm="G1" dir="NS">
+        <action lane="0" exit="G0" />
+      </armActions>
+      <trafficLightsSchedule>
+        <phase num="1" name="phase_1" duration="10">
+          <inlane arm="G0" lane="0" state="green" />
+          <inlane arm="G1" lane="0" state="green" />
+        </phase>
+        <phase num="2" name="phase_2" duration="10">
+          <inlane arm="G0" lane="0" state="green" />
+          <inlane arm="G1" lane="0" state="green" />
+        </phase>
+      </trafficLightsSchedule>
+    </intersection>
+  </intersectionDescriptions>
+</RoadNet>
+

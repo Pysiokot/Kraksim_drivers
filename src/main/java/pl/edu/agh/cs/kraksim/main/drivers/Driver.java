@@ -25,6 +25,8 @@ public abstract class Driver implements Comparable<Driver> {
 			carColor = scheme.getEmergencyVehicleColor();
 		} else {
 			carColor = scheme.getDriverColor();
+			Random generator = new Random();
+			this.carColor = new Color(generator.nextFloat(), generator.nextFloat(), generator.nextFloat()); //
 		}
 		this.emergency = emergency;
 	}

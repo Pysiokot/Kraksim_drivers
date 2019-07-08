@@ -1,2 +1,2 @@
-Nroad:4	Sroad:4	Wroad:4	
-1	1	1	0	0	
+G1:4	G0:4	
+1	1	0	0	0	
