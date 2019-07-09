@@ -10,6 +10,7 @@ import pl.edu.agh.cs.kraksim.parser.RoadInfo;
 import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -75,16 +76,20 @@ public class City extends Element {
 	 * <p/>
 	 * Arrays of lane lengths are indexed from 0 (the lane nearest to the main
 	 * lane).
+	 * @throws LinkAttachmentException 
+	 * @throws IllegalArgumentException 
 	 *
 	 * @throws DuplicateIdentifierException                                        if link with specified id already exists.
 	 * @throws pl.edu.agh.cs.kraksim.core.exceptions.LinkAttachmentException. See Gateway.attach*Link().
 	 */
-	public Link createLink(RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens) throws DuplicateIdentifierException, IllegalArgumentException, LinkAttachmentException {
+	public Link createLink(RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<String, List<String>>> linkBlockedCellsInfo)
+			throws DuplicateIdentifierException, IllegalArgumentException, LinkAttachmentException {
 		if (linkMap.containsKey(roadInfo.getLinkId())) {
 			throw new DuplicateIdentifierException(String.format("link with id %s already exists", roadInfo.getLinkId()));
 		}
-
-		Link link = new Link(core, roadInfo, leftLaneLens, mainLaneLen, numberOfLanes, rightLaneLens);
+		//System.out.println(("road to " + roadInfo.getTo() + " from " + roadInfo.getFrom()));
+		//System.out.println("City " + linkBlockedCellsInfo.toString());
+		Link link = new Link(core, roadInfo, leftLaneLens, mainLaneLen, numberOfLanes, rightLaneLens, linkBlockedCellsInfo);
 
 		// If this method throws an exception, no cleanup is needed.
 		roadInfo.getFrom().attachOutboundLink(link);

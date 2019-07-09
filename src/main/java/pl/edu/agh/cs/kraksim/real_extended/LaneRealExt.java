@@ -460,9 +460,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	void finalizeTurnSimulation() {
 		LOGGER.trace(lane);
-		if (!enteringCars.isEmpty()) {	// ?? why is this here
+		if (!enteringCars.isEmpty()) {
 			for (Car c : enteringCars) {
-				if (c.getAction() != null && c.getAction().getTarget().equals(owner())) {
+				if (c.getAction() != null && c.getAction().getTarget().equals(owner())) {	// was always FALSE during our tests
 					c.setPosition(0);
 					c.setVelocity(0);
 				}
@@ -471,20 +471,28 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				boolean ins = false;
 				while (it.hasNext()) {
 					Car c1 = it.next();
-					newC.add(c1);
-					if (c1.getPosition() < c.getPosition() && !ins) {
+					if (c1.getPosition() > c.getPosition() && !ins) {
 						newC.add(c);
 						ins = true;
 					}
+					newC.add(c1);
 				}
 				if (!ins) {
-					newC.addFirst(c);
+					newC.add(c);
 				}
 				cars = newC;
 //				this.cars.addFirst(c);
+				//if(c.getPosition() > 0) System.out.println("c.getPosition() " + c.getPosition()+ "\t" + c.getVelocity());
 			}
 			enteringCars.clear();
 		}
+//		Iterator<Car> it = cars.iterator();
+//		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+//		while (it.hasNext()) {
+//			Car c1 = it.next();
+//			System.out.print(c1.getPosition() + " ");
+//		}
+//		System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz");
 	}
 
 	/**
@@ -525,7 +533,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		//	if car is emergency or car behind me is emergency - dont switch
 		//	if car dont want to switch - check getLaneToSwitch - maybe it will switch
 		//	if car want to switch - switch to that line
-		if ((!car.isEmergency()) && (getBehindCar(car, sourceLane).isEmergency())) {	// ???? not targetLine
+		if ((!car.isEmergency()) && (getBehindCar(car, sourceLane).isEmergency())) {
 			direction = LaneSwitch.CHANGE_RIGHT;
 		} else if (car.getLaneSwitch() == LaneSwitch.NO_CHANGE) {
 			direction = getLaneToSwitch(car, sourceLane);

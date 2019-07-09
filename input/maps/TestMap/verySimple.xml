@@ -8,7 +8,10 @@
   <roads defaultSpeedLimit="1">
     <road id="roads_0" street="roads_0" speedLimit="2" from="G1" to="I0">
       <uplink>
-        <main length="295" numberOfLanes="3" />
+        <main length="295" numberOfLanes="3">
+          <blocked laneNumber = "0" cell="80" />
+          <blocked laneNumber = "0" cell="100" />
+        </main>
       </uplink>
       <downlink>
         <main length="295" numberOfLanes="1" />
