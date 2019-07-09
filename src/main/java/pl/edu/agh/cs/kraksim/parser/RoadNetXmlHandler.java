@@ -417,7 +417,13 @@ public class RoadNetXmlHandler extends DefaultHandler {
 					this.linkBlockedCellsInfo.put(this.lastLaneType, laneNumMap);
 				} else {
 					List<String> cellList = blockedCellsInfoList.get(laneNumber);
-					cellList.add(cellNumber);
+					if(cellList == null) {
+						cellList = new ArrayList<>();
+						cellList.add(cellNumber);
+						blockedCellsInfoList.put(laneNumber, cellList);
+					} else {
+						cellList.add(cellNumber);
+					}
 				}
 			}
 		}	

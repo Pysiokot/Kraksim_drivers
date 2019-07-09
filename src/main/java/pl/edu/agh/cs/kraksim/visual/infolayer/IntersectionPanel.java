@@ -206,6 +206,12 @@ public class IntersectionPanel extends JPanel{
             drawCar(g2, lane, infoForwardCursor.currentPos(), drawnLanesGlobal, direction, perpendicual, ((Driver)infoForwardCursor.currentDriver()).getCarColor(), isInbound(lane.getOwner()), ((Driver)infoForwardCursor.currentDriver()).isEmergency());
             infoForwardCursor.next();
         }
+        
+        java.util.List<String> blockedCellsList = lane.getBlockedCellsInfo();
+		for(String blockedCell : blockedCellsList) {
+			drawCar(g2, lane, Integer.parseInt(blockedCell), drawnLanesGlobal, direction, perpendicual, Color.BLACK, isInbound(lane.getOwner()));
+            
+		}
         drawTextForLane(g2, lane, drawnLanesGlobal, direction, perpendicual, Color.YELLOW);
     }
 

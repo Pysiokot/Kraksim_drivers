@@ -26,7 +26,7 @@ public class Lane extends Element {
 	/* minimal speed that should be achieved */
 	private final double minimalSpeed;
 	
-	List<String> blickedCellsInfo;	// blocked cells details in format <num_of_
+	private List<String> blockedCellsInfo;	// blocked cells details in format <num_of_blicked_cell>
 
 	private static final String INVALIDACTION = "trying to add invalid action to";
 
@@ -39,7 +39,7 @@ public class Lane extends Element {
 		this.speedLimit = speedLimit;
 		this.relativeNumber = relativeNumber;
 		this.minimalSpeed = minimalSpeed;
-		this.blickedCellsInfo = laneBlockedCellsInfo;
+		this.blockedCellsInfo = laneBlockedCellsInfo;
 		actions = new ArrayList<>();
 	}
 
@@ -187,5 +187,9 @@ public class Lane extends Element {
 
 	public List<Action> getActions() {
 		return actions;
+	}
+
+	public List<String> getBlockedCellsInfo() {
+		return blockedCellsInfo;
 	}
 }

@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-final class Car {
+class Car {
 	private static final Logger LOGGER = Logger.getLogger(Car.class);
 	private final boolean isTEST2013Enabled;
 	private final Driver driver;
@@ -27,7 +27,7 @@ final class Car {
 	private ListIterator<Link> linkIterator;
 	private Action action;
 	private Action preferableAction;
-	private int pos;
+	protected int pos;
 	private int velocity;
 	//  private ListIterator<Link> copyLinkIterator;
 	private long TEST2013waitCounter = 0;
@@ -81,6 +81,11 @@ final class Car {
 		beforePos = 0;
 
 		LOGGER.trace("\n Driver= " + driver + "\n rerouting= " + rerouting);
+	}
+	
+	public Car() {
+		this.isTEST2013Enabled = false;
+		this.driver = null;
 	}
 
 	public Driver getDriver() {

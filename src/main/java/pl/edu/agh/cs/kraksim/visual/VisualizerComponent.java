@@ -28,6 +28,7 @@ public class VisualizerComponent extends JPanel {
 
 	private static final float VEHICLE_SIZE = 2.4f;
 	public static final Dimension defaultDimension = new Dimension(640, 480);
+	private static final Color BLOCKED_CELL_COLOR = Color.black;
 
 	private transient City city;
 	private transient CityMapVisualizer cityMapVisualizer; // NOPMD by
@@ -93,7 +94,7 @@ public class VisualizerComponent extends JPanel {
 		setOpaque(true);
 		// setBorder(BorderFactory.createLineBorder(Color.RED));
 		revalidate();
-
+		update();
 	}
 
 	private static Dimension computeModelSize(final City city) {
@@ -207,6 +208,8 @@ public class VisualizerComponent extends JPanel {
 			// iterator pozycji samochodow w komorkach
 
 			CarInfoCursor cursor;
+
+			
 			// [START] rysowanie aut na lewym pasie
 			int offset = 0;
 			int position = 0;
@@ -221,6 +224,15 @@ public class VisualizerComponent extends JPanel {
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
+				
+				// [start] draw blocked Cells on lane
+				java.util.List<String> blockedCellsList = link.getMainLane(j).getBlockedCellsInfo();
+				for(String blockedCell : blockedCellsList) {
+					drawVehicle(g2d, start, laneRoadAxisOffset,
+							vectorOrtogonal, Integer.parseInt(blockedCell), vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+				}
+				// [end] blocked cells
+				
 				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]
@@ -236,6 +248,14 @@ public class VisualizerComponent extends JPanel {
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
+				
+				// [start] draw blocked Cells on lane
+				java.util.List<String> blockedCellsList = link.getMainLane(j).getBlockedCellsInfo();
+				for(String blockedCell : blockedCellsList) {
+					drawVehicle(g2d, start, laneRoadAxisOffset,
+							vectorOrtogonal, Integer.parseInt(blockedCell), vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+				}
+				// [end] blocked cells
 				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]
@@ -251,6 +271,15 @@ public class VisualizerComponent extends JPanel {
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
+				
+				// [start] draw blocked Cells on lane
+				java.util.List<String> blockedCellsList = link.getMainLane(j).getBlockedCellsInfo();
+				for(String blockedCell : blockedCellsList) {
+					drawVehicle(g2d, start, laneRoadAxisOffset,
+							vectorOrtogonal, Integer.parseInt(blockedCell), vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+				}
+				// [end] blocked cells
+				
 				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]

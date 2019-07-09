@@ -49,7 +49,7 @@ public class Link extends Element {
 	private final ZoneInfo zoneInfo;
 	private String direction;
 	
-	private Map<String, Map<String, List<String>>> blockedCellsInfo;
+	private Map<String, Map<String, List<String>>> blockedCellsInfo; // blocked cells details in format <road_type> -> <line_num> -> <num_of_blicked_cell>
 
 	private double weight;
 	private double load;
