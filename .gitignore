@@ -8,5 +8,7 @@
 .idea/modules.xml
 .classpath
 .idea/*
+output/
 output/*
 configuration/lastSession.properties
+
