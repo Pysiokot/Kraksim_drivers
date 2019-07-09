@@ -8,6 +8,7 @@ import pl.edu.agh.cs.kraksim.iface.eval.EvalIView;
 import pl.edu.agh.cs.kraksim.iface.eval.LaneEvalIface;
 import pl.edu.agh.cs.kraksim.main.EvalModuleProvider;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
+import pl.edu.agh.cs.kraksim.visual.VisualizerComponent;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -209,7 +210,7 @@ public class IntersectionPanel extends JPanel{
         
         java.util.List<String> blockedCellsList = lane.getBlockedCellsInfo();
 		for(String blockedCell : blockedCellsList) {
-			drawCar(g2, lane, Integer.parseInt(blockedCell), drawnLanesGlobal, direction, perpendicual, Color.BLACK, isInbound(lane.getOwner()));
+			drawCar(g2, lane, Integer.parseInt(blockedCell), drawnLanesGlobal, direction, perpendicual, VisualizerComponent.BLOCKED_CELL_COLOR, isInbound(lane.getOwner()));
             
 		}
         drawTextForLane(g2, lane, drawnLanesGlobal, direction, perpendicual, Color.YELLOW);
