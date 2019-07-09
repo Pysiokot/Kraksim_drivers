@@ -1,9 +1,6 @@
 package pl.edu.agh.cs.kraksim.visual.infolayer;
 
-import pl.edu.agh.cs.kraksim.core.Intersection;
-import pl.edu.agh.cs.kraksim.core.Lane;
-import pl.edu.agh.cs.kraksim.core.Link;
-import pl.edu.agh.cs.kraksim.core.Node;
+import pl.edu.agh.cs.kraksim.core.*;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoCursor;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
@@ -14,6 +11,7 @@ import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.Action;
 import javax.vecmath.Vector2d;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -402,7 +400,12 @@ public class IntersectionPanel extends JPanel{
     }
 
     public Boolean isInbound(Link l){
-        return l.getEnd().equals(crossroad);
+        // 9.07.19 - fixed outgoing lanes approaching gateways
+        Boolean inbound = l.getEnd().equals(crossroad);
+        if(l.getEnd() instanceof Gateway){
+            return !inbound;
+        }
+        return inbound;
     }
     public void setLabel(JLabel l){
         statsLabel = l;
