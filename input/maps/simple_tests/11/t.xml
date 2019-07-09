@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <traffic>
-	<scheme count="1">
+	<scheme count="1000">
         <gateway id="E2">
             <point y="0"/>
         </gateway>
         <gateway id="S1"/>
+    </scheme>
+    <scheme count="1000">
+        <gateway id="N1">
+            <point y="0"/>
+        </gateway>
+        <gateway id="S1"/>
+    </scheme>
+    <scheme count="1000">
+        <gateway id="E2">
+            <point y="0"/>
+        </gateway>
+        <gateway id="N1"/>
+    </scheme>
+
+    <scheme count="1000">
+        <gateway id="S1">
+            <point y="0"/>
+        </gateway>
+        <gateway id="E2"/>
+    </scheme>
+    <scheme count="1000">
+        <gateway id="S1">
+            <point y="0"/>
+        </gateway>
+        <gateway id="N1"/>
     </scheme>
 </traffic>

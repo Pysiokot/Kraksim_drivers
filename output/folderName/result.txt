@@ -1,15 +1,15 @@
-Time: Thu Jul 04 14:37:06 CEST 2019
-Total Items: 280
-Total Congestion: 0
-Total predictable congestions: 0
+Time: Mon Jul 08 08:34:34 CEST 2019
+Total Items: 80
+Total Congestion: 10
+Total predictable congestions: 10
 True Positive: 0
-True Negative: 280
-False Negative 0
+True Negative: 70
+False Negative 10
 False Positive 0
 
 Congestion class
-Positive: �
-Negative: �
+Positive: 0
+Negative: 1
 
 Non congestion class
 Positive: 1
@@ -17,18 +17,8 @@ Negative: 0
 
 LINK STATS
 
-X1N1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-S1X2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-X2S1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-E2X:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-XE2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-XX2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-X2X:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-WX2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-X2W:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-WX1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-X1W:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-X2X1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-X1X2:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-N1X1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
-MAPE: 0.055245535714286226
+G1I0:       10 TP:        0[0,000] FN:       10[1,000] TN:       10[1,000] FP:        0[0,000]
+I0G1:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+I0G0:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+G0I0:        0 TP:        0[NaN] FN:        0[NaN] TN:       20[1,000] FP:        0[0,000]
+MAPE: 7.010388204647685
