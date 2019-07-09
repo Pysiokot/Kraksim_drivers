@@ -28,7 +28,7 @@ public class VisualizerComponent extends JPanel {
 
 	private static final float VEHICLE_SIZE = 2.4f;
 	public static final Dimension defaultDimension = new Dimension(640, 480);
-	private static final Color BLOCKED_CELL_COLOR = Color.black;
+	public static final Color BLOCKED_CELL_COLOR = Color.black;
 
 	private transient City city;
 	private transient CityMapVisualizer cityMapVisualizer; // NOPMD by
