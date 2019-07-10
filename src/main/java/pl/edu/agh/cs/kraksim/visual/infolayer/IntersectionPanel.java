@@ -208,9 +208,9 @@ public class IntersectionPanel extends JPanel{
             infoForwardCursor.next();
         }
         
-        java.util.List<String> blockedCellsList = lane.getBlockedCellsInfo();
-		for(String blockedCell : blockedCellsList) {
-			drawCar(g2, lane, Integer.parseInt(blockedCell), drawnLanesGlobal, direction, perpendicual, VisualizerComponent.BLOCKED_CELL_COLOR, isInbound(lane.getOwner()));
+        java.util.List<Integer> blockedCellsList = lane.getBlockedCellsInfo();
+		for(Integer blockedCell : blockedCellsList) {
+			drawCar(g2, lane, blockedCell, drawnLanesGlobal, direction, perpendicual, VisualizerComponent.BLOCKED_CELL_COLOR, isInbound(lane.getOwner()), false);
             
 		}
         drawTextForLane(g2, lane, drawnLanesGlobal, direction, perpendicual, Color.YELLOW);
