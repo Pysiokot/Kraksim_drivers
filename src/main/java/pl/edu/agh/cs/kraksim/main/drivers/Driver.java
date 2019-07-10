@@ -22,11 +22,11 @@ public abstract class Driver implements Comparable<Driver> {
 		this.router = router;
 		cursor = scheme.cursor();
 		if (emergency) {
-			carColor = new Color(1,1,1); // scheme.getEmergencyVehicleColor();
+			carColor = Color.WHITE; // scheme.getEmergencyVehicleColor();
 		} else {
 			carColor = scheme.getDriverColor();
 			Random generator = new Random();
-			this.carColor = new Color(generator.nextFloat(), generator.nextFloat(), generator.nextFloat()); //
+			this.carColor = new Color(generator.nextFloat(), generator.nextFloat(), generator.nextFloat());
 		}
 		this.emergency = emergency;
 	}

@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -157,7 +158,7 @@ public class IntersectionPanel extends JPanel{
 
     public void drawBundleOfCars(Graphics g, ArrayList<Link> lanes){
         Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(laneWidth));
+        // g2.setStroke(new BasicStroke(laneWidth));
         int drawnLanesGlobal = 0;
 
         Vector2d direction = getDirection(lanes.get(0));
@@ -202,7 +203,7 @@ public class IntersectionPanel extends JPanel{
 
         while (infoForwardCursor != null && infoForwardCursor.isValid()) {
             int position = infoForwardCursor.currentPos() + (offset);
-            drawCar(g2, lane, infoForwardCursor.currentPos(), drawnLanesGlobal, direction, perpendicual, ((Driver)infoForwardCursor.currentDriver()).getCarColor(), isInbound(lane.getOwner()));
+            drawCar(g2, lane, infoForwardCursor.currentPos(), drawnLanesGlobal, direction, perpendicual, ((Driver)infoForwardCursor.currentDriver()).getCarColor(), isInbound(lane.getOwner()), ((Driver)infoForwardCursor.currentDriver()).isEmergency());
             infoForwardCursor.next();
         }
         drawTextForLane(g2, lane, drawnLanesGlobal, direction, perpendicual, Color.YELLOW);
@@ -261,7 +262,7 @@ public class IntersectionPanel extends JPanel{
         drawTexts(g2,toWrite, algorithmInfoPosition, Color.ORANGE, 12);
     }
 
-    private void drawCar(Graphics2D g2, Lane lane, int position, int drawnLanes, Vector2d direction, Vector2d perpendicual, Color color, Boolean inbound ){
+    private void drawCar(Graphics2D g2, Lane lane, int position, int drawnLanes, Vector2d direction, Vector2d perpendicual, Color color, Boolean inbound , Boolean isEmergency){
         Vector2d currentDirection = new Vector2d(direction);
         Vector2d currentStart = new Vector2d(center);
         Vector2d currentPerpendicual = new Vector2d(perpendicual);
@@ -283,7 +284,30 @@ public class IntersectionPanel extends JPanel{
 
 
         g2.setColor(color);
-        g2.draw(new Line2D.Double(dirTmp.x, dirTmp.y, currentDirection.x, currentDirection.y));
+
+        // 2019 - Emergency is now a triangle
+        if(isEmergency){
+
+            if(!inbound){
+                Vector2d tmp = currentDirection;
+                currentDirection = dirTmp;
+                dirTmp = tmp;
+            }
+            double a = currentDirection.x - dirTmp.x;
+            double b = currentDirection.y - dirTmp.y;
+            double len = Math.sqrt(a*a + b*b);
+            double x = b / len;
+            double y = - a / len;
+            double normA = a / len;
+            double normB = b / len;
+
+            int[] xPoints = {(int) (currentDirection.x + normA * laneWidth/2), (int) (dirTmp.x + (x - normA) * laneWidth/2 ), (int) (dirTmp.x - (x + normA) * laneWidth/2)};
+            int[] yPoints = {(int) (currentDirection.y  + normB * laneWidth/2), (int) (dirTmp.y + (y - normB) * laneWidth/2), (int) (dirTmp.y - (y + normB) * laneWidth/2)};
+            g2.fillPolygon(xPoints, yPoints, xPoints.length);
+        }
+        else{
+            g2.draw(new Line2D.Double(dirTmp.x, dirTmp.y, currentDirection.x, currentDirection.y));
+        }
     }
 
 
