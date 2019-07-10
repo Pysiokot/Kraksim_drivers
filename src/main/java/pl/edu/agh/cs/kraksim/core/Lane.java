@@ -26,11 +26,11 @@ public class Lane extends Element {
 	/* minimal speed that should be achieved */
 	private final double minimalSpeed;
 	
-	private List<String> blockedCellsInfo;	// blocked cells details in format <num_of_blicked_cell>
+	private List<Integer> blockedCellsInfo;	// blocked cells details in format <num_of_blicked_cell>
 
 	private static final String INVALIDACTION = "trying to add invalid action to";
 
-	Lane(Core core, Link owner, int num, int relativeNumber, int length, int speedLimit, double minimalSpeed, List<String> laneBlockedCellsInfo) {
+	Lane(Core core, Link owner, int num, int relativeNumber, int length, int speedLimit, double minimalSpeed, List<Integer> laneBlockedCellsInfo) {
 		super(core);
 		//System.out.println("lane " + laneBlockedCellsInfo.toString());
 		this.owner = owner;
@@ -189,7 +189,7 @@ public class Lane extends Element {
 		return actions;
 	}
 
-	public List<String> getBlockedCellsInfo() {
+	public List<Integer> getBlockedCellsInfo() {
 		return blockedCellsInfo;
 	}
 }

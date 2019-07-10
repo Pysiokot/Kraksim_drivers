@@ -81,9 +81,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		MIN_SAFE_DISTANCE = params.getMinSafeDistance();
 		
 		// block cells
-		List<String> blockedCells = lane.getBlockedCellsInfo();
-		for(String blickedCell : blockedCells) {
-			//enteringCars.add(new Obstacle(Integer.parseInt(blickedCell)));
+		List<Integer> blockedCells = lane.getBlockedCellsInfo();
+		for(Integer blickedCell : blockedCells) {
+			//enteringCars.add(new Obstacle(blickedCell));
 		}
 		this.finalizeTurnSimulation();
 	}
@@ -868,6 +868,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			} else {
 				car = null;
 			}
+			if(car != null && car instanceof Obstacle) {
+				next();
+			}
 		}
 
 		public void next() {
@@ -875,6 +878,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				car = null;
 			} else {
 				car = cit.previous();
+			}
+			if(car != null && car instanceof Obstacle) {
+				next();
 			}
 		}
 	}

@@ -45,7 +45,7 @@ public class RoadNetXmlHandler extends DefaultHandler {
 	 */
 	private int numberOfLanes;
 	private String lastLaneType;	// type of last seen lane, values: main/left/right
-	private Map<String, Map<String, List<String>>> linkBlockedCellsInfo;	// map with blocked cells in format main/left/right -> <lane_number> -> <num_of_cell>, important only during line creation
+	private Map<String, Map<String, List<Integer>>> linkBlockedCellsInfo;	// map with blocked cells in format main/left/right -> <lane_number> -> <num_of_cell>, important only during line creation
 			//	road_type -> lane_num -> list_of_blicked_cells
 
 	private Core core;
@@ -404,19 +404,19 @@ public class RoadNetXmlHandler extends DefaultHandler {
 	private void createLaneBlockCells(String rawName, Attributes attrs) {
 		if(rawName.equals("blocked")) {
 			String laneNumber = attrs.getValue("laneNumber");
-			String cellNumber = attrs.getValue("cell");
+			Integer cellNumber = Integer.parseInt(attrs.getValue("cell"));
 			if(laneNumber == null || cellNumber == null) {
 				LOGGER.error("wrong cell blocking details, ignoring one entry");
 			} else {
-				Map<String, List<String>> blockedCellsInfoList = this.linkBlockedCellsInfo.get(this.lastLaneType); // laneNumber + ":" + cellNumber);
+				Map<String, List<Integer>> blockedCellsInfoList = this.linkBlockedCellsInfo.get(this.lastLaneType); // laneNumber + ":" + cellNumber);
 				if(blockedCellsInfoList == null) {
-					ArrayList<String> cellList = new ArrayList<String>();
+					ArrayList<Integer> cellList = new ArrayList<Integer>();
 					cellList.add(cellNumber);
-					HashMap<String, List<String>> laneNumMap = new HashMap<>();
+					HashMap<String, List<Integer>> laneNumMap = new HashMap<>();
 					laneNumMap.put(laneNumber, cellList);
 					this.linkBlockedCellsInfo.put(this.lastLaneType, laneNumMap);
 				} else {
-					List<String> cellList = blockedCellsInfoList.get(laneNumber);
+					List<Integer> cellList = blockedCellsInfoList.get(laneNumber);
 					if(cellList == null) {
 						cellList = new ArrayList<>();
 						cellList.add(cellNumber);

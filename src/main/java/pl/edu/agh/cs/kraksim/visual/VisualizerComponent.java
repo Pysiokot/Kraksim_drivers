@@ -226,10 +226,10 @@ public class VisualizerComponent extends JPanel {
 				}
 				
 				// [start] draw blocked Cells on lane
-				java.util.List<String> blockedCellsList = link.getMainLane(j).getBlockedCellsInfo();
-				for(String blockedCell : blockedCellsList) {
+				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getBlockedCellsInfo();
+				for(Integer blockedCell : blockedCellsList) {
 					drawVehicle(g2d, start, laneRoadAxisOffset,
-							vectorOrtogonal, Integer.parseInt(blockedCell), vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
 				}
 				// [end] blocked cells
 				
@@ -250,10 +250,10 @@ public class VisualizerComponent extends JPanel {
 				}
 				
 				// [start] draw blocked Cells on lane
-				java.util.List<String> blockedCellsList = link.getMainLane(j).getBlockedCellsInfo();
-				for(String blockedCell : blockedCellsList) {
+				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getBlockedCellsInfo();
+				for(Integer blockedCell : blockedCellsList) {
 					drawVehicle(g2d, start, laneRoadAxisOffset,
-							vectorOrtogonal, Integer.parseInt(blockedCell), vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
 				}
 				// [end] blocked cells
 				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
@@ -273,10 +273,10 @@ public class VisualizerComponent extends JPanel {
 				}
 				
 				// [start] draw blocked Cells on lane
-				java.util.List<String> blockedCellsList = link.getMainLane(j).getBlockedCellsInfo();
-				for(String blockedCell : blockedCellsList) {
+				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getBlockedCellsInfo();
+				for(Integer blockedCell : blockedCellsList) {
 					drawVehicle(g2d, start, laneRoadAxisOffset,
-							vectorOrtogonal, Integer.parseInt(blockedCell), vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
 				}
 				// [end] blocked cells
 				

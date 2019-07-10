@@ -82,7 +82,7 @@ public class City extends Element {
 	 * @throws DuplicateIdentifierException                                        if link with specified id already exists.
 	 * @throws pl.edu.agh.cs.kraksim.core.exceptions.LinkAttachmentException. See Gateway.attach*Link().
 	 */
-	public Link createLink(RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<String, List<String>>> linkBlockedCellsInfo)
+	public Link createLink(RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<String, List<Integer>>> linkBlockedCellsInfo)
 			throws DuplicateIdentifierException, IllegalArgumentException, LinkAttachmentException {
 		if (linkMap.containsKey(roadInfo.getLinkId())) {
 			throw new DuplicateIdentifierException(String.format("link with id %s already exists", roadInfo.getLinkId()));
