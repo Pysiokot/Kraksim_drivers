@@ -83,7 +83,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		// block cells
 		List<Integer> blockedCells = lane.getBlockedCellsInfo();
 		for(Integer blickedCell : blockedCells) {
-			//enteringCars.add(new Obstacle(blickedCell));
+			enteringCars.add(new Obstacle(blickedCell));
 		}
 		this.finalizeTurnSimulation();
 	}
@@ -337,6 +337,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			do {	// ~ for car in carIterator
 				nextCar = carIterator.hasNext() ? carIterator.next() : null;
 				// carIterator on next for nextCar || on next of next of car
+				
+				if(car instanceof Obstacle) {
+					car = nextCar;
+					continue;
+				}
 
 				// remember starting point
 				car.setBeforeLane(lane);

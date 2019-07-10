@@ -1,2 +1,0 @@
-Wroad:119	Sroad:119	Nroad:119	
-1	1	1	0	0	

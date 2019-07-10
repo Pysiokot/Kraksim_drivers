@@ -1,2 +1,0 @@
-Wroad:32	Sroad:32	Nroad:32	
-1	1	1	0	0	

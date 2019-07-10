@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RoadNet>
   <nodes>
-    <gateway id="G0" x="240" y="108" />
-    <gateway id="G1" x="233" y="477" />
-    <intersection id="I0" x="234" y="146" />
+    <gateway id="G0" x="40" y="28" />
+    <gateway id="G1" x="40" y="397" />
+    <intersection id="I0" x="40" y="66" />
   </nodes>
   <roads defaultSpeedLimit="1">
-    <road id="roads_0" street="roads_0" speedLimit="2" from="G1" to="I0">
+    <road id="roads_0" street="roads_0" speedLimit="1" from="G1" to="I0">
       <uplink>
         <main length="295" numberOfLanes="3">
           <blocked laneNumber = "0" cell="80" />
@@ -18,7 +18,7 @@
         <main length="295" numberOfLanes="1" />
       </downlink>
     </road>
-    <road id="roads_1" street="roads_1" speedLimit="2" from="I0" to="G0">
+    <road id="roads_1" street="roads_1" speedLimit="1" from="I0" to="G0">
       <uplink>
         <main length="165" numberOfLanes="1" />
       </uplink>

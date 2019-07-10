@@ -1,2 +1,0 @@
-Wroad:93	Sroad:93	Nroad:93	
-1	1	1	0	0	

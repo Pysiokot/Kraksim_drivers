@@ -1,2 +1,0 @@
-Wroad:58	Sroad:58	Nroad:58	
-1	1	1	0	0	
