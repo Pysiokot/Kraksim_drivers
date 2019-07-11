@@ -3,15 +3,15 @@
   <nodes>
     <gateway id="G0" x="40" y="28" />
     <gateway id="G1" x="40" y="397" />
+    <gateway id="G2" x="158" y="66" />
     <intersection id="I0" x="40" y="66" />
   </nodes>
   <roads defaultSpeedLimit="1">
     <road id="roads_0" street="roads_0" speedLimit="3" from="G1" to="I0">
       <uplink>
-        <main length="295" numberOfLanes="3">
-          <blocked laneNumber = "1" cell="100" />
+        <main length="295" numberOfLanes="3" />
           <blocked laneNumber = "0" cell="80" />
-        </main>
+          <blocked laneNumber = "0" cell="100" />
       </uplink>
       <downlink>
         <main length="295" numberOfLanes="1" />
@@ -25,6 +25,14 @@
         <main length="165" numberOfLanes="1" />
       </downlink>
     </road>
+    <road id="roads_2" street="roads_2" speedLimit="2" from="I0" to="G2">
+      <uplink>
+        <main length="118" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="118" numberOfLanes="1" />
+      </downlink>
+    </road>
   </roads>
   <intersectionDescriptions>
     <intersection id="I0">
@@ -33,15 +41,21 @@
       </armActions>
       <armActions arm="G1" dir="NS">
         <action lane="0" exit="G0" />
+        <action lane="0" exit="G2" />
       </armActions>
+      <armActions arm="G2" dir="NS" />
       <trafficLightsSchedule>
-        <phase num="1" name="phase_1" duration="10">
-          <inlane arm="G0" lane="0" state="green" />
+        <phase num="1" name="phase_3" duration="10">
+          <inlane arm="G0" lane="0" state="red" />
           <inlane arm="G1" lane="0" state="green" />
+          <inlane arm="G1" lane="1" state="green" />
+          <inlane arm="G2" lane="0" state="red" />
         </phase>
         <phase num="2" name="phase_2" duration="10">
           <inlane arm="G0" lane="0" state="green" />
-          <inlane arm="G1" lane="0" state="green" />
+          <inlane arm="G1" lane="0" state="red" />
+          <inlane arm="G1" lane="1" state="red" />
+          <inlane arm="G2" lane="0" state="green" />
         </phase>
       </trafficLightsSchedule>
     </intersection>
