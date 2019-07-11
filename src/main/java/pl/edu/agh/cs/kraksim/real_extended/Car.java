@@ -119,6 +119,10 @@ class Car {
 	public boolean isEmergency() {
 		return getDriver().isEmergency();
 	}
+	
+	public boolean isObstacle() {
+		return false;
+	}
 
 	public boolean isBraking() {
 		return braking;

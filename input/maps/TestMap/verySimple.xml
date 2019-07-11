@@ -6,19 +6,18 @@
     <intersection id="I0" x="40" y="66" />
   </nodes>
   <roads defaultSpeedLimit="1">
-    <road id="roads_0" street="roads_0" speedLimit="1" from="G1" to="I0">
+    <road id="roads_0" street="roads_0" speedLimit="3" from="G1" to="I0">
       <uplink>
         <main length="295" numberOfLanes="3">
+          <blocked laneNumber = "1" cell="100" />
           <blocked laneNumber = "0" cell="80" />
-          <blocked laneNumber = "0" cell="100" />
-          <blocked laneNumber = "1" cell="293" />
         </main>
       </uplink>
       <downlink>
         <main length="295" numberOfLanes="1" />
       </downlink>
     </road>
-    <road id="roads_1" street="roads_1" speedLimit="1" from="I0" to="G0">
+    <road id="roads_1" street="roads_1" speedLimit="3" from="I0" to="G0">
       <uplink>
         <main length="165" numberOfLanes="1" />
       </uplink>

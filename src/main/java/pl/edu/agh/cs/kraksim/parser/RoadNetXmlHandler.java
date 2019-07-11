@@ -405,7 +405,8 @@ public class RoadNetXmlHandler extends DefaultHandler {
 		if(rawName.equals("blocked")) {
 			String laneNumber = attrs.getValue("laneNumber");
 			Integer cellNumber = Integer.parseInt(attrs.getValue("cell"));
-			if(laneNumber == null || cellNumber == null) {
+			
+			if(laneNumber == null || cellNumber == null || cellNumber >= mainLaneLen) {
 				LOGGER.error("wrong cell blocking details, ignoring one entry");
 			} else {
 				Map<String, List<Integer>> blockedCellsInfoList = this.linkBlockedCellsInfo.get(this.lastLaneType); // laneNumber + ":" + cellNumber);

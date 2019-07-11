@@ -32,11 +32,15 @@ public class Obstacle extends Car {
 	}
 	
 	public String toString() {
-		return "[ Obstacle Pos=" + this.getPosition() + ",v=" + this.getVelocity() + ']';
+		return "[ Obstacle Pos=" + this.getPosition() + ",v=" + this.getVelocity() + " ]";
 	}
 	
 	public boolean isEmergency() {
 		return false;
+	}
+	
+	public boolean isObstacle() {
+		return true;
 	}
 	
 	public boolean isBraking() {

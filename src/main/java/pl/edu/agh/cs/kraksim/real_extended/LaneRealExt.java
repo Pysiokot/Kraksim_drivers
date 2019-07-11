@@ -338,7 +338,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				nextCar = carIterator.hasNext() ? carIterator.next() : null;
 				// carIterator on next for nextCar || on next of next of car
 				
-				if(car instanceof Obstacle) {
+				if(car.isObstacle()) {
 					car = nextCar;
 					continue;
 				}
@@ -550,7 +550,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		} else if (car.getLaneSwitch() == LaneSwitch.NO_CHANGE) {
 			direction = getLaneToSwitch(car, sourceLane);
 		} else {
-			direction = car.getLaneSwitch();	// where was it set? setLaneSwitch() | maybe its a random chance to go right
+			direction = car.getLaneSwitch();
 		}
 
 		LaneRealExt sourceLaneExt = realView.ext(sourceLane);
@@ -700,12 +700,27 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 		for (Car _car : carsOnLane) {
 			int carsDistance = car.getPosition() - _car.getPosition();
-			if (minPositiveDistance > carsDistance && carsDistance >= 0) {
+			if (minPositiveDistance > carsDistance && carsDistance >= 0 && !car.equals(_car)) {
 				minPositiveDistance = carsDistance;
 				behindCar = _car;
 			}
 		}
 		return behindCar;
+	}
+	
+	public Car getFrontCar(Car car, Lane lane) {
+		int minPositiveDistance = Integer.MAX_VALUE;
+		Car nextCar = null;
+		List<Car> carsOnLane = realView.ext(lane).cars;
+
+		for (Car _car : carsOnLane) {
+			int carsDistance = _car.getPosition() - car.getPosition();
+			if (minPositiveDistance > carsDistance && carsDistance >= 0 && !car.equals(_car)) {
+				minPositiveDistance = carsDistance;
+				nextCar = _car;
+			}
+		}
+		return nextCar;
 	}
 
 	public boolean anyEmergencyCarsOnLane() {
