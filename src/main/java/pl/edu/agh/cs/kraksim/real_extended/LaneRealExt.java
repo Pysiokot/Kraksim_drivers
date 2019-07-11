@@ -552,7 +552,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		
 		if(this.getFrontCar(car, sourceLane) != null && this.getFrontCar(car, sourceLane).isObstacle()) {
 			System.out.println("Przeszkoda?!?! o nie!!	QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-			direction = LaneSwitch.CHANGE_RIGHT;
+			direction = LaneSwitch.CHANGE_LEFT;
 		}
 		else if ((!car.isEmergency()) && getBehindCar(car, sourceLane)!= null && getBehindCar(car, sourceLane).isEmergency()) { 
 			direction = LaneSwitch.CHANGE_RIGHT;
@@ -677,7 +677,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 					if (prob < rightLaneChangeDesire && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.CHANGE_RIGHT;
 					else if (prob > rightLaneChangeDesire && laneAbsoluteNumber > 0) direction = LaneSwitch.CHANGE_LEFT;
 					else direction = LaneSwitch.NO_CHANGE;
+					System.out.println("LOSOWANIE EMERGENCY: Czy chce zmienic pas? Chce, dostalem " + direction);
 				} else {
+					System.out.println("LOSOWANIE EMERGENCY: Czy chce zmienic pas? Nie chce.");
 					direction = LaneSwitch.NO_CHANGE;
 				}
 			} else if(prob < 0.3){
@@ -686,18 +688,23 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				if (prob < 0.5 && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.CHANGE_RIGHT;
 				else if (prob > 0.5 && laneAbsoluteNumber > 0) direction = LaneSwitch.CHANGE_LEFT;
 				else direction = LaneSwitch.NO_CHANGE;
+				System.out.println("Losowanie zwykłe: Czy chce zmienic pas? Chce. Dostałem " + direction);
 			} else {
+				System.out.println("Losowanie zwykłe: Czy chce zmienic pas? Nie chce i nie zmieniam kierunku");
 				direction = LaneSwitch.NO_CHANGE;
 			}
 		} else {
 			if(lane.getAbsoluteNumber()-1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
+				System.out.println("GETTING RIGHT");
 				direction = LaneSwitch.CHANGE_RIGHT;
 			}
 			else if(lane.getAbsoluteNumber()+1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
+				System.out.println("GETTING LEFT");
 				direction = LaneSwitch.CHANGE_LEFT;
 			}
 			else {
 				direction = LaneSwitch.NO_CHANGE;
+				System.out.println("Koncowy else: nie zmieniam kierunku");
 			}
 		}
 
