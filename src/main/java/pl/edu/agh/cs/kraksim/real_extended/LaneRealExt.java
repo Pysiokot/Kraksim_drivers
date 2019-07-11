@@ -367,19 +367,19 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 				float decisionChance = params.getRandomGenerator().nextFloat();
 
-				// 3. Deceleration when nagEL
+				// 3. Deceleration when nagel
 				switch (carMoveModel.getName()) {
-					case CarMoveModel.MODEL_NAGLE:	// NAGEL - correct name TODO: Change 
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGLE_MOVE_PROB)) {
+					case CarMoveModel.MODEL_NAGEL:
+						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGEL_MOVE_PROB)) {
 							velocity--;
 						}
 						break;
-					case CarMoveModel.MODEL_MULTINAGLE:	// is used by default
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGLE_MOVE_PROB)) {
+					case CarMoveModel.MODEL_MULTINAGEL:	// is used by default
+						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGEL_MOVE_PROB)) {
 							velocity--;
 						}
-						System.out.println("setActionMultiNagle");
-						setActionMultiNagle(car);
+						System.out.println("setActionMultiNagel");
+						setActionMultiNagel(car);
 						break;
 					// deceleration if vdr
 					case CarMoveModel.MODEL_VDR:
@@ -462,7 +462,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}
 	}
 
-	private void setActionMultiNagle(Car car) {
+	private void setActionMultiNagel(Car car) {
 		Action sourceAction = car.getAction();
 		if (sourceAction != null && car.getPosition() < (linkLength() - 5)) {
 			Action newAction = new Action(sourceAction.getSource(), sourceAction.getTarget(), sourceAction.getPriorLanes());

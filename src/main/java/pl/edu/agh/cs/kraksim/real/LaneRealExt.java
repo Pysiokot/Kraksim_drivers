@@ -141,7 +141,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	/* assumption: stepsDone < stepsMax */
 	boolean pushCar(Car car, int stepsMax, int stepsDone) {
 		LOGGER.trace(car + " on " + lane);
-//		if(getCarMoveModel().getName().equals(CarMoveModel.MODEL_MULTINAGLE)){
+//		if(getCarMoveModel().getName().equals(CarMoveModel.MODEL_MULTINAGEL)){
 //			if(hasCarPlace()){
 //				//put car in the lane
 //				carEnterLane(car, offset-1, firstCarPos-1, stepsMax, stepsDone);
@@ -350,19 +350,19 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 				float decisionChance = params.getRandomGenerator().nextFloat();
 
-				// 3. Deceleration when nagle
+				// 3. Deceleration when nagel
 				switch (carMoveModel.getName()) {
-					case CarMoveModel.MODEL_NAGLE:
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGLE_MOVE_PROB)) {
+					case CarMoveModel.MODEL_NAGEL:
+						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGEL_MOVE_PROB)) {
 							velocity--;
 						}
 						break;
-					case CarMoveModel.MODEL_MULTINAGLE:
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGLE_MOVE_PROB)) {
+					case CarMoveModel.MODEL_MULTINAGEL:
+						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGEL_MOVE_PROB)) {
 							velocity--;
 						}
 
-						setActionMultiNagle(car);
+						setActionMultiNagel(car);
 						break;
 					// deceleration if vdr
 					case CarMoveModel.MODEL_VDR:
@@ -441,7 +441,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}
 	}
 
-	private void setActionMultiNagle(Car car) {
+	private void setActionMultiNagel(Car car) {
 		Action sourceAction = car.getAction();
 		if (sourceAction != null && car.getPosition() < (linkLength() - 5)) {
 			Action newAction = new Action(sourceAction.getSource(), sourceAction.getTarget(), sourceAction.getPriorLanes());

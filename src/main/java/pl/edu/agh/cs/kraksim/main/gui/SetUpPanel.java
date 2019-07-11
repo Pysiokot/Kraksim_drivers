@@ -31,7 +31,7 @@ public class SetUpPanel extends JPanel {
 
 	private static final String TRAFFIC_SCHEMES_DIRECTORY = "trafficSchemes";
 
-	private static final List<String> availableMoveModels = ImmutableList.of(CarMoveModel.MODEL_NAGLE, CarMoveModel.MODEL_VDR, CarMoveModel.MODEL_BRAKELIGHT, CarMoveModel.MODEL_MULTINAGLE);
+	private static final List<String> availableMoveModels = ImmutableList.of(CarMoveModel.MODEL_NAGEL, CarMoveModel.MODEL_VDR, CarMoveModel.MODEL_BRAKELIGHT, CarMoveModel.MODEL_MULTINAGEL);
 
 	private InputPanel cityMapLocation;
 	private InputPanel travellingSchemeLocation;
@@ -224,10 +224,10 @@ public class SetUpPanel extends JPanel {
 		moveModelPane.setBorder(BorderFactory.createTitledBorder("Move model settings"));
 		JComboBox<String> moveModels = new JComboBox<>();
 		moveModels.addItem(getParam("carMoveModel"));
-		moveModels.addItem(CarMoveModel.MODEL_NAGLE + ":decProb=0.2");
+		moveModels.addItem(CarMoveModel.MODEL_NAGEL + ":decProb=0.2");
 		moveModels.addItem(CarMoveModel.MODEL_VDR + ":zeroProb=0.9,movingProb=0.2");
 		moveModels.addItem(CarMoveModel.MODEL_BRAKELIGHT + ":zeroProb=0.9,movingProb=0.2,brakeProb=0.2,threshold=5");
-		moveModels.addItem(CarMoveModel.MODEL_MULTINAGLE + ":decProb=0.2");
+		moveModels.addItem(CarMoveModel.MODEL_MULTINAGEL + ":decProb=0.2");
 		moveModels.setEditable(true);
 		moveModels.addActionListener(new ActionListener() {
 

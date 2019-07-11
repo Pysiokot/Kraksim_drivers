@@ -68,7 +68,7 @@ public class KraksimConfigurator {
 		if ((carMoveModel = params.getProperty("carMoveModel")) != null) {
 			paramsList.add(carMoveModel);
 		} else {
-			paramsList.add("nagle");
+			paramsList.add("nagel");
 		}
 
         // select phys module
@@ -204,7 +204,7 @@ public class KraksimConfigurator {
         sessionProperties.setProperty("travelSchemeFile", "");
         sessionProperties.setProperty("centralNodesAlgMod", "none\\:Lack");
         sessionProperties.setProperty("algorithm", "sotl");
-        sessionProperties.setProperty("carMoveModel", "nagle:decProb=0.2");
+        sessionProperties.setProperty("carMoveModel", "nagel:decProb=0.2");
         sessionProperties.setProperty("yellowTransition", "3");
         sessionProperties.setProperty("statOutFile", "output/statistics/stats.txt");
         sessionProperties.setProperty("zone_awareness", "enabled");
