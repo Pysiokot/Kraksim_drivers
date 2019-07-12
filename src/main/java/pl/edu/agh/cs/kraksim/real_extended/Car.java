@@ -302,4 +302,244 @@ class Car {
 	public void setLaneSwitch(LaneSwitch lane){
 		this.switchToLane = lane;
 	}
+
+	/*
+	 * previous element to ilp.current() (if exists) should be an induction loop
+	 * with line <= startPos.
+	 *
+	 * the same pointer can be used to the next car on this lane (above
+	 * assumption will be true)
+	 */
+	boolean drive(LaneRealExt lane, int startPos, int freePos, int stepsMax, int stepsDone, LaneRealExt.InductionLoopPointer ilp, boolean entered) {
+		LOGGER.trace("CARTURN " + this + "on " + lane.getLane());
+		int range = startPos + stepsMax - stepsDone;
+		int pos;
+		boolean stay = false;
+
+		Action action = getAction();
+		LaneRealExt sourceLane = lane.getSourceLane(action);
+
+		/* last line of this link crossed by the car in this turn */
+		int lastCrossedLine;
+
+		if (!lane.equals(sourceLane)) {
+			int laneChangePos = Math.max(sourceLane.getOffset() - 1, getPosition());
+			pos = Math.min(Math.min(range, freePos), laneChangePos);
+
+			if (pos == range || pos < laneChangePos || !sourceLane.pushCar(this, stepsMax, stepsDone + pos - startPos)) {
+				stay = true;
+			}
+			lastCrossedLine = pos;
+		} else {
+			int lastPos = lane.linkLength() - 1;
+			pos = Math.min(Math.min(range, freePos), lastPos);
+			if (pos == range || pos < lastPos || lane.isBlocked() || !handleCarAction(lane, stepsMax, stepsDone + pos - startPos)) {
+				stay = true;
+				lastCrossedLine = pos;
+			} else {
+				lastCrossedLine = pos + 1;
+			}
+		}
+
+		if (stay) {
+			if (getPosition() < pos) {
+				setPosition(pos);
+			}
+			setVelocity(stepsDone + pos - startPos);
+			if (getVelocity() < 0) {
+				setVelocity(0);
+			}
+			if (entered) {
+				lane.getEnteringCars().add(this);
+			}
+		}
+
+		LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLine);
+		/* We fire all induction loops in the range (startPos; lastCrossedLine] */
+		while (!ilp.atEnd() && ilp.current().line <= lastCrossedLine) {
+			if (ilp.current().line > startPos) {
+				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + startPos + " and " + lastCrossedLine + " for " + lane.getLane());
+				ilp.current().handler.handleCarDrive(getVelocity(), getDriver());
+			}
+
+			ilp.forward();
+		}
+
+		LOGGER.trace("CARTURN " + this + "on " + lane.getLane());
+		return stay;
+	}
+
+	/* assumption: stepsDone < stepsMax */
+	private boolean handleCarAction(LaneRealExt lane, int stepsMax, int stepsDone) {
+		LOGGER.trace(this + " on " + lane.getLane());
+		Action action = getAction();
+
+		if (action == null) {
+			setVelocity(stepsMax);
+			((GatewayRealExt) lane.getRealView().ext(lane.linkEnd())).acceptCar(this);
+			return true;
+		}
+
+		if (lane.getWait()) {
+			/* we are waiting one turn */
+			lane.setWait(false);
+			return false;
+		} else {
+			/* we are approaching an intersection */
+			Lane[] pl = action.getPriorLanes();
+			// int i;
+			for (Lane aPl : pl) {
+				if (lane.getRealView().ext(aPl).getCarApproaching()) {
+					if (lane.checkDeadlock(action.getSource(), aPl)) {
+						LOGGER.warn(lane.getLane() + "DEADLOCK situation.");
+						lane.deadLockRecovery();
+					}
+					return false;
+				}
+			}
+			LinkRealExt l = lane.getRealView().ext(action.getTarget());
+			setPosition(0);
+
+			return l.enterCar(this, stepsMax, stepsDone);
+		}
+	}
+
+	/**
+	 * Check if there is need to switch lanes and, if it's possible, do so.
+	 * @param action action for car that will be switching lanes
+	 * @param lane
+	 */
+	void switchLanes(Action action, LaneRealExt lane){
+		//	action.getSource() - current line
+		//	action.getTarget() - line to switch to
+		Lane sourceLane = action.getSource();
+		if (this == null) { // "|| getBehindCar(car, sourceLane) == null" old and useless
+			return;
+		}
+
+		LaneSwitch direction;
+		//	if car is not emergency or car behind me is emergency - go right
+		//	if car dont want to switch - check getLaneToSwitch - maybe it will switch
+		//	if car want to switch - switch to that line
+		if(lane.getFrontCar(this, sourceLane) != null) System.out.println("in front: " + lane.getFrontCar(this, sourceLane).toString());
+
+		// if obstacle is close
+		int obstacleVisibility = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("obstacleVisibility"));
+		int distanceToNextObstacle = Integer.MAX_VALUE;
+		for(Integer obstacleIndex : lane.getLane().getActiveBlockedCellsIndexList()) {
+			int dist = obstacleIndex - getPosition();	// [C] --> [o]
+			if(dist < 0) continue;
+			distanceToNextObstacle = Math.min(distanceToNextObstacle, dist);
+		}
+		if(distanceToNextObstacle <= obstacleVisibility) { // if next is obstacle "this.getFrontCar(car, sourceLane) != null && this.getFrontCar(car, sourceLane).isObstacle()"
+			System.out.println("Przeszkoda?!?! o nie!!	QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
+			float obstacleSwitchRandom = lane.getParams().getRandomGenerator().nextFloat();
+			if(obstacleSwitchRandom < 0.5) {
+				direction = LaneSwitch.CHANGE_LEFT;
+			} else {
+				direction = LaneSwitch.CHANGE_RIGHT;
+			}
+		}
+		else if ((!isEmergency()) && lane.getBehindCar(this, sourceLane)!= null && lane.getBehindCar(this, sourceLane).isEmergency()) {
+			direction = LaneSwitch.CHANGE_RIGHT;
+		} else if (getLaneSwitch() == LaneSwitch.NO_CHANGE) {
+			direction = lane.getLaneToSwitch(this, sourceLane);
+		} else {
+			direction = getLaneSwitch();
+		}
+		LaneRealExt sourceLaneExt = lane.getRealView().ext(sourceLane);
+
+		/* check if lane can be switched to, if so, switch */
+		List<Car> neighbourCars;	// cars on new lane (if not switched it is not importatnt)
+		Lane newSourceLane;
+
+		int laneCount = sourceLane.getOwner().laneCount();
+		int laneAbsouteNumber = sourceLane.getAbsoluteNumber();	// lane number in line (not index in list)
+
+		if (direction == LaneSwitch.CHANGE_RIGHT) {
+			if(laneAbsouteNumber + 1 > laneCount - 1){	// if there is no line on right cant switch to right
+				System.out.println("no can do #1");
+				setLaneSwitch(LaneSwitch.NO_CHANGE);
+				return;
+			}
+			neighbourCars = sourceLaneExt.rightNeighbor().getCars();
+			newSourceLane = sourceLaneExt.rightNeighbor().getLane();
+		} else if (direction == LaneSwitch.CHANGE_LEFT) {
+			if(laneAbsouteNumber - 1 < 0){
+				System.out.println("no can do #1.5 <left>");
+				setLaneSwitch(LaneSwitch.NO_CHANGE);
+				return;
+			}
+			neighbourCars = sourceLaneExt.leftNeighbor().getCars();
+			newSourceLane = sourceLaneExt.leftNeighbor().getLane();
+		} else return; // do not switch lanes
+
+		// find car right after and behind current car in neighbouring lane
+		Car behindCar = null, afterCar = null;
+
+		// cars not necessarily must be listed in any order on the lane
+		int minPositiveDistance = Integer.MAX_VALUE;
+		int minNegativeDistance = Integer.MIN_VALUE;
+		System.out.println("carsDistance");
+		for (Car _car : neighbourCars) {
+			int carsDistance = getPosition() - _car.getPosition();
+			System.out.print(carsDistance + " ");
+			if (minPositiveDistance > carsDistance && carsDistance >= 0 ) {
+				minPositiveDistance = carsDistance;
+				behindCar = _car;
+				System.out.print("behind set ");
+			} else if (minNegativeDistance < carsDistance && carsDistance < 0){
+				minNegativeDistance = carsDistance;
+				afterCar = _car;
+				System.out.print("after set ");
+			}
+		}
+		System.out.println("carsDistance END");
+
+		int distance, vRelative, vCurrentCar = getVelocity();
+		double crashTime;
+
+		boolean behindCond = true, afterCond = true;
+
+		// car behind current car
+		if(behindCar != null) {
+			distance = minPositiveDistance;
+			vRelative = vCurrentCar - behindCar.getVelocity();
+
+			crashTime = vRelative != 0 ? distance/(double)vRelative : 0;
+			System.out.println("SWITCH_TIME " + lane.SWITCH_TIME + " MIN_SAFE_DISTANCE " + lane.MIN_SAFE_DISTANCE +" crashTime " + crashTime + " minPositiveDistance " + minPositiveDistance);
+			if (Math.abs(crashTime) < lane.SWITCH_TIME || minPositiveDistance < lane.MIN_SAFE_DISTANCE) {
+				System.out.println("no can do #2");
+				behindCond = false;
+
+				// TODO:  velocity correction, car has to increase its speed in order to attempt lane switching in next turn
+				setVelocity(getVelocity()-1);
+			}
+		}
+		// switch if there will be no crash
+		if (afterCar != null) {
+			distance = minNegativeDistance;
+			vRelative = vCurrentCar - afterCar.getVelocity();
+
+			crashTime = vRelative != 0 ? distance/(double)vRelative : Integer.MAX_VALUE;
+			if(Math.abs(crashTime) < lane.SWITCH_TIME || Math.abs(minNegativeDistance) < lane.MIN_SAFE_DISTANCE){
+				System.out.println("no can do #3");
+				afterCond = false;
+
+				// velocity correction
+				setVelocity(getVelocity() - 1);
+			}
+		}
+
+		if (afterCond && behindCond) {
+			action.setSource(newSourceLane);
+			setLaneSwitch(LaneSwitch.NO_CHANGE); // lanes switched
+		} else {
+			System.out.println("no can do #4");
+			System.out.println("Switch lane failed in " + direction.toString());
+			System.out.println(afterCar + " ||| " + behindCar);
+			setLaneSwitch(direction);
+		}
+		System.out.println("EOF");
+	}
 }

@@ -113,10 +113,10 @@ public class MultiLaneRoutingHelper {
 			for (Lane lane : link.getMainLanes()) {
 				LaneRealExt laneRE = ev.ext(lane);
 				// ... check it's load
-				int lSize = laneRE.cars.size();
+				int lSize = laneRE.getCars().size();
 				int lDist = Integer.MAX_VALUE;
 				if (lSize > 0) {
-					lDist = laneRE.cars.peek().getPosition();
+					lDist = laneRE.getCars().peek().getPosition();
 				}
 				// ... and, if there are less cars on the lane than on the
 				// minimum one ...

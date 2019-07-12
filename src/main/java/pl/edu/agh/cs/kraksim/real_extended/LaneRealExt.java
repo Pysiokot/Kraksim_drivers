@@ -43,10 +43,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	private boolean carApproaching;
 	private boolean wait;
 
-	private int SWITCH_TIME;
-	private int MIN_SAFE_DISTANCE;
+	final int SWITCH_TIME;
+	final int MIN_SAFE_DISTANCE;
 
-	LinkedList<Car> cars;
+	private LinkedList<Car> cars;
 
 	LaneRealExt(Lane lane, RealEView ev, RealSimulationParams params) {
 		LOGGER.trace("Constructing LaneRealExt ");
@@ -97,7 +97,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		return lane.getAbsoluteNumber();
 	}
 
-	private Node linkEnd() {
+	Node linkEnd() {
 		return owner().getEnd();
 	}
 
@@ -110,11 +110,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		return absoluteNumber() - l.absoluteNumber();
 	}
 
-	private LaneRealExt leftNeighbor() {
+	LaneRealExt leftNeighbor() {
 		return realView.ext(owner().getLaneAbs(absoluteNumber() - 1));
 	}
 
-	private LaneRealExt rightNeighbor() {
+	LaneRealExt rightNeighbor() {
 		return realView.ext(owner().getLaneAbs(absoluteNumber() + 1));
 	}
 
@@ -140,7 +140,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		carApproaching = (car.getPosition() + Math.max(car.getVelocity(), 1) * params.priorLaneTimeHeadway >= linkLength());
 	}
 
-	private int linkLength() {
+	int linkLength() {
 		return owner().getLength();
 	}
 
@@ -161,80 +161,14 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			firstCarPos = car.getPosition();
 		}
 		if (hasCarPlace()) {
-			driveCar(car, car.getPosition() - 1, firstCarPos - 1, stepsMax, stepsDone, new InductionLoopPointer(), true);
+			car.drive(this,car.getPosition() - 1, firstCarPos - 1, stepsMax, stepsDone, new InductionLoopPointer(), true);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	/*
-	 * previous element to ilp.current() (if exists) should be an induction loop
-	 * with line <= startPos.
-	 * 
-	 * the same pointer can be used to the next car on this lane (above
-	 * assumption will be true)
-	 */
-	private boolean driveCar(Car car, int startPos, int freePos, int stepsMax, int stepsDone, InductionLoopPointer ilp, boolean entered) {
-		LOGGER.trace("CARTURN " + car + "on " + lane);
-		int range = startPos + stepsMax - stepsDone;
-		int pos;
-		boolean stay = false;
-
-		Action action = car.getAction();
-		LaneRealExt sourceLane = getSourceLane(action);
-
-		/* last line of this link crossed by the car in this turn */
-		int lastCrossedLine;
-
-		if (!this.equals(sourceLane)) {
-			int laneChangePos = Math.max(sourceLane.offset - 1, car.getPosition());
-			pos = Math.min(Math.min(range, freePos), laneChangePos);
-
-			if (pos == range || pos < laneChangePos || !sourceLane.pushCar(car, stepsMax, stepsDone + pos - startPos)) {
-				stay = true;
-			}
-			lastCrossedLine = pos;
-		} else {
-			int lastPos = linkLength() - 1;
-			pos = Math.min(Math.min(range, freePos), lastPos);
-			if (pos == range || pos < lastPos || blocked || !handleCarAction(car, stepsMax, stepsDone + pos - startPos)) {
-				stay = true;
-				lastCrossedLine = pos;
-			} else {
-				lastCrossedLine = pos + 1;
-			}
-		}
-
-		if (stay) {
-			if (car.getPosition() < pos) {
-				car.setPosition(pos);
-			}
-			car.setVelocity(stepsDone + pos - startPos);
-			if (car.getVelocity() < 0) {
-				car.setVelocity(0);
-			}
-			if (entered) {
-				enteringCars.add(car);
-			}
-		}
-
-		LOGGER.trace("CARTURN " + car + " crossed " + lastCrossedLine);
-		/* We fire all induction loops in the range (startPos; lastCrossedLine] */
-		while (!ilp.atEnd() && ilp.current().line <= lastCrossedLine) {
-			if (ilp.current().line > startPos) {
-				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + startPos + " and " + lastCrossedLine + " for " + lane);
-				ilp.current().handler.handleCarDrive(car.getVelocity(), car.getDriver());
-			}
-
-			ilp.forward();
-		}
-
-		LOGGER.trace("CARTURN " + car + "on " + lane);
-		return stay;
-	}
-
-	private LaneRealExt getSourceLane(Action action) {
+	LaneRealExt getSourceLane(Action action) {
 		LaneRealExt sourceLane;
 		if (action != null) {
 			sourceLane = realView.ext(action.getSource());
@@ -250,51 +184,16 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		return sourceLane;
 	}
 
-	/* assumption: stepsDone < stepsMax */
-	private boolean handleCarAction(Car car, int stepsMax, int stepsDone) {
-		LOGGER.trace(car + " on " + lane);
-		Action action = car.getAction();
-
-		if (action == null) {
-			car.setVelocity(stepsMax);
-			((GatewayRealExt) realView.ext(linkEnd())).acceptCar(car);
-			return true;
-		}
-
-		if (wait) {
-			/* we are waiting one turn */
-			wait = false;
-			return false;
-		} else {
-			/* we are approaching an intersection */
-			Lane[] pl = action.getPriorLanes();
-			// int i;
-			for (Lane aPl : pl) {
-				if (realView.ext(aPl).carApproaching) {
-					if (checkDeadlock(action.getSource(), aPl)) {
-						LOGGER.warn(lane + "DEADLOCK situation.");
-						deadLockRecovery();
-					}
-					return false;
-				}
-			}
-			LinkRealExt l = realView.ext(action.getTarget());
-			car.setPosition(0);
-
-			return l.enterCar(car, stepsMax, stepsDone);
-		}
-	}
-
-	private void deadLockRecovery() {
+	void deadLockRecovery() {
 		// ev.ext( lane.getOwner()).
 		if (params.getRandomGenerator().nextFloat() < params.victimProb) {
 			LOGGER.trace("Deadlock victim: " + lane + " - recovering.");
-			wait = true;
+			setWait(true);
 		}
 		LOGGER.trace("Deadlock: " + lane + " won't be a victim.");
 	}
 
-	private boolean checkDeadlock(Lane begin, Lane next) {
+	boolean checkDeadlock(Lane begin, Lane next) {
 		LOGGER.trace("Check for deadlock: " + begin);
 		return checkDeadlock(next, Sets.newHashSet(begin));
 	}
@@ -430,7 +329,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 					freePos = nextCar.getPosition() - 1;
 				}
 				//	drive car to MIN(car.pos + car.vel , freePos)
-				boolean stay = driveCar(car, car.getPosition(), freePos, velocity, 0, ilp, false);
+				boolean stay = car.drive(this, car.getPosition(), freePos, velocity, 0, ilp, false);
 
 				// carIterator is on next for nextCar || on next of next of car -> [c] [n] [*] where * -> iterator or [c] * if on the end
 				// stay -> if stay on the same lane
@@ -464,7 +363,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		if (sourceAction != null && car.getPosition() < (linkLength() - 5)) {
 			Action newAction = new Action(sourceAction.getSource(), sourceAction.getTarget(), sourceAction.getPriorLanes());
 			System.out.println("switchLanes");
-			switchLanes(car, newAction);
+			car.switchLanes(newAction, this);
 			car.setAction(newAction);
 
 		}
@@ -532,149 +431,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 
 	/**
-	 * Check if there is need to switch lanes and, if it's possible, do so.
-	 * @param action action for car that will be switching lanes
-	 */
-	private void switchLanes(Car car, Action action){
-		//	action.getSource() - current line
-		//	action.getTarget() - line to switch to
-		Lane sourceLane = action.getSource();
-		if (car == null) { // "|| getBehindCar(car, sourceLane) == null" old and useless
-			return;
-		}
-
-		LaneSwitch direction;
-		//	if car is not emergency or car behind me is emergency - go right
-		//	if car dont want to switch - check getLaneToSwitch - maybe it will switch
-		//	if car want to switch - switch to that line
-		if(this.getFrontCar(car, sourceLane) != null) System.out.println("in front: " +this.getFrontCar(car, sourceLane).toString());
-		
-		// if obstacle is close
-		int odstacleVisibility = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("odstacleVisibility"));
-		int distanceToNextObstacle = Integer.MAX_VALUE;
-		for(Integer obstacleIndex : this.lane.getActiveBlockedCellsIndexList()) {
-			int dist = obstacleIndex - car.getPosition();	// [C] --> [o]
-			if(dist < 0) continue;
-			distanceToNextObstacle = Math.min(distanceToNextObstacle, dist);
-		}
-		if(distanceToNextObstacle <= odstacleVisibility) { // if next is obstacle "this.getFrontCar(car, sourceLane) != null && this.getFrontCar(car, sourceLane).isObstacle()"
-			System.out.println("Przeszkoda?!?! o nie!!	QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-			float obstacleSwitchRandom = params.getRandomGenerator().nextFloat();
-			if(obstacleSwitchRandom < 0.5) {
-				direction = LaneSwitch.CHANGE_LEFT;
-			} else {
-				direction = LaneSwitch.CHANGE_RIGHT;
-			}
-		}
-		else if ((!car.isEmergency()) && getBehindCar(car, sourceLane)!= null && getBehindCar(car, sourceLane).isEmergency()) { 
-			direction = LaneSwitch.CHANGE_RIGHT;
-		} else if (car.getLaneSwitch() == LaneSwitch.NO_CHANGE) {
-			direction = getLaneToSwitch(car, sourceLane);
-		} else {
-			direction = car.getLaneSwitch();
-		}
-		LaneRealExt sourceLaneExt = realView.ext(sourceLane);
-
-		/* check if lane can be switched to, if so, switch */
-		List<Car> neighbourCars;	// cars on new lane (if not switched it is not importatnt)
-		Lane newSourceLane;
-
-		int laneCount = sourceLane.getOwner().laneCount();
-		int laneAbsouteNumber = sourceLane.getAbsoluteNumber();	// lane number in line (not index in list)
-
-		if (direction == LaneSwitch.CHANGE_RIGHT) {
-			if(laneAbsouteNumber + 1 > laneCount - 1){	// if there is no line on right cant switch to right
-				System.out.println("no can do #1");
-				car.setLaneSwitch(LaneSwitch.NO_CHANGE);
-				return;
-			}
-			neighbourCars = sourceLaneExt.rightNeighbor().cars;
-			newSourceLane = sourceLaneExt.rightNeighbor().lane;
-		} else if (direction == LaneSwitch.CHANGE_LEFT) {
-			if(laneAbsouteNumber - 1 < 0){
-				System.out.println("no can do #1.5 <left>");
-				car.setLaneSwitch(LaneSwitch.NO_CHANGE);
-				return;
-			}
-			neighbourCars = sourceLaneExt.leftNeighbor().cars;
-			newSourceLane = sourceLaneExt.leftNeighbor().lane;
-		} else return; // do not switch lanes
-
-		// find car right after and behind current car in neighbouring lane
-		Car behindCar = null, afterCar = null;
-
-		// cars not necessarily must be listed in any order on the lane
-		int minPositiveDistance = Integer.MAX_VALUE;
-		int minNegativeDistance = Integer.MIN_VALUE;
-		System.out.println("carsDistance");
-		for (Car _car : neighbourCars) {
-			int carsDistance = car.getPosition() - _car.getPosition();
-			System.out.print(carsDistance + " ");
-			if (minPositiveDistance > carsDistance && carsDistance >= 0 ) {
-				minPositiveDistance = carsDistance;
-				behindCar = _car;
-				System.out.print("behind set ");
-			} else if (minNegativeDistance < carsDistance && carsDistance < 0){
-				minNegativeDistance = carsDistance;
-				afterCar = _car;
-				System.out.print("after set ");
-			}
-		}
-		System.out.println("carsDistance END");
-
-		int distance, vRelative, vCurrentCar = car.getVelocity();
-		double crashTime;
-
-		boolean behindCond = true, afterCond = true;
-
-		// car behind current car
-		if(behindCar != null) {
-			distance = minPositiveDistance;
-			vRelative = vCurrentCar - behindCar.getVelocity();
-
-			crashTime = vRelative != 0 ? distance/(double)vRelative : 0;
-			System.out.println("SWITCH_TIME " + SWITCH_TIME + " MIN_SAFE_DISTANCE " + MIN_SAFE_DISTANCE +" crashTime " + crashTime + " minPositiveDistance " + minPositiveDistance);
-			if (Math.abs(crashTime) < SWITCH_TIME || minPositiveDistance < MIN_SAFE_DISTANCE) {
-				System.out.println("no can do #2");
-				behindCond = false;
-
-				// TODO:  velocity correction, car has to increase its speed in order to attempt lane switching in next turn
-				car.setVelocity(car.getVelocity()-1);
-			}
-		}
-		// switch if there will be no crash 
-		if (afterCar != null) {
-			distance = minNegativeDistance;
-			vRelative = vCurrentCar - afterCar.getVelocity();
-
-			crashTime = vRelative != 0 ? distance/(double)vRelative : Integer.MAX_VALUE;
-			if(Math.abs(crashTime) < SWITCH_TIME || Math.abs(minNegativeDistance) < MIN_SAFE_DISTANCE){
-				System.out.println("no can do #3");
-				afterCond = false;
-
-				// velocity correction
-				car.setVelocity(car.getVelocity() - 1);
-			}
-		}
-
-		if (afterCond && behindCond) {
-			action.setSource(newSourceLane);
-			car.setLaneSwitch(LaneSwitch.NO_CHANGE); // lanes switched
-		} else {
-			System.out.println("no can do #4");
-			System.out.println("Switch lane failed in " + direction.toString());
-			System.out.println(afterCar + " ||| " + behindCar);
-			car.setLaneSwitch(direction);
-		}
-		System.out.println("EOF");
-	}
-
-	/**
 	 * Choose lane to switch to.
 	 * @param sourceLane line car is currently in
 	 * @return
 	 */
-	private LaneSwitch getLaneToSwitch(Car car, Lane sourceLane){
+	LaneSwitch getLaneToSwitch(Car car, Lane sourceLane){
 		int laneCount = sourceLane.getOwner().laneCount();
 		int laneAbsoluteNumber = sourceLane.getAbsoluteNumber();
 
@@ -796,6 +557,40 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		return closestDistance;
 	}
 
+	// 2019
+	Lane getLane() {
+		return lane;
+	}
+
+	LinkedList<Car> getCars() {
+		return cars;
+	}
+
+	List<Car> getEnteringCars() {
+		return enteringCars;
+	}
+
+	RealEView getRealView() {
+		return realView;
+	}
+
+	public RealSimulationParams getParams() {
+		return params;
+	}
+
+	boolean getCarApproaching() {
+		return carApproaching;
+	}
+
+	boolean getWait() {
+		return wait;
+	}
+
+	void setWait(boolean wait) {
+		this.wait = wait;
+	}
+	// 2019 end
+
 	public CarInfoCursor carInfoForwardCursor() {
 		return new CarInfoCursorForwardImpl();
 	}
@@ -852,9 +647,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	
 	/////////////////////////////////////////////////////////////////////
 
-	private static class InductionLoop {
-		private final int line;
-		private final CarDriveHandler handler;
+	static class InductionLoop {
+		final int line;
+		final CarDriveHandler handler;
 
 		private InductionLoop(int line, CarDriveHandler handler) {
 			this.line = line;
@@ -968,22 +763,22 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}
 	}
 
-	private class InductionLoopPointer {
+	class InductionLoopPointer {
 		private int i;
 
 		private InductionLoopPointer() {
 			i = 0;
 		}
 
-		private boolean atEnd() {
+		boolean atEnd() {
 			return i == loops.size();
 		}
 
-		private InductionLoop current() {
+		InductionLoop current() {
 			return loops.get(i);
 		}
 
-		private void forward() {
+		void forward() {
 			if (i < loops.size()) {
 				i++;
 			}
