@@ -6,6 +6,7 @@ import pl.edu.agh.cs.kraksim.core.exceptions.LinkAttachmentException;
 import pl.edu.agh.cs.kraksim.core.visitors.ElementVisitor;
 import pl.edu.agh.cs.kraksim.core.visitors.VisitingException;
 import pl.edu.agh.cs.kraksim.parser.RoadInfo;
+import pl.edu.agh.cs.kraksim.real_extended.BlockedCellsInfo;
 
 import java.awt.geom.Point2D;
 import java.util.HashMap;
@@ -82,13 +83,13 @@ public class City extends Element {
 	 * @throws DuplicateIdentifierException                                        if link with specified id already exists.
 	 * @throws pl.edu.agh.cs.kraksim.core.exceptions.LinkAttachmentException. See Gateway.attach*Link().
 	 */
-	public Link createLink(RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<String, List<Integer>>> linkBlockedCellsInfo)
+	public Link createLink(RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<Integer, List<BlockedCellsInfo>>> linkBlockedCellsInfo)
 			throws DuplicateIdentifierException, IllegalArgumentException, LinkAttachmentException {
 		if (linkMap.containsKey(roadInfo.getLinkId())) {
 			throw new DuplicateIdentifierException(String.format("link with id %s already exists", roadInfo.getLinkId()));
 		}
 		//System.out.println(("road to " + roadInfo.getTo() + " from " + roadInfo.getFrom()));
-		//System.out.println("City " + linkBlockedCellsInfo.toString());
+		System.out.println("City " + linkBlockedCellsInfo.toString());
 		Link link = new Link(core, roadInfo, leftLaneLens, mainLaneLen, numberOfLanes, rightLaneLens, linkBlockedCellsInfo);
 
 		// If this method throws an exception, no cleanup is needed.

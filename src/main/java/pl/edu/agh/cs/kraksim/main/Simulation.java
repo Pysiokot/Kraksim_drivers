@@ -52,6 +52,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 	private Collection<TravellingScheme> trafficScheme;
 
 	private int turn;
+	public static Integer turnNumber = 0; // the only way to get sim turn in other class 
 	private int activeDriverCount;
 	private PriorityQueue<Driver> departureQueue;
 	private DecisionHelper isDriverRoutingHelper;
@@ -244,6 +245,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		// --- INITIALIZE TEST RUN
 		// ===================================================================================
 		turn = 0;
+		turnNumber = turn;
 		modules.getStatView().ext(modules.getCity()).clear();
 
 		generateDrivers();
@@ -385,6 +387,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 		modules.getWekaPrediction().turnEnded();
 		turn++;
+		turnNumber = turn;
 		
 		//do grafu
 		if(turn % SnaConfigurator.getSnaRefreshInterval() == 0){
@@ -402,6 +405,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 	private void runPhase() {
 		turn = 0;
+		turnNumber = turn;
 		modules.getStatView().ext(modules.getCity()).clear();
 
 		generateDrivers();
@@ -528,5 +532,5 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 	public StatsUtil.LinkStat getLinkRidingStat(){
 		return linkRidingStat;
 	}
-
+	
 }

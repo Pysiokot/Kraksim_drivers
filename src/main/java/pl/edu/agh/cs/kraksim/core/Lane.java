@@ -4,6 +4,7 @@ import pl.edu.agh.cs.kraksim.core.exceptions.InvalidActionException;
 import pl.edu.agh.cs.kraksim.core.exceptions.UnsupportedLinkOperationException;
 import pl.edu.agh.cs.kraksim.core.visitors.ElementVisitor;
 import pl.edu.agh.cs.kraksim.core.visitors.VisitingException;
+import pl.edu.agh.cs.kraksim.real_extended.BlockedCellsInfo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,20 +27,20 @@ public class Lane extends Element {
 	/* minimal speed that should be achieved */
 	private final double minimalSpeed;
 	
-	private List<Integer> blockedCellsInfo;	// blocked cells details in format <num_of_blicked_cell>
+	private List<BlockedCellsInfo> blockedCellsInfo;	// blocked cells details in format <num_of_blocked_cell>
 
 	private static final String INVALIDACTION = "trying to add invalid action to";
 
-	Lane(Core core, Link owner, int num, int relativeNumber, int length, int speedLimit, double minimalSpeed, List<Integer> laneBlockedCellsInfo) {
+	Lane(Core core, Link owner, int num, int relativeNumber, int length, int speedLimit, double minimalSpeed, List<BlockedCellsInfo> list) {
 		super(core);
-		//System.out.println("lane " + laneBlockedCellsInfo.toString());
+		System.out.println("lane " + list.toString());
 		this.owner = owner;
 		this.num = num;
 		this.length = length;
 		this.speedLimit = speedLimit;
 		this.relativeNumber = relativeNumber;
 		this.minimalSpeed = minimalSpeed;
-		this.blockedCellsInfo = laneBlockedCellsInfo;
+		this.blockedCellsInfo = list;
 		actions = new ArrayList<>();
 	}
 
@@ -189,7 +190,37 @@ public class Lane extends Element {
 		return actions;
 	}
 
-	public List<Integer> getBlockedCellsInfo() {
-		return blockedCellsInfo;
+	public List<Integer> getActiveBlockedCellsIndexList() {
+		List<Integer> cellList = new ArrayList<>();
+		for(BlockedCellsInfo blockedInfo : this.blockedCellsInfo) {
+			if(blockedInfo.isActive()) {
+				cellList.addAll(blockedInfo.getCellIndexList());
+			}
+		}
+		return cellList;
+	}
+	
+	public List<Integer> getRecentlyExpiredBlockedCellsIndexList() {
+		List<Integer> cellList = new ArrayList<>();
+		for(BlockedCellsInfo blockedInfo : this.blockedCellsInfo) {
+			if(blockedInfo.changedToInactiveThisTurn()) {
+				cellList.addAll(blockedInfo.getCellIndexList());
+			}
+		}
+		return cellList;
+	}
+	
+	public List<Integer> getRecentlyActivatedBlockedCellsIndexList() {
+		List<Integer> cellList = new ArrayList<>();
+		for(BlockedCellsInfo blockedInfo : this.blockedCellsInfo) {
+			if(blockedInfo.changedToActiveThisTurn()) {
+				cellList.addAll(blockedInfo.getCellIndexList());
+			}
+		}
+		return cellList;
+	}
+
+	public List<BlockedCellsInfo> getBlockedCellsInfo() {
+		return this.blockedCellsInfo;
 	}
 }

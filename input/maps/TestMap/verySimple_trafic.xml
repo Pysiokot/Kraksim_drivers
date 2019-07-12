@@ -6,17 +6,11 @@
     </gateway>
     <gateway id="G1" />
   </scheme> -->
-  <scheme count="5000">
-    <gateway id="G1">
-      <uniform a='0' b='10000' />
-    </gateway>
-    <gateway id="G2" />
-  </scheme>
-  <scheme count="5000">
+   <scheme count="20000">
     <gateway id="G1">
       <uniform a='0' b='10000' />
     </gateway>
     <gateway id="G0" />
-  </scheme>
+  </scheme> 
 </traffic>
 

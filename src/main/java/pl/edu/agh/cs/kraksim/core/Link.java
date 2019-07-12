@@ -5,6 +5,7 @@ import org.apache.commons.collections15.iterators.ArrayIterator;
 import pl.edu.agh.cs.kraksim.core.visitors.ElementVisitor;
 import pl.edu.agh.cs.kraksim.core.visitors.VisitingException;
 import pl.edu.agh.cs.kraksim.parser.RoadInfo;
+import pl.edu.agh.cs.kraksim.real_extended.BlockedCellsInfo;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class Link extends Element {
 	private final ZoneInfo zoneInfo;
 	private String direction;
 	
-	private Map<String, Map<String, List<Integer>>> blockedCellsInfo; // blocked cells details in format <road_type> -> <line_num> -> <num_of_blicked_cell>
+	private Map<String, Map<Integer, List<BlockedCellsInfo>>> blockedCellsInfo; // blocked cells details in format <road_type> -> <line_num> -> <num_of_blicked_cell>
 
 	private double weight;
 	private double load;
@@ -60,10 +61,10 @@ public class Link extends Element {
 	 * <p/>
 	 * See City.createLink()
 	 */
-	Link(Core core, RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<String, List<Integer>>> linkBlockedCellsInfo)
+	Link(Core core, RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<Integer, List<BlockedCellsInfo>>> linkBlockedCellsInfo)
 			throws IllegalArgumentException {
 		super(core);
-		//System.out.println("Link " + linkBlockedCellsInfo.toString());
+		System.out.println("Link " + linkBlockedCellsInfo.toString());
 		linkNumber = core.getNextNumber();
 		id = roadInfo.getLinkId();
 		beginning = roadInfo.getFrom();
@@ -85,7 +86,7 @@ public class Link extends Element {
 		initializeRightLanes(core, rightLaneLens, mainLaneLen, this.blockedCellsInfo.get("right"));
 	}
 
-	private void initializeRightLanes(Core core, int[] rightLaneLens, int mainLaneLen, Map<String, List<Integer>> laneBlockedCellsInfo) {
+	private void initializeRightLanes(Core core, int[] rightLaneLens, int mainLaneLen, Map<Integer, List<BlockedCellsInfo>> map) {
 		for (int i = 0; i < rightLaneLens.length; i++) {
 			if (rightLaneLens[i] <= 0) {
 				throw new IllegalArgumentException("length of lane must be positive");
@@ -95,27 +96,27 @@ public class Link extends Element {
 			}
 			int laneNum = rightMainLaneNum + i + 1;
 			lanes[laneNum] = new Lane(core, this, laneNum, i + 1, rightLaneLens[i], speedLimit, minimalSpeed
-					, (laneBlockedCellsInfo == null || laneBlockedCellsInfo.get("0") == null) ? new ArrayList<Integer>() : laneBlockedCellsInfo.get("0"));
+					, (map == null || map.get(0) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(0));
 		}
 	}
 	
-	private void initializeMainLane(final Core core, final int mainLaneLen, Map<String, List<Integer>> laneBlockedCellsInfo) {
+	private void initializeMainLane(final Core core, final int mainLaneLen, Map<Integer, List<BlockedCellsInfo>> map) {
 		Preconditions.checkArgument(mainLaneLen > 0, "length of lane must be positive");
 
 		for (int i = leftMainLaneNum; i <= rightMainLaneNum; i++) {
 			lanes[i] = new Lane(core, this, i, 0, mainLaneLen, speedLimit, minimalSpeed
-					, (laneBlockedCellsInfo == null || laneBlockedCellsInfo.get(String.valueOf(i)) == null) ? new ArrayList<Integer>() : laneBlockedCellsInfo.get(String.valueOf(i)));
+					, (map == null || map.get(i) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(i));
 		}
 	}
 
-	private void initializeLeftLanes(final Core core, final int[] leftLaneLens, final int mainLaneLen, Map<String, List<Integer>> laneBlockedCellsInfo) {
+	private void initializeLeftLanes(final Core core, final int[] leftLaneLens, final int mainLaneLen, Map<Integer, List<BlockedCellsInfo>> map) {
 		for (int i = 0; i < leftLaneLens.length; i++) {
 			Preconditions.checkArgument(leftLaneLens[i] > 0, "length of lane must be positive");
 			Preconditions.checkArgument(leftLaneLens[i] < (i == 0 ? mainLaneLen : leftLaneLens[i - 1]), "an outer lane must be shorter than an inner lane");
 
 			int laneNum = leftMainLaneNum - i - 1;
 			lanes[laneNum] = new Lane(core, this, laneNum, -i - 1, leftLaneLens[i], speedLimit, minimalSpeed
-					, (laneBlockedCellsInfo == null || laneBlockedCellsInfo.get("0") == null) ? new ArrayList<Integer>() : laneBlockedCellsInfo.get("0"));
+					, (map == null || map.get(0) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(0));
 		}
 	}
 

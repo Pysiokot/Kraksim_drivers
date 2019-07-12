@@ -207,7 +207,7 @@ public class IntersectionPanel extends JPanel{
             infoForwardCursor.next();
         }
         
-        java.util.List<Integer> blockedCellsList = lane.getBlockedCellsInfo();
+        java.util.List<Integer> blockedCellsList = lane.getActiveBlockedCellsIndexList();
 		for(Integer blockedCell : blockedCellsList) {
 			drawCar(g2, lane, blockedCell, drawnLanesGlobal, direction, perpendicual, VisualizerComponent.BLOCKED_CELL_COLOR, isInbound(lane.getOwner()), false);
             

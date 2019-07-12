@@ -9,6 +9,7 @@ import pl.edu.agh.cs.kraksim.iface.block.CityBlockIface;
 import pl.edu.agh.cs.kraksim.iface.sim.CitySimIface;
 import pl.edu.agh.cs.kraksim.iface.sim.Route;
 import pl.edu.agh.cs.kraksim.iface.sim.TravelEndHandler;
+import pl.edu.agh.cs.kraksim.main.Simulation;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 import java.util.Iterator;

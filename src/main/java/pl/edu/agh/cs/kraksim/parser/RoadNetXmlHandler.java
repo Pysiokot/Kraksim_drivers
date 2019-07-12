@@ -12,6 +12,7 @@ import pl.edu.agh.cs.kraksim.core.exceptions.DuplicateIdentifierException;
 import pl.edu.agh.cs.kraksim.core.exceptions.InvalidActionException;
 import pl.edu.agh.cs.kraksim.core.exceptions.LinkAttachmentException;
 import pl.edu.agh.cs.kraksim.core.exceptions.UnsupportedLinkOperationException;
+import pl.edu.agh.cs.kraksim.real_extended.BlockedCellsInfo;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class RoadNetXmlHandler extends DefaultHandler {
 	 */
 	private int numberOfLanes;
 	private String lastLaneType;	// type of last seen lane, values: main/left/right
-	private Map<String, Map<String, List<Integer>>> linkBlockedCellsInfo;	// map with blocked cells in format main/left/right -> <lane_number> -> <num_of_cell>, important only during line creation
+	private Map<String, Map<Integer, List<BlockedCellsInfo>>> linkBlockedCellsInfo;	// map with blocked cells in format main/left/right -> <lane_number> -> <num_of_cell>, important only during line creation
 			//	road_type -> lane_num -> list_of_blicked_cells
 
 	private Core core;
@@ -403,28 +404,46 @@ public class RoadNetXmlHandler extends DefaultHandler {
 	// parse info about block cells in this.lastLaneType lane
 	private void createLaneBlockCells(String rawName, Attributes attrs) {
 		if(rawName.equals("blocked")) {
-			String laneNumber = attrs.getValue("laneNumber");
-			Integer cellNumber = Integer.parseInt(attrs.getValue("cell"));
-			
-			if(laneNumber == null || cellNumber == null || cellNumber >= mainLaneLen) {
+			Integer laneNumber = attrs.getValue("laneNumber") != null ? Integer.parseInt(attrs.getValue("laneNumber")) : null;
+			Integer firstCell = attrs.getValue("cell") != null ? Integer.parseInt(attrs.getValue("cell")) : null;
+			Integer lastCell = attrs.getValue("lastCell") != null ? Integer.parseInt(attrs.getValue("lastCell")) : null;
+			Integer blockedLength = attrs.getValue("blockedLength") != null ? Integer.parseInt(attrs.getValue("blockedLength")) : null;
+			Integer turnStart = attrs.getValue("turnStart") != null ? Integer.parseInt(attrs.getValue("turnStart")) : null;
+			Integer turnEnd = attrs.getValue("turnEnd") != null ? Integer.parseInt(attrs.getValue("turnEnd")) : null;
+			Integer turnDuration = attrs.getValue("turnDuration") != null ? Integer.parseInt(attrs.getValue("turnDuration")) : null;
+			BlockedCellsInfo blockedInfo = null;
+			try{
+				blockedInfo = BlockedCellsInfo.builder()
+					.firstCell(firstCell)
+					.lastCell(lastCell)
+					.blockedLength(blockedLength)
+					.turnStart(turnStart)
+					.turnEnd(turnEnd)
+					.turnDuration(turnDuration)
+					.build();
+			} catch(ParsingException e) {
 				LOGGER.error("wrong cell blocking details, ignoring one entry");
+				return ;
+			}
+			if(laneNumber == null ) {
+				LOGGER.error("wrong cell blocking details, ignoring one entry");
+				return ;
+			}
+			Map<Integer, List<BlockedCellsInfo>> blockedCellsInfoList = this.linkBlockedCellsInfo.get(this.lastLaneType); // laneNumber + ":" + cellNumber);
+			if(blockedCellsInfoList == null) {
+				ArrayList<BlockedCellsInfo> cellList = new ArrayList<BlockedCellsInfo>();
+				cellList.add(blockedInfo);
+				HashMap<Integer, List<BlockedCellsInfo>> laneNumMap = new HashMap<>();
+				laneNumMap.put(laneNumber, cellList);
+				this.linkBlockedCellsInfo.put(this.lastLaneType, laneNumMap);
 			} else {
-				Map<String, List<Integer>> blockedCellsInfoList = this.linkBlockedCellsInfo.get(this.lastLaneType); // laneNumber + ":" + cellNumber);
-				if(blockedCellsInfoList == null) {
-					ArrayList<Integer> cellList = new ArrayList<Integer>();
-					cellList.add(cellNumber);
-					HashMap<String, List<Integer>> laneNumMap = new HashMap<>();
-					laneNumMap.put(laneNumber, cellList);
-					this.linkBlockedCellsInfo.put(this.lastLaneType, laneNumMap);
+				List<BlockedCellsInfo> cellList = blockedCellsInfoList.get(laneNumber);
+				if(cellList == null) {
+					cellList = new ArrayList<>();
+					cellList.add(blockedInfo);
+					blockedCellsInfoList.put(laneNumber, cellList);
 				} else {
-					List<Integer> cellList = blockedCellsInfoList.get(laneNumber);
-					if(cellList == null) {
-						cellList = new ArrayList<>();
-						cellList.add(cellNumber);
-						blockedCellsInfoList.put(laneNumber, cellList);
-					} else {
-						cellList.add(cellNumber);
-					}
+					cellList.add(blockedInfo);
 				}
 			}
 		}	

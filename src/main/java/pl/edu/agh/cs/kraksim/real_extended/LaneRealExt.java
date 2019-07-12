@@ -81,11 +81,8 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		MIN_SAFE_DISTANCE = params.getMinSafeDistance();
 		
 		// block cells
-		List<Integer> blockedCells = lane.getBlockedCellsInfo();
-		for(Integer blickedCell : blockedCells) {
-			enteringCars.add(new Obstacle(blickedCell));
-		}
-		this.finalizeTurnSimulation();
+		//this.addNewObstaclesFromCorelane();
+		//this.finalizeTurnSimulation();
 	}
 
 	public CarMoveModel getCarMoveModel() {
@@ -475,6 +472,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	void finalizeTurnSimulation() {
 		LOGGER.trace(lane);
+		//addNewObstaclesFromCorelane();
 		if (!enteringCars.isEmpty()) {
 			for (Car c : enteringCars) {
 				if (c.getAction() != null && c.getAction().getTarget().equals(owner())) {	// was always FALSE during our tests
@@ -817,6 +815,20 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}
 		loops.add(i, loop);
 	}
+	
+	private void addNewObstaclesFromCorelane() {
+		List<Integer> cellList = lane.getRecentlyActivatedBlockedCellsIndexList(); 	
+		for(Integer blickedCell : cellList) {
+			System.out.println("new blocked " + blickedCell);
+			enteringCars.add(new Obstacle(blickedCell));
+		}
+	}
+	
+	private void removeExpiredObstacleFromCorelane() {
+		List<Integer> cellList = lane.getRecentlyExpiredBlockedCellsIndexList(); 	
+	}
+	
+	/////////////////////////////////////////////////////////////////////
 
 	private static class InductionLoop {
 		private final int line;
