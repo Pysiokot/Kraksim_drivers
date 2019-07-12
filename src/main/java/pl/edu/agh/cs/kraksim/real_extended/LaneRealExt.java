@@ -472,7 +472,8 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	void finalizeTurnSimulation() {
 		LOGGER.trace(lane);
-		//addNewObstaclesFromCorelane();
+		this.removeExpiredObstacleFromCorelane();
+		this.addNewObstaclesFromCorelane();
 		if (!enteringCars.isEmpty()) {
 			for (Car c : enteringCars) {
 				if (c.getAction() != null && c.getAction().getTarget().equals(owner())) {	// was always FALSE during our tests
@@ -548,9 +549,22 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		//	if car want to switch - switch to that line
 		if(this.getFrontCar(car, sourceLane) != null) System.out.println("in front: " +this.getFrontCar(car, sourceLane).toString());
 		
-		if(this.getFrontCar(car, sourceLane) != null && this.getFrontCar(car, sourceLane).isObstacle()) {
+		// if obstacle is close
+		int odstacleVisibility = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("odstacleVisibility"));
+		int distanceToNextObstacle = Integer.MAX_VALUE;
+		for(Integer obstacleIndex : this.lane.getActiveBlockedCellsIndexList()) {
+			int dist = obstacleIndex - car.getPosition();	// [C] --> [o]
+			if(dist < 0) continue;
+			distanceToNextObstacle = Math.min(distanceToNextObstacle, dist);
+		}
+		if(distanceToNextObstacle <= odstacleVisibility) { // if next is obstacle "this.getFrontCar(car, sourceLane) != null && this.getFrontCar(car, sourceLane).isObstacle()"
 			System.out.println("Przeszkoda?!?! o nie!!	QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-			direction = LaneSwitch.CHANGE_LEFT;
+			float obstacleSwitchRandom = params.getRandomGenerator().nextFloat();
+			if(obstacleSwitchRandom < 0.5) {
+				direction = LaneSwitch.CHANGE_LEFT;
+			} else {
+				direction = LaneSwitch.CHANGE_RIGHT;
+			}
 		}
 		else if ((!car.isEmergency()) && getBehindCar(car, sourceLane)!= null && getBehindCar(car, sourceLane).isEmergency()) { 
 			direction = LaneSwitch.CHANGE_RIGHT;
@@ -825,7 +839,15 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 	
 	private void removeExpiredObstacleFromCorelane() {
-		List<Integer> cellList = lane.getRecentlyExpiredBlockedCellsIndexList(); 	
+		List<Integer> cellList = lane.getRecentlyExpiredBlockedCellsIndexList(); 
+		Iterator<Car> it = cars.iterator();
+		while (it.hasNext()) {
+			Car car = it.next();
+			if(car.isObstacle() && cellList.contains(car.getPosition())) {
+				System.out.println("old remove " + car);
+				it.remove();
+			}
+		}
 	}
 	
 	/////////////////////////////////////////////////////////////////////

@@ -214,6 +214,14 @@ public class VisualizerComponent extends JPanel {
 			int offset = 0;
 			int position = 0;
 			for (int j = link.leftLaneCount() - 1; j >= 0; j--) {
+				// [start] draw blocked Cells on lane
+				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getActiveBlockedCellsIndexList();
+				for(Integer blockedCell : blockedCellsList) {
+					System.out.println("blockedCell " + blockedCell);
+					drawVehicle(g2d, start, laneRoadAxisOffset,
+							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+				}
+				// [end] blocked cells
 				cursor = carInfoView.ext(link.getLeftLane(j))
 						.carInfoForwardCursor();
 				offset = link.getLeftLane(j).getOffset();
@@ -224,21 +232,19 @@ public class VisualizerComponent extends JPanel {
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
-				
-				// [start] draw blocked Cells on lane
-				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getActiveBlockedCellsIndexList();
-				for(Integer blockedCell : blockedCellsList) {
-					System.out.println("blockedCell " + blockedCell);
-					drawVehicle(g2d, start, laneRoadAxisOffset,
-							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
-				}
-				// [end] blocked cells
-				
+								
 				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]
 			// [START] rysowanie aut na glownych pasach
 			for (int j = 0; j < link.mainLaneCount(); j++) {
+				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getActiveBlockedCellsIndexList();
+				for(Integer blockedCell : blockedCellsList) {
+					drawVehicle(g2d, start, laneRoadAxisOffset,
+							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+				}
+				// [end] blocked cells
+
 				cursor = carInfoView.ext(link.getMainLane(j))
 						.carInfoForwardCursor();
 				offset = link.getMainLane(j).getOffset();
@@ -251,17 +257,19 @@ public class VisualizerComponent extends JPanel {
 				}
 				
 				// [start] draw blocked Cells on lane
+				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
+			}
+			// [END]
+			// [START] rysowanie aut na prawych pasach
+			
+			for (int j = link.rightLaneCount() - 1; j >= 0; j--) {
+				// [start] draw blocked Cells on lane
 				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getActiveBlockedCellsIndexList();
 				for(Integer blockedCell : blockedCellsList) {
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
 				}
 				// [end] blocked cells
-				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
-			}
-			// [END]
-			// [START] rysowanie aut na prawych pasach
-			for (int j = link.rightLaneCount() - 1; j >= 0; j--) {
 				cursor = carInfoView.ext(link.getRightLane(j))
 						.carInfoForwardCursor();
 				offset = link.getRightLane(j).getOffset();
@@ -272,15 +280,7 @@ public class VisualizerComponent extends JPanel {
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
-				
-				// [start] draw blocked Cells on lane
-				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getActiveBlockedCellsIndexList();
-				for(Integer blockedCell : blockedCellsList) {
-					drawVehicle(g2d, start, laneRoadAxisOffset,
-							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
-				}
-				// [end] blocked cells
-				
+					
 				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]

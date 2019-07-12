@@ -200,18 +200,21 @@ public class IntersectionPanel extends JPanel{
         LaneCarInfoIface carInfo = carInfoView.ext(lane);
         CarInfoCursor infoForwardCursor = carInfo.carInfoForwardCursor();
         int offset = lane.getOffset();
+        
+        //first draw blocked
+        java.util.List<Integer> blockedCellsList = lane.getActiveBlockedCellsIndexList();
+        for(Integer blockedCell : blockedCellsList) {
+        	drawCar(g2, lane, blockedCell, drawnLanesGlobal, direction, perpendicual, VisualizerComponent.BLOCKED_CELL_COLOR, isInbound(lane.getOwner()), false);
+        	
+        }
 
+        //later draw cars, now if car and obstacle are on the same time, car will be drawn
         while (infoForwardCursor != null && infoForwardCursor.isValid()) {
             int position = infoForwardCursor.currentPos() + (offset);
             drawCar(g2, lane, infoForwardCursor.currentPos(), drawnLanesGlobal, direction, perpendicual, ((Driver)infoForwardCursor.currentDriver()).getCarColor(), isInbound(lane.getOwner()), ((Driver)infoForwardCursor.currentDriver()).isEmergency());
             infoForwardCursor.next();
         }
         
-        java.util.List<Integer> blockedCellsList = lane.getActiveBlockedCellsIndexList();
-		for(Integer blockedCell : blockedCellsList) {
-			drawCar(g2, lane, blockedCell, drawnLanesGlobal, direction, perpendicual, VisualizerComponent.BLOCKED_CELL_COLOR, isInbound(lane.getOwner()), false);
-            
-		}
         drawTextForLane(g2, lane, drawnLanesGlobal, direction, perpendicual, Color.YELLOW);
     }
 
