@@ -156,7 +156,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	/* assumption: stepsDone < stepsMax */
 	boolean pushCar(Car car, int stepsMax, int stepsDone) {
 		LOGGER.trace(car + " on " + lane);
-
+		System.out.println("driveCar :: pushCar (sourceLane) :: hasCarPlace() = " + hasCarPlace());
 		if (car.getPosition() > firstCarPos) {
 			firstCarPos = car.getPosition();
 		}
@@ -374,26 +374,36 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		this.removeExpiredObstacleFromCorelane();
 		this.addNewObstaclesFromCorelane();
 		if (!enteringCars.isEmpty()) {
-			for (Car c : enteringCars) {
-				if (c.getAction() != null && c.getAction().getTarget().equals(owner())) {	// was always FALSE during our tests
-					c.setPosition(0);
-					c.setVelocity(0);
+			for (Car enteringCar : enteringCars) {
+				if (enteringCar.getAction() != null && enteringCar.getAction().getTarget().equals(owner())) {	// was always FALSE during our tests
+					System.out.println("setVelocity(0) # 1");
+					enteringCar.setPosition(0);
+					enteringCar.setVelocity(0);
 				}
 				Iterator<Car> it = cars.iterator();
-				LinkedList<Car> newC = new LinkedList<>();
+				LinkedList<Car> newCarList = new LinkedList<>();
 				boolean ins = false;
 				while (it.hasNext()) {
-					Car c1 = it.next();
-					if (c1.getPosition() > c.getPosition() && !ins) {
-						newC.add(c);
-						ins = true;
+					Car iterCar = it.next();
+					if(enteringCar.isObstacle()) {
+						// if we have obstacle at cell 3 and cars at ->[c_2]->[c_3]->[c_5] then we need ->[c_2]->[o_3]->[c_3]->[c_5]
+						if (iterCar.getPosition() >= enteringCar.getPosition() && !ins) {
+							newCarList.add(enteringCar);
+							ins = true;
+						}
+					} else {
+						// cars are added 
+						if (iterCar.getPosition() > enteringCar.getPosition() && !ins) {
+							newCarList.add(enteringCar);
+							ins = true;
+						}
 					}
-					newC.add(c1);
+					newCarList.add(iterCar);						
 				}
 				if (!ins) {
-					newC.add(c);
+					newCarList.add(enteringCar);
 				}
-				cars = newC;
+				cars = newCarList;
 //				this.cars.addFirst(c);
 				//if(c.getPosition() > 0) System.out.println("c.getPosition() " + c.getPosition()+ "\t" + c.getVelocity());
 			}
