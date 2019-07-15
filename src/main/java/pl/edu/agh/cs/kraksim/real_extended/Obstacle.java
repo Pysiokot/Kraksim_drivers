@@ -14,9 +14,10 @@ import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 public class Obstacle extends Car {
 
-	Obstacle(int position) {
+	Obstacle(int position, LaneRealExt lane) {
 		super();
 		this.pos = position;
+		setCurrentLane(lane);
 	}
 	
 	public Driver getDriver() {

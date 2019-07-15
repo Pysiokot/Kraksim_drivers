@@ -38,7 +38,10 @@ class Car {
 	private int beforePos;
 	private boolean rerouting = false;
 
-    private LaneSwitch switchToLane = LaneSwitch.NO_CHANGE;
+	// 2019
+	private LaneRealExt currentLane = null;
+
+	private LaneSwitch switchToLane = LaneSwitch.NO_CHANGE;
 
 	Car(Driver driver, Route route, boolean rerouting) {
 		// == reading TEST2013 configuration
@@ -301,6 +304,16 @@ class Car {
 
 	public void setLaneSwitch(LaneSwitch lane){
 		this.switchToLane = lane;
+	}
+
+	// 2019
+
+	public LaneRealExt getCurrentLane() {
+		return currentLane;
+	}
+
+	public void setCurrentLane(LaneRealExt currentLane) {
+		this.currentLane = currentLane;
 	}
 
 	/*

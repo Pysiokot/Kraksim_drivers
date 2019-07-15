@@ -387,4 +387,9 @@ public class Link extends Element {
 	public double getLoad() {
 		return load;
 	}
+
+	// 2019
+	public Lane[] getLanes(){
+		return lanes;
+	}
 }

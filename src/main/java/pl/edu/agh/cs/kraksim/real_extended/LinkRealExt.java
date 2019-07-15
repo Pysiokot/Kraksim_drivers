@@ -108,10 +108,18 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 	void simulateTurn() {
 		LOGGER.trace(link);
 
-		for (int i = 0; i < laneCount(); i++) {
-			// for each car on link	switch lanes (if needed) and drive car, maybe leave lane 
-			laneExt(i).simulateTurn();
+		GigaIterator gi = new GigaIterator(link, ev);
+		while(gi.hasNext()){
+			Car car = gi.next();
+			System.out.println(car + " lane: " + car.getCurrentLane());
+			car.getCurrentLane().simulateTurn(car);
+
 		}
+
+		//		for (int i = 0; i < laneCount(); i++) {
+//			// for each car on link	switch lanes (if needed) and drive car, maybe leave lane
+//			laneExt(i).simulateTurn();
+//		}
 	}
 
 	void finalizeTurnSimulation() {
