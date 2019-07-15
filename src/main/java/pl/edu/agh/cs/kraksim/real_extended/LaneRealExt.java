@@ -225,7 +225,17 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		LOGGER.trace(lane);
 		System.out.println("============================");
 		ListIterator<Car> carIteratorTemp = cars.listIterator();
-		while(carIteratorTemp.hasNext()) System.out.print(carIteratorTemp.next().pos + " ");
+		while(carIteratorTemp.hasNext()) {
+			Car c = carIteratorTemp.next();
+			try {
+				System.out.println("pos " + c.pos + " abs " + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
+						+ " cel: " + c.getAction().getTarget().getId()
+						+"\n\tabs Pref" + c.getPreferableAction().getSource().getAbsoluteNumber() + " rel Pref " + c.getPreferableAction().getSource().getRelativeNumber()
+						+ " cel: Pref " + c.getPreferableAction().getTarget().getId());
+			} catch(Exception e) {
+				
+			}
+		}
 		System.out.println("XX");
 		ListIterator<Car> carIterator = cars.listIterator();
 		if (carIterator.hasNext()) {
@@ -379,6 +389,18 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 					System.out.println("setVelocity(0) # 1");
 					enteringCar.setPosition(0);
 					enteringCar.setVelocity(0);
+				}
+				if(enteringCar.pos==0) {
+					System.out.println("this.lane.getAbsoluteNumber() " + this.lane.getAbsoluteNumber());
+					try {
+						Car c = enteringCar;
+						System.out.println("NEW CAR!!!\n\tabs:" + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
+								+ " cel: " + c.getAction().getTarget().getId()
+								+"\n\tabs Pref" + c.getPreferableAction().getSource().getAbsoluteNumber() + " rel Pref " + c.getPreferableAction().getSource().getRelativeNumber()
+								+ " cel: Pref " + c.getPreferableAction().getTarget().getId());
+					} catch(Exception e) {
+						
+					}
 				}
 				Iterator<Car> it = cars.iterator();
 				LinkedList<Car> newCarList = new LinkedList<>();
