@@ -162,7 +162,11 @@ class Car {
 	}
 
 	public String toString() {
-		return driver + " in [ CAR bPos=" + beforePos + ",cPos=" + pos + ",v=" + velocity + ']';
+		if(currentLane == null) {
+			return driver + " in [ CAR bPos=" + beforePos + ",cPos=" + pos + ",v=" + velocity + " lane: " + "null"+ ']';
+			
+		}
+		return driver + " in [ CAR bPos=" + beforePos + ",cPos=" + pos + ",v=" + velocity + " lane: " + this.currentLane.getLane().getAbsoluteNumber()+ ']';
 	}
 
 	int getBeforePos() {

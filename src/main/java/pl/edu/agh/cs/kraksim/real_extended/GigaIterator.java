@@ -14,7 +14,7 @@ public class GigaIterator implements Iterator {
 	public GigaIterator(Link link, RealEView ev){
 		Lane[] lanes = link.getLanes();
 		for (Lane lane : lanes) {
-			carsOnLanes.add(ev.ext(lane).getCars().listIterator());
+			carsOnLanes.add(ev.ext(lane).getCarsIterator());
 		}
 	}
 
@@ -35,6 +35,7 @@ public class GigaIterator implements Iterator {
 		ListIterator<Car> it = null;
 		for(ListIterator<Car> iterator : carsOnLanes){
 			if(iterator.hasNext()){
+				//return iterator.next();
 				Car car = iterator.next();
 				if(car.getPosition() < i){
 					i = car.getPosition();

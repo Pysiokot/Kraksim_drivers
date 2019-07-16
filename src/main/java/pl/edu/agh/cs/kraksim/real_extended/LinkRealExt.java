@@ -111,7 +111,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		GigaIterator gi = new GigaIterator(link, ev);
 		while(gi.hasNext()){
 			Car car = gi.next();
-			System.out.println(car + " lane: " + car.getCurrentLane());
+			System.out.println(car + " lane: " + car.getCurrentLane().getLane().getAbsoluteNumber());
 			car.getCurrentLane().simulateTurn(car);
 
 		}
