@@ -120,7 +120,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 	
 	boolean hasLeftNeighbor() {
-		return absoluteNumber() - 1 > 0;
+		return absoluteNumber() - 1 >= 0;
 	}
 	
 	boolean hasRightNeighbor() {

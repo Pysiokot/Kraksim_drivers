@@ -163,10 +163,10 @@ class Car {
 
 	public String toString() {
 		if(currentLane == null) {
-			return driver + " in [ CAR bPos=" + beforePos + ",cPos=" + pos + ",v=" + velocity + " lane: " + "null"+ ']';
+			return driver + " in [ CAR bPos=" + beforePos + ",cPos=" + pos + ",v=" + velocity + " lane: " + "null"+ " switch: " + this.switchToLane.toString() +   ']';
 			
 		}
-		return driver + " in [ CAR bPos=" + beforePos + ",cPos=" + pos + ",v=" + velocity + " lane: " + this.currentLane.getLane().getAbsoluteNumber()+ ']';
+		return driver + " in [ CAR bPos=" + beforePos + ",cPos=" + pos + ",v=" + velocity + " lane: " + this.currentLane.getLane().getAbsoluteNumber()+ " switch: " + this.switchToLane.toString() + ']';
 	}
 
 	int getBeforePos() {
@@ -356,12 +356,13 @@ class Car {
 		Car neiCarBehind = neiLane.getBehindCar(this.pos);
 		Car neiCarFront = neiLane.getFrontCar(this.pos);
 		Car thisCarFront = this.currentLane.getFrontCar(this.pos);
-		int gapNeiBehind = 	neiCarBehind != null ? this.pos - neiCarBehind.getPosition() : this.pos;
-		int gapNeiFront = 	neiCarFront != null  ? neiCarFront.getPosition() - this.pos  : neiLane.linkLength() - this.pos -1;
-		int gapThisFront = 	thisCarFront != null ? thisCarFront.getPosition() - this.pos : this.currentLane.linkLength() - this.pos -1;
+		// gap - number of free cells : [c] [] [] [c] -> gap == 2
+		int gapNeiBehind = 	neiCarBehind != null ? this.pos - neiCarBehind.getPosition() - 1 : this.pos;
+		int gapNeiFront = 	neiCarFront != null  ? neiCarFront.getPosition() - this.pos - 1  : neiLane.linkLength() - this.pos -1;
+		int gapThisFront = 	thisCarFront != null ? thisCarFront.getPosition() - this.pos - 1 : this.currentLane.linkLength() - this.pos -1;
 		
 		int weight1;	// is my lane bad and other lane better
-		if(gapThisFront < this.velocity && gapNeiFront > gapThisFront) {
+		if(gapThisFront <= this.velocity && gapNeiFront > gapThisFront) {
 			weight1 = 1;
 		} else {
 			weight1 = 0;
