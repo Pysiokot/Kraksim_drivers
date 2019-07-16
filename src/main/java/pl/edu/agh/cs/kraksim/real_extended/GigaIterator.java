@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class GigaIterator implements Iterator {
+public class GigaIterator implements Iterator<Car> {
 
 	private ArrayList<ListIterator<Car>> carsOnLanes = new ArrayList<>();
 

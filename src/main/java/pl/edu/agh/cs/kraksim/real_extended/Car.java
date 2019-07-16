@@ -440,6 +440,7 @@ class Car {
 		}
 
 		LOGGER.trace("CARTURN " + this + "on " + lane.getLane());
+		this.switchToLane = LaneSwitch.NO_CHANGE;
 		return stay;
 	}
 
@@ -522,9 +523,10 @@ class Car {
 				direction = LaneSwitch.RIGHT;
 			}
 		}
-		else if ((!isEmergency()) && sourceLaneReal.getBehindCar(this)!= null && sourceLaneReal.getBehindCar(this).isEmergency()) {
-			direction = LaneSwitch.RIGHT;
-		} else {
+		else {
+//			if ((!isEmergency()) && sourceLaneReal.getBehindCar(this)!= null && sourceLaneReal.getBehindCar(this).isEmergency()) {
+//			direction = LaneSwitch.RIGHT;
+//		} else {
 			this.setSwitchToLaneState();//lane.getLaneToSwitch(this, sourceLane);
 			direction = this.getLaneSwitch();
 		}
@@ -619,7 +621,7 @@ class Car {
 			System.out.println("no can do #4");
 			System.out.println("Switch lane failed in " + direction.toString());
 			System.out.println(afterCar + " ||| " + behindCar);
-			setLaneSwitch(direction);
+			//setLaneSwitch(direction);
 		}
 		System.out.println("EOF");
 	}
