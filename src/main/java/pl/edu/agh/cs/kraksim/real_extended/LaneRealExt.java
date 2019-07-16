@@ -118,6 +118,14 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	LaneRealExt rightNeighbor() {
 		return realView.ext(owner().getLaneAbs(absoluteNumber() + 1));
 	}
+	
+	boolean hasLeftNeighbor() {
+		return absoluteNumber() - 1 > 0;
+	}
+	
+	boolean hasRightNeighbor() {
+		return absoluteNumber() + 1 < realView.ext(owner()).link.getLanes().length;
+	}
 
 	public void prepareTurnSimulation() {
 		LOGGER.trace(lane);
@@ -225,18 +233,18 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	void simulateTurn() {
 		LOGGER.trace(lane);
 		System.out.println("============================");
-		ListIterator<Car> carIteratorTemp = cars.listIterator();
-		while(carIteratorTemp.hasNext()) {
-			Car c = carIteratorTemp.next();
-			try {
-				System.out.println("pos " + c.pos + " abs " + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
-						+ " cel: " + c.getAction().getTarget().getId()
-						+"\n\tabs Pref" + c.getPreferableAction().getSource().getAbsoluteNumber() + " rel Pref " + c.getPreferableAction().getSource().getRelativeNumber()
-						+ " cel: Pref " + c.getPreferableAction().getTarget().getId());
-			} catch(Exception e) {
-				
-			}
-		}
+//		ListIterator<Car> carIteratorTemp = cars.listIterator();
+//		while(carIteratorTemp.hasNext()) {
+//			Car c = carIteratorTemp.next();
+//			try {
+//				System.out.println("pos " + c.pos + " abs " + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
+//						+ " cel: " + c.getAction().getTarget().getId()
+//						+"\n\tabs Pref" + c.getPreferableAction().getSource().getAbsoluteNumber() + " rel Pref " + c.getPreferableAction().getSource().getRelativeNumber()
+//						+ " cel: Pref " + c.getPreferableAction().getTarget().getId());
+//			} catch(Exception e) {
+//				
+//			}
+//		}
 		System.out.println("XX");
 		ListIterator<Car> carIterator = cars.listIterator();
 		if (carIterator.hasNext()) {
@@ -375,25 +383,25 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	void simulateTurn(Car car) {
 		LOGGER.trace(lane);
 		System.out.println("============================");
-		ListIterator<Car> carIteratorTemp = cars.listIterator();
-		while(carIteratorTemp.hasNext()) {
-			Car c = carIteratorTemp.next();
-			try {
-				System.out.println("pos " + c.pos + " abs " + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
-						+ " cel: " + c.getAction().getTarget().getId()
-						+"\n\tabs Pref" + c.getPreferableAction().getSource().getAbsoluteNumber() + " rel Pref " + c.getPreferableAction().getSource().getRelativeNumber()
-						+ " cel: Pref " + c.getPreferableAction().getTarget().getId());
-			} catch(Exception e) {
-
-			}
-		}
+//		ListIterator<Car> carIteratorTemp = cars.listIterator();
+//		while(carIteratorTemp.hasNext()) {
+//			Car c = carIteratorTemp.next();
+//			try {
+//				System.out.println("pos " + c.pos + " abs " + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
+//						+ " cel: " + c.getAction().getTarget().getId()
+//						+"\n\tabs Pref" + c.getPreferableAction().getSource().getAbsoluteNumber() + " rel Pref " + c.getPreferableAction().getSource().getRelativeNumber()
+//						+ " cel: Pref " + c.getPreferableAction().getTarget().getId());
+//			} catch(Exception e) {
+//
+//			}
+//		}
 		System.out.println("XX");
 
 		InductionLoopPointer ilp = new InductionLoopPointer();	// idk what it does <yet?>
 		Car nextCar;
 		System.out.println(car);
 
-		nextCar = getFrontCar(car, getLane());
+		nextCar = getFrontCar(car);
 		// carIterator on next for nextCar || on next of next of car
 
 		if(car.isObstacle()) {
@@ -509,7 +517,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		if (sourceAction != null && car.getPosition() < (linkLength() - 5)) {
 			Action newAction = new Action(sourceAction.getSource(), sourceAction.getTarget(), sourceAction.getPriorLanes());
 			System.out.println("switchLanes");
-			car.switchLanes(newAction, this);
+			car.switchLanes(newAction, this, this.realView);
 			car.setAction(newAction);
 
 		}
@@ -615,8 +623,8 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				if(prob < laneChangeDesire){
 					prob = params.getRandomGenerator().nextFloat();
 
-					if (prob < rightLaneChangeDesire && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.CHANGE_RIGHT;
-					else if (prob > rightLaneChangeDesire && laneAbsoluteNumber > 0) direction = LaneSwitch.CHANGE_LEFT;
+					if (prob < rightLaneChangeDesire && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.RIGHT;
+					else if (prob > rightLaneChangeDesire && laneAbsoluteNumber > 0) direction = LaneSwitch.LEFT;
 					else direction = LaneSwitch.NO_CHANGE;
 					System.out.println("LOSOWANIE EMERGENCY: Czy chce zmienic pas? Chce, dostalem " + direction);
 				} else {
@@ -626,8 +634,8 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			} else if(prob < 0.3){
 				prob = params.getRandomGenerator().nextFloat();
 
-				if (prob < 0.5 && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.CHANGE_RIGHT;
-				else if (prob > 0.5 && laneAbsoluteNumber > 0) direction = LaneSwitch.CHANGE_LEFT;
+				if (prob < 0.5 && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.RIGHT;
+				else if (prob > 0.5 && laneAbsoluteNumber > 0) direction = LaneSwitch.LEFT;
 				else direction = LaneSwitch.NO_CHANGE;
 				System.out.println("Losowanie zwykłe: Czy chce zmienic pas? Chce. Dostałem " + direction);
 			} else {
@@ -637,11 +645,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		} else {
 			if(lane.getAbsoluteNumber()-1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
 				System.out.println("GETTING RIGHT");
-				direction = LaneSwitch.CHANGE_RIGHT;
+				direction = LaneSwitch.RIGHT;
 			}
 			else if(lane.getAbsoluteNumber()+1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
 				System.out.println("GETTING LEFT");
-				direction = LaneSwitch.CHANGE_LEFT;
+				direction = LaneSwitch.LEFT;
 			}
 			else {
 				direction = LaneSwitch.NO_CHANGE;
@@ -663,14 +671,18 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		return cars.size() + enteringCars.size();
 	}
 
-	public Car getBehindCar(Car car, Lane lane) {
+	public Car getBehindCar(Car car) {
+		return getBehindCar(car.getPosition());
+	}
+	
+	public Car getBehindCar(int pos) {
 		int minPositiveDistance = Integer.MAX_VALUE;
 		Car behindCar = null;
-		List<Car> carsOnLane = realView.ext(lane).cars;
+		List<Car> carsOnLane = this.getCars();
 
 		for (Car _car : carsOnLane) {
-			int carsDistance = car.getPosition() - _car.getPosition();
-			if (minPositiveDistance > carsDistance && carsDistance > 0 && !car.equals(_car)) {
+			int carsDistance = pos - _car.getPosition();
+			if (minPositiveDistance > carsDistance && carsDistance > 0) {
 				minPositiveDistance = carsDistance;
 				behindCar = _car;
 			}
@@ -678,14 +690,18 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		return behindCar;
 	}
 	
-	public Car getFrontCar(Car car, Lane lane) {
+	public Car getFrontCar(Car car) {
+		return getFrontCar(car.getPosition());
+	}
+	
+	public Car getFrontCar(int pos) {
 		int minPositiveDistance = Integer.MAX_VALUE;
 		Car nextCar = null;
-		List<Car> carsOnLane = realView.ext(lane).cars;
+		List<Car> carsOnLane = this.getCars();
 
 		for (Car _car : carsOnLane) {
-			int carsDistance = _car.getPosition() - car.getPosition();
-			if (minPositiveDistance > carsDistance && carsDistance > 0 && !car.equals(_car)) {
+			int carsDistance = _car.getPosition() - pos;
+			if (minPositiveDistance > carsDistance && carsDistance > 0) {
 				minPositiveDistance = carsDistance;
 				nextCar = _car;
 			}

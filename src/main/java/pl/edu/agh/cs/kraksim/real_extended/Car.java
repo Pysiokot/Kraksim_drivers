@@ -319,6 +319,63 @@ class Car {
 	public void setCurrentLane(LaneRealExt currentLane) {
 		this.currentLane = currentLane;
 	}
+	
+	//////////////////////////////////////////////////////////////////////////
+	//	SYMULACJA
+	
+	/*
+	 * set lane switch state 
+	 */
+	private void setSwitchToLaneState() {
+		if(this.switchToLane == LaneSwitch.WANTS_LEFT || this.switchToLane == LaneSwitch.WANTS_RIGHT) {
+			// car already has an action and will try to do it this turn
+			return;
+		}
+		
+		int switchLaneForceLeft = this.currentLane.hasLeftNeighbor()	? this.switchLaneAlgorithm(this.currentLane.leftNeighbor())  : -1;
+		int switchLaneForceRight = this.currentLane.hasRightNeighbor() 	? this.switchLaneAlgorithm(this.currentLane.rightNeighbor()) : -1;
+		
+		//	Choose best lane to switch base on gap to next car
+		if(switchLaneForceLeft > switchLaneForceRight) {
+			this.switchToLane = LaneSwitch.LEFT;	// left is better
+		} else if(switchLaneForceLeft < switchLaneForceRight) {
+			this.switchToLane = LaneSwitch.RIGHT;	// right is better
+		} else if(switchLaneForceLeft == switchLaneForceRight && switchLaneForceLeft > 0) {
+			this.switchToLane = LaneSwitch.RIGHT;	// its the same -> better to go right
+		} else {
+			this.switchToLane = LaneSwitch.NO_CHANGE;	// there are no good lanes to switch
+		}
+
+	}
+	
+	/*
+	 * check if lane neiLane is good to switch to and return its score
+	 */
+	private int switchLaneAlgorithm(LaneRealExt neiLane) {
+		if(neiLane == null) return -1;
+		Car neiCarBehind = neiLane.getBehindCar(this.pos);
+		Car neiCarFront = neiLane.getFrontCar(this.pos);
+		Car thisCarFront = this.currentLane.getFrontCar(this.pos);
+		int gapNeiBehind = 	neiCarBehind != null ? this.pos - neiCarBehind.getPosition() : this.pos;
+		int gapNeiFront = 	neiCarFront != null  ? neiCarFront.getPosition() - this.pos  : neiLane.linkLength() - this.pos -1;
+		int gapThisFront = 	thisCarFront != null ? thisCarFront.getPosition() - this.pos : this.currentLane.linkLength() - this.pos -1;
+		
+		int weight1;	// is my lane bad and other lane better
+		if(gapThisFront < this.velocity && gapNeiFront > gapThisFront) {
+			weight1 = 1;
+		} else {
+			weight1 = 0;
+		}
+		int weight2 = this.velocity - gapNeiFront;	// I dont have to slow down on nei Lane
+		int weight3 = neiCarBehind != null ? neiCarBehind.getVelocity() - gapNeiBehind : -1;	// will car behind me crash into me
+		// int weight4 
+		System.out.println("swLnAlgo :: gapNeiBehind " + gapNeiBehind + " neiCarFront " + gapNeiFront + " thisCarFront " + gapThisFront
+				+ "\n\tweight1 " + weight1 + " weight2 " + weight2 + " weight3 " + weight3 + " result " + (weight1 > weight2 && weight1 > weight3));
+		if(weight1 > 0 && weight1 > weight2 && weight1 > weight3) {
+			return gapNeiFront;	// score for this lane switch
+		}
+		return -1;
+	}
 
 	/*
 	 * previous element to ilp.current() (if exists) should be an induction loop
@@ -332,7 +389,6 @@ class Car {
 		int range = startPos + stepsMax - stepsDone;
 		int pos;
 		boolean stay = false;
-
 		Action action = getAction();
 		LaneRealExt sourceLane = lane.getSourceLane(action);
 
@@ -425,20 +481,28 @@ class Car {
 	 * Check if there is need to switch lanes and, if it's possible, do so.
 	 * @param action action for car that will be switching lanes
 	 * @param lane
+	 * @deprecated Use {@link #switchLanes(Action,LaneRealExt,RealEView)} instead
 	 */
 	void switchLanes(Action action, LaneRealExt lane){
+		switchLanes(action, lane, null);
+	}
+
+	/**
+	 * Check if there is need to switch lanes and, if it's possible, do so.
+	 * @param action action for car that will be switching lanes
+	 * @param lane
+	 * @param ev
+	 */
+	void switchLanes(Action action, LaneRealExt lane, RealEView ev){
 		//	action.getSource() - current line
 		//	action.getTarget() - line to switch to
 		Lane sourceLane = action.getSource();
-		if (this == null) { // "|| getBehindCar(car, sourceLane) == null" old and useless
-			return;
-		}
-
+		LaneRealExt sourceLaneReal = ev.ext(sourceLane);
 		LaneSwitch direction;
 		//	if car is not emergency or car behind me is emergency - go right
 		//	if car dont want to switch - check getLaneToSwitch - maybe it will switch
 		//	if car want to switch - switch to that line
-		if(lane.getFrontCar(this, sourceLane) != null) System.out.println("in front: " + lane.getFrontCar(this, sourceLane).toString());
+		if(sourceLaneReal.getFrontCar(this) != null) System.out.println("in front: " + sourceLaneReal.getFrontCar(this).toString());
 
 		// if obstacle is close
 		int obstacleVisibility = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("obstacleVisibility"));
@@ -452,17 +516,16 @@ class Car {
 			System.out.println("Przeszkoda?!?! o nie!!	QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
 			float obstacleSwitchRandom = lane.getParams().getRandomGenerator().nextFloat();
 			if(obstacleSwitchRandom < 0.5) {
-				direction = LaneSwitch.CHANGE_LEFT;
+				direction = LaneSwitch.LEFT;
 			} else {
-				direction = LaneSwitch.CHANGE_RIGHT;
+				direction = LaneSwitch.RIGHT;
 			}
 		}
-		else if ((!isEmergency()) && lane.getBehindCar(this, sourceLane)!= null && lane.getBehindCar(this, sourceLane).isEmergency()) {
-			direction = LaneSwitch.CHANGE_RIGHT;
-		} else if (getLaneSwitch() == LaneSwitch.NO_CHANGE) {
-			direction = lane.getLaneToSwitch(this, sourceLane);
+		else if ((!isEmergency()) && sourceLaneReal.getBehindCar(this)!= null && sourceLaneReal.getBehindCar(this).isEmergency()) {
+			direction = LaneSwitch.RIGHT;
 		} else {
-			direction = getLaneSwitch();
+			this.setSwitchToLaneState();//lane.getLaneToSwitch(this, sourceLane);
+			direction = this.getLaneSwitch();
 		}
 		LaneRealExt sourceLaneExt = lane.getRealView().ext(sourceLane);
 
@@ -473,7 +536,7 @@ class Car {
 		int laneCount = sourceLane.getOwner().laneCount();
 		int laneAbsouteNumber = sourceLane.getAbsoluteNumber();	// lane number in line (not index in list)
 
-		if (direction == LaneSwitch.CHANGE_RIGHT) {
+		if (direction == LaneSwitch.RIGHT) {
 			if(laneAbsouteNumber + 1 > laneCount - 1){	// if there is no line on right cant switch to right
 				System.out.println("no can do #1");
 				setLaneSwitch(LaneSwitch.NO_CHANGE);
@@ -481,7 +544,7 @@ class Car {
 			}
 			neighbourCars = sourceLaneExt.rightNeighbor().getCars();
 			newSourceLane = sourceLaneExt.rightNeighbor().getLane();
-		} else if (direction == LaneSwitch.CHANGE_LEFT) {
+		} else if (direction == LaneSwitch.LEFT) {
 			if(laneAbsouteNumber - 1 < 0){
 				System.out.println("no can do #1.5 <left>");
 				setLaneSwitch(LaneSwitch.NO_CHANGE);

@@ -21,7 +21,7 @@ public class GigaIterator implements Iterator {
 
 	@Override
 	public boolean hasNext() {
-		for(ListIterator iterator : carsOnLanes){
+		for(ListIterator<Car> iterator : carsOnLanes){
 			if(iterator.hasNext()){
 				return true;
 			}
@@ -45,6 +45,7 @@ public class GigaIterator implements Iterator {
 			}
 		}
 		if(it != null) {
+			
 			return it.next();
 		}
 		return null;

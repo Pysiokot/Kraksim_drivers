@@ -41,6 +41,7 @@ class CityRealExt implements CitySimIface, CityBlockIface {
 	}
 
 	public void simulateTurn() {
+		System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
 		LOGGER.trace("TURN STARTED");
 		LOGGER.trace("TURN - PREPARE");
 		for (Iterator<Link> iter = city.linkIterator(); iter.hasNext(); ) {
