@@ -115,7 +115,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 				System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n\t" + car + " lane: " + car.getCurrentLane().getLane().getAbsoluteNumber());
 				car.getCurrentLane().simulateTurn(car);
 			}
-			car.updateTurn();
+			car.updateTurnNumber();
 
 		}
 

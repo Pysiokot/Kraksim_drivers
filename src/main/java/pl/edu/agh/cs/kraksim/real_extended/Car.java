@@ -628,6 +628,9 @@ class Car {
 		System.out.println("EOF");
 	}
 	
+	/**
+	 * removes car from current lane and 
+	 */
 	public void changeLanes(LaneRealExt toLane) {
 		
 	}
@@ -635,7 +638,7 @@ class Car {
 	/**
 	 * Has to be fired after move is simulated
 	 */
-	public void updateTurn() {
+	public void updateTurnNumber() {
 		this.updateInTurn = Simulation.turnNumber;
 	}
 	

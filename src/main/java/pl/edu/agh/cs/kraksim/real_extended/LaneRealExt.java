@@ -730,19 +730,77 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 
 	// 2019
+	
 	/**
 	 * Use this.carIterator to add new Car
-	 * It will be added behind current position of Iterator
-	 * Iterator will be pointing at newly added car
-	 * 1. as
-	 * 2. asd
+	 * It will be added behind (or more than 1 behind) current position of Iterator
+	 * Iterator will be pointing at next to newly added car
 	 */
 	public void addCarToLane(Car car) {
+		boolean added = false;
 		while(this.carIterator.hasPrevious()) {
 			if(this.carIterator.previous().getPosition() < car.getPosition()) {
-				// too far, 
+				this.carIterator.next();
+				this.carIterator.add(car);
+				added = true;	// we can add it in the middle of list
+				break;
 			}
 		}
+		// it needs to be put as last element of list and this.carIterator.hasPrevious() is false
+		if(!added) {
+			this.carIterator.add(car);
+		}
+		
+		////////////////		TO REMOVE 
+		//////////		LIST TEST
+		int t_lastPos = -1;
+		for(Car c : this.cars) {
+			if(c.getPosition() >= t_lastPos) {
+				for(Car cPrint : this.cars) {
+					System.out.println("ERROR :: adding car " + car);
+					System.out.print(cPrint.getPosition() + " "); 
+					throw new RuntimeException("Error while adding cars");
+				}
+				t_lastPos = c.getPosition();
+			}
+		}
+	}
+	
+	/**
+	 * Use this.carIterator to remove Car
+	 * It will be removed from behind (or more than 1 behind) current position of Iterator
+	 */
+	public void removeCarFromLane(Car car) {
+		boolean removed = false;
+		while(this.carIterator.hasPrevious()) {
+			if(this.carIterator.previous().equals(car)) {
+				this.carIterator.remove();
+				removed = true;	// we can remove it from the middle of list
+				break;
+			}
+		}
+		
+		////////////////		TO REMOVE 
+		//////////		LIST TEST
+		if(!removed) {
+			for(Car cPrint : this.cars) {
+				System.out.println("ERROR :: adding car " + car);
+				System.out.print(cPrint.getPosition() + " "); 
+				throw new RuntimeException("Error while adding cars");
+			}
+		}
+		int t_lastPos = -1;
+		for(Car c : this.cars) {
+			if(c.getPosition() >= t_lastPos) {
+				for(Car cPrint : this.cars) {
+					System.out.println("ERROR :: adding car " + car);
+					System.out.print(cPrint.getPosition() + " "); 
+					throw new RuntimeException("Error while adding cars");
+				}
+				t_lastPos = c.getPosition();
+			}
+		}
+		
 	}
 	
 	Lane getLane() {
