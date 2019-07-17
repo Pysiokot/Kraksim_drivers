@@ -747,12 +747,28 @@ class Car {
 			this.changeLanes(this.getLaneFromLaneSwitchState());
 			nextCar = this.currentLane.getFrontCar(this);	// nextCar changed
 		}
-		int freePos = Integer.MAX_VALUE;
+		int freeCellsInFront;
 		if (nextCar != null) {
-			freePos = nextCar.getPosition() - 1;
+			freeCellsInFront = nextCar.getPosition() - this.pos - 1 - 1;
+		} else {
+			freeCellsInFront = this.currentLane.linkLength() - this.pos -1;
 		}
 		
 		//	move car velocity forward if lane ended  do intersection function
+		int distanceTraveled = 0;
+		if(freeCellsInFront >= this.velocity) {	// simple move forward
+			distanceTraveled = this.velocity;
+		} else if (nextCar != null) {	// there is car in front
+			distanceTraveled = freeCellsInFront;
+		} else if(this.getPreferableAction() != null){	// road ended, interaction
+			distanceTraveled = freeCellsInFront;
+			// TODO: interaction crossing
+		} else {	// road ended, gateway
+			((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);
+			this.currentLane.removeCarFromLane(this);
+			return;
+		}
+		this.setPosition(this.pos + distanceTraveled);
 	}
 
 	/**
