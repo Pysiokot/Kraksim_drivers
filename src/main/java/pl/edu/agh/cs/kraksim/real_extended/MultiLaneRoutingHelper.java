@@ -25,7 +25,7 @@ public class MultiLaneRoutingHelper {
 	}
 
 
-	// 2019 - changes order of conditions
+	// 2019 - changed order of conditions
 
 	/**
 	 * This method chooses the best action from the given list
@@ -166,9 +166,9 @@ public class MultiLaneRoutingHelper {
 					nearestCarPosition = lDist;
 					continue;
 				}
-				// ... or there is the same distance to the nearest car, but
-				// there is less car on the lane
-				if ((lDist == nearestCarPosition) && lSize < lowestCarsCount) {
+				// ... or there is the same distance to the nearest car (greater than 0), but
+				// there is less cars on the lane
+				if (lDist == nearestCarPosition && nearestCarPosition > 0 && lSize < lowestCarsCount) {
 					// ... set it as the best.
 					result = lane;
 					lowestCarsCount = lSize;
