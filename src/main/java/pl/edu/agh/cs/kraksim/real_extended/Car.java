@@ -644,7 +644,7 @@ class Car {
 	
 	/**
 	 * @return true if car can move this turn
-	 * @return false if car was already moved this turn
+	 *  or false if car was already moved this turn
 	 */
 	public boolean canMoveThisTurn() {
 		return this.updateInTurn < Simulation.turnNumber;

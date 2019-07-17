@@ -78,7 +78,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		MultiLaneRoutingHelper laneHelper = new MultiLaneRoutingHelper(ev);
 
 		// choosing the best action from the given list
-		Action nextAction = laneHelper.chooseBestAction(actions, link);
+		Action nextAction = laneHelper.chooseBestAction(actions);
 		// choosing the best lane to enter in order to get to lane given in action 
 		Lane nextLane = laneHelper.chooseBestLaneForAction(nextAction, link);
 
@@ -156,5 +156,55 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 				laneExt(i).installInductionLoop(line, handler);
 			}
 		}
+	}
+
+	// 2019
+
+	/**
+	 * This method returns lane to enter on this link
+	 *
+	 * @param car entering car
+	 * @return lane to enter or null if cannot enter any lane
+	 */
+	Lane getLaneToEnter(Car car) {
+		// obtaining next goal of the entered car
+		Link nextLink = null;
+		if (car.hasNextTripPoint()) {
+			nextLink = car.peekNextTripPoint();
+		} else {
+			// if there is no next point, it means, that the car
+			// is heading to a gateway. If this link does not lead
+			// to a gateway - time to throw some exception...
+
+			if (!link.getEnd().isGateway()) {
+				throw new AssumptionNotSatisfiedException();
+			}
+		}
+
+		// obtaining list of actions heading to the given destination
+		List<Action> actions = link.findActions(nextLink);
+
+		MultiLaneRoutingHelper laneHelper = new MultiLaneRoutingHelper(ev);
+
+		// choosing the best action from the given list
+		Action nextAction = laneHelper.chooseBestAction(actions);
+		// choosing the best lane to enter in order to get to lane given in action
+		Lane nextLane = laneHelper.chooseBestLaneForAction(nextAction, link);
+
+		// if null then no lane can be entered for given action
+		if (nextLane == null) {
+			return null;
+		}
+		car.refreshTripRoute();
+
+		if (!car.hasNextTripPoint()) {
+			car.setAction(null);
+		} else {
+			car.nextTripPoint();
+			car.setAction(nextAction);
+			car.setPreferableAction(nextAction);
+		}
+
+		return nextLane;
 	}
 }
