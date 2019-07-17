@@ -370,6 +370,9 @@ class Car {
 		}
 	}
 	
+	
+	///////////////////////////////////////////////////////////
+	//		Switch Lane Algorithm
 	/**
 	 * check if lane neiLane is good to switch to and return its score
 	 */
@@ -407,11 +410,33 @@ class Car {
 		boolean spaceBehind = otherCarBehind!=null ? gapNeiBehind > otherCarBehind.getVelocity() * crashFreeTurns : true;
 		return spaceInFront && spaceBehind;
 	}
+	//		[end] Switch Lane Algorithm
+	///////////////////////////////////////////////////////////
+	
+	/**
+	 * uses part of Switch Lane Algorithm 
+	 * @return true if car can switch lane in given direction
+	 */
+	private boolean checkIfCanSwitchToDirection(LaneSwitch direction) {
+		LaneRealExt otherLane;
+		if(direction == LaneSwitch.LEFT || direction == LaneSwitch.WANTS_LEFT) {
+			otherLane = this.currentLane.leftNeighbor();
+		} else if(direction == LaneSwitch.RIGHT || direction == LaneSwitch.WANTS_RIGHT) {
+			otherLane = this.currentLane.rightNeighbor();
+		} else {
+			return true;	// can always switch if there is not switch
+		}
+		Car carBehind = otherLane.getBehindCar(this.pos);
+		Car carFront = otherLane.getFrontCar(this.pos);
+		return canSwitchLanesToOther(carBehind, carFront, otherLane);
+		
+	}
 
 	/**
 	 * Check if there is need to switch lanes (obstacle, emergency etc) <br>
 	 * If not check switchLaneAlgorithms on all neighbors lanes <br>
-	 * Action for obstacle or emergency have priority 
+	 * Action for obstacle or emergency have priority <br>
+	 * TODO: poprawić zmiane pasow przed przeszkodami i przed karetkami 
 	 * @param action action for car that will be switching lanes
 	 * @param lane switchLaneAlgorithm
 	 * @param ev
@@ -435,19 +460,29 @@ class Car {
 		
 		//	check for obstacles
 		if(distanceToNextObstacle <= obstacleVisibility) { 
-			// obstacle too in range, must change lane 
+			// obstacle in range, must change lane, prefers right, but if cant, will try to left
 			System.out.println("Przeszkoda?!?! o nie!!	QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-			float obstacleSwitchRandom = this.currentLane.getParams().getRandomGenerator().nextFloat();
-			if(obstacleSwitchRandom < 0.5) {
+			if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
+				this.switchToLane = LaneSwitch.RIGHT;
+			} else if(checkIfCanSwitchToDirection(LaneSwitch.LEFT)) {
 				this.switchToLane = LaneSwitch.LEFT;
 			} else {
-				this.switchToLane = LaneSwitch.RIGHT;
+				this.switchToLane = LaneSwitch.NO_CHANGE;
 			}
+				
 		}
 		else if (!isEmergency() && this.currentLane.getBehindCar(this)!= null && this.currentLane.getBehindCar(this).isEmergency()) {
-			this.switchToLane = LaneSwitch.RIGHT;
+			if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
+				this.switchToLane = LaneSwitch.RIGHT;
+			} else {
+				this.switchToLane = LaneSwitch.NO_CHANGE;
+			}
 		} else {
 			this.setSwitchToLaneStateForAlgorithm();
+		}
+		
+		if(!checkIfCanSwitchToDirection(this.switchToLane)) {	// only to make sure it works
+			throw new RuntimeException("FALSE :: checkIfCanSwitchToDirection(this.switchToLane)");		///////////////////////////////////////////////////////////////////////////////////////////////
 		}
 		
 		//newTargetLane = this.getLaneFromLaneSwitchState();	// use to prevent from switching if needed
