@@ -465,7 +465,7 @@ class Car {
 		
 		//	check for obstacles
 		if(distanceToNextObstacle <= obstacleVisibility) { 
-			// obstacle in range, must change lane, prefers right, but if cant, will try to left
+			// obstacle in range, must change lane, prefers right, but if cant, will try left
 			System.out.println("Przeszkoda?!?! o nie!!	QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
 			if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
@@ -650,7 +650,7 @@ class Car {
 			return;
 		}
 		
-		InductionLoopPointer ilp = this.currentLane.new InductionLoopPointer();
+		InductionLoopPointer ilpBeforeLane = this.currentLane.new InductionLoopPointer();
 		Car nextCar = this.currentLane.getFrontCar(this);
 		
 		// remember starting point
@@ -672,6 +672,85 @@ class Car {
 		
 		driveCar(nextCar);
 		
+		fireAllInductionLoopPointers();
+		
+		this.updateTurnNumber();
+		
+	}
+	
+	private void fireAllInductionLoopPointers() {
+		InductionLoopPointer ilpBeforeLane = this.currentLane.getRealView().ext(this.beforeLane).new InductionLoopPointer();
+		// ugly loop to fire all InductionLoopPointers
+				if(this.beforeLane.equals(this.currentLane.getLane())) {	// car didn't switch lanes this turn
+					/* last line of this link crossed by the car in this turn */
+					int lastCrossedLine = this.getPosition();
+					LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLine);
+					/* We fire all induction loops in the range (startPos; lastCrossedLine] */
+					while (!ilpBeforeLane.atEnd() && ilpBeforeLane.current().line <= lastCrossedLine) {
+						if (ilpBeforeLane.current().line > this.getBeforePos()) {
+							LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLine + " for "
+									+ this.currentLane.getLane());
+							ilpBeforeLane.current().handler.handleCarDrive(getVelocity(), getDriver());
+						}
+
+						ilpBeforeLane.forward();
+					}
+				} else {	// we did change lanes
+					InductionLoopPointer ilpNewLane = this.currentLane.new InductionLoopPointer();
+					if(this.beforeLane.getOwner().equals(this.currentLane.getLane().getOwner())) {	// car passed intersection
+						/* last line of this link crossed by the car in this turn */
+						int lastCrossedLine = this.beforeLane.getLength();
+						LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLine);
+						/* We fire all induction loops in the range (startPos; lastCrossedLine] */
+						while (!ilpBeforeLane.atEnd() && ilpBeforeLane.current().line <= lastCrossedLine) {
+							if (ilpBeforeLane.current().line > this.getBeforePos()) {
+								LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLine + " for "
+										+ this.currentLane.getLane());
+								ilpBeforeLane.current().handler.handleCarDrive(getVelocity(), getDriver());
+							}
+
+							ilpBeforeLane.forward();
+						}
+						lastCrossedLine = this.getPosition();
+						LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLine);
+						/* We fire all induction loops in the range (startPos; lastCrossedLine] */
+						while (!ilpNewLane.atEnd() && ilpNewLane.current().line <= lastCrossedLine) {
+							if (ilpNewLane.current().line > this.getBeforePos()) {
+								LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLine + " for "
+										+ this.currentLane.getLane());
+								ilpNewLane.current().handler.handleCarDrive(getVelocity(), getDriver());
+							}
+
+							ilpNewLane.forward();
+						}
+					} else {	// Normal lane switch, on the same road
+						int lastCrossedLine = this.beforeLane.getLength();
+						LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLine);
+						/* We fire all induction loops in the range (startPos; lastCrossedLine] */
+						while (!ilpBeforeLane.atEnd() && ilpBeforeLane.current().line <= lastCrossedLine) {
+							if (ilpBeforeLane.current().line > this.getBeforePos()) {
+								LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLine + " for "
+										+ this.currentLane.getLane());
+								ilpBeforeLane.current().handler.handleCarDrive(getVelocity(), getDriver());
+							}
+
+							ilpBeforeLane.forward();
+						}
+						lastCrossedLine = this.getPosition();
+						LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLine);
+						/* We fire all induction loops in the range (startPos; lastCrossedLine] */
+						while (!ilpNewLane.atEnd() && ilpNewLane.current().line <= lastCrossedLine) {
+							if (ilpNewLane.current().line > this.getBeforePos()) {
+								LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLine + " for "
+										+ this.currentLane.getLane());
+								ilpNewLane.current().handler.handleCarDrive(getVelocity(), getDriver());
+							}
+
+							ilpNewLane.forward();
+						}
+					}
+					
+				}
 	}
 	
 	/**	Perform action based on current car move model
@@ -737,7 +816,7 @@ class Car {
 			}
 			break;
 		default:
-			throw new RuntimeException("unknown model! " + carMoveModel.getName());
+			throw new RuntimeException("Unknown model! " + carMoveModel.getName());
 		}
 
 	}
@@ -754,11 +833,11 @@ class Car {
 			freeCellsInFront = this.currentLane.linkLength() - this.pos -1;
 		}
 		
-		//	move car velocity forward if lane ended  do intersection function
+		//	move car forward |velocity| squares if lane ended do intersection/gateway function
 		int distanceTraveled = 0;
 		if(freeCellsInFront >= this.velocity) {	// simple move forward
 			distanceTraveled = this.velocity;
-		} else if (nextCar != null) {	// there is car in front
+		} else if (nextCar != null) {	// there is car in front, will crash
 			distanceTraveled = freeCellsInFront;
 		} else if(this.getPreferableAction() != null){	// road ended, interaction
 			distanceTraveled = freeCellsInFront;
