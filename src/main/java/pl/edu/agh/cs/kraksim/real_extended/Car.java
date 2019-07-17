@@ -8,8 +8,10 @@ import pl.edu.agh.cs.kraksim.core.Lane;
 import pl.edu.agh.cs.kraksim.core.Link;
 import pl.edu.agh.cs.kraksim.core.Node;
 import pl.edu.agh.cs.kraksim.iface.sim.Route;
+import pl.edu.agh.cs.kraksim.main.CarMoveModel;
 import pl.edu.agh.cs.kraksim.main.Simulation;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
+import pl.edu.agh.cs.kraksim.real_extended.LaneRealExt.InductionLoopPointer;
 
 import java.awt.*;
 import java.util.*;
@@ -325,6 +327,9 @@ class Car {
 	//////////////////////////////////////////////////////////////////////////
 	//	SYMULACJA
 	
+	/////////////////////////////////////////////////////////////////
+	//	Lane Changes
+	
 	/**
 	 * set lane switch state <br>
 	 * {@link Car#switchLaneAlgorithm} for lane switch alforithm
@@ -496,6 +501,7 @@ class Car {
 	 * @param lane switchLaneAlgorithm
 	 * @param ev
 	 * @return correct switch lane state
+	 * @deprecated
 	 */
 	void switchLanes(Action action, LaneRealExt lane, RealEView ev){
 		//	action.getSource() - current line
@@ -628,14 +634,136 @@ class Car {
 		System.out.println("EOF");
 	}
 	
+	//	[end] Lane Changes
+	/////////////////////////////////////////////////////////////////
+	
+	/**
+	 * Nagel-Schreckenberg
+	 */
+	void simulateTurn() {
+		LOGGER.trace("car simulation : " + this);
+		
+		if(this.isObstacle()) {	// dont simulate obstacles
+			return;
+		}
+		if(!this.canMoveThisTurn()) {	// car already did this turn
+			return;
+		}
+		
+		InductionLoopPointer ilp = this.currentLane.new InductionLoopPointer();
+		Car nextCar = this.currentLane.getFrontCar(this);
+		
+		// remember starting point
+		this.setBeforeLane(this.currentLane.getLane());
+		this.setBeforePos(this.getPosition());
+		
+		// Acceleration
+		if (this.isEmergency()) {
+			if (this.velocity < this.currentLane.getEmergencySpeedLimit()) {
+				this.velocity += this.currentLane.getEmergencyAcceleration();
+			}
+		} else {
+			if (this.velocity < this.currentLane.getSpeedLimit()) {
+				this.velocity += 1;
+			}
+		}
+		
+		handleCorrectModel(nextCar);
+		
+		driveCar(nextCar);
+		
+	}
+	
+	/**	Perform action based on current car move model
+	 */
+	private void handleCorrectModel(Car nextCar) {
+		boolean velocityZero = this.getVelocity() <= 0; // VDR - check for v = 0 (slow start)
+		float decisionChance = this.currentLane.getParams().getRandomGenerator().nextFloat();
+		CarMoveModel carMoveModel = this.currentLane.getCarMoveModel();
+		switch (carMoveModel.getName()) {
+		case CarMoveModel.MODEL_NAGEL:
+			if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGEL_MOVE_PROB)) {
+				velocity--;
+			}
+			break;
+		case CarMoveModel.MODEL_MULTINAGEL: // is used by default
+			if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGEL_MOVE_PROB)) {
+				velocity--;
+			}
+			System.out.println("setActionMultiNagel");
+			//setActionMultiNagel();
+			this.switchLanesState();
+			break;
+		// deceleration if vdr
+		case CarMoveModel.MODEL_VDR:
+			// if v = 0 => different (greater) chance of deceleration
+			if (velocityZero) {
+				if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_0_PROB)) {
+					--velocity;
+				}
+			} else {
+				if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_MOVE_PROB)) {
+					--velocity;
+				}
+			}
+			break;
+		// Brake light model
+		case CarMoveModel.MODEL_BRAKELIGHT:
+			if (velocityZero) {
+				if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_0_PROB)) {
+					--velocity;
+				}
+			} else {
+				if (nextCar != null && nextCar.isBraking()) {
+					int threshold = carMoveModel.getIntParameter(CarMoveModel.MODEL_BRAKELIGHT_DISTANCE_THRESHOLD);
+					double ts = (threshold < velocity) ? threshold : velocity;
+					double th = (nextCar.getPosition() - this.getPosition()) / (double) velocity;
+					if (th < ts) {
+						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_BRAKE_PROB)) {
+							--velocity;
+							this.setBraking(true, this.isEmergency());
+						} else {
+							this.setBraking(false, this.isEmergency());
+						}
+					}
+				} else {
+					if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_MOVE_PROB)) {
+						--velocity;
+						this.setBraking(true, this.isEmergency());
+					} else {
+						this.setBraking(false, this.isEmergency());
+					}
+				}
+			}
+			break;
+		default:
+			throw new RuntimeException("unknown model! " + carMoveModel.getName());
+		}
+
+	}
+
+	void driveCar(Car nextCar) {
+		if(this.switchToLane != LaneSwitch.NO_CHANGE) {
+			this.changeLanes(this.getLaneFromLaneSwitchState());
+			nextCar = this.currentLane.getFrontCar(this);	// nextCar changed
+		}
+		int freePos = Integer.MAX_VALUE;
+		if (nextCar != null) {
+			freePos = nextCar.getPosition() - 1;
+		}
+		
+		//	move car velocity forward if lane ended  do intersection function
+	}
+
 	/**
 	 * previous element to ilp.current() (if exists) should be an induction loop
 	 * with line <= startPos.
 	 *
-	 * the same pointer can be used to the next car on this lane (above
-	 * assumption will be true)
+	 * the same pointer can be used to the next car on this lane (above assumption
+	 * will be true)
 	 */
-	boolean drive(LaneRealExt lane, int startPos, int freePos, int stepsMax, int stepsDone, LaneRealExt.InductionLoopPointer ilp, boolean entered) {
+	boolean drive(LaneRealExt lane, int startPos, int freePos, int stepsMax, int stepsDone,
+			LaneRealExt.InductionLoopPointer ilp, boolean entered) {
 		LOGGER.trace("CARTURN " + this + "on " + lane.getLane());
 		int range = startPos + stepsMax - stepsDone;
 		int pos;
@@ -647,18 +775,21 @@ class Car {
 		int lastCrossedLine;
 
 		if (!lane.equals(sourceLane)) {
-			System.out.println("new lane :: at road" + sourceLane.getLane().getOwner().getId() + " lane : " + sourceLane.getLane().getAbsoluteNumber());
+			System.out.println("new lane :: at road" + sourceLane.getLane().getOwner().getId() + " lane : "
+					+ sourceLane.getLane().getAbsoluteNumber());
 			int laneChangePos = Math.max(sourceLane.getOffset() - 1, getPosition());
 			pos = Math.min(Math.min(range, freePos), laneChangePos);
 
-			if (pos == range || pos < laneChangePos || !sourceLane.pushCar(this, stepsMax, stepsDone + pos - startPos)) {
+			if (pos == range || pos < laneChangePos
+					|| !sourceLane.pushCar(this, stepsMax, stepsDone + pos - startPos)) {
 				stay = true;
 			}
 			lastCrossedLine = pos;
 		} else {
 			int lastPos = lane.linkLength() - 1;
 			pos = Math.min(Math.min(range, freePos), lastPos);
-			if (pos == range || pos < lastPos || lane.isBlocked() || !handleCarAction(lane, stepsMax, stepsDone + pos - startPos)) {
+			if (pos == range || pos < lastPos || lane.isBlocked()
+					|| !handleCarAction(lane, stepsMax, stepsDone + pos - startPos)) {
 				stay = true;
 				lastCrossedLine = pos;
 			} else {
@@ -675,7 +806,8 @@ class Car {
 				setVelocity(0);
 			}
 			if (entered) {
-				System.out.println("entered :: at road " + sourceLane.getLane().getOwner().getId() + " lane : " + sourceLane.getLane().getAbsoluteNumber());
+				System.out.println("entered :: at road " + sourceLane.getLane().getOwner().getId() + " lane : "
+						+ sourceLane.getLane().getAbsoluteNumber());
 				lane.getEnteringCars().add(this);
 			}
 		}
@@ -684,7 +816,8 @@ class Car {
 		/* We fire all induction loops in the range (startPos; lastCrossedLine] */
 		while (!ilp.atEnd() && ilp.current().line <= lastCrossedLine) {
 			if (ilp.current().line > startPos) {
-				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + startPos + " and " + lastCrossedLine + " for " + lane.getLane());
+				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + startPos + " and " + lastCrossedLine + " for "
+						+ lane.getLane());
 				ilp.current().handler.handleCarDrive(getVelocity(), getDriver());
 			}
 
@@ -733,19 +866,29 @@ class Car {
 			return l.enterCar(this, stepsMax, stepsDone);
 		}
 	}
-	
+
 	/**
 	 * removes car from current lane and adds it to otherLane
-	 * @param otherLane new lane for this car
+	 * changes this.currentLane
+	 * @param otherLane
+	 *            new lane for this car
 	 */
 	public void changeLanes(LaneRealExt otherLane) {
 		this.currentLane.removeCarFromLane(this);
 		otherLane.addCarToLane(this);
+		Car cx = this.currentLane.getCars().peek();
+		// update lane firstCarPos for old lane
+		if (cx != null) {
+			this.currentLane.setFirstCarPos(cx.getPosition());
+		} else {
+			this.currentLane.setFirstCarPos(Integer.MAX_VALUE);
+		}
 		this.currentLane = otherLane;
 	}
-	
+
 	/**
 	 * removes car from current lane and moves it across the intersection
+	 * changes this.currentLane
 	 * @param
 	 */
 	public void crossIntersection(LaneRealExt otherLane) {
@@ -753,14 +896,14 @@ class Car {
 		otherLane.addCarToLane(this);
 		this.currentLane = otherLane;
 	}
-	
+
 	/**
 	 * Has to be fired after move is simulated
 	 */
 	public void updateTurnNumber() {
 		this.updateInTurn = Simulation.turnNumber;
 	}
-	
+
 	/**
 	 * @return true if car can move this turn
 	 * @return false if car was already moved this turn

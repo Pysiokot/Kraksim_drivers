@@ -70,7 +70,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		realView = ev;
 		this.params = params;
 		speedLimit = lane.getSpeedLimit();
-		emergencySpeedLimit = speedLimit * emergencySpeedLimitTimesHigher;
+		emergencySpeedLimit = getSpeedLimit() * emergencySpeedLimitTimesHigher;
 		carMoveModel = params.carMoveModel;
 
 		offset = lane.getOffset();// linkLength() - lane.getLength();
@@ -131,9 +131,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		LOGGER.trace(lane);
 		Car car = cars.peek();
 		if (car != null) {
-			firstCarPos = car.getPosition();
+			setFirstCarPos(car.getPosition());
 		} else {
-			firstCarPos = Integer.MAX_VALUE;
+			setFirstCarPos(Integer.MAX_VALUE);
 		}
 		this.carIterator = this.cars.listIterator();
 	}
@@ -160,18 +160,18 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	boolean hasCarPlace() {
 		// CHANGE: MZA - to disable multiple cars entering the same lane 
-		return enteringCars.isEmpty() && firstCarPos > offset;
+		return enteringCars.isEmpty() && getFirstCarPos() > offset;
 	}
 
 	/* assumption: stepsDone < stepsMax */
 	boolean pushCar(Car car, int stepsMax, int stepsDone) {
 		LOGGER.trace(car + " on " + lane);
 		System.out.println("driveCar :: pushCar (sourceLane) :: hasCarPlace() = " + hasCarPlace());
-		if (car.getPosition() > firstCarPos) {
-			firstCarPos = car.getPosition();
+		if (car.getPosition() > getFirstCarPos()) {
+			setFirstCarPos(car.getPosition());
 		}
 		if (hasCarPlace()) {
-			car.drive(this,car.getPosition() - 1, firstCarPos - 1, stepsMax, stepsDone, new InductionLoopPointer(), true);
+			car.drive(this,car.getPosition() - 1, getFirstCarPos() - 1, stepsMax, stepsDone, new InductionLoopPointer(), true);
 			car.setCurrentLane(this);
 			return true;
 		} else {
@@ -271,11 +271,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				// 2. Acceleration
 				int velocity = car.getVelocity();
 				if (car.isEmergency()) {
-					if (velocity < emergencySpeedLimit) {
-						velocity += emergencyAcceleration;
+					if (velocity < getEmergencySpeedLimit()) {
+						velocity += getEmergencyAcceleration();
 					}
 				} else {
-					if (velocity < speedLimit) {
+					if (velocity < getSpeedLimit()) {
 						velocity += 1;
 					}
 				}
@@ -365,9 +365,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 					Car cx = cars.peek();
 					// update lane firstCarPos 
 					if (cx != null) {
-						firstCarPos = cx.getPosition();
+						setFirstCarPos(cx.getPosition());
 					} else {
-						firstCarPos = Integer.MAX_VALUE;
+						setFirstCarPos(Integer.MAX_VALUE);
 					}
 				}
 
@@ -383,7 +383,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	void simulateTurn(Car car) {
 		LOGGER.trace(lane);
 		if(!this.equals(car.getCurrentLane())) {
-			throw new RuntimeException("asas");
+			throw new RuntimeException("Car on wrong lane in simulation");
 		}
 
 		InductionLoopPointer ilp = new InductionLoopPointer();	// idk what it does <yet?>
@@ -406,11 +406,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		// 2. Acceleration
 		int velocity = car.getVelocity();
 		if (car.isEmergency()) {
-			if (velocity < emergencySpeedLimit) {
-				velocity += emergencyAcceleration;
+			if (velocity < getEmergencySpeedLimit()) {
+				velocity += getEmergencyAcceleration();
 			}
 		} else {
-			if (velocity < speedLimit) {
+			if (velocity < getSpeedLimit()) {
 				velocity += 1;
 			}
 		}
@@ -492,9 +492,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			Car cx = cars.peek();
 			// update lane firstCarPos
 			if (cx != null) {
-				firstCarPos = cx.getPosition();
+				setFirstCarPos(cx.getPosition());
 			} else {
-				firstCarPos = Integer.MAX_VALUE;
+				setFirstCarPos(Integer.MAX_VALUE);
 			}
 		}
 
@@ -896,6 +896,26 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	
 	/////////////////////////////////////////////////////////////////////
 
+	public int getEmergencySpeedLimit() {
+		return emergencySpeedLimit;
+	}
+
+	public int getEmergencyAcceleration() {
+		return emergencyAcceleration;
+	}
+
+	public int getSpeedLimit() {
+		return speedLimit;
+	}
+
+	public int getFirstCarPos() {
+		return firstCarPos;
+	}
+
+	public void setFirstCarPos(int firstCarPos) {
+		this.firstCarPos = firstCarPos;
+	}
+
 	static class InductionLoop {
 		final int line;
 		final CarDriveHandler handler;
@@ -1015,7 +1035,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	class InductionLoopPointer {
 		private int i;
 
-		private InductionLoopPointer() {
+		InductionLoopPointer() {
 			i = 0;
 		}
 
