@@ -340,10 +340,10 @@ class Car {
 			// car already has an action and will try to do it this turn
 			return getLaneFromLaneSwitchState();
 		}
-		
+		if(velocity == 0) throw new RuntimeException("vel == 0");
 		int switchLaneForceLeft = this.currentLane.hasLeftNeighbor()	? this.switchLaneAlgorithm(this.currentLane.leftNeighbor())  : -1;
 		int switchLaneForceRight = this.currentLane.hasRightNeighbor() 	? this.switchLaneAlgorithm(this.currentLane.rightNeighbor()) : -1;
-		
+		System.out.println("switchLaneForceRight " + switchLaneForceRight);
 		//	Choose best lane to switch base on gap to next car
 		if(switchLaneForceLeft > switchLaneForceRight) {
 			this.switchToLane = LaneSwitch.LEFT;	// left is better
@@ -383,12 +383,12 @@ class Car {
 	 */
 	private int switchLaneAlgorithm(LaneRealExt neiLane) {
 		if(neiLane == null) return -1;
-		Car neiCarBehind = neiLane.getBehindCar(this.pos);
-		Car neiCarFront = neiLane.getFrontCar(this.pos);
+		Car neiCarBehind = neiLane.getBehindCar(this.pos+1);
+		Car neiCarFront = neiLane.getFrontCar(this.pos-1);
 		Car thisCarFront = this.currentLane.getFrontCar(this.pos);
 		// gap - number of free cells : [c] [] [] [c] -> gap == 2
-		int gapNeiFront = 	neiCarFront != null  ? neiCarFront.getPosition() - this.pos - 1  : neiLane.linkLength() - this.pos -1;
-
+		int gapNeiFront = neiCarFront != null ? neiCarFront.getPosition() - this.pos - 1 : neiLane.linkLength() - this.pos -1;
+		System.out.println("switchLaneAlgorithm " + this+"\n\t to : " + neiLane.getLane().getAbsoluteNumber() + " :: " + isMyLaneBad(thisCarFront) + isOtherLaneBetter(thisCarFront, neiCarFront, neiLane) + canSwitchLanesToOther(neiCarBehind, neiCarFront, neiLane));
 		if(isMyLaneBad(thisCarFront) && isOtherLaneBetter(thisCarFront, neiCarFront, neiLane) && canSwitchLanesToOther(neiCarBehind, neiCarFront, neiLane)) {
 			return gapNeiFront;	// score for this lane switch
 		}
@@ -408,8 +408,8 @@ class Car {
 	}
 	
 	private boolean canSwitchLanesToOther(Car otherCarBehind, Car otherCarFront, LaneRealExt otherLane) {
-		int gapNeiFront = 	otherCarFront != null  ? otherCarFront.getPosition() - this.pos - 1  : otherLane.linkLength() - this.pos -1;
-		int gapNeiBehind = 	otherCarFront != null ? this.pos - otherCarFront.getPosition() - 1 : this.pos;
+		int gapNeiFront = 	otherCarFront != null ? otherCarFront.getPosition() - this.pos - 1  : otherLane.linkLength() - this.pos -1;
+		int gapNeiBehind = 	otherCarBehind != null ? this.pos - otherCarBehind.getPosition() - 1 : this.pos;
 		int crashFreeTurns = 1;	// turns until crash, gap must be bigger than velocity * crashFreeTurns
 		boolean spaceInFront = gapNeiFront > this.velocity * crashFreeTurns;
 		boolean spaceBehind = otherCarBehind!=null ? gapNeiBehind > otherCarBehind.getVelocity() * crashFreeTurns : true;
@@ -423,16 +423,24 @@ class Car {
 	 * @return true if car can switch lane in given direction
 	 */
 	private boolean checkIfCanSwitchToDirection(LaneSwitch direction) {
+		System.out.println("checkIfCanSwitchToDirection 0");
 		LaneRealExt otherLane;
 		if(direction == LaneSwitch.LEFT || direction == LaneSwitch.WANTS_LEFT) {
-			otherLane = this.currentLane.leftNeighbor();
+			if(this.currentLane.hasLeftNeighbor())
+				otherLane = this.currentLane.leftNeighbor();
+			else
+				return false;
 		} else if(direction == LaneSwitch.RIGHT || direction == LaneSwitch.WANTS_RIGHT) {
-			otherLane = this.currentLane.rightNeighbor();
+			if(this.currentLane.hasRightNeighbor())
+				otherLane = this.currentLane.rightNeighbor();
+			else
+				return false;
 		} else {
 			return true;	// can always switch if there is not switch
 		}
-		Car carBehind = otherLane.getBehindCar(this.pos);
-		Car carFront = otherLane.getFrontCar(this.pos);
+		Car carBehind = otherLane.getBehindCar(this.pos+1);
+		Car carFront = otherLane.getFrontCar(this.pos-1);
+		System.out.println("checkIfCanSwitchToDirection 1");
 		return canSwitchLanesToOther(carBehind, carFront, otherLane);
 		
 	}
@@ -465,6 +473,7 @@ class Car {
 		
 		//	check for obstacles
 		if(distanceToNextObstacle <= obstacleVisibility) { 
+			System.out.println("switchLanesState 1");
 			// obstacle in range, must change lane, prefers right, but if cant, will try left
 			System.out.println("Przeszkoda?!?! o nie!!	QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
 			if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
@@ -477,17 +486,19 @@ class Car {
 				
 		}
 		else if (!isEmergency() && this.currentLane.getBehindCar(this)!= null && this.currentLane.getBehindCar(this).isEmergency()) {
+			System.out.println("switchLanesState 2");
 			if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
 			} else {
 				this.switchToLane = LaneSwitch.NO_CHANGE;
 			}
 		} else {
+			System.out.println("switchLanesState 3");
 			this.setSwitchToLaneStateForAlgorithm();
 		}
 		
 		if(!checkIfCanSwitchToDirection(this.switchToLane)) {	// only to make sure it works
-			throw new RuntimeException("FALSE :: checkIfCanSwitchToDirection(this.switchToLane)");		///////////////////////////////////////////////////////////////////////////////////////////////
+			throw new RuntimeException("FALSE :: checkIfCanSwitchToDirection(this.switchToLane) " + this);		///////////////////////////////////////////////////////////////////////////////////////////////
 		}
 		
 		//newTargetLane = this.getLaneFromLaneSwitchState();	// use to prevent from switching if needed
@@ -828,7 +839,7 @@ class Car {
 		}
 		int freeCellsInFront;
 		if (nextCar != null) {
-			freeCellsInFront = nextCar.getPosition() - this.pos - 1 - 1;
+			freeCellsInFront = nextCar.getPosition() - this.pos - 1;
 		} else {
 			freeCellsInFront = this.currentLane.linkLength() - this.pos -1;
 		}

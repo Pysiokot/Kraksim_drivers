@@ -113,7 +113,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 			Car car = gi.next();
 			if(car.canMoveThisTurn()) {
 				System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n\t" + car + " lane: " + car.getCurrentLane().getLane().getAbsoluteNumber());
-				car.getCurrentLane().simulateTurn(car);
+				car.simulateTurn();
 			}
 			car.updateTurnNumber();
 
