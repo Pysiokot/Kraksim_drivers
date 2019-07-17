@@ -11,7 +11,7 @@ import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 import pl.edu.agh.cs.kraksim.ministat.*;
-import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
+import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 
 import java.io.PrintWriter;
 import java.util.*;

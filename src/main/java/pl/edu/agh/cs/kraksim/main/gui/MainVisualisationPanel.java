@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.core.*;
 import pl.edu.agh.cs.kraksim.main.Simulation;
-import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
+import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 import pl.edu.agh.cs.kraksim.sna.GraphVisualizer;
 import pl.edu.agh.cs.kraksim.sna.centrality.CentralityCalculator;
 import pl.edu.agh.cs.kraksim.sna.centrality.KmeansClustering;

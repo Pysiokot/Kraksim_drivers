@@ -17,7 +17,7 @@ import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizer;
 import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizer;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatModuleCreator;
-import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
+import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 import pl.edu.agh.cs.kraksim.routing.*;
 import pl.edu.agh.cs.kraksim.simpledecision.SimpleDecisionEView;
 import pl.edu.agh.cs.kraksim.simpledecision.SimpleDecisionModuleCreator;

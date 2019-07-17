@@ -108,8 +108,8 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		                physModuleCreator = new pl.edu.agh.cs.kraksim.real_extended.RealModuleCreator(simulationParams);
 		                break;
 		            } default : {
-		                physModuleCreator = new pl.edu.agh.cs.kraksim.real.RealModuleCreator
-		                        (new pl.edu.agh.cs.kraksim.real.RealSimulationParams(params.getModelRg(), params.getCarMoveModel()));
+		                physModuleCreator = new pl.edu.agh.cs.kraksim.real_extended.RealModuleCreator
+		                        (new pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams(params.getModelRg(), params.getCarMoveModel()));
 		                break;
 		            }
 		        }

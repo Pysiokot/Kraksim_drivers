@@ -2,7 +2,7 @@ package pl.edu.agh.cs.kraksim.statistics.charts;
 
 import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizer;
 import pl.edu.agh.cs.kraksim.ministat.CityMiniStatExt;
-import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
+import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 
 import javax.swing.*;
 import java.awt.*;
