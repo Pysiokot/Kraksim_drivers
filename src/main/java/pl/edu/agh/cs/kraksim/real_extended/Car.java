@@ -412,8 +412,8 @@ class Car {
 		int gapNeiBehind = 	otherCarBehind != null ? this.pos - otherCarBehind.getPosition() - 1 : this.pos;
 		int crashFreeTurns = 1;	// turns until crash, gap must be bigger than velocity * crashFreeTurns
 		boolean spaceInFront = gapNeiFront > this.velocity * crashFreeTurns;
-		boolean spaceBehind = otherCarBehind!=null ? gapNeiBehind > otherCarBehind.getVelocity() * crashFreeTurns : true;
-		return spaceInFront && spaceBehind;
+		boolean spaceBehind = otherCarBehind!=null ? gapNeiBehind > otherCarBehind.getVelocity() * (crashFreeTurns-1) : true;
+		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());
 	}
 	//		[end] Switch Lane Algorithm
 	///////////////////////////////////////////////////////////
@@ -855,7 +855,7 @@ class Car {
 			// TODO: interaction crossing
 		} else {	// road ended, gateway
 			((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);
-			this.currentLane.removeCarFromLane(this);
+			this.currentLane.removeCarFromLaneWithIterator(this);
 			return;
 		}
 		this.setPosition(this.pos + distanceTraveled);
@@ -980,8 +980,8 @@ class Car {
 	 *            new lane for this car
 	 */
 	public void changeLanes(LaneRealExt otherLane) {
-		this.currentLane.removeCarFromLane(this);
-		otherLane.addCarToLane(this);
+		this.currentLane.removeCarFromLaneWithIterator(this);
+		otherLane.addCarToLaneWithIterator(this);
 		Car cx = this.currentLane.getCars().peek();
 		// update lane firstCarPos for old lane
 		if (cx != null) {
@@ -998,8 +998,8 @@ class Car {
 	 * @param
 	 */
 	public void crossIntersection(LaneRealExt otherLane) {
-		this.currentLane.removeCarFromLane(this);
-		otherLane.addCarToLane(this);
+		this.currentLane.removeCarFromLaneWithIterator(this);
+		otherLane.addCarToLaneWithIterator(this);
 		this.currentLane = otherLane;
 	}
 

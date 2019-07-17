@@ -96,7 +96,7 @@ public class Link extends Element {
 			}
 			int laneNum = rightMainLaneNum + i + 1;
 			lanes[laneNum] = new Lane(core, this, laneNum, i + 1, rightLaneLens[i], speedLimit, minimalSpeed
-					, (map == null || map.get(0) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(0));
+					, (map == null || map.get(i) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(i));
 		}
 	}
 	
@@ -116,7 +116,7 @@ public class Link extends Element {
 
 			int laneNum = leftMainLaneNum - i - 1;
 			lanes[laneNum] = new Lane(core, this, laneNum, -i - 1, leftLaneLens[i], speedLimit, minimalSpeed
-					, (map == null || map.get(0) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(0));
+					, (map == null || map.get(i) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(i));
 		}
 	}
 

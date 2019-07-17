@@ -9,9 +9,11 @@
   <roads defaultSpeedLimit="1">
     <road id="roads_0" street="roads_0" speedLimit="3" from="G1" to="I0">
       <uplink>
-        <main length="295" numberOfLanes="3" />
-         <!-- <blocked laneNumber = "2" cell="80" lastCell="90" turnStart="50" turnEnd="100" /> -->
+        <main length="295" numberOfLanes="3">
+          <!-- <blocked laneNumber = "2" cell="80" lastCell="90" turnStart="50" turnEnd="100" /> -->
           <blocked laneNumber = "2" cell="100" />
+        </main>
+        <right length="100"/>
       </uplink>
       <downlink>
         <main length="295" numberOfLanes="1" />

@@ -731,11 +731,93 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	// 2019
 	
 	/**
+	 * NOT safe to use during simulation <br>
+	 * Use this.car list to add new Car
+	 * Iterator will not be changed 
+	 */
+	public boolean addCarToLane(Car car) {
+		boolean added = false;
+		ListIterator<Car> tempIt = this.cars.listIterator();
+		while(tempIt.hasNext()) {
+			if(tempIt.next().getPosition() > car.getPosition()) {
+				this.carIterator.previous();
+				this.carIterator.add(car);
+				added = true;	// we can add it in the middle of list
+				break;
+			}
+		}
+		// it needs to be put as last element of list and this.carIterator.hasPrevious() is false
+		if(!added) {
+			this.carIterator.add(car);
+		}
+		
+		////////////////		TO REMOVE 
+		//////////		LIST TEST
+		int t_lastPos = -1;
+		for(Car c : this.cars) {
+			if(c.getPosition() <= t_lastPos) {
+				System.out.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
+				for(Car cPrint : this.cars) {
+					System.out.print(cPrint.getPosition() + " "); 
+				}
+				System.out.println();
+				throw new RuntimeException("Error while adding cars");
+			}
+			t_lastPos = c.getPosition();
+		}
+		return added;
+	}
+	
+	/**
+	 * NOT safe to use during simulation <br>
+	 * Use this.car list to remove Car
+	 * Iterator will not be changed 
+	 */
+	public boolean removeCarFromLane(Car car) {
+		boolean removed = false;
+		ListIterator<Car> tempIt = this.cars.listIterator();
+		while(tempIt.hasNext()) {
+			if(tempIt.next().equals(car)) {
+				this.carIterator.remove();
+				removed = true;	// we can remove it from the middle of list
+				break;
+			}
+		}
+		
+		////////////////		TO REMOVE 
+		//////////		LIST TEST
+		if(!removed) {
+			for(Car cPrint : this.cars) {
+				System.out.println("ERROR :: remove car :: end loop, no remove " + car);
+				System.out.print(cPrint.getPosition() + " "); 
+				throw new RuntimeException("Error while remove cars - not removed");
+			}
+		}
+		int t_lastPos = -1;
+		for(Car c : this.cars) {
+			if(c.getPosition() <= t_lastPos) {
+				System.out.println("ERROR :: remove car :: positions " + car +" t_lastPos " + t_lastPos);
+				for(Car cPrint : this.cars) {
+					System.out.print(cPrint.getPosition() + " "); 
+				}
+				System.out.println();
+				throw new RuntimeException("Error while remove cars - wrong order");
+			}
+			t_lastPos = c.getPosition();
+		}
+		
+		return removed;
+		
+	}
+	
+	
+	/**
+	 * Safe to use during simulation <br>
 	 * Use this.carIterator to add new Car
 	 * It will be added behind (or more than 1 behind) current position of Iterator
 	 * Iterator will be pointing at next to newly added car
 	 */
-	public void addCarToLane(Car car) {
+	public boolean addCarToLaneWithIterator(Car car) {
 		boolean added = false;
 		while(this.carIterator.hasPrevious()) {
 			if(this.carIterator.previous().getPosition() < car.getPosition()) {
@@ -764,13 +846,15 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			}
 			t_lastPos = c.getPosition();
 		}
+		return added;
 	}
 	
 	/**
+	 * Safe to use during simulation <br>
 	 * Use this.carIterator to remove Car
 	 * It will be removed from behind (or more than 1 behind) current position of Iterator
 	 */
-	public void removeCarFromLane(Car car) {
+	public boolean removeCarFromLaneWithIterator(Car car) {
 		boolean removed = false;
 		while(this.carIterator.hasPrevious()) {
 			if(this.carIterator.previous().equals(car)) {
@@ -801,7 +885,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			}
 			t_lastPos = c.getPosition();
 		}
-		
+		return removed;
 	}
 	
 	Lane getLane() {
