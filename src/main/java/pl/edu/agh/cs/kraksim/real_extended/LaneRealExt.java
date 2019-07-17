@@ -784,7 +784,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		//////////		LIST TEST
 		if(!removed) {
 			for(Car cPrint : this.cars) {
-				System.out.println("ERROR :: adding car " + car);
+				System.out.println("ERROR :: remove car :: end loop, no remove " + car);
 				System.out.print(cPrint.getPosition() + " "); 
 				throw new RuntimeException("Error while adding cars");
 			}
@@ -793,7 +793,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		for(Car c : this.cars) {
 			if(c.getPosition() >= t_lastPos) {
 				for(Car cPrint : this.cars) {
-					System.out.println("ERROR :: adding car " + car);
+					System.out.println("ERROR :: remove car :: positions " + car);
 					System.out.print(cPrint.getPosition() + " "); 
 					throw new RuntimeException("Error while adding cars");
 				}

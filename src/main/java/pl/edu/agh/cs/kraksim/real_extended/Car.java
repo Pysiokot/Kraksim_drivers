@@ -325,7 +325,7 @@ class Car {
 	//////////////////////////////////////////////////////////////////////////
 	//	SYMULACJA
 	
-	/*
+	/**
 	 * set lane switch state 
 	 */
 	private void setSwitchToLaneState() {
@@ -350,7 +350,7 @@ class Car {
 
 	}
 	
-	/*
+	/**
 	 * check if lane neiLane is good to switch to and return its score
 	 */
 	private int switchLaneAlgorithm(LaneRealExt neiLane) {
@@ -380,121 +380,12 @@ class Car {
 		return -1;
 	}
 
-	/*
-	 * previous element to ilp.current() (if exists) should be an induction loop
-	 * with line <= startPos.
-	 *
-	 * the same pointer can be used to the next car on this lane (above
-	 * assumption will be true)
-	 */
-	boolean drive(LaneRealExt lane, int startPos, int freePos, int stepsMax, int stepsDone, LaneRealExt.InductionLoopPointer ilp, boolean entered) {
-		LOGGER.trace("CARTURN " + this + "on " + lane.getLane());
-		int range = startPos + stepsMax - stepsDone;
-		int pos;
-		boolean stay = false;
-		Action action = getAction();
-		LaneRealExt sourceLane = lane.getSourceLane(action);
-
-		/* last line of this link crossed by the car in this turn */
-		int lastCrossedLine;
-
-		if (!lane.equals(sourceLane)) {
-			int laneChangePos = Math.max(sourceLane.getOffset() - 1, getPosition());
-			pos = Math.min(Math.min(range, freePos), laneChangePos);
-
-			if (pos == range || pos < laneChangePos || !sourceLane.pushCar(this, stepsMax, stepsDone + pos - startPos)) {
-				stay = true;
-			}
-			lastCrossedLine = pos;
-		} else {
-			int lastPos = lane.linkLength() - 1;
-			pos = Math.min(Math.min(range, freePos), lastPos);
-			if (pos == range || pos < lastPos || lane.isBlocked() || !handleCarAction(lane, stepsMax, stepsDone + pos - startPos)) {
-				stay = true;
-				lastCrossedLine = pos;
-			} else {
-				lastCrossedLine = pos + 1;
-			}
-		}
-
-		if (stay) {
-			if (getPosition() < pos) {
-				setPosition(pos);
-			}
-			setVelocity(stepsDone + pos - startPos);
-			if (getVelocity() < 0) {
-				setVelocity(0);
-			}
-			if (entered) {
-				lane.getEnteringCars().add(this);
-			}
-		}
-
-		LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLine);
-		/* We fire all induction loops in the range (startPos; lastCrossedLine] */
-		while (!ilp.atEnd() && ilp.current().line <= lastCrossedLine) {
-			if (ilp.current().line > startPos) {
-				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + startPos + " and " + lastCrossedLine + " for " + lane.getLane());
-				ilp.current().handler.handleCarDrive(getVelocity(), getDriver());
-			}
-
-			ilp.forward();
-		}
-
-		LOGGER.trace("CARTURN " + this + "on " + lane.getLane());
-		this.switchToLane = LaneSwitch.NO_CHANGE;
-		return stay;
-	}
-
-	/* assumption: stepsDone < stepsMax */
-	private boolean handleCarAction(LaneRealExt lane, int stepsMax, int stepsDone) {
-		LOGGER.trace(this + " on " + lane.getLane());
-		Action action = getAction();
-
-		if (action == null) {
-			setVelocity(stepsMax);
-			((GatewayRealExt) lane.getRealView().ext(lane.linkEnd())).acceptCar(this);
-			return true;
-		}
-
-		if (lane.getWait()) {
-			/* we are waiting one turn */
-			lane.setWait(false);
-			return false;
-		} else {
-			/* we are approaching an intersection */
-			Lane[] pl = action.getPriorLanes();
-			// int i;
-			for (Lane aPl : pl) {
-				if (lane.getRealView().ext(aPl).getCarApproaching()) {
-					if (lane.checkDeadlock(action.getSource(), aPl)) {
-						LOGGER.warn(lane.getLane() + "DEADLOCK situation.");
-						lane.deadLockRecovery();
-					}
-					return false;
-				}
-			}
-			LinkRealExt l = lane.getRealView().ext(action.getTarget());
-			setPosition(0);
-
-			return l.enterCar(this, stepsMax, stepsDone);
-		}
-	}
-
 	/**
-	 * Check if there is need to switch lanes and, if it's possible, do so.
+	 * Check if there is need to switch lanes (obstacle, emergency etc)
+	 * If not check switchLaneAlgorithms on all neighbors lanes
+	 * Action for obstacle or emergency have priority
 	 * @param action action for car that will be switching lanes
-	 * @param lane
-	 * @deprecated Use {@link #switchLanes(Action,LaneRealExt,RealEView)} instead
-	 */
-	void switchLanes(Action action, LaneRealExt lane){
-		switchLanes(action, lane, null);
-	}
-
-	/**
-	 * Check if there is need to switch lanes and, if it's possible, do so.
-	 * @param action action for car that will be switching lanes
-	 * @param lane
+	 * @param lane switchLaneAlgorithm
 	 * @param ev
 	 */
 	void switchLanes(Action action, LaneRealExt lane, RealEView ev){
@@ -629,10 +520,132 @@ class Car {
 	}
 	
 	/**
-	 * removes car from current lane and 
+	 * previous element to ilp.current() (if exists) should be an induction loop
+	 * with line <= startPos.
+	 *
+	 * the same pointer can be used to the next car on this lane (above
+	 * assumption will be true)
 	 */
-	public void changeLanes(LaneRealExt toLane) {
-		
+	boolean drive(LaneRealExt lane, int startPos, int freePos, int stepsMax, int stepsDone, LaneRealExt.InductionLoopPointer ilp, boolean entered) {
+		LOGGER.trace("CARTURN " + this + "on " + lane.getLane());
+		int range = startPos + stepsMax - stepsDone;
+		int pos;
+		boolean stay = false;
+		Action action = getAction();
+		LaneRealExt sourceLane = lane.getSourceLane(action);
+
+		/* last line of this link crossed by the car in this turn */
+		int lastCrossedLine;
+
+		if (!lane.equals(sourceLane)) {
+			System.out.println("new lane :: at road" + sourceLane.getLane().getOwner().getId() + " lane : " + sourceLane.getLane().getAbsoluteNumber());
+			int laneChangePos = Math.max(sourceLane.getOffset() - 1, getPosition());
+			pos = Math.min(Math.min(range, freePos), laneChangePos);
+
+			if (pos == range || pos < laneChangePos || !sourceLane.pushCar(this, stepsMax, stepsDone + pos - startPos)) {
+				stay = true;
+			}
+			lastCrossedLine = pos;
+		} else {
+			int lastPos = lane.linkLength() - 1;
+			pos = Math.min(Math.min(range, freePos), lastPos);
+			if (pos == range || pos < lastPos || lane.isBlocked() || !handleCarAction(lane, stepsMax, stepsDone + pos - startPos)) {
+				stay = true;
+				lastCrossedLine = pos;
+			} else {
+				lastCrossedLine = pos + 1;
+			}
+		}
+
+		if (stay) {
+			if (getPosition() < pos) {
+				setPosition(pos);
+			}
+			setVelocity(stepsDone + pos - startPos);
+			if (getVelocity() < 0) {
+				setVelocity(0);
+			}
+			if (entered) {
+				System.out.println("entered :: at road " + sourceLane.getLane().getOwner().getId() + " lane : " + sourceLane.getLane().getAbsoluteNumber());
+				if(sourceLane.getLane().getOwner().getId().equals("I0G2")) {
+					throw new RuntimeException("asaS");
+				}
+				lane.getEnteringCars().add(this);
+			}
+		}
+
+		LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLine);
+		/* We fire all induction loops in the range (startPos; lastCrossedLine] */
+		while (!ilp.atEnd() && ilp.current().line <= lastCrossedLine) {
+			if (ilp.current().line > startPos) {
+				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + startPos + " and " + lastCrossedLine + " for " + lane.getLane());
+				ilp.current().handler.handleCarDrive(getVelocity(), getDriver());
+			}
+
+			ilp.forward();
+		}
+
+		LOGGER.trace("CARTURN " + this + "on " + lane.getLane());
+		this.switchToLane = LaneSwitch.NO_CHANGE;
+		return stay;
+	}
+
+	/* assumption: stepsDone < stepsMax */
+	/**
+	 * moves cars across intersection
+	 */
+	private boolean handleCarAction(LaneRealExt lane, int stepsMax, int stepsDone) {
+		LOGGER.trace(this + " on " + lane.getLane());
+		Action action = getAction();
+
+		if (action == null) {
+			setVelocity(stepsMax);
+			((GatewayRealExt) lane.getRealView().ext(lane.linkEnd())).acceptCar(this);
+			return true;
+		}
+
+		if (lane.getWait()) {
+			/* we are waiting one turn */
+			lane.setWait(false);
+			return false;
+		} else {
+			/* we are approaching an intersection */
+			Lane[] pl = action.getPriorLanes();
+			// int i;
+			for (Lane aPl : pl) {
+				if (lane.getRealView().ext(aPl).getCarApproaching()) {
+					if (lane.checkDeadlock(action.getSource(), aPl)) {
+						LOGGER.warn(lane.getLane() + "DEADLOCK situation.");
+						lane.deadLockRecovery();
+					}
+					return false;
+				}
+			}
+			LinkRealExt l = lane.getRealView().ext(action.getTarget());
+			setPosition(0);
+
+			return l.enterCar(this, stepsMax, stepsDone);
+		}
+	}
+	
+	/**
+	 * removes car from current lane and adds it to otherLane
+	 * @param otherLane new lane for this car
+	 */
+	public void changeLanes(LaneRealExt otherLane) {
+		this.currentLane.removeCarFromLane(this);
+		otherLane.addCarToLane(this);
+		this.currentLane = otherLane;
+	}
+	
+	/**
+	 * removes car from current lane and moves it across the intersection
+	 * @param
+	 */
+	public void crossIntersection(LaneRealExt otherLane) {
+		this.currentLane.removeCarFromLane(this);
+		otherLane.addCarToLane(this);
+		this.currentLane = otherLane;
 	}
 	
 	/**
