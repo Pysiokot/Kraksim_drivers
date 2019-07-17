@@ -8,6 +8,7 @@ import pl.edu.agh.cs.kraksim.core.Lane;
 import pl.edu.agh.cs.kraksim.core.Link;
 import pl.edu.agh.cs.kraksim.core.Node;
 import pl.edu.agh.cs.kraksim.iface.sim.Route;
+import pl.edu.agh.cs.kraksim.main.Simulation;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 import java.awt.*;
@@ -40,6 +41,7 @@ class Car {
 
 	// 2019
 	private LaneRealExt currentLane = null;
+	private int updateInTurn = -1;
 
 	private LaneSwitch switchToLane = LaneSwitch.NO_CHANGE;
 
@@ -624,5 +626,24 @@ class Car {
 			//setLaneSwitch(direction);
 		}
 		System.out.println("EOF");
+	}
+	
+	public void changeLanes(LaneRealExt toLane) {
+		
+	}
+	
+	/**
+	 * Has to be fired after move is simulated
+	 */
+	public void updateTurn() {
+		this.updateInTurn = Simulation.turnNumber;
+	}
+	
+	/**
+	 * @return true if car can move this turn
+	 * @return false if car was already moved this turn
+	 */
+	public boolean canMoveThisTurn() {
+		return this.updateInTurn < Simulation.turnNumber;
 	}
 }

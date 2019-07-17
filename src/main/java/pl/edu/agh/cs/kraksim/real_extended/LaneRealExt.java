@@ -382,24 +382,12 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	 */
 	void simulateTurn(Car car) {
 		LOGGER.trace(lane);
-		System.out.println("============================");
-//		ListIterator<Car> carIteratorTemp = cars.listIterator();
-//		while(carIteratorTemp.hasNext()) {
-//			Car c = carIteratorTemp.next();
-//			try {
-//				System.out.println("pos " + c.pos + " abs " + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
-//						+ " cel: " + c.getAction().getTarget().getId()
-//						+"\n\tabs Pref" + c.getPreferableAction().getSource().getAbsoluteNumber() + " rel Pref " + c.getPreferableAction().getSource().getRelativeNumber()
-//						+ " cel: Pref " + c.getPreferableAction().getTarget().getId());
-//			} catch(Exception e) {
-//
-//			}
-//		}
-		System.out.println("XX");
+		if(!this.equals(car.getCurrentLane())) {
+			throw new RuntimeException("asas");
+		}
 
 		InductionLoopPointer ilp = new InductionLoopPointer();	// idk what it does <yet?>
 		Car nextCar;
-		System.out.println(car);
 
 		nextCar = getFrontCar(car);
 		// carIterator on next for nextCar || on next of next of car
@@ -413,7 +401,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		car.setBeforePos(car.getPosition());
 
 		// 1. Init velocity variable
-		boolean velocityZero = car.getVelocity() <= 0;//VDR - check for v = 0	(slow start)
+		boolean velocityZero = car.getVelocity() <= 0;	//VDR - check for v = 0	(slow start)
 
 		// 2. Acceleration
 		int velocity = car.getVelocity();
@@ -742,6 +730,21 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 
 	// 2019
+	/**
+	 * Use this.carIterator to add new Car
+	 * It will be added behind current position of Iterator
+	 * Iterator will be pointing at newly added car
+	 * 1. as
+	 * 2. asd
+	 */
+	public void addCarToLane(Car car) {
+		while(this.carIterator.hasPrevious()) {
+			if(this.carIterator.previous().getPosition() < car.getPosition()) {
+				// too far, 
+			}
+		}
+	}
+	
 	Lane getLane() {
 		return lane;
 	}
