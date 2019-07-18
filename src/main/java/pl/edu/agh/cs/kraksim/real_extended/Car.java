@@ -114,6 +114,11 @@ class Car {
 	public int getVelocity() {
 		return velocity;
 	}
+	
+	/** @return min( velocity + 1 , Speed Limit )	 */
+	public int getFutureVelocity() {
+		return Math.min(velocity + 1, this.currentLane.getSpeedLimit());
+	}
 
 	public void setVelocity(int velocity) {
 		this.velocity = velocity;
@@ -262,11 +267,11 @@ class Car {
 		this.currentLane = currentLane;
 	}
 	
-	//////////////////////////////////////////////////////////////////////////
-	//	SYMULACJA
+//////////////////////////////////////////////////////////////////////////
+//	SIMULATION
 	
-	/////////////////////////////////////////////////////////////////
-	//	Lane Changes
+/////////////////////////////////////////////////////////////////
+//	Lane Changes Methods
 	
 	/** formula for calculating probability based on current position <br>
 	 *   ~(distance_traveled / lane_length) with sharp limit at the end <br>
@@ -284,10 +289,16 @@ class Car {
 		return Math.pow(prob, 3);
 	}
 	
+	/**
+	 * @return true if current lane allows to cross intersection
+	 */
 	private boolean isThisLaneGoodForNextIntersection() {
 		return isGivenLaneGoodForNextIntersection(this.currentLane.getLane());
 	}
 	
+	/**
+	 * @return true if given lane allows to cross intersection
+	 */
 	private boolean isGivenLaneGoodForNextIntersection(Lane givenLane) {
 		Action actionIntersection = this.getActionForNextIntersection();
 		int laneIntersectionAbs = actionIntersection.getSource().getAbsoluteNumber();
@@ -330,6 +341,9 @@ class Car {
 				);
 	}
 	
+	/**
+	 * set lane switch state to move car closer to correct lane for next intersection
+	 */
 	private void setSwitchToLaneStateForIntersection() {
 		System.out.println("setSwitchToLaneStateForIntersection\n\tleft? " + isDirectionBetterForNextIntersection(LaneSwitch.LEFT) + " " + checkIfCanSwitchToDirection(LaneSwitch.LEFT)
 				+ "\tright? " + isDirectionBetterForNextIntersection(LaneSwitch.RIGHT) + " " + checkIfCanSwitchToDirection(LaneSwitch.RIGHT));
@@ -362,9 +376,9 @@ class Car {
 	}
 	
 	/**
-	 * set lane switch state <br>
+	 * set lane switch state looking at local situation on the road <br>
+	 * reacts differently if in intersection lane switch action
 	 * {@link Car#switchLaneAlgorithm} for lane switch algorithm
-	 * @return target lane
 	 */
 	private void setSwitchToLaneStateForAlgorithm() {
 		if(this.switchToLane == LaneSwitch.WANTS_LEFT || this.switchToLane == LaneSwitch.WANTS_RIGHT) {
@@ -376,7 +390,7 @@ class Car {
 		int switchLaneForceRight = -1;
 
 		if(this.currentLane.hasLeftNeighbor()
-			&& (this.currentLane.leftNeighbor().getLane().isMainLane())
+			&& (this.currentLane.leftNeighbor().getLane().isMainLane() || this.isThisLaneGoodForNextIntersection())
 			&& (this.switchLaneMethodRandom >= this.switchLaneActionProbability() || this.isLaneBetterForNextIntersection(this.currentLane.leftNeighbor()))
 			) {
 			// switch to left if left lane exists, is a main lane and left lane is correct for next interaction if it needs to be (distance based probability)
@@ -384,26 +398,15 @@ class Car {
 		}
 		
 		if(this.currentLane.hasRightNeighbor()
-			&& (this.currentLane.rightNeighbor().getLane().isMainLane())
+			&& (this.currentLane.rightNeighbor().getLane().isMainLane() || this.isThisLaneGoodForNextIntersection())
 			&& (this.switchLaneMethodRandom >= this.switchLaneActionProbability() || this.isLaneBetterForNextIntersection(this.currentLane.rightNeighbor()))
 			) {
 				// switch to left if right lane exists, is a main lane and right lane is correct for next interaction if it needs to be (distance based probability)
 			switchLaneForceRight = this.switchLaneAlgorithm(this.currentLane.rightNeighbor());	
 			}
 		
-//		
-//		//	if we are in "keep good lanes" state dont switch to lane if its not good for next intersection
-//		if(this.switchLaneMethodRandom < this.switchLaneActionProbability()) {
-//			if(switchLaneForceLeft > -1 && this.isGivenLaneGoodForNextIntersection(this.currentLane.leftNeighbor().getLane())) {
-//				switchLaneForceLeft = -1;
-//			}
-//			if(switchLaneForceRight > -1 && this.isGivenLaneGoodForNextIntersection(this.currentLane.rightNeighbor().getLane())) {
-//				switchLaneForceRight = -1;
-//			}
-//		}
 		System.out.println("switchLaneForceLeft " + switchLaneForceLeft);
 		System.out.println("switchLaneForceRight " + switchLaneForceRight);
-		//System.out.println(" this.isGivenLaneGoodForNextIntersection(this.currentLane.rightNeighbor().getLane() " + this.isGivenLaneGoodForNextIntersection(this.currentLane.rightNeighbor().getLane()));
 		//	Choose best lane to switch base on gap to next car
 		if(switchLaneForceLeft > switchLaneForceRight) {
 			this.switchToLane = LaneSwitch.LEFT;	// left is better
@@ -416,14 +419,14 @@ class Car {
 		}
 	}
 	
+	/** @return lane car want to switch to */
 	private LaneRealExt getLaneFromLaneSwitchState() {
 		return getLaneFromDirection(this.switchToLane);
 	}
 	
+	/** @return lane in given direction from current */
 	private LaneRealExt getLaneFromDirection(LaneSwitch direction) {
-		// risk : we should check if correct lanes exist	:: TODO
 		try {
-			
 			switch(direction) {
 			case NO_CHANGE:
 				return this.currentLane;
@@ -444,8 +447,8 @@ class Car {
 	}
 	
 	
-	///////////////////////////////////////////////////////////
-	//		Switch Lane Algorithm
+///////////////////////////////////////////////////////////
+//		Switch Lane Algorithm
 	/**
 	 * check if lane neiLane is good to switch to and return its score
 	 */
@@ -456,8 +459,8 @@ class Car {
 		Car thisCarFront = this.currentLane.getFrontCar(this.pos);
 		// gap - number of free cells : [c] [] [] [c] -> gap == 2
 		int gapNeiFront = neiCarFront != null ? neiCarFront.getPosition() - this.pos - 1 : neiLane.linkLength() - this.pos -1;
-		System.out.println("switchLaneAlgorithm front " + neiCarFront + "\n back " + neiCarBehind+"\n\t to : " + neiLane.getLane().getAbsoluteNumber() + " :: " + isMyLaneBad(thisCarFront) + isOtherLaneBetter(thisCarFront, neiCarFront, neiLane) + canSwitchLanesToOther(neiCarBehind, neiCarFront, neiLane));
-		if(isMyLaneBad(thisCarFront) && isOtherLaneBetter(thisCarFront, neiCarFront, neiLane) && canSwitchLanesToOther(neiCarBehind, neiCarFront, neiLane)) {
+		System.out.println("switchLaneAlgorithm front " + neiCarFront + "\n back " + neiCarBehind+"\n\t to : " + neiLane.getLane().getAbsoluteNumber() + " :: " + isMyLaneBad(thisCarFront) + isOtherLaneBetter(thisCarFront, neiCarFront, neiLane) + canSwitchLaneToOther(neiCarBehind, neiCarFront, neiLane));
+		if(isMyLaneBad(thisCarFront) && isOtherLaneBetter(thisCarFront, neiCarFront, neiLane) && canSwitchLaneToOther(neiCarBehind, neiCarFront, neiLane)) {
 			return gapNeiFront;	// score for this lane switch
 		}
 		return -1;
@@ -476,20 +479,19 @@ class Car {
 	}
 	
 	/** is it safe to switch lanes, tests my speed, others speed, gaps between cars, niceness of lane switch (how much space do I need) */
-	private boolean canSwitchLanesToOther(Car otherCarBehind, Car otherCarFront, LaneRealExt otherLane) {
+	private boolean canSwitchLaneToOther(Car otherCarBehind, Car otherCarFront, LaneRealExt otherLane) {
 		int gapNeiFront =	otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1 	: otherLane.linkLength() - this.pos -1;
 		int gapNeiBehind =	otherCarBehind != null	? this.pos - otherCarBehind.getPosition() - 1	: this.pos;
 		int crashFreeTurns = 1;	// turns until crash, gap must be bigger than velocity * crashFreeTurns
-		boolean spaceInFront = gapNeiFront > this.velocity * crashFreeTurns;
-		boolean spaceBehind =	otherCarBehind != null	? gapNeiBehind > otherCarBehind.getVelocity() * (crashFreeTurns-1)	: true;
-System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " spaceBehind " + spaceBehind );
+		boolean spaceInFront = gapNeiFront > this.getFutureVelocity() * crashFreeTurns;
+		boolean spaceBehind =	otherCarBehind != null	? gapNeiBehind > otherCarBehind.getFutureVelocity() * (crashFreeTurns-1)	: true;
 		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());
 	}
-	//		[end] Switch Lane Algorithm
-	///////////////////////////////////////////////////////////
+//		[end] Switch Lane Algorithm
+///////////////////////////////////////////////////////////
 	
 	/**
-	 * uses part of Switch Lane Algorithm 
+	 * uses part of Switch Lane Algorithm to check if car can switch lanes (based on gap, velocity)
 	 * @return true if car can switch lane in given direction
 	 */
 	private boolean checkIfCanSwitchToDirection(LaneSwitch direction) {
@@ -510,9 +512,7 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 		}
 		Car carBehind = otherLane.getBehindCar(this.pos+1);
 		Car carFront = otherLane.getFrontCar(this.pos-1);
-		System.out.println("checkIfCanSwitchToDirection 1");
-		return canSwitchLanesToOther(carBehind, carFront, otherLane);
-		
+		return canSwitchLaneToOther(carBehind, carFront, otherLane);
 	}
 
 	/**
@@ -526,8 +526,6 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 		//	if car is not emergency or car behind me is emergency - go right
 		// 	if obstacle in front - try to switch
 		//	if car dont want to switch - check setSwitchToLaneStateForAlgorithm - maybe it will switch
-		
-		//LaneRealExt newTargetLane;	// we can check if our target lane contains obstacles, emergency and prevent switch if needed
 
 		// calculate distance to nearest obstacle, must be not more than obstacleVisibility param
 		int obstacleVisibility = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("obstacleVisibility"));
@@ -560,6 +558,7 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 				this.switchToLane = LaneSwitch.NO_CHANGE;
 			}
 		} 
+		// if car wanted to switch lanes in previous turn, check if its possible now
 		else if(this.switchToLane == LaneSwitch.WANTS_LEFT) {
 			if(checkIfCanSwitchToDirection(LaneSwitch.LEFT)) {
 				this.switchToLane = LaneSwitch.LEFT;
@@ -591,8 +590,6 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 		if(!checkIfCanSwitchToDirection(this.switchToLane)) {	// only to make sure it works
 			throw new RuntimeException("FALSE :: checkIfCanSwitchToDirection(this.switchToLane) " + this);		///////////////////////////////////////////////////////////////////////////////////////////////
 		}
-		
-		//newTargetLane = this.getLaneFromLaneSwitchState();	// use to prevent from switching if needed
 	}
 	
 	/**
@@ -667,7 +664,7 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 			newSourceLane = sourceLaneExt.leftNeighbor().getLane();
 		} else return; // do not switch lanes
 
-		// find car right after and behind current car in neighbouring lane
+		// find car right after and behind current car in neighboring lane
 		Car behindCar = null, afterCar = null;
 
 		// cars not necessarily must be listed in any order on the lane
@@ -736,11 +733,12 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 		System.out.println("EOF");
 	}
 	
-	//	[end] Lane Changes
-	/////////////////////////////////////////////////////////////////
+//	[end] Lane Changes Methods
+/////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Nagel-Schreckenberg
+	 * Nagel-Schreckenberg <br>
+	 * Perform all necessary actions for car
 	 */
 	void simulateTurn() {
 		LOGGER.trace("car simulation : " + this);
@@ -753,7 +751,6 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 			return;
 		}
 		
-		InductionLoopPointer ilpBeforeLane = this.currentLane.new InductionLoopPointer();
 		Car nextCar = this.currentLane.getFrontCar(this);
 		
 		// remember starting point
@@ -783,16 +780,17 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 		
 	}
 	
+	/** fire all InductionLoopPointer for current (and previous late if lane was switched)	 */
 	private void fireAllInductionLoopPointers() {
 		InductionLoopPointer ilpBeforeLane = this.currentLane.getRealView().ext(this.beforeLane).new InductionLoopPointer();
+		InductionLoopPointer ilpCurrentLane;
 		if(this.beforeLane.equals(this.currentLane.getLane())) {
-			InductionLoopPointer ilpCurrentLane = ilpBeforeLane;
+			ilpCurrentLane = ilpBeforeLane;
 		} else {
-			InductionLoopPointer ilpCurrentLane = this.currentLane.new InductionLoopPointer();			
+			ilpCurrentLane = this.currentLane.new InductionLoopPointer();			
 		}
 		int lastCrossedLineForBefore;
 		int lastCrossedLineForCurrent = -1;
-		// ugly loop to fire all InductionLoopPointers
 		if(this.beforeLane.equals(this.currentLane.getLane())) {	// car didn't switch lanes this turn
 			lastCrossedLineForBefore = this.getPosition();
 		} else {	// we did change lanes
@@ -807,11 +805,9 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 			
 		}
 		LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLineForBefore);
-		/* We fire all induction loops in the range (startPos; lastCrossedLine] */
 		while (!ilpBeforeLane.atEnd() && ilpBeforeLane.current().line <= lastCrossedLineForBefore) {
 			if (ilpBeforeLane.current().line > this.getBeforePos()) {
-				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForBefore + " for "
-						+ this.currentLane.getLane());
+				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForBefore + " for "	+ this.currentLane.getLane());
 				ilpBeforeLane.current().handler.handleCarDrive(getVelocity(), getDriver());
 			}
 
@@ -819,20 +815,19 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 		}
 		if(lastCrossedLineForCurrent != -1) {
 			LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLineForCurrent);
-			/* We fire all induction loops in the range (startPos; lastCrossedLine] */
-			while (!ilpBeforeLane.atEnd() && ilpBeforeLane.current().line <= lastCrossedLineForCurrent) {
-				if (ilpBeforeLane.current().line > this.getBeforePos()) {
-					LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForCurrent + " for "
-							+ this.currentLane.getLane());
-					ilpBeforeLane.current().handler.handleCarDrive(getVelocity(), getDriver());
+			while (!ilpCurrentLane.atEnd() && ilpCurrentLane.current().line <= lastCrossedLineForCurrent) {
+				if (ilpCurrentLane.current().line > this.getBeforePos()) {
+					LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForCurrent + " for "	+ this.currentLane.getLane());
+					ilpCurrentLane.current().handler.handleCarDrive(getVelocity(), getDriver());
 				}
-
-				ilpBeforeLane.forward();
+				ilpCurrentLane.forward();
 			}
 		}
 	}
 	
-	/**	Perform action based on current car move model	*/
+	/**	Perform action based on current car move model	
+	 * changes speed and sets lane switch (if NS model)
+	 */
 	private void handleCorrectModel(Car nextCar) {
 		boolean velocityZero = this.getVelocity() <= 0; // VDR - check for v = 0 (slow start)
 		float decisionChance = this.currentLane.getParams().getRandomGenerator().nextFloat();
@@ -899,6 +894,11 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 
 	}
 
+	/**
+	 * perform lane switch if set <br>
+	 * move car base on its speed and car in front
+	 * @param nextCar car in front of this
+	 */
 	void driveCar(Car nextCar) {
 		if(this.switchToLane != LaneSwitch.NO_CHANGE && this.switchToLane != LaneSwitch.WANTS_LEFT && this.switchToLane != LaneSwitch.WANTS_RIGHT) {
 			this.changeLanes(this.getLaneFromLaneSwitchState());
@@ -1073,7 +1073,7 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 	}
 
 	/**
-	 * Has to be fired after move is simulated
+	 * Has to be called after move is simulated
 	 */
 	public void updateTurnNumber() {
 		this.updateInTurn = Simulation.turnNumber;
@@ -1081,7 +1081,7 @@ System.out.println("canSwitchLanesToOther spaceInFront" + spaceInFront + " space
 
 	/**
 	 * @return true if car can move this turn
-	 *  or false if car was already moved this turn
+	 * @return false if car was already moved this turn
 	 */
 	public boolean canMoveThisTurn() {
 		return this.updateInTurn < Simulation.turnNumber;
