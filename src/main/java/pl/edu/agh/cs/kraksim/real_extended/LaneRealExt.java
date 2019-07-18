@@ -498,7 +498,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}
 
 	}
-
+	@Deprecated
 	private void setActionMultiNagel(Car car) {
 		Action sourceAction = car.getAction();
 		if (sourceAction != null && car.getPosition() < (linkLength() - 5)) {
@@ -527,8 +527,8 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 						Car c = enteringCar;
 						System.out.println("NEW CAR!!!\n\tabs:" + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
 								+ " cel: " + c.getAction().getTarget().getId()
-								+"\n\tabs Pref" + c.getPreferableAction().getSource().getAbsoluteNumber() + " rel Pref " + c.getPreferableAction().getSource().getRelativeNumber()
-								+ " cel: Pref " + c.getPreferableAction().getTarget().getId());
+								+"\n\tabs Pref" + c.getActionForNextIntersection().getSource().getAbsoluteNumber() + " rel Pref " + c.getActionForNextIntersection().getSource().getRelativeNumber()
+								+ " cel: Pref " + c.getActionForNextIntersection().getTarget().getId());
 					} catch(Exception e) {
 						
 					}
@@ -605,7 +605,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		LaneSwitch direction;
 		float prob = params.getRandomGenerator().nextFloat();
 
-		if(car.getPreferableAction().getSource().getAbsoluteNumber() == car.getAction().getSource().getAbsoluteNumber()){
+		if(car.getActionForNextIntersection().getSource().getAbsoluteNumber() == car.getAction().getSource().getAbsoluteNumber()){
 			if(car.isEmergency()) {
 				if(prob < laneChangeDesire){
 					prob = params.getRandomGenerator().nextFloat();
@@ -630,11 +630,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				direction = LaneSwitch.NO_CHANGE;
 			}
 		} else {
-			if(lane.getAbsoluteNumber()-1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
+			if(lane.getAbsoluteNumber()-1 == car.getActionForNextIntersection().getSource().getAbsoluteNumber()){
 				System.out.println("GETTING RIGHT");
 				direction = LaneSwitch.RIGHT;
 			}
-			else if(lane.getAbsoluteNumber()+1 == car.getPreferableAction().getSource().getAbsoluteNumber()){
+			else if(lane.getAbsoluteNumber()+1 == car.getActionForNextIntersection().getSource().getAbsoluteNumber()){
 				System.out.println("GETTING LEFT");
 				direction = LaneSwitch.LEFT;
 			}
@@ -732,19 +732,25 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	
 	/**
 	 * NOT safe to use during simulation <br>
+	 * for safe method use {@link #addCarToLaneWithIterator(Car)} <br>
 	 * Use this.car list to add new Car
 	 * Iterator will not be changed 
 	 */
 	public boolean addCarToLane(Car car) {
 		boolean added = false;
-		ListIterator<Car> tempIt = this.cars.listIterator();
-		while(tempIt.hasNext()) {
-			if(tempIt.next().getPosition() > car.getPosition()) {
-				this.carIterator.previous();
-				this.carIterator.add(car);
-				added = true;	// we can add it in the middle of list
-				break;
-			}
+		if(car.getPosition() == 0) {
+			this.cars.addFirst(car);
+			added = true;
+		} else {
+			ListIterator<Car> tempIt = this.cars.listIterator();
+			while(tempIt.hasNext()) {
+				if(tempIt.next().getPosition() > car.getPosition()) {
+					this.carIterator.previous();
+					this.carIterator.add(car);
+					added = true;	// we can add it in the middle of list
+					break;
+				}
+			}			
 		}
 		// it needs to be put as last element of list and this.carIterator.hasPrevious() is false
 		if(!added) {
@@ -756,11 +762,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		int t_lastPos = -1;
 		for(Car c : this.cars) {
 			if(c.getPosition() <= t_lastPos) {
-				System.out.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
+				System.err.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
 				for(Car cPrint : this.cars) {
-					System.out.print(cPrint.getPosition() + " "); 
+					System.err.print(cPrint.getPosition() + " "); 
 				}
-				System.out.println();
+				System.err.println();
 				throw new RuntimeException("Error while adding cars");
 			}
 			t_lastPos = c.getPosition();
@@ -768,8 +774,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		return added;
 	}
 	
+	
 	/**
 	 * NOT safe to use during simulation <br>
+	 * for safe method use {@link #removeCarFromLaneWithIterator(Car)} <br>
 	 * Use this.car list to remove Car
 	 * Iterator will not be changed 
 	 */
@@ -788,19 +796,19 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		//////////		LIST TEST
 		if(!removed) {
 			for(Car cPrint : this.cars) {
-				System.out.println("ERROR :: remove car :: end loop, no remove " + car);
-				System.out.print(cPrint.getPosition() + " "); 
+				System.err.println("ERROR :: remove car :: end loop, no remove " + car);
+				System.err.print(cPrint.getPosition() + " "); 
 				throw new RuntimeException("Error while remove cars - not removed");
 			}
 		}
 		int t_lastPos = -1;
 		for(Car c : this.cars) {
 			if(c.getPosition() <= t_lastPos) {
-				System.out.println("ERROR :: remove car :: positions " + car +" t_lastPos " + t_lastPos);
+				System.err.println("ERROR :: remove car :: positions " + car +" t_lastPos " + t_lastPos);
 				for(Car cPrint : this.cars) {
-					System.out.print(cPrint.getPosition() + " "); 
+					System.err.print(cPrint.getPosition() + " "); 
 				}
-				System.out.println();
+				System.err.println();
 				throw new RuntimeException("Error while remove cars - wrong order");
 			}
 			t_lastPos = c.getPosition();
@@ -837,11 +845,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		int t_lastPos = -1;
 		for(Car c : this.cars) {
 			if(c.getPosition() <= t_lastPos) {
-				System.out.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
+				System.err.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
 				for(Car cPrint : this.cars) {
-					System.out.print(cPrint.getPosition() + " "); 
+					System.err.print(cPrint.getPosition() + " "); 
 				}
-				System.out.println();
+				System.err.println();
 				throw new RuntimeException("Error while adding cars");
 			}
 			t_lastPos = c.getPosition();

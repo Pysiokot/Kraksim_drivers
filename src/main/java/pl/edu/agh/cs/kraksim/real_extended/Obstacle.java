@@ -86,11 +86,11 @@ public class Obstacle extends Car {
 		throw new RuntimeException("Wrong action on stationary object");
 	}
 
-	public Action getPreferableAction(){
+	public Action getActionForNextIntersection(){
 		throw new RuntimeException("Wrong action on stationary object");
 	}
 	
-	public void setPreferableAction(Action preferableAction){
+	public void setActionForNextIntersection(Action preferableAction){
 		throw new RuntimeException("Wrong action on stationary object");
 	}
 	

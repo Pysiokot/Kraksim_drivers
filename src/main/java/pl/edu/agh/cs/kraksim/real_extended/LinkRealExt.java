@@ -56,6 +56,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 	}
 
 	/* assumption: stepsDone < stepsMax */
+	@Deprecated
 	boolean enterCar(Car car, int stepsMax, int stepsDone) {
 		LOGGER.trace(car + " stepsDone:" + stepsDone + " stepsMax: " + stepsMax);
 		// obtaining next goal of the entered car
@@ -96,7 +97,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 			} else {
 				car.nextTripPoint();
 				car.setAction(nextAction);
-				car.setPreferableAction(nextAction);
+				car.setActionForNextIntersection(nextAction);
 			}
 
 			return l.pushCar(car, stepsMax, stepsDone);
@@ -166,6 +167,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 	 * @param car entering car
 	 * @return lane to enter or null if cannot enter any lane
 	 */
+	@Deprecated
 	Lane getLaneToEnter(Car car) {
 		// obtaining next goal of the entered car
 		Link nextLink = null;
@@ -202,7 +204,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		} else {
 			car.nextTripPoint();
 			car.setAction(nextAction);
-			car.setPreferableAction(nextAction);
+			car.setActionForNextIntersection(nextAction);
 		}
 
 		return nextLane;

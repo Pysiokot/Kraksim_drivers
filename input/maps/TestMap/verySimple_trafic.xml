@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <traffic>
-   <scheme count="200">
+   <scheme count="5000">
     <gateway id="G1">
-      <uniform a="0" b="800" />
+      <uniform a="0" b="1000" />
     </gateway>
-    <gateway id="G2" />
+    <gateway id="G0" />
   </scheme> 
-   <scheme count="200">
+   <!-- <scheme count="200">
     <gateway id="G1">
       <uniform a='0' b='1000' />
     </gateway>
     <gateway id="G0" />
-  </scheme> 
+  </scheme>  -->
 </traffic>
 

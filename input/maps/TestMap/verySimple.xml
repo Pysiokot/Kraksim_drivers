@@ -43,7 +43,7 @@
       </armActions>
       <armActions arm="G1" dir="NS">
         <action lane="0" exit="G0" />
-        <action lane="0" exit="G2" />
+        <action lane="1" exit="G2" />
       </armActions>
       <armActions arm="G2" dir="NS" />
       <trafficLightsSchedule>

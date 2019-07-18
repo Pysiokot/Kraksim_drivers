@@ -220,4 +220,13 @@ public class Lane extends Element {
 	public List<BlockedCellsInfo> getBlockedCellsInfo() {
 		return this.blockedCellsInfo;
 	}
+	
+	// 2016
+	public boolean isMainLane() {
+		return this.getRelativeNumber() == 0;
+	}
+	
+	public boolean existsAtThisPosition(int pos) {
+		return pos > this.getOffset();
+	}
 }
