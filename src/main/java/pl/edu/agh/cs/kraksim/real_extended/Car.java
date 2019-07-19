@@ -804,7 +804,7 @@ class Car {
 		} else {	// we did change lanes
 			if(this.beforeLane.getOwner().equals(this.currentLane.getLane().getOwner())) {	// car passed intersection
 				/* last line of this link crossed by the car in this turn */
-				lastCrossedLineForBefore = this.beforeLane.getLength();
+				lastCrossedLineForBefore = this.beforeLane.getLength()-1;
 				lastCrossedLineForCurrent = this.getPosition();
 			} else {	// Normal lane switch, on the same road
 				lastCrossedLineForBefore = this.beforeLane.getLength();
@@ -813,9 +813,11 @@ class Car {
 			
 		}
 		LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLineForBefore);
+		System.out.println("lastCrossedLineForBefore " + lastCrossedLineForBefore + " getBeforePos "+ getBeforePos() + " lastCrossedLineForCurrent " + lastCrossedLineForCurrent);
 		while (!ilpBeforeLane.atEnd() && ilpBeforeLane.current().line <= lastCrossedLineForBefore) {
 			if (ilpBeforeLane.current().line > this.getBeforePos()) {
-				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForBefore + " for "	+ this.currentLane.getLane());
+				System.out.println("fire before");
+				System.out.println(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForBefore + " for "	+ this.currentLane.getLane());
 				ilpBeforeLane.current().handler.handleCarDrive(getVelocity(), getDriver());
 			}
 
@@ -825,7 +827,8 @@ class Car {
 			LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLineForCurrent);
 			while (!ilpCurrentLane.atEnd() && ilpCurrentLane.current().line <= lastCrossedLineForCurrent) {
 				if (ilpCurrentLane.current().line > this.getBeforePos()) {
-					LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForCurrent + " for "	+ this.currentLane.getLane());
+					System.out.println("fire current");
+					System.out.println(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForCurrent + " for "	+ this.currentLane.getLane());
 					ilpCurrentLane.current().handler.handleCarDrive(getVelocity(), getDriver());
 				}
 				ilpCurrentLane.forward();
