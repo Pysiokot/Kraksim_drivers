@@ -500,9 +500,9 @@ class Car {
 		int gapNeiFront =	otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1 	: otherLane.linkLength() - this.pos -1;
 		int gapNeiBehind =	otherCarBehind != null	? this.pos - otherCarBehind.getPosition() - 1	: this.pos - 1;
 		double crashFreeTurns = this.currentLane.CRASH_FREE_TIME;	// turns until crash, gap must be bigger than velocity * crashFreeTurns, == 1 -> after this turn it will look good
-		double crashFreeDivider = Math.log(numOfTurnsInWantedSwitchLane);
+		double crashFreeDivider = Math.max(Math.log(numOfTurnsInWantedSwitchLane), 1.0);
 		boolean spaceInFront = gapNeiFront >= (this.getVelocity()-1) * (crashFreeTurns / crashFreeDivider);
-		boolean spaceBehind =	otherCarBehind != null	? gapNeiBehind > otherCarBehind.getFutureVelocity() * Math.max((crashFreeTurns-1)/crashFreeDivider, 0)	: true;
+		boolean spaceBehind = otherCarBehind == null || gapNeiBehind > otherCarBehind.getFutureVelocity() * Math.max((crashFreeTurns - 1)/crashFreeDivider, 0);
 		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());
 	}	
 //		[end] Switch Lane Algorithm
@@ -513,7 +513,7 @@ class Car {
 	 * @return true if car can switch lane in given direction
 	 */
 	private boolean checkIfCanSwitchToDirection(LaneSwitch direction) {
-		System.out.println("checkIfCanSwitchToDirection 0");
+		System.out.println("checkIfCanSwitchToDirection: " + direction);
 		LaneRealExt otherLane;
 		if(direction == LaneSwitch.LEFT) {
 			if(this.currentLane.hasLeftNeighbor())
@@ -621,9 +621,6 @@ class Car {
 			}
 		}
 		
-		if(!checkIfCanSwitchToDirection(this.switchToLane)) {	// only to make sure it works
-			throw new RuntimeException("FALSE :: checkIfCanSwitchToDirection(this.switchToLane) " + this);		///////////////////////////////////////////////////////////////////////////////////////////////
-		}
 	}
 	
 	/**
