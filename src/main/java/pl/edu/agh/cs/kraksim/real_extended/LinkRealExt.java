@@ -167,7 +167,6 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 	 * @param car entering car
 	 * @return lane to enter or null if cannot enter any lane
 	 */
-	@Deprecated
 	Lane getLaneToEnter(Car car) {
 		// obtaining next goal of the entered car
 		Link nextLink = null;
@@ -201,6 +200,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 
 		if (!car.hasNextTripPoint()) {
 			car.setAction(null);
+			car.setActionForNextIntersection(null);
 		} else {
 			car.nextTripPoint();
 			car.setAction(nextAction);

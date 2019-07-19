@@ -28,12 +28,13 @@
         <main length="165" numberOfLanes="1" />
       </downlink>
     </road>
-    <road id="roads_2" street="roads_2" speedLimit="1" from="I0" to="G2">
+    <road id="roads_2" street="roads_2" speedLimit="5" from="I0" to="G2">
       <uplink>
-        <main length="118" numberOfLanes="1" />
+        <main length="118" numberOfLanes="2" />
+         <blocked laneNumber = "1" cell="50" />
       </uplink>
       <downlink>
-        <main length="118" numberOfLanes="1" />
+        <main length="118" numberOfLanes="2" />
       </downlink>
     </road>
   </roads>

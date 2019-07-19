@@ -51,7 +51,10 @@ class Car {
 	private int numOfTurnsInWantedSwitchLane = 0;	// number of turns car is in LaneSwitch.WANT_ ... -> used to reduce speed to 0 if needed
 
 	private LaneSwitch switchToLane = LaneSwitch.NO_CHANGE;
-
+	
+	private enum SwitchLaneMethod  { INTERSECTION_LANE, LOCAL_TRAFIC_ALGORITHM }
+	private SwitchLaneMethod switchLaneMethod;
+	
 	Car(Driver driver, Route route, boolean rerouting) {
 		// == reading TEST2013 configuration
 		Properties prop = KraksimConfigurator.getPropertiesFromFile();
@@ -404,7 +407,7 @@ class Car {
 		if(this.currentLane.hasLeftNeighbor()
 			&& !(this.currentLane.leftNeighbor().getLane().isMainLane() ^ this.currentLane.getLane().isMainLane())	//nXOR
 			&& (this.currentLane.leftNeighbor().getLane().isMainLane() || this.isGivenLaneGoodForNextIntersection(this.currentLane.leftNeighbor().getLane()))
-			&& (this.switchLaneMethodRandom >= this.switchLaneActionProbability() || this.isLaneBetterForNextIntersection(this.currentLane.leftNeighbor()))
+			&& (this.switchLaneMethod == SwitchLaneMethod.LOCAL_TRAFIC_ALGORITHM || this.isLaneBetterForNextIntersection(this.currentLane.leftNeighbor()))
 			) {
 			// switch to left if left lane exists, is a main lane and left lane is correct for next interaction if it needs to be (distance based probability)
 			switchLaneForceLeft = this.switchLaneAlgorithm(this.currentLane.leftNeighbor());	
@@ -413,7 +416,7 @@ class Car {
 		if(this.currentLane.hasRightNeighbor()
 			&& !(this.currentLane.rightNeighbor().getLane().isMainLane() ^ this.currentLane.getLane().isMainLane())	//nXOR
 			&& (this.currentLane.rightNeighbor().getLane().isMainLane() || this.isGivenLaneGoodForNextIntersection(this.currentLane.rightNeighbor().getLane()))
-			&& (this.switchLaneMethodRandom >= this.switchLaneActionProbability() || this.isLaneBetterForNextIntersection(this.currentLane.rightNeighbor()))
+			&& (this.switchLaneMethod == SwitchLaneMethod.LOCAL_TRAFIC_ALGORITHM || this.isLaneBetterForNextIntersection(this.currentLane.rightNeighbor()))
 			) {
 				// switch to left if right lane exists, is a main lane and right lane is correct for next interaction if it needs to be (distance based probability)
 			switchLaneForceRight = this.switchLaneAlgorithm(this.currentLane.rightNeighbor());	
@@ -594,19 +597,27 @@ class Car {
 		else {	
 			System.out.println("switchLanesState 3");
 			this.switchLaneMethodRandom = this.currentLane.getParams().getRandomGenerator().nextDouble();
-			int intersectionSwitchMultiplier = Math.max(0, Math.abs(this.currentLane.getLane().getAbsoluteNumber() - this.getActionForNextIntersection().getSource().getAbsoluteNumber()));
-			System.out.println("intersectionSwitchMultiplier " + intersectionSwitchMultiplier + " this.switchLaneMethodRandom " + this.switchLaneMethodRandom+ " this.switchLaneActionProbability() " + this.switchLaneActionProbability());
-			if(this.switchLaneMethodRandom * intersectionSwitchMultiplier < this.switchLaneActionProbability()) {
+			if(this.getActionForNextIntersection() != null) {
+				int intersectionSwitchMultiplier =  Math.max(0, Math.abs(this.currentLane.getLane().getAbsoluteNumber() - this.getActionForNextIntersection().getSource().getAbsoluteNumber()));
+				if(this.switchLaneMethodRandom * intersectionSwitchMultiplier < this.switchLaneActionProbability()) {
+					this.switchLaneMethod = SwitchLaneMethod.INTERSECTION_LANE;
+				} else {
+					this.switchLaneMethod = SwitchLaneMethod.LOCAL_TRAFIC_ALGORITHM;
+				}
+			} else {
+				this.switchLaneMethod = SwitchLaneMethod.LOCAL_TRAFIC_ALGORITHM;
+			}
+			if(this.switchLaneMethod == SwitchLaneMethod.INTERSECTION_LANE) {
 				if(this.isThisLaneGoodForNextIntersection()) {
 					System.out.println("setSwitchToLaneStateForAlgorithm With Intersection");
-					this.setSwitchToLaneStateForAlgorithm(); // behaves differently base on if(this.switchLaneMethodRandom < this.switchLaneActionProbability())
+					this.setSwitchToLaneStateForAlgorithm(); // behaves differently based on switchLaneMethod
 				} else {
 					System.out.println("setSwitchToLaneStateForIntersection");
 					this.setSwitchToLaneStateForIntersection();
 				}
 			} else {
 				System.out.println("setSwitchToLaneStateForAlgorithm solo");
-				this.setSwitchToLaneStateForAlgorithm();	// behaves differently base on if(this.switchLaneMethodRandom < this.switchLaneActionProbability())
+				this.setSwitchToLaneStateForAlgorithm();	// behaves differently based on switchLaneMethod
 			}
 		}
 		
@@ -782,13 +793,9 @@ class Car {
 		
 		// Acceleration
 		if (this.isEmergency()) {
-			if (this.velocity < this.currentLane.getEmergencySpeedLimit()) {
-				this.velocity += this.currentLane.getEmergencyAcceleration();
-			}
+			this.velocity = Math.min(this.currentLane.getEmergencySpeedLimit(), this.velocity+this.currentLane.getEmergencyAcceleration());
 		} else {
-			if (this.velocity < this.currentLane.getSpeedLimit()) {
-				this.velocity += 1;
-			}
+			this.velocity = Math.min(this.currentLane.getSpeedLimit(), this.velocity+1);
 		}
 		
 		System.out.println("drive with " + this);
@@ -835,7 +842,6 @@ class Car {
 				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForBefore + " for "	+ this.currentLane.getLane());
 				ilpBeforeLane.current().handler.handleCarDrive(getVelocity(), getDriver());
 			}
-
 			ilpBeforeLane.forward();
 		}
 		if(lastCrossedLineForCurrent != -1) {
@@ -942,19 +948,38 @@ class Car {
 		
 		//	move car forward |velocity| squares if lane ended do intersection/gateway function
 		int distanceTraveled = 0;
+		int distanceTraveledOnPreviousLane = 0;	// used in intersection crossing
 		if(freeCellsInFront >= this.velocity) {	// simple move forward
 			distanceTraveled = this.velocity;
 		} else if (nextCar != null) {	// there is car in front, will crash
 			distanceTraveled = freeCellsInFront;
 		} else if(this.getActionForNextIntersection() != null){	// road ended, interaction
 			distanceTraveled = freeCellsInFront;
+			boolean crossed = this.crossIntersection();
+			if(crossed) {
+				nextCar = this.currentLane.getFrontCar(this);	// nextCar changed
+				if (nextCar != null) {	// distance to new car also
+					freeCellsInFront = nextCar.getPosition() - this.pos - 1;
+				} else {
+					freeCellsInFront = this.currentLane.linkLength() - this.pos -1;
+				}
+				distanceTraveledOnPreviousLane = distanceTraveled;
+				distanceTraveled += 
+						Math.max(
+								Math.min(
+										Math.min(
+											freeCellsInFront, this.getVelocity() - distanceTraveledOnPreviousLane - 1)
+											, this.currentLane.getSpeedLimit()
+										)
+								,0);
+			}
 			// TODO: interaction crossing
 		} else {	// road ended, gateway
 			((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);
 			this.currentLane.removeCarFromLaneWithIterator(this);
 			return;
 		}
-		this.setPosition(this.pos + distanceTraveled);
+		this.setPosition(this.pos + distanceTraveled - distanceTraveledOnPreviousLane);
 		this.setVelocity(distanceTraveled);
 		
 		
@@ -1093,14 +1118,23 @@ class Car {
 	}
 
 	/**
-	 * removes car from current lane and moves it across the intersection
-	 * changes this.currentLane
-	 * @param
+	 * removes car from current lane and moves it across the intersection <br>
+	 * changes this.currentLane, sets position to 0
+	 * @return true if car moved across intersection
 	 */
-	public void crossIntersection(LaneRealExt otherLane) {
+	public boolean crossIntersection() {
+		LinkRealExt targetLink = this.currentLane.getRealView().ext(this.actionForNextIntersection.getTarget());
+		Lane targetLaneNormal = targetLink.getLaneToEnter(this);
+		if(targetLaneNormal == null) {
+			System.out.println("CAN NOT TURN THIS INTERSECTION");
+			return false;
+		}
+		LaneRealExt targetLane = this.currentLane.getRealView().ext(targetLink.getLaneToEnter(this));
 		this.currentLane.removeCarFromLaneWithIterator(this);
-		otherLane.addCarToLaneWithIterator(this);
-		this.currentLane = otherLane;
+		this.setPosition(0);
+		targetLane.addCarToLaneWithIterator(this);
+		this.currentLane = targetLane;
+		return true;
 	}
 
 	/**
