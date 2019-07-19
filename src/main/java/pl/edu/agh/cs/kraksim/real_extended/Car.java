@@ -48,6 +48,7 @@ class Car {
 	//	if < switchLaneActionProbability -> algorithm
 	//	if > switchLaneActionProbability -> switch lane for intersection
 	private double switchLaneMethodRandom;	
+	private int numOfTurnsInWantedSwitchLane = 0;	// number of turns car is in LaneSwitch.WANT_ ... -> used to reduce speed to 0 if needed
 
 	private LaneSwitch switchToLane = LaneSwitch.NO_CHANGE;
 
@@ -357,7 +358,8 @@ class Car {
 				this.switchToLane = LaneSwitch.LEFT;
 			} else {
 				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
-					this.switchToLane = LaneSwitch.WANTS_LEFT;					
+					this.switchToLane = LaneSwitch.WANTS_LEFT;	
+					numOfTurnsInWantedSwitchLane = 0;
 				} else {
 					this.switchToLane = LaneSwitch.NO_CHANGE;	
 				}
@@ -369,6 +371,7 @@ class Car {
 			} else {
 				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
 					this.switchToLane = LaneSwitch.WANTS_RIGHT;
+					numOfTurnsInWantedSwitchLane = 0;
 				} else {
 					this.switchToLane = LaneSwitch.NO_CHANGE;	
 				}
@@ -564,18 +567,22 @@ class Car {
 				this.switchToLane = LaneSwitch.RIGHT;
 			} else {
 				this.switchToLane = LaneSwitch.NO_CHANGE;
-			}
+			} 
 		} 
 		// if car wanted to switch lanes in previous turn, check if its possible now
 		else if(this.switchToLane == LaneSwitch.WANTS_LEFT) {
 			if(checkIfCanSwitchToDirection(LaneSwitch.LEFT)) {
 				this.switchToLane = LaneSwitch.LEFT;
+			} else {
+				numOfTurnsInWantedSwitchLane++;
 			}
 			
 		} 
 		else if(this.switchToLane == LaneSwitch.WANTS_RIGHT) {
 			if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
+			} else {
+				numOfTurnsInWantedSwitchLane++;
 			}
 		} 
 		else {	
@@ -817,7 +824,7 @@ class Car {
 		while (!ilpBeforeLane.atEnd() && ilpBeforeLane.current().line <= lastCrossedLineForBefore) {
 			if (ilpBeforeLane.current().line > this.getBeforePos()) {
 				System.out.println("fire before");
-				System.out.println(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForBefore + " for "	+ this.currentLane.getLane());
+				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForBefore + " for "	+ this.currentLane.getLane());
 				ilpBeforeLane.current().handler.handleCarDrive(getVelocity(), getDriver());
 			}
 
@@ -828,7 +835,7 @@ class Car {
 			while (!ilpCurrentLane.atEnd() && ilpCurrentLane.current().line <= lastCrossedLineForCurrent) {
 				if (ilpCurrentLane.current().line > this.getBeforePos()) {
 					System.out.println("fire current");
-					System.out.println(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForCurrent + " for "	+ this.currentLane.getLane());
+					LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForCurrent + " for "	+ this.currentLane.getLane());
 					ilpCurrentLane.current().handler.handleCarDrive(getVelocity(), getDriver());
 				}
 				ilpCurrentLane.forward();

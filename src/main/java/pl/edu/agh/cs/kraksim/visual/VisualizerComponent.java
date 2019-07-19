@@ -215,9 +215,9 @@ public class VisualizerComponent extends JPanel {
 			int position = 0;
 			for (int j = link.leftLaneCount() - 1; j >= 0; j--) {
 				// [start] draw blocked Cells on lane
-				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getActiveBlockedCellsIndexList();
+				java.util.List<Integer> blockedCellsList = link.getLeftLane(j).getActiveBlockedCellsIndexList();
 				for(Integer blockedCell : blockedCellsList) {
-					System.out.println("blockedCell " + blockedCell);
+					System.out.println("blockedCell left " + blockedCell);
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
 				}
@@ -240,6 +240,7 @@ public class VisualizerComponent extends JPanel {
 			for (int j = 0; j < link.mainLaneCount(); j++) {
 				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getActiveBlockedCellsIndexList();
 				for(Integer blockedCell : blockedCellsList) {
+					System.out.println("blockedCell main " + blockedCell);
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
 				}
@@ -264,8 +265,9 @@ public class VisualizerComponent extends JPanel {
 			
 			for (int j = link.rightLaneCount() - 1; j >= 0; j--) {
 				// [start] draw blocked Cells on lane
-				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getActiveBlockedCellsIndexList();
+				java.util.List<Integer> blockedCellsList = link.getRightLane(j).getActiveBlockedCellsIndexList();
 				for(Integer blockedCell : blockedCellsList) {
+					System.out.println("blockedCell right " + blockedCell);
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
 				}
