@@ -57,7 +57,7 @@ class CityRealExt implements CitySimIface, CityBlockIface {
 
 		LOGGER.trace("TURN - SIMULATE on Gateways");
 		for (Iterator<Gateway> iter = city.gatewayIterator(); iter.hasNext(); ) {
-			//	adds handlers to new cars and puts 1 car on the line (if was in new car quueue in this turn and is possible)
+			//	adds handlers to new cars and puts 1 car on the line (if was in new car queue in this turn and is possible)
 			evalView.ext(iter.next()).simulateTurn();
 		}
 

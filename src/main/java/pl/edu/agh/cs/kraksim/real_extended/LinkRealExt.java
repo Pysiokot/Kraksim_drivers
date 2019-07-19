@@ -10,6 +10,8 @@ import pl.edu.agh.cs.kraksim.iface.block.LinkBlockIface;
 import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.LinkMonIface;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 class LinkRealExt implements LinkBlockIface, LinkMonIface {
@@ -108,7 +110,10 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 
 	void simulateTurn() {
 		LOGGER.trace(link);
-
+		List laneList = Arrays.asList(this.link.getLanes());
+		for (Object lane : laneList) {
+			this.ev.ext((Lane) lane).prepareIterator();
+		}
 		GigaIterator gi = new GigaIterator(link, ev);
 		while(gi.hasNext()){
 			Car car = gi.next();
@@ -202,7 +207,6 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 			car.setAction(null);
 			car.setActionForNextIntersection(null);
 		} else {
-			car.nextTripPoint();
 			car.setAction(nextAction);
 			car.setActionForNextIntersection(nextAction);
 		}

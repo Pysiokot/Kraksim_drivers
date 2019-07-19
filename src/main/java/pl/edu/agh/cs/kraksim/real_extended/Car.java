@@ -94,6 +94,7 @@ class Car {
 
 		beforeLane = null;
 		beforePos = 0;
+		this.velocity = 0;
 
 		LOGGER.trace("\n Driver= " + driver + "\n rerouting= " + rerouting);
 	}
@@ -500,7 +501,8 @@ class Car {
 		int gapNeiFront =	otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1 	: otherLane.linkLength() - this.pos -1;
 		int gapNeiBehind =	otherCarBehind != null	? this.pos - otherCarBehind.getPosition() - 1	: this.pos - 1;
 		double crashFreeTurns = this.currentLane.CRASH_FREE_TIME;	// turns until crash, gap must be bigger than velocity * crashFreeTurns, == 1 -> after this turn it will look good
-		double crashFreeDivider = Math.log(numOfTurnsInWantedSwitchLane);
+		System.out.println("numOfTurnsInWantedSwitchLane " + numOfTurnsInWantedSwitchLane);
+		double crashFreeDivider = Math.max(Math.log(numOfTurnsInWantedSwitchLane), 1);
 		boolean spaceInFront = gapNeiFront >= (this.getVelocity()-1) * (crashFreeTurns / crashFreeDivider);
 		boolean spaceBehind =	otherCarBehind != null	? gapNeiBehind > otherCarBehind.getFutureVelocity() * Math.max((crashFreeTurns-1)/crashFreeDivider, 0)	: true;
 		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());
@@ -513,7 +515,7 @@ class Car {
 	 * @return true if car can switch lane in given direction
 	 */
 	private boolean checkIfCanSwitchToDirection(LaneSwitch direction) {
-		System.out.println("checkIfCanSwitchToDirection 0");
+		System.out.println("checkIfCanSwitchToDirection");
 		LaneRealExt otherLane;
 		if(direction == LaneSwitch.LEFT) {
 			if(this.currentLane.hasLeftNeighbor())
@@ -621,9 +623,9 @@ class Car {
 			}
 		}
 		
-		if(!checkIfCanSwitchToDirection(this.switchToLane)) {	// only to make sure it works
-			throw new RuntimeException("FALSE :: checkIfCanSwitchToDirection(this.switchToLane) " + this);		///////////////////////////////////////////////////////////////////////////////////////////////
-		}
+//		if(!checkIfCanSwitchToDirection(this.switchToLane)) {	// only to make sure it works
+//			throw new RuntimeException("FALSE :: checkIfCanSwitchToDirection(this.switchToLane) " + this);		///////////////////////////////////////////////////////////////////////////////////////////////
+//		}
 	}
 	
 	/**
@@ -973,7 +975,6 @@ class Car {
 										)
 								,0);
 			}
-			// TODO: interaction crossing
 		} else {	// road ended, gateway
 			((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);
 			this.currentLane.removeCarFromLaneWithIterator(this);
@@ -981,8 +982,6 @@ class Car {
 		}
 		this.setPosition(this.pos + distanceTraveled - distanceTraveledOnPreviousLane);
 		this.setVelocity(distanceTraveled);
-		
-		
 	}
 
 	/**
@@ -1123,17 +1122,25 @@ class Car {
 	 * @return true if car moved across intersection
 	 */
 	public boolean crossIntersection() {
+		if(this.currentLane.isBlocked()) {
+			return false;
+		}
 		LinkRealExt targetLink = this.currentLane.getRealView().ext(this.actionForNextIntersection.getTarget());
 		Lane targetLaneNormal = targetLink.getLaneToEnter(this);
 		if(targetLaneNormal == null) {
 			System.out.println("CAN NOT TURN THIS INTERSECTION");
 			return false;
 		}
-		LaneRealExt targetLane = this.currentLane.getRealView().ext(targetLink.getLaneToEnter(this));
-		this.currentLane.removeCarFromLaneWithIterator(this);
+		LaneRealExt targetLane = this.currentLane.getRealView().ext(targetLaneNormal);
+		if(!targetLane.canAddCarToLane(this)) {
+			return false;
+		}
 		this.setPosition(0);
+		//this.nextTripPoint();
+		this.currentLane.removeCarFromLaneWithIterator(this);
 		targetLane.addCarToLaneWithIterator(this);
 		this.currentLane = targetLane;
+		if(this.getActionForNextIntersection() != null) this.nextTripPoint();
 		return true;
 	}
 

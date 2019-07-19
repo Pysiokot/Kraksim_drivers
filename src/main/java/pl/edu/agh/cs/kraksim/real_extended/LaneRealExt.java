@@ -142,7 +142,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		} else {
 			setFirstCarPos(Integer.MAX_VALUE);
 		}
-		this.carIterator = this.cars.listIterator();
+	}
+	
+	public void prepareIterator() {
+		this.carIterator = this.cars.listIterator();		
 	}
 
 	/* intersection lane only */
@@ -901,6 +904,17 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			t_lastPos = c.getPosition();
 		}
 		return removed;
+	}
+	
+
+	public boolean canAddCarToLane(Car car) {
+		ListIterator<Car> tempIt = this.cars.listIterator();
+		while(tempIt.hasNext()) {
+			if(tempIt.next().getPosition() == car.getPosition()) {
+				return false;
+			}
+		}			
+		return true;
 	}
 	
 	Lane getLane() {
