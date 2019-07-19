@@ -45,6 +45,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	final int SWITCH_TIME;
 	final int MIN_SAFE_DISTANCE;
+	final double CRASH_FREE_TIME;	// how much turns ahead car will test speed and positions to determine if switching is safe
+	final double PROBABILITY_POWER_VALUE;	// power function for switch lane action probability
+	final int INTERSECTION_LANE_SWITCH_TURN_LIMIT; // cars will be forced to switch lanes to correct for next intersection at this * maxSpeed distance
 
 	private LinkedList<Car> cars;
 	private ListIterator<Car> carIterator;
@@ -80,6 +83,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 		SWITCH_TIME = params.getSwitchTime();
 		MIN_SAFE_DISTANCE = params.getMinSafeDistance();
+		this.CRASH_FREE_TIME = Double.parseDouble(KraksimConfigurator.getPropertiesFromFile().getProperty("crashFreeTime"));
+		this.PROBABILITY_POWER_VALUE = Double.parseDouble(KraksimConfigurator.getPropertiesFromFile().getProperty("probabilityPowerValue"));
+		this.INTERSECTION_LANE_SWITCH_TURN_LIMIT = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("intersectionLaneSwitchTurnThreshold"));
+		
 		
 		// block cells
 		//this.addNewObstaclesFromCorelane();

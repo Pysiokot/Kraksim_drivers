@@ -11,8 +11,8 @@
       <uplink>
         <main length="295" numberOfLanes="3">
           <!-- <blocked laneNumber = "2" cell="80" lastCell="90" turnStart="50" turnEnd="100" /> -->
-          <blocked laneNumber = "0" cell="150" />
-          <blocked laneNumber = "1" cell="160" />
+          <!-- <blocked laneNumber = "0" cell="150" />
+          <blocked laneNumber = "1" cell="160" /> -->
         </main>
         <right length="100"/>
       </uplink>
