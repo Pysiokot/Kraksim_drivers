@@ -356,14 +356,22 @@ class Car {
 			if(this.checkIfCanSwitchToDirection(LaneSwitch.LEFT)) {
 				this.switchToLane = LaneSwitch.LEFT;
 			} else {
-				this.switchToLane = LaneSwitch.WANTS_LEFT;
+				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
+					this.switchToLane = LaneSwitch.WANTS_LEFT;					
+				} else {
+					this.switchToLane = LaneSwitch.NO_CHANGE;	
+				}
 			}
 		} else if(isDirectionBetterForNextIntersection(LaneSwitch.RIGHT)) {
 			// left is better
 			if(this.checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
 			} else {
-				this.switchToLane = LaneSwitch.WANTS_RIGHT;
+				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
+					this.switchToLane = LaneSwitch.WANTS_RIGHT;
+				} else {
+					this.switchToLane = LaneSwitch.NO_CHANGE;	
+				}
 			}
 		} else {
 			throw new RuntimeException("no good action for next intersection");			
@@ -474,17 +482,17 @@ class Car {
 	/** other lane better if it has more space to next car in front */
 	private boolean isOtherLaneBetter(Car carInFront, Car otherCarFront, LaneRealExt otherLane) {
 		int gapThisFront = carInFront != null	? carInFront.getPosition() - this.pos - 1	: this.currentLane.linkLength() - this.pos -1;
-		int gapNeiFront = otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1	: otherLane.linkLength() - this.pos -1;
+		int gapNeiFront = otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1	: otherLane.linkLength() - this.pos -2;
 		return gapNeiFront > gapThisFront;
 	}
 	
 	/** is it safe to switch lanes, tests my speed, others speed, gaps between cars, niceness of lane switch (how much space do I need) */
 	private boolean canSwitchLaneToOther(Car otherCarBehind, Car otherCarFront, LaneRealExt otherLane) {
-		int gapNeiFront =	otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1 	: otherLane.linkLength() - this.pos -1;
-		int gapNeiBehind =	otherCarBehind != null	? this.pos - otherCarBehind.getPosition() - 1	: this.pos;
-		int crashFreeTurns = 1;	// turns until crash, gap must be bigger than velocity * crashFreeTurns
+		int gapNeiFront =	otherCarFront != null	? otherCarFront.getPosition() - this.pos - 2 	: otherLane.linkLength() - this.pos -2;
+		int gapNeiBehind =	otherCarBehind != null	? this.pos - otherCarBehind.getPosition() - 2	: this.pos - 1;
+		int crashFreeTurns = 2;	// turns until crash, gap must be bigger than velocity * crashFreeTurns
 		boolean spaceInFront = gapNeiFront > this.getFutureVelocity() * crashFreeTurns;
-		boolean spaceBehind =	otherCarBehind != null	? gapNeiBehind > otherCarBehind.getFutureVelocity() * (crashFreeTurns-1)	: true;
+		boolean spaceBehind =	otherCarBehind != null	? gapNeiBehind > otherCarBehind.getFutureVelocity() * Math.max(crashFreeTurns, 0)	: true;
 		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());
 	}
 //		[end] Switch Lane Algorithm
@@ -785,7 +793,7 @@ class Car {
 		InductionLoopPointer ilpBeforeLane = this.currentLane.getRealView().ext(this.beforeLane).new InductionLoopPointer();
 		InductionLoopPointer ilpCurrentLane;
 		if(this.beforeLane.equals(this.currentLane.getLane())) {
-			ilpCurrentLane = ilpBeforeLane;
+			ilpCurrentLane = null;
 		} else {
 			ilpCurrentLane = this.currentLane.new InductionLoopPointer();			
 		}

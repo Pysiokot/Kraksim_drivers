@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <traffic>
-   <scheme count="5000">
+   <scheme count="50">
     <gateway id="G1">
-      <uniform a="0" b="1000" />
+      <uniform a="0" b="100" />
     </gateway>
     <gateway id="G0" />
   </scheme> 
