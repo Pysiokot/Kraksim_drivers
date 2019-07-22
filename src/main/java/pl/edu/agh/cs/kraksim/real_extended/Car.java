@@ -829,7 +829,7 @@ class Car {
 	void simulateTurn() {
 		LOGGER.trace("car simulation : " + this);
 		System.out.println("simulateTurn for " + this);
-		System.out.println("action " + this.getActionForNextIntersection());
+		//System.out.println("action " + this.getActionForNextIntersection());
 		
 		if(this.isObstacle()) {	// dont simulate obstacles
 			return;
