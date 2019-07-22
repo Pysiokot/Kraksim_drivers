@@ -963,14 +963,18 @@ class Car {
 			}
 			// TODO: interaction crossing
 		} else {	// road ended, gateway
-			((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);
+			try {
+				((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);				
+			} catch (Exception e) {
+				System.out.println(((IntersectionRealExt)this.currentLane.getRealView().ext(this.currentLane.linkEnd())).intersection.getId());	
+				e.printStackTrace();
+				throw e;
+			}
 			this.currentLane.removeCarFromLaneWithIterator(this);
 			distanceTraveled = freeCellsInFront + 2;
 		}
 		this.setPosition(this.pos + distanceTraveled - distanceTraveledOnPreviousLane);
 		this.setVelocity(distanceTraveled);
-		
-		
 	}
 
 	/**
@@ -1099,6 +1103,9 @@ class Car {
 	 * @return true if car moved across intersection
 	 */
 	public boolean crossIntersection() {
+		if(this.currentLane.isBlocked()) {
+			return false;
+		}
 		LinkRealExt targetLink = this.currentLane.getRealView().ext(this.actionForNextIntersection.getTarget());
 		Lane targetLaneNormal = targetLink.getLaneToEnter(this);
 		if(targetLaneNormal == null) {
@@ -1115,6 +1122,10 @@ class Car {
 		this.currentLane = targetLane;
 		if(this.hasNextTripPoint()) {
 			this.nextTripPoint();
+		} else {
+//			if(this.currentLane.linkEnd().isGateway()) {
+//				throw new RuntimeException("ss");
+//			}
 		}
 		return true;
 	}

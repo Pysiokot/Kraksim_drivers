@@ -91,6 +91,12 @@
                     <inlane arm="E1" lane="0" state="red"/>
                     <inlane arm="X2" lane="0" state="red"/>
                 </phase>
+                <phase duration="50" name="phase_2" num="2">
+                    <inlane arm="W1" lane="0" state="green"/>
+                    <inlane arm="N1" lane="0" state="green"/>
+                    <inlane arm="E1" lane="0" state="green"/>
+                    <inlane arm="X2" lane="0" state="green"/>
+                </phase>
             </trafficLightsSchedule>
         </intersection>
 		

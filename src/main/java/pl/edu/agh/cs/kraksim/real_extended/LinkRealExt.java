@@ -207,7 +207,7 @@ System.out.println("INDUCTION " + line+ " : " + laneExt(i).getLane().getLength()
 			System.out.println("new action : nextLane = null");
 			return null;
 		}
-		car.refreshTripRoute();
+		//car.refreshTripRoute();
 
 		if (!car.hasNextTripPoint()) {
 			car.setAction(null);

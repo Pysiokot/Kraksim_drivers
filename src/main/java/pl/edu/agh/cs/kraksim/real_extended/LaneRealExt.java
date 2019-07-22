@@ -921,7 +921,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		ListIterator<Car> tempIt = this.cars.listIterator();
 		while(tempIt.hasNext()) {
 			Car car = tempIt.next();
-			System.out.println(" canAddCarToLaneOnPosition " + car);
 			if(car.getPosition() == pos) {
 				return false;
 			}
