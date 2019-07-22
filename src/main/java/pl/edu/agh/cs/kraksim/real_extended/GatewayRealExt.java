@@ -49,7 +49,7 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 		travelEndHandler = handler;
 	}
 
-	void simulateTurn() {
+	void simulateTurnOLD() {
 		ListIterator<Car> iter = cars.listIterator(cars.size());
 		while (enqueuedCarCount > 0) {
 			Object d = iter.previous().getDriver();
@@ -63,10 +63,11 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 		Car car = cars.peek();
 		if (car != null && gateway.getOutboundLink() != null && ev.ext(gateway.getOutboundLink()).enterCar(car, 1, 0)) {
 			cars.poll();
+			
 		}
 	}
 	
-	void simulateTurnNEW() {
+	void simulateTurn() {
 		ListIterator<Car> iter = cars.listIterator(cars.size());
 		while (enqueuedCarCount > 0) {
 			Object d = iter.previous().getDriver();
@@ -107,6 +108,7 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 					car.setActionForNextIntersection(nextAction);
 				}
 				cars.poll();
+				ev.ext(gateway.getOutboundLink()).fireAllEntranceHandlers(car);
 			}
 		}
 	}
@@ -124,6 +126,7 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 		// CHANGE: MZA: to enable multiple lanes
 		if (!acceptedCars.isEmpty()) {
 			for (Car car : acceptedCars) {
+				ev.ext(gateway.getOutboundLink()).fireAllExitHandlers(car);
 				for (CarExitHandler h : exitHandlers) {
 					h.handleCarExit(car.getDriver());
 				}

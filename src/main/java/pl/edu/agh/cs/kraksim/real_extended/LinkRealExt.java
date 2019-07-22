@@ -57,6 +57,18 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		}
 	}
 
+	public void fireAllEntranceHandlers(Car car) {
+		for(CarDriveHandler handler : this.link.getEntranceCarHandlers()) {
+			handler.handleCarDrive(car.getVelocity(), car.getDriver());
+		}
+	}
+	
+	public void fireAllExitHandlers(Car car) {
+		for(CarDriveHandler handler : this.link.getExitCarHandlers()) {
+			handler.handleCarDrive(car.getVelocity(), car.getDriver());
+		}
+	}
+	
 	/* assumption: stepsDone < stepsMax */
 	@Deprecated
 	boolean enterCar(Car car, int stepsMax, int stepsDone) {
@@ -160,7 +172,6 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		for (int i = 0; i < laneCount(); i++) {
 			LaneRealExt l = laneExt(i);
 			if (line >= l.getOffset()) {
-System.out.println("INDUCTION " + line+ " : " + laneExt(i).getLane().getLength());
 				laneExt(i).installInductionLoop(line, handler);
 			}
 		}

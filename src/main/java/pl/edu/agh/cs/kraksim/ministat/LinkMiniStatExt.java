@@ -48,11 +48,13 @@ public class LinkMiniStatExt {
 		lastPeriodCarInCount = new LastPeriodCarCount();
 
 		LinkMonIface l = monView.ext(link);
-		l.installInductionLoops(0, new CarDriveHandler() {
+		
+		this.link.getEntranceCarHandlers().add(new CarDriveHandler() {
 			public void handleCarDrive(int velocity, Object driver) {
+	
 				Driver d = (Driver) driver;
 				boolean emergency = d.isEmergency();
-				carCount++;
+				carCount++;	// number near road on gui
 				if (emergency) {
 					emergencyVehiclesCount++;
 				} else {
@@ -64,11 +66,11 @@ public class LinkMiniStatExt {
 			}
 		});
 
-		l.installInductionLoops(link.getLength(), new CarDriveHandler() {
+		this.link.getExitCarHandlers().add(new CarDriveHandler() {
 			public void handleCarDrive(int velocity, Object driver) {
 				Driver d = (Driver) driver;
 				boolean emergency = d.isEmergency();
-				carCount--;
+				carCount--;	// number near road on gui
 				if (emergency) {
 					emergencyVehiclesCount--;
 				} else {
@@ -88,7 +90,7 @@ public class LinkMiniStatExt {
 				lastPeriodCarOutCount.update();
 
 				s += duration * duration;
-				System.out.println("IND:: LinkMiniStatExt ++ " + link.getId());
+				System.out.println("IND:: LinkMiniStatExt -- " + link.getId());
 			}
 		});
 		//link.calculateWeight(carCount);

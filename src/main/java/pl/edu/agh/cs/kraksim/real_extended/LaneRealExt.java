@@ -30,7 +30,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	private final int offset;
 	// MZA: multi-lanes. It had to be changed.
 	private final List<Car> enteringCars = new LinkedList<>();
-	private final List<InductionLoop> loops;
+	private final Map<Integer, InductionLoop> positionInductionLoops;
 	private final int speedLimit;
 	private final int emergencySpeedLimit;
 	private final int emergencySpeedLimitTimesHigher;
@@ -79,7 +79,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		offset = lane.getOffset();// linkLength() - lane.getLength();
 		cars = new LinkedList<>();
 		blocked = false;
-		loops = new ArrayList<>(0);
+		positionInductionLoops = new HashMap<>(0);
 
 		SWITCH_TIME = params.getSwitchTime();
 		MIN_SAFE_DISTANCE = params.getMinSafeDistance();
@@ -987,16 +987,13 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	public void installInductionLoop(int line, CarDriveHandler handler) throws IndexOutOfBoundsException {
 		LOGGER.trace("Instaling IL ona lane " + lane + " at distance: " + line);
+		System.out.println("Instaling IL ona lane " + lane + " at distance: " + line);
 		if (line < 0 || line > linkLength()) {
 			throw new IndexOutOfBoundsException("line = " + line);
 		}
 
 		InductionLoop loop = new InductionLoop(line, handler);
-
-		int i;
-		for (i = 0; i < loops.size() && loops.get(i).line <= line; i++) {
-		}
-		loops.add(i, loop);
+		positionInductionLoops.put(line, loop);
 	}
 	
 	private void addNewObstaclesFromCorelane() {
@@ -1017,6 +1014,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				it.remove();
 			}
 		}
+	}
+	
+	public Map<Integer, InductionLoop> getPositionInductionLoops() {
+		return positionInductionLoops;
 	}
 	
 	/////////////////////////////////////////////////////////////////////
@@ -1113,7 +1114,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			} else {
 				car = null;
 			}
-			if(car != null && car instanceof Obstacle) {
+			if(car != null && car.isObstacle()) {
 				next();
 			}
 		}
@@ -1124,7 +1125,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			} else {
 				car = cit.next();
 			}
-			if(car != null && car instanceof Obstacle) {
+			if(car != null && car.isObstacle()) {
 				next();
 			}
 		}
@@ -1140,8 +1141,8 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			} else {
 				car = null;
 			}
-			if(car != null && car instanceof Obstacle) {
-				next();
+			if(car != null && car.isObstacle()) {
+				this.next();
 			}
 		}
 
@@ -1151,7 +1152,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			} else {
 				car = cit.previous();
 			}
-			if(car != null && car instanceof Obstacle) {
+			if(car != null && car.isObstacle()) {
 				next();
 			}
 		}
@@ -1165,15 +1166,15 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}
 
 		boolean atEnd() {
-			return i == loops.size();
+			return i == positionInductionLoops.size();
 		}
 
 		InductionLoop current() {
-			return loops.get(i);
+			return positionInductionLoops.get(i);
 		}
 
 		void forward() {
-			if (i < loops.size()) {
+			if (i < positionInductionLoops.size()) {
 				i++;
 			}
 		}

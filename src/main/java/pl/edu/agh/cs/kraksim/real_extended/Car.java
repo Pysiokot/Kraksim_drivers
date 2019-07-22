@@ -11,11 +11,11 @@ import pl.edu.agh.cs.kraksim.iface.sim.Route;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
 import pl.edu.agh.cs.kraksim.main.Simulation;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
-import pl.edu.agh.cs.kraksim.real_extended.LaneRealExt.InductionLoopPointer;
-
+import pl.edu.agh.cs.kraksim.real_extended.LaneRealExt.InductionLoop;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.Map.Entry;
 
 class Car {
 	private static final Logger LOGGER = Logger.getLogger(Car.class);
@@ -885,14 +885,19 @@ class Car {
 	 * @param positionBefore position in previous turn
 	 */
 	public void fireInductionLoopForLane(LaneRealExt lane, int position, int positionBefore) {
-		System.out.println("fireInductionLoopForLane :: " + this.toString());
-		InductionLoopPointer ilp = lane.new InductionLoopPointer();
-		while (!ilp.atEnd()) {	// for each installed induction loop on given lane
-			if (positionBefore <= ilp.current().line && ilp.current().line < position) {	// if I crossed its border
-				ilp.current().handler.handleCarDrive(getVelocity(), getDriver());
+		System.out.println("fireInductionLoopForLane :: " + this.toString() + " to: " + positionBefore + " " + position);
+		for(Entry<Integer, InductionLoop> entry : this.currentLane.getPositionInductionLoops().entrySet()) {
+			if(positionBefore <= entry.getKey() && entry.getKey() < position) {
+				entry.getValue().handler.handleCarDrive(getVelocity(), getDriver());
 			}
-			ilp.forward();
 		}
+//		InductionLoopPointer ilp = lane.new InductionLoopPointer();
+//		while (!ilp.atEnd()) {	// for each installed induction loop on given lane
+//			if (positionBefore <= ilp.current().line && ilp.current().line < position) {	// if I crossed its border
+//				ilp.current().handler.handleCarDrive(getVelocity(), getDriver());
+//			}
+//			ilp.forward();
+//		}
 	}
 	
 	/**	Perform action based on current car move model	
@@ -1170,14 +1175,12 @@ class Car {
 		this.currentLane.removeCarFromLaneWithIterator(this);
 		this.setPosition(0);
 		targetLane.addCarToLaneWithIterator(this);
-		this.currentLane = targetLane;
 		if(this.hasNextTripPoint()) {
 			this.nextTripPoint();
-		} else {
-//			if(this.currentLane.linkEnd().isGateway()) {
-//				throw new RuntimeException("ss");
-//			}
 		}
+		targetLink.fireAllEntranceHandlers(this);
+		this.currentLane.getRealView().ext(this.currentLane.getLane().getOwner()).fireAllExitHandlers(this);
+		this.currentLane = targetLane;
 		return true;
 	}
 

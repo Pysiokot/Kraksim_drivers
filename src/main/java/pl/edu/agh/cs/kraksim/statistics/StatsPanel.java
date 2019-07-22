@@ -40,6 +40,7 @@ public class StatsPanel extends JPanel {
 				@Override
 				public void refresh() {
 					addData(cityStat.getAvgVelocity());
+					System.out.println(cityStat.getAvgVelocity());
 				}
 			};
 

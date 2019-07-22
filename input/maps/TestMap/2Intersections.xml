@@ -79,9 +79,9 @@
       </armActions>
       <trafficLightsSchedule>
         <phase num="1" name="phase_1" duration="10">
-          <inlane arm="G0" lane="0" state="green" />
-          <inlane arm="G2" lane="0" state="green" />
-          <inlane arm="I0" lane="0" state="green" />
+          <inlane arm="G0" lane="0" state="red" />
+          <inlane arm="G2" lane="0" state="red" />
+          <inlane arm="I0" lane="0" state="red" />
         </phase>
         <phase num="2" name="phase_2" duration="10">
           <inlane arm="G0" lane="0" state="red" />
