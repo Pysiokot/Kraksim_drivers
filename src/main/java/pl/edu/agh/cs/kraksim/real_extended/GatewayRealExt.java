@@ -53,6 +53,23 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 		ListIterator<Car> iter = cars.listIterator(cars.size());
 		while (enqueuedCarCount > 0) {
 			Object d = iter.previous().getDriver();
+			for (CarEntranceHandler h : entranceHandlers) {
+				h.handleCarEntrance(d);
+			}
+
+			enqueuedCarCount--;
+		}
+
+		Car car = cars.peek();
+		if (car != null && gateway.getOutboundLink() != null && ev.ext(gateway.getOutboundLink()).enterCar(car, 1, 0)) {
+			cars.poll();
+		}
+	}
+	
+	void simulateTurnNew() {
+		ListIterator<Car> iter = cars.listIterator(cars.size());
+		while (enqueuedCarCount > 0) {
+			Object d = iter.previous().getDriver();
 			for (CarEntranceHandler h : entranceHandlers) {	// no clue what CarEntranceHandler does
 				h.handleCarEntrance(d);	// handles new car entrance for each new car in "cars" list
 			}
@@ -86,7 +103,6 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 				if (!car.hasNextTripPoint()) {
 					car.setActionForNextIntersection(null);
 				} else {
-					car.nextTripPoint();
 					car.setActionForNextIntersection(nextAction);
 				}
 				cars.poll();

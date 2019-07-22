@@ -626,6 +626,7 @@ public class RoadNetXmlHandler extends DefaultHandler {
 					try {
 						for (Lane lane : lanes) {
 							Lane[] priorities = getPriorityLanesForLane(lane, ll);
+							System.out.println("new action for " + lane.getOwner().getId() + " "+ lane.getAbsoluteNumber() + " to " + ol.getId());
 							lane.addAction(ol, priorities);
 						}
 					} catch (UnsupportedLinkOperationException | InvalidActionException e) {

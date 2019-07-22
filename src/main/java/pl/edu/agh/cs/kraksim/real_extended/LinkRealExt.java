@@ -96,6 +96,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 
 			if (!car.hasNextTripPoint()) {
 				car.setAction(null);
+				car.setActionForNextIntersection(null);
 			} else {
 				car.nextTripPoint();
 				car.setAction(nextAction);
@@ -188,17 +189,21 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		}
 
 		// obtaining list of actions heading to the given destination
+		System.out.println("nextLink " + nextLink);
 		List<Action> actions = link.findActions(nextLink);
 
 		MultiLaneRoutingHelper laneHelper = new MultiLaneRoutingHelper(ev);
-
+		System.out.println("actions " + actions.toString());
 		// choosing the best action from the given list
 		Action nextAction = laneHelper.chooseBestAction(actions);
 		// choosing the best lane to enter in order to get to lane given in action
+		System.out.println("nextAction " + nextAction);
 		Lane nextLane = laneHelper.chooseBestLaneForAction(nextAction, link);
 
 		// if null then no lane can be entered for given action
+		System.out.println("intersection get next lane");
 		if (nextLane == null) {
+			System.out.println("new action : nextLane = null");
 			return null;
 		}
 		car.refreshTripRoute();
@@ -206,9 +211,11 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		if (!car.hasNextTripPoint()) {
 			car.setAction(null);
 			car.setActionForNextIntersection(null);
+			System.out.println("new action !!: null");
 		} else {
 			car.setAction(nextAction);
 			car.setActionForNextIntersection(nextAction);
+			System.out.println("new action : " + nextAction);
 		}
 
 		return nextLane;

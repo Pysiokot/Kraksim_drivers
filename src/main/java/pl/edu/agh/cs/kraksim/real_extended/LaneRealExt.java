@@ -916,6 +916,18 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}			
 		return true;
 	}
+
+	public boolean canAddCarToLaneOnPosition(int pos) {
+		ListIterator<Car> tempIt = this.cars.listIterator();
+		while(tempIt.hasNext()) {
+			Car car = tempIt.next();
+			System.out.println(" canAddCarToLaneOnPosition " + car);
+			if(car.getPosition() == pos) {
+				return false;
+			}
+		}			
+		return true;
+	}
 	
 	Lane getLane() {
 		return lane;
