@@ -40,6 +40,7 @@ class Car {
 	private Lane beforeLane;
 	private int beforePos;
 	private boolean rerouting = false;
+	private int obstacleVisibility;
 
 	// 2019
 	private LaneRealExt currentLane = null;
@@ -94,6 +95,8 @@ class Car {
 
 		beforeLane = null;
 		beforePos = 0;
+
+		obstacleVisibility = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("obstacleVisibility"));
 
 		LOGGER.trace("\n Driver= " + driver + "\n rerouting= " + rerouting);
 	}
@@ -502,7 +505,7 @@ class Car {
 		double crashFreeTurns = this.currentLane.CRASH_FREE_TIME;	// turns until crash, gap must be bigger than velocity * crashFreeTurns, == 1 -> after this turn it will look good
 		double crashFreeDivider = Math.max(Math.log(numOfTurnsInWantedSwitchLane), 1.0);
 		boolean spaceInFront = gapNeiFront >= (this.getVelocity()-1) * (crashFreeTurns / crashFreeDivider);
-		boolean spaceBehind = otherCarBehind == null || gapNeiBehind > otherCarBehind.getFutureVelocity() * Math.max((crashFreeTurns - 1)/crashFreeDivider, 0);
+		boolean spaceBehind = otherCarBehind == null || gapNeiBehind >= otherCarBehind.getFutureVelocity() * Math.max((crashFreeTurns - 1)/crashFreeDivider, 0);
 		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());
 	}	
 //		[end] Switch Lane Algorithm
@@ -533,6 +536,41 @@ class Car {
 		return canSwitchLaneToOther(carBehind, carFront, otherLane);
 	}
 
+	private int getLaneNumberToBypassObstacle(int distanceToObstacle){
+		Lane chosenLane = currentLane.getLane().getOwner().getMainLane(0);
+		for(Lane lane : currentLane.getLane().getOwner().getLanes()){
+			if(lane == currentLane.getLane() || (lane.getOffset() > this.getPosition())){
+				continue;
+			}
+			ArrayList<Integer> blockedCells = (ArrayList<Integer>) lane.getActiveBlockedCellsIndexList();
+			int furthestDistance = obstacleVisibility + 1;
+			if(!blockedCells.isEmpty()){
+				for(Integer obstacleIndex : blockedCells) {
+					int dist = obstacleIndex - getPosition();
+					if(dist < 0 || dist > obstacleVisibility){
+						furthestDistance = obstacleVisibility + 1;
+					}
+					furthestDistance = Math.min(furthestDistance, dist);
+				}
+			}
+
+			if(furthestDistance > distanceToObstacle){
+				int laneChangesReqNew = Math.abs(currentLane.getLane().getAbsoluteNumber() - lane.getAbsoluteNumber());
+				int laneChangesReqOld = Math.abs(currentLane.getLane().getAbsoluteNumber() - chosenLane.getAbsoluteNumber());
+				if(laneChangesReqNew < laneChangesReqOld){
+					chosenLane = lane;
+				}
+				else if(laneChangesReqNew == laneChangesReqOld){
+					chosenLane = lane.getAbsoluteNumber() > chosenLane.getAbsoluteNumber() ? lane : chosenLane;
+				}
+			}
+		}
+		System.out.println("Pas: " + chosenLane.getAbsoluteNumber());
+		return chosenLane.getAbsoluteNumber();
+	}
+
+
+
 	/**
 	 * Check if there is need to switch lanes (obstacle, emergency etc) <br>
 	 * If not check switchLaneAlgorithms on all neighbors lanes <br>
@@ -546,7 +584,6 @@ class Car {
 		//	if car dont want to switch - check setSwitchToLaneStateForAlgorithm - maybe it will switch
 
 		// calculate distance to nearest obstacle, must be not more than obstacleVisibility param
-		int obstacleVisibility = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("obstacleVisibility"));
 		int distanceToNextObstacle = Integer.MAX_VALUE;
 		for(Integer obstacleIndex : this.currentLane.getLane().getActiveBlockedCellsIndexList()) {
 			int dist = obstacleIndex - getPosition();	// [C] --> [o]
@@ -555,18 +592,32 @@ class Car {
 		}
 		
 		//	check for obstacles
-		if(distanceToNextObstacle <= obstacleVisibility) { 
-			System.out.println("switchLanesState 1");
-			// obstacle in range, must change lane, prefers right, but if cant, will try left
-			System.out.println("Przeszkoda?!?! o nie!!	QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-			if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
-				this.switchToLane = LaneSwitch.RIGHT;
-			} else if(checkIfCanSwitchToDirection(LaneSwitch.LEFT)) {
-				this.switchToLane = LaneSwitch.LEFT;
-			} else {
+		if(distanceToNextObstacle <= obstacleVisibility) {
+
+			int desiredLaneNumber = getLaneNumberToBypassObstacle(distanceToNextObstacle);
+
+			if(desiredLaneNumber < currentLane.getLane().getAbsoluteNumber()){
+				System.out.println("Chcem w lewo");
+				if(checkIfCanSwitchToDirection(LaneSwitch.LEFT)){
+					this.switchToLane = LaneSwitch.LEFT;
+				}
+				else{
+					this.switchToLane = LaneSwitch.NO_CHANGE;
+				}
+			}
+			else if(desiredLaneNumber > currentLane.getLane().getAbsoluteNumber()){
+				if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)){
+					this.switchToLane = LaneSwitch.RIGHT;
+				}
+				else{
+					this.switchToLane = LaneSwitch.NO_CHANGE;
+				}
+			}
+			else{
+				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 				this.switchToLane = LaneSwitch.NO_CHANGE;
 			}
-				
+			System.out.println(switchToLane);
 		}
 		else if (!isEmergency() && this.currentLane.getBehindCar(this) != null && this.currentLane.getBehindCar(this).isEmergency()) {
 			System.out.println("switchLanesState 2");

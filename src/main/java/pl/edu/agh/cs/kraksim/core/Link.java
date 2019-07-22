@@ -6,6 +6,7 @@ import pl.edu.agh.cs.kraksim.core.visitors.ElementVisitor;
 import pl.edu.agh.cs.kraksim.core.visitors.VisitingException;
 import pl.edu.agh.cs.kraksim.parser.RoadInfo;
 import pl.edu.agh.cs.kraksim.real_extended.BlockedCellsInfo;
+import pl.edu.agh.cs.kraksim.real_extended.Obstacle;
 
 import java.awt.*;
 import java.util.ArrayList;

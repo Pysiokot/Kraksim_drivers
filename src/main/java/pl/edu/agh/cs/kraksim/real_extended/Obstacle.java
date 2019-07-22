@@ -117,4 +117,9 @@ public class Obstacle extends Car {
 	public void setLaneSwitch(LaneSwitch lane){
 		throw new RuntimeException("Wrong action on stationary object");
 	}
+
+	@Override
+	public int getFutureVelocity(){
+		return 0;
+	}
 }
