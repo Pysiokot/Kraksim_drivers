@@ -812,50 +812,35 @@ class Car {
 		
 	}
 	
-	/** fire all InductionLoopPointer for current (and previous late if lane was switched)	 */
+	/** fire all InductionLoops */
 	private void fireAllInductionLoopPointers() {
-		InductionLoopPointer ilpBeforeLane = this.currentLane.getRealView().ext(this.beforeLane).new InductionLoopPointer();
-		InductionLoopPointer ilpCurrentLane;
-		if(this.beforeLane.equals(this.currentLane.getLane())) {
-			ilpCurrentLane = null;
-		} else {
-			ilpCurrentLane = this.currentLane.new InductionLoopPointer();			
-		}
-		int lastCrossedLineForBefore;
-		int lastCrossedLineForCurrent = -1;
-		if(this.beforeLane.equals(this.currentLane.getLane())) {	// car didn't switch lanes this turn
-			lastCrossedLineForBefore = this.getPosition();
-		} else {	// we did change lanes
-			if(this.beforeLane.getOwner().equals(this.currentLane.getLane().getOwner())) {	// car passed intersection
-				/* last line of this link crossed by the car in this turn */
-				lastCrossedLineForBefore = this.beforeLane.getLength()-1;
-				lastCrossedLineForCurrent = this.getPosition();
-			} else {	// Normal lane switch, on the same road
-				lastCrossedLineForBefore = this.beforeLane.getLength();
-				lastCrossedLineForCurrent = this.getPosition();
+		if(this.currentLane.getLane().equals(this.beforeLane)) {	// I'm sill on the same lane
+			if(this.pos != this.beforePos)  {// fire loop only if position changed, gates spawn cars at pos=0 so they were counted as 2
+				System.out.println(this.pos + " : " +  this.beforePos);
+				fireInductionLoopForLane(this.currentLane, this.pos, this.beforePos);
 			}
-			
+		} else {	// lane switched
+			System.out.println("indiction lane change");
+			LaneRealExt beforeLaneReal = this.currentLane.getRealView().ext(beforeLane);
+			fireInductionLoopForLane(beforeLaneReal, this.beforeLane.getLength()+1, this.beforePos);	// force to fire leaving lane induction
+			fireInductionLoopForLane(this.currentLane, this.pos, -1);	// force to fire entering induction loop
 		}
-		LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLineForBefore);
-		System.out.println("lastCrossedLineForBefore " + lastCrossedLineForBefore + " getBeforePos "+ getBeforePos() + " lastCrossedLineForCurrent " + lastCrossedLineForCurrent);
-		while (!ilpBeforeLane.atEnd() && ilpBeforeLane.current().line <= lastCrossedLineForBefore) {
-			if (ilpBeforeLane.current().line > this.getBeforePos()) {
-				System.out.println("fire before");
-				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForBefore + " for "	+ this.currentLane.getLane());
-				ilpBeforeLane.current().handler.handleCarDrive(getVelocity(), getDriver());
+	}
+	
+	/**
+	 * fire InductionLoop if I crossed its border
+	 * @param lane 
+	 * @param position current position
+	 * @param positionBefore position in previous turn
+	 */
+	public void fireInductionLoopForLane(LaneRealExt lane, int position, int positionBefore) {
+		System.out.println("fireInductionLoopForLane :: " + this.toString());
+		InductionLoopPointer ilp = lane.new InductionLoopPointer();
+		while (!ilp.atEnd()) {	// for each installed induction loop on given lane
+			if (positionBefore <= ilp.current().line && ilp.current().line < position) {	// if I crossed its border
+				ilp.current().handler.handleCarDrive(getVelocity(), getDriver());
 			}
-			ilpBeforeLane.forward();
-		}
-		if(lastCrossedLineForCurrent != -1) {
-			LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLineForCurrent);
-			while (!ilpCurrentLane.atEnd() && ilpCurrentLane.current().line <= lastCrossedLineForCurrent) {
-				if (ilpCurrentLane.current().line > this.getBeforePos()) {
-					System.out.println("fire current");
-					LOGGER.trace(">>>>>>> INDUCTION LOOP before " + this.getBeforePos() + " and " + lastCrossedLineForCurrent + " for "	+ this.currentLane.getLane());
-					ilpCurrentLane.current().handler.handleCarDrive(getVelocity(), getDriver());
-				}
-				ilpCurrentLane.forward();
-			}
+			ilp.forward();
 		}
 	}
 	
@@ -978,10 +963,9 @@ class Car {
 			}
 			// TODO: interaction crossing
 		} else {	// road ended, gateway
-			System.out.println("(this.hasNextTripPoint() " + this.hasNextTripPoint());
 			((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);
 			this.currentLane.removeCarFromLaneWithIterator(this);
-			return;
+			distanceTraveled = freeCellsInFront + 2;
 		}
 		this.setPosition(this.pos + distanceTraveled - distanceTraveledOnPreviousLane);
 		this.setVelocity(distanceTraveled);
@@ -1045,18 +1029,6 @@ class Car {
 						+ sourceLane.getLane().getAbsoluteNumber());
 				lane.getEnteringCars().add(this);
 			}
-		}
-
-		LOGGER.trace("CARTURN " + this + " crossed " + lastCrossedLine);
-		/* We fire all induction loops in the range (startPos; lastCrossedLine] */
-		while (!ilp.atEnd() && ilp.current().line <= lastCrossedLine) {
-			if (ilp.current().line > startPos) {
-				LOGGER.trace(">>>>>>> INDUCTION LOOP before " + startPos + " and " + lastCrossedLine + " for "
-						+ lane.getLane());
-				ilp.current().handler.handleCarDrive(getVelocity(), getDriver());
-			}
-
-			ilp.forward();
 		}
 
 		LOGGER.trace("CARTURN " + this + "on " + lane.getLane());

@@ -19,7 +19,7 @@ class LinkStatExt implements LinkCarCounterIface {
 			public void handleCarDrive(int velocity, Object driver) {
 				carCount++;
 				StatCollector.getInstance().addLinkEnterStatistic(link.getId(), driver.toString(), velocity);
-
+				System.out.println("IND:: LinkStatExt ++ " + link.getId());
 				//System.out.print(velocity);
 				//link.
 				//driver do costam, zapisz informacje
@@ -30,6 +30,7 @@ class LinkStatExt implements LinkCarCounterIface {
 			public void handleCarDrive(int velocity, Object driver) {
 				carCount--;
 				StatCollector.getInstance().addLinkLeaveStatistic(link.getId(), driver.toString(), velocity);
+				System.out.println("IND:: LinkStatExt -- " + link.getId());
 				//System.out.print(velocity);
 				//driver do costam, zapisz informacje
 			}

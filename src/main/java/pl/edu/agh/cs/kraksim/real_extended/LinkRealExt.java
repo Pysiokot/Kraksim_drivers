@@ -160,6 +160,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		for (int i = 0; i < laneCount(); i++) {
 			LaneRealExt l = laneExt(i);
 			if (line >= l.getOffset()) {
+System.out.println("INDUCTION " + line+ " : " + laneExt(i).getLane().getLength());
 				laneExt(i).installInductionLoop(line, handler);
 			}
 		}

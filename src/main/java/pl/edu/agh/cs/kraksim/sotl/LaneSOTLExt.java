@@ -28,7 +28,7 @@ class LaneSOTLExt implements LaneEvalIface {
 		laneBlockExt = blockView.ext(lane);
 		LaneMonIface laneMonitoring = monView.ext(lane);
 		int zoneBegin = lane.getOwner().getLength() - Math.min(params.zoneLength, lane.getLength());
-
+System.out.println("INDUCTION " + zoneBegin + " : " + lane.getLength() );
 		laneMonitoring.installInductionLoop(zoneBegin, new CarDriveHandler() {
 			public synchronized void handleCarDrive(int velocity, Object driver) {
 				LOGGER.trace(" >>>>>>> INDUCTION LOOP FIRED" + lane + "  " + carCount + "++");
@@ -37,6 +37,7 @@ class LaneSOTLExt implements LaneEvalIface {
 		});
 
 		int zoneEnd = lane.getOwner().getLength();
+		System.out.println("INDUCTION " + zoneEnd+ " : " + lane.getLength());
 		laneMonitoring.installInductionLoop(zoneEnd, new CarDriveHandler() {
 			public synchronized void handleCarDrive(int velocity, Object driver) {
 				LOGGER.trace(" >>>>>>> INDUCTION LOOP FIRED" + lane + "  " + carCount + "--");
