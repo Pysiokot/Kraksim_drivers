@@ -537,7 +537,7 @@ class Car {
 	}
 
 	private int getLaneNumberToBypassObstacle(int distanceToObstacle){
-		Lane chosenLane = currentLane.getLane().getOwner().getMainLane(0);
+		Lane chosenLane = null;
 		for(Lane lane : currentLane.getLane().getOwner().getLanes()){
 			if(lane == currentLane.getLane() || (lane.getOffset() > this.getPosition())){
 				continue;
@@ -555,6 +555,10 @@ class Car {
 			}
 
 			if(furthestDistance > distanceToObstacle){
+				if(chosenLane == null){
+					chosenLane = lane;
+					continue;
+				}
 				int laneChangesReqNew = Math.abs(currentLane.getLane().getAbsoluteNumber() - lane.getAbsoluteNumber());
 				int laneChangesReqOld = Math.abs(currentLane.getLane().getAbsoluteNumber() - chosenLane.getAbsoluteNumber());
 				if(laneChangesReqNew < laneChangesReqOld){
@@ -565,8 +569,7 @@ class Car {
 				}
 			}
 		}
-		System.out.println("Pas: " + chosenLane.getAbsoluteNumber());
-		return chosenLane.getAbsoluteNumber();
+		return chosenLane != null ? chosenLane.getAbsoluteNumber() : currentLane.getLane().getAbsoluteNumber();
 	}
 
 

@@ -10,8 +10,8 @@
         <road id="roads_0" street="roads_0" speedLimit="3" from="G1" to="I0">
             <uplink>
                 <main length="295" numberOfLanes="3">
-                    <blocked laneNumber = "1" cell="156" />
-                    <blocked laneNumber = "2" cell="156" />
+                    <blocked laneNumber = "0" cell="100" lastCell="200"/>
+                    <blocked laneNumber = "2" cell="100" lastCell="200"/>
                 </main>
                 <right length="100"/>
             </uplink>
