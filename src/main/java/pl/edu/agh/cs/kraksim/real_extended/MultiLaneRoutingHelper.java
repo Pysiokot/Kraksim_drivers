@@ -97,7 +97,7 @@ public class MultiLaneRoutingHelper {
 			Lane lane = link.getLaneAbs(destinationLaneNo);
 			LaneRealExt laneRealExt = ev.ext(lane);
 			// check if chosen lane can be entered
-			if(lane.getOffset() == 0 && laneRealExt.hasCarPlace()){
+			if(lane.getOffset() == 0 && laneRealExt.canAddCarToLaneOnPosition(0)){
 				result = lane;
 			}
 			// try finding most appropriate lane
@@ -127,7 +127,7 @@ public class MultiLaneRoutingHelper {
 					}
 
 					// check if lane can be entered
-					if(lane.getOffset() == 0 && laneRealExt.hasCarPlace()){
+					if(lane.getOffset() == 0 && laneRealExt.canAddCarToLaneOnPosition(0)){
 						result = lane;
 						break;
 					}

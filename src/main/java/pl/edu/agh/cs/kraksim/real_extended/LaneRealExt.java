@@ -172,21 +172,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		return firstCarPos > offset;
 	}
 
-	/* assumption: stepsDone < stepsMax */
-	boolean pushCar(Car car, int stepsMax, int stepsDone) {
-		LOGGER.trace(car + " on " + lane);
-		if (car.getPosition() > getFirstCarPos()) {
-			setFirstCarPos(car.getPosition());
-		}
-		if (hasCarPlace()) {
-			car.drive(this,car.getPosition() - 1, getFirstCarPos() - 1, stepsMax, stepsDone, new InductionLoopPointer(), true);
-			car.setCurrentLane(this);
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	LaneRealExt getSourceLane(Action action) {
 		LaneRealExt sourceLane;
 		if (action != null) {
@@ -236,283 +221,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 		return false;
 	}
-	
-	@Deprecated
-	void simulateTurn() {
-		LOGGER.trace(lane);
-//		ListIterator<Car> carIteratorTemp = cars.listIterator();
-//		while(carIteratorTemp.hasNext()) {
-//			Car c = carIteratorTemp.next();
-//			try {
-//				System.out.println("pos " + c.pos + " abs " + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
-//						+ " cel: " + c.getAction().getTarget().getId()
-//						+"\n\tabs Pref" + c.getPreferableAction().getSource().getAbsoluteNumber() + " rel Pref " + c.getPreferableAction().getSource().getRelativeNumber()
-//						+ " cel: Pref " + c.getPreferableAction().getTarget().getId());
-//			} catch(Exception e) {
-//				
-//			}
-//		}
-		System.out.println("XX");
-		ListIterator<Car> carIterator = cars.listIterator();
-		if (carIterator.hasNext()) {
-			InductionLoopPointer ilp = new InductionLoopPointer();	// idk what it does <yet?>
-			Car car = carIterator.next();
-			Car nextCar;
-
-			do {	// ~ for car in carIterator
-				nextCar = carIterator.hasNext() ? carIterator.next() : null;
-				// carIterator on next for nextCar || on next of next of car
-				
-				if(car.isObstacle()) {
-					car = nextCar;
-					continue;
-				}
-				// remember starting point
-				car.setBeforeLane(lane);
-				car.setBeforePos(car.getPosition());
-
-				// 1. Init velocity variable
-				boolean velocityZero = car.getVelocity() <= 0;//VDR - check for v = 0	(slow start)
-
-				// 2. Acceleration
-				int velocity = car.getVelocity();
-				if (car.isEmergency()) {
-					if (velocity < getEmergencySpeedLimit()) {
-						velocity += getEmergencyAcceleration();
-					}
-				} else {
-					if (velocity < getSpeedLimit()) {
-						velocity += 1;
-					}
-				}
-
-				float decisionChance = params.getRandomGenerator().nextFloat();
-
-				// 3. Deceleration when nagel
-				switch (carMoveModel.getName()) {
-					case CarMoveModel.MODEL_NAGEL:
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGEL_MOVE_PROB)) {
-							velocity--;
-						}
-						break;
-					case CarMoveModel.MODEL_MULTINAGEL:	// is used by default
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGEL_MOVE_PROB)) {
-							velocity--;
-						}
-						setActionMultiNagel(car);
-						break;
-					// deceleration if vdr
-					case CarMoveModel.MODEL_VDR:
-						//if v = 0 => different (greater) chance of deceleration
-						if (velocityZero) {
-							if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_0_PROB)) {
-								--velocity;
-							}
-						} else {
-							if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_MOVE_PROB)) {
-								--velocity;
-							}
-						}
-						break;
-					//Brake light model
-					case CarMoveModel.MODEL_BRAKELIGHT:
-						if (velocityZero) {
-							if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_0_PROB)) {
-								--velocity;
-							}
-						} else {
-							if (nextCar != null && nextCar.isBraking()) {
-								int threshold = carMoveModel.getIntParameter(CarMoveModel.MODEL_BRAKELIGHT_DISTANCE_THRESHOLD);
-								double ts = (threshold < velocity) ? threshold : velocity;
-								double th = (nextCar.getPosition() - car.getPosition()) / (double) velocity;
-								if (th < ts) {
-									if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_BRAKE_PROB)) {
-										--velocity;
-										car.setBraking(true, car.isEmergency());
-									} else {
-										car.setBraking(false, car.isEmergency());
-									}
-								}
-							} else {
-								if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_MOVE_PROB)) {
-									--velocity;
-									car.setBraking(true, car.isEmergency());
-								} else {
-									car.setBraking(false, car.isEmergency());
-								}
-							}
-						}
-						break;
-					default:
-						throw new RuntimeException("unknown model! " + carMoveModel.getName());
-				}
-
-				// 4. Drive (Move the car)
-				int freePos = Integer.MAX_VALUE;
-				if (nextCar != null) {
-					freePos = nextCar.getPosition() - 1;
-				}
-				//	drive car to MIN(car.pos + car.vel , freePos)
-				boolean stay = car.drive(this, car.getPosition(), freePos, velocity, 0, ilp, false);
-
-				// carIterator is on next for nextCar || on next of next of car -> [c] [n] [*] where * -> iterator or [c] * if on the end
-				// stay -> if stay on the same lane
-				if (!stay) {
-					if (nextCar != null) {
-						carIterator.previous();	//	[c] [n*] []	
-					}
-					carIterator.previous();	// [c*] ...
-					// remove car from lane if it is not longer on it
-					carIterator.remove();
-					if (nextCar != null) {
-						carIterator.next();
-					}
-					Car cx = cars.peek();
-					// update lane firstCarPos 
-					if (cx != null) {
-						setFirstCarPos(cx.getPosition());
-					} else {
-						setFirstCarPos(Integer.MAX_VALUE);
-					}
-				}
-
-				// remember this car as next (we are going backwards)
-				car = nextCar;
-			} while (car != null);
-		}
-	}
-
-	/**
-	 * Nagel-Schreckenberg
-	 */
-	void simulateTurn(Car car) {
-		LOGGER.trace(lane);
-		if(!this.equals(car.getCurrentLane())) {
-			throw new RuntimeException("Car on wrong lane in simulation");
-		}
-
-		InductionLoopPointer ilp = new InductionLoopPointer();	// idk what it does <yet?>
-		Car nextCar;
-
-		nextCar = getFrontCar(car);
-		// carIterator on next for nextCar || on next of next of car
-
-		if(car.isObstacle()) {
-			return;
-		}
-
-		// remember starting point
-		car.setBeforeLane(lane);
-		car.setBeforePos(car.getPosition());
-
-		// 1. Init velocity variable
-		boolean velocityZero = car.getVelocity() <= 0;	//VDR - check for v = 0	(slow start)
-
-		// 2. Acceleration
-		int velocity = car.getVelocity();
-		if (car.isEmergency()) {
-			if (velocity < getEmergencySpeedLimit()) {
-				velocity += getEmergencyAcceleration();
-			}
-		} else {
-			if (velocity < getSpeedLimit()) {
-				velocity += 1;
-			}
-		}
-
-		float decisionChance = params.getRandomGenerator().nextFloat();
-
-		// 3. Deceleration when nagel
-		switch (carMoveModel.getName()) {
-			case CarMoveModel.MODEL_NAGEL:
-				if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_NAGEL_MOVE_PROB)) {
-					velocity--;
-				}
-				break;
-			case CarMoveModel.MODEL_MULTINAGEL:	// is used by default
-				if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGEL_MOVE_PROB)) {
-					velocity--;
-				}
-				setActionMultiNagel(car);
-				break;
-			// deceleration if vdr
-			case CarMoveModel.MODEL_VDR:
-				//if v = 0 => different (greater) chance of deceleration
-				if (velocityZero) {
-					if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_0_PROB)) {
-						--velocity;
-					}
-				} else {
-					if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_VDR_MOVE_PROB)) {
-						--velocity;
-					}
-				}
-				break;
-			//Brake light model
-			case CarMoveModel.MODEL_BRAKELIGHT:
-				if (velocityZero) {
-					if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_0_PROB)) {
-						--velocity;
-					}
-				} else {
-					if (nextCar != null && nextCar.isBraking()) {
-						int threshold = carMoveModel.getIntParameter(CarMoveModel.MODEL_BRAKELIGHT_DISTANCE_THRESHOLD);
-						double ts = (threshold < velocity) ? threshold : velocity;
-						double th = (nextCar.getPosition() - car.getPosition()) / (double) velocity;
-						if (th < ts) {
-							if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_BRAKE_PROB)) {
-								--velocity;
-								car.setBraking(true, car.isEmergency());
-							} else {
-								car.setBraking(false, car.isEmergency());
-							}
-						}
-					} else {
-						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_BRAKELIGHT_MOVE_PROB)) {
-							--velocity;
-							car.setBraking(true, car.isEmergency());
-						} else {
-							car.setBraking(false, car.isEmergency());
-						}
-					}
-				}
-				break;
-			default:
-				throw new RuntimeException("unknown model! " + carMoveModel.getName());
-		}
-
-		// 4. Drive (Move the car)
-		int freePos = Integer.MAX_VALUE;
-		if (nextCar != null) {
-			freePos = nextCar.getPosition() - 1;
-		}
-		//	drive car to MIN(car.pos + car.vel , freePos)
-		boolean stay = car.drive(this, car.getPosition(), freePos, velocity, 0, ilp, false);
-
-		// carIterator is on next for nextCar || on next of next of car -> [c] [n] [*] where * -> iterator or [c] * if on the end
-		// stay -> if stay on the same lane
-		if (!stay) {
-			this.carIterator.remove();
-			Car cx = cars.peek();
-			// update lane firstCarPos
-			if (cx != null) {
-				setFirstCarPos(cx.getPosition());
-			} else {
-				setFirstCarPos(Integer.MAX_VALUE);
-			}
-		}
-
-	}
-	@Deprecated
-	private void setActionMultiNagel(Car car) {
-		Action sourceAction = car.getAction();
-		if (sourceAction != null && car.getPosition() < (linkLength() - 5)) {
-			Action newAction = new Action(sourceAction.getSource(), sourceAction.getTarget(), sourceAction.getPriorLanes());
-			car.switchLanes(newAction, this, this.realView);
-			car.setAction(newAction);
-
-		}
-	}
 
 	void finalizeTurnSimulation() {
 		LOGGER.trace(lane);
@@ -520,7 +228,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		this.addNewObstaclesFromCorelane();
 		if (!enteringCars.isEmpty()) {
 			for (Car enteringCar : enteringCars) {
-				if (enteringCar.getAction() != null && enteringCar.getAction().getTarget().equals(owner())) {	// was always FALSE during our tests
+				if (enteringCar.getActionForNextIntersection() != null && enteringCar.getActionForNextIntersection().getTarget().equals(owner())) {	// was always FALSE during our tests
 					enteringCar.setPosition(0);
 					enteringCar.setVelocity(0);
 				}
@@ -549,17 +257,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				}
 				cars = newCarList;
 //				this.cars.addFirst(c);
-				//if(c.getPosition() > 0) System.out.println("c.getPosition() " + c.getPosition()+ "\t" + c.getVelocity());
 			}
 			enteringCars.clear();
 		}
-//		Iterator<Car> it = cars.iterator();
-//		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-//		while (it.hasNext()) {
-//			Car c1 = it.next();
-//			System.out.print(c1.getPosition() + " ");
-//		}
-//		System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz");
 	}
 
 	/**
@@ -582,53 +282,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 		// in any other case, return position of the nearest car on the lane
 		return cars.peek().getPosition();
-	}
-
-	/**
-	 * Choose lane to switch to.
-	 * @param sourceLane line car is currently in
-	 * @return
-	 */
-	LaneSwitch getLaneToSwitch(Car car, Lane sourceLane){
-		int laneCount = sourceLane.getOwner().laneCount();
-		int laneAbsoluteNumber = sourceLane.getAbsoluteNumber();
-
-		LaneSwitch direction;
-		float prob = params.getRandomGenerator().nextFloat();
-
-		if(car.getActionForNextIntersection().getSource().getAbsoluteNumber() == car.getAction().getSource().getAbsoluteNumber()){
-			if(car.isEmergency()) {
-				if(prob < laneChangeDesire){
-					prob = params.getRandomGenerator().nextFloat();
-
-					if (prob < rightLaneChangeDesire && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.RIGHT;
-					else if (prob > rightLaneChangeDesire && laneAbsoluteNumber > 0) direction = LaneSwitch.LEFT;
-					else direction = LaneSwitch.NO_CHANGE;
-				} else {
-					direction = LaneSwitch.NO_CHANGE;
-				}
-			} else if(prob < 0.3){
-				prob = params.getRandomGenerator().nextFloat();
-
-				if (prob < 0.5 && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.RIGHT;
-				else if (prob > 0.5 && laneAbsoluteNumber > 0) direction = LaneSwitch.LEFT;
-				else direction = LaneSwitch.NO_CHANGE;
-			} else {
-				direction = LaneSwitch.NO_CHANGE;
-			}
-		} else {
-			if(lane.getAbsoluteNumber()-1 == car.getActionForNextIntersection().getSource().getAbsoluteNumber()){
-				direction = LaneSwitch.RIGHT;
-			}
-			else if(lane.getAbsoluteNumber()+1 == car.getActionForNextIntersection().getSource().getAbsoluteNumber()){
-				direction = LaneSwitch.LEFT;
-			}
-			else {
-				direction = LaneSwitch.NO_CHANGE;
-			}
-		}
-
-		return direction;
 	}
 
 	/**

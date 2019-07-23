@@ -69,58 +69,6 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		}
 	}
 	
-	/* assumption: stepsDone < stepsMax */
-	@Deprecated
-	boolean enterCar(Car car, int stepsMax, int stepsDone) {
-		LOGGER.trace(car + " stepsDone:" + stepsDone + " stepsMax: " + stepsMax);
-		// obtaining next goal of the entered car
-		Link nextLink = null;
-		if (car.hasNextTripPoint()) {
-			nextLink = car.peekNextTripPoint();
-		} else {
-			// if there is no next point, it means, that the car
-			// is heading to a gateway. If this link does not lead 
-			// to a gateway - time to throw some exception...
-
-			if (!link.getEnd().isGateway()) {
-				throw new AssumptionNotSatisfiedException();
-			}
-		}
-
-		// obtaining list of actions heading to the given destination
-		List<Action> actions = link.findActions(nextLink);
-
-		MultiLaneRoutingHelper laneHelper = new MultiLaneRoutingHelper(ev);
-
-		// choosing the best action from the given list
-		Action nextAction = laneHelper.chooseBestAction(actions);
-		// choosing the best lane to enter in order to get to lane given in action 
-		Lane nextLane = laneHelper.chooseBestLaneForAction(nextAction, link);
-
-		// if no such a lane, just put it into the main lane...
-		if (nextLane == null) {
-			nextLane = link.getMainLane(0);
-		}
-
-		LaneRealExt l = ev.ext(nextLane);
-		if (l.hasCarPlace()) {
-			car.refreshTripRoute();
-
-			if (!car.hasNextTripPoint()) {
-				car.setAction(null);
-				car.setActionForNextIntersection(null);
-			} else {
-				car.nextTripPoint();
-				car.setAction(nextAction);
-				car.setActionForNextIntersection(nextAction);
-			}
-
-			return l.pushCar(car, stepsMax, stepsDone);
-		} else {
-			return false;
-		}
-	}
-
 	void simulateTurn() {
 		LOGGER.trace(link);
 		List laneList = Arrays.asList(this.link.getLanes());
@@ -215,11 +163,9 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		//car.refreshTripRoute();
 
 		if (!car.hasNextTripPoint()) {
-			car.setAction(null);
-			car.setActionPropositionForNextIntersection(null);
+			car.setActionForNextIntersection(null);
 		} else {
-			car.setAction(nextAction);
-			car.setActionPropositionForNextIntersection(nextAction);
+			car.setActionForNextIntersection(nextAction);
 		}
 
 		return nextLane;

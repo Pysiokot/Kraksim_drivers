@@ -48,24 +48,6 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 	public void setTravelEndHandler(TravelEndHandler handler) {
 		travelEndHandler = handler;
 	}
-
-	void simulateTurnOLD() {
-		ListIterator<Car> iter = cars.listIterator(cars.size());
-		while (enqueuedCarCount > 0) {
-			Object d = iter.previous().getDriver();
-			for (CarEntranceHandler h : entranceHandlers) {
-				h.handleCarEntrance(d);
-			}
-
-			enqueuedCarCount--;
-		}
-
-		Car car = cars.peek();
-		if (car != null && gateway.getOutboundLink() != null && ev.ext(gateway.getOutboundLink()).enterCar(car, 1, 0)) {
-			cars.poll();
-			
-		}
-	}
 	
 	void simulateTurn() {
 		ListIterator<Car> iter = cars.listIterator(cars.size());
