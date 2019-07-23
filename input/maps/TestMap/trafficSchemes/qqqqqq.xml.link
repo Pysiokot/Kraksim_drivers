@@ -1,0 +1,24 @@
+<link from='G1' to='I0'>
+	<period begin='0' end='300' avg_velocity='2,6101' avg_riding_velocity='2,6101' carCount='194'>
+</link>
+<link from='I0' to='G1'>
+	<period begin='0' end='300' avg_velocity='NaN' avg_riding_velocity='NaN' carCount='0'>
+</link>
+<link from='I1' to='G0'>
+	<period begin='0' end='300' avg_velocity='1,5040' avg_riding_velocity='1,5040' carCount='32'>
+</link>
+<link from='G0' to='I1'>
+	<period begin='0' end='300' avg_velocity='NaN' avg_riding_velocity='NaN' carCount='0'>
+</link>
+<link from='G2' to='I1'>
+	<period begin='0' end='300' avg_velocity='NaN' avg_riding_velocity='NaN' carCount='0'>
+</link>
+<link from='I1' to='G2'>
+	<period begin='0' end='300' avg_velocity='1,6757' avg_riding_velocity='1,6757' carCount='37'>
+</link>
+<link from='I0' to='I1'>
+	<period begin='0' end='300' avg_velocity='1,3188' avg_riding_velocity='1,3188' carCount='92'>
+</link>
+<link from='I1' to='I0'>
+	<period begin='0' end='300' avg_velocity='NaN' avg_riding_velocity='NaN' carCount='0'>
+</link>

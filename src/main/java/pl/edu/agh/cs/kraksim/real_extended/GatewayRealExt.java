@@ -124,7 +124,7 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 		// CHANGE: MZA: to enable multiple lanes
 		if (!acceptedCars.isEmpty()) {
 			for (Car car : acceptedCars) {
-				ev.ext(gateway.getOutboundLink()).fireAllExitHandlers(car);
+				ev.ext(gateway.getInboundLink()).fireAllExitHandlers(car);
 				for (CarExitHandler h : exitHandlers) {
 					h.handleCarExit(car.getDriver());
 				}

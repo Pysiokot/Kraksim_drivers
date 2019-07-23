@@ -60,14 +60,17 @@
     </intersection>
     <intersection id="I1">
       <armActions arm="G0" dir="NS">
-        <action lane="0" exit="I0" />
-      </armActions>
-      <armActions arm="G2" dir="NS">
         <action lane="0" exit="I0">
-          <rule entrance="I0" lane="0" />
+          <rule entrance="G2" lane="0" />
         </action>
       </armActions>
-      <armActions arm="I0" dir="NS" />
+      <armActions arm="G2" dir="NS">
+        <action lane="0" exit="I0" />
+      </armActions>
+      <armActions arm="I0" dir="NS">
+        <action lane="0" exit="G0" />
+        <action lane="0" exit="G2" />
+      </armActions>
       <trafficLightsSchedule>
         <phase num="1" name="phase_1" duration="10">
           <inlane arm="G0" lane="0" state="green" />

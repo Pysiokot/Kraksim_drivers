@@ -539,8 +539,6 @@ class Car {
 		return canSwitchLaneToOther(carBehind, carFront, otherLane);
 	}
 	
-	
-
 	private int getLaneNumberToBypassObstacle(int distanceToObstacle){
 		Lane chosenLane = null;
 		for(Lane lane : currentLane.getLane().getOwner().getLanes()){
