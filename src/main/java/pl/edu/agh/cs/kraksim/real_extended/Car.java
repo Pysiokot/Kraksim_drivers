@@ -355,7 +355,7 @@ class Car {
 		}
 		if(isDirectionBetterForNextIntersection(LaneSwitch.LEFT)) {
 			// left is better
-			if(this.checkIfCanSwitchToDirection(LaneSwitch.LEFT)) {
+			if(this.checkIfCanSwitchTo(LaneSwitch.LEFT)) {
 				this.switchToLane = LaneSwitch.LEFT;
 			} else {
 				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
@@ -367,7 +367,7 @@ class Car {
 			}
 		} else if(isDirectionBetterForNextIntersection(LaneSwitch.RIGHT)) {
 			// left is better
-			if(this.checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
+			if(this.checkIfCanSwitchTo(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
 			} else {
 				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
@@ -506,7 +506,7 @@ class Car {
 	 * uses part of Switch Lane Algorithm to check if car can switch lanes (based on gap, velocity)
 	 * @return true if car can switch lane in given direction
 	 */
-	private boolean checkIfCanSwitchToDirection(LaneSwitch direction) {
+	private boolean checkIfCanSwitchTo(LaneSwitch direction) {
 		LaneRealExt otherLane;
 		if(direction == LaneSwitch.LEFT) {
 			if(this.currentLane.hasLeftNeighbor())
@@ -525,6 +525,21 @@ class Car {
 		Car carFront = otherLane.getFrontCar(this.pos-1);
 		return canSwitchLaneToOther(carBehind, carFront, otherLane);
 	}
+	
+	/**
+	 * uses part of Switch Lane Algorithm to check if car can switch lanes (based on gap, velocity)
+	 * @return true if car can switch lane in given direction
+	 */
+	private boolean checkIfCanSwitchTo(LaneRealExt otherLane) {
+		if(otherLane.equals(this.currentLane)) {
+			return true;
+		}
+		Car carBehind = otherLane.getBehindCar(this.pos+1);
+		Car carFront = otherLane.getFrontCar(this.pos-1);
+		return canSwitchLaneToOther(carBehind, carFront, otherLane);
+	}
+	
+	
 
 	private int getLaneNumberToBypassObstacle(int distanceToObstacle){
 		Lane chosenLane = null;
@@ -591,7 +606,7 @@ class Car {
 			int desiredLaneNumber = getLaneNumberToBypassObstacle(distanceToNextObstacle);
 
 			if(desiredLaneNumber < currentLane.getLane().getAbsoluteNumber()){
-				if(checkIfCanSwitchToDirection(LaneSwitch.LEFT)){
+				if(checkIfCanSwitchTo(LaneSwitch.LEFT)){
 					this.switchToLane = LaneSwitch.LEFT;
 				}
 				else{
@@ -599,7 +614,7 @@ class Car {
 				}
 			}
 			else if(desiredLaneNumber > currentLane.getLane().getAbsoluteNumber()){
-				if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)){
+				if(checkIfCanSwitchTo(LaneSwitch.RIGHT)){
 					this.switchToLane = LaneSwitch.RIGHT;
 				}
 				else{
@@ -611,7 +626,7 @@ class Car {
 			}
 		}
 		else if (!isEmergency() && this.currentLane.getBehindCar(this) != null && this.currentLane.getBehindCar(this).isEmergency()) {
-			if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
+			if(checkIfCanSwitchTo(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
 			} else {
 				this.switchToLane = LaneSwitch.NO_CHANGE;
@@ -619,7 +634,7 @@ class Car {
 		} 
 		// if car wanted to switch lanes in previous turn, check if its possible now
 		else if(this.switchToLane == LaneSwitch.WANTS_LEFT) {
-			if(checkIfCanSwitchToDirection(LaneSwitch.LEFT)) {
+			if(checkIfCanSwitchTo(LaneSwitch.LEFT)) {
 				this.switchToLane = LaneSwitch.LEFT;
 				numOfTurnsInWantedSwitchLane = 0;
 			} else {
@@ -628,7 +643,7 @@ class Car {
 			
 		} 
 		else if(this.switchToLane == LaneSwitch.WANTS_RIGHT) {
-			if(checkIfCanSwitchToDirection(LaneSwitch.RIGHT)) {
+			if(checkIfCanSwitchTo(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
 				numOfTurnsInWantedSwitchLane = 0;
 			} else {
