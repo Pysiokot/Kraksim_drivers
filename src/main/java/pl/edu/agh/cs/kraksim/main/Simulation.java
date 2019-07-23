@@ -88,7 +88,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		try {
 			params.parseOptions(args, console);
 		} catch (ParseException e) {
-			System.out.println("Exception!");
+			System.err.println("Exception!");
 			e.printStackTrace();
 		}
 		final EvalModuleProvider evalProvider = getEvaluationProvider();

@@ -62,7 +62,6 @@ public class LinkMiniStatExt {
 				}
 				lastPeriodCarInCount.update();
 				entranceTurnMap.put(driver, clock.getTurn());
-				System.out.println("IND:: LinkMiniStatExt ++ " + link.getId());
 			}
 		});
 
@@ -90,7 +89,6 @@ public class LinkMiniStatExt {
 				lastPeriodCarOutCount.update();
 
 				s += duration * duration;
-				System.out.println("IND:: LinkMiniStatExt -- " + link.getId());
 			}
 		});
 		//link.calculateWeight(carCount);

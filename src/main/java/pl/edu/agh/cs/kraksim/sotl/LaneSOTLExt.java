@@ -32,7 +32,6 @@ class LaneSOTLExt implements LaneEvalIface {
 			public synchronized void handleCarDrive(int velocity, Object driver) {
 				LOGGER.trace(" >>>>>>> INDUCTION LOOP FIRED" + lane + "  " + carCount + "++");
 				carCount++;
-				System.out.println("IND :: LaneSOTLExt :: ++ at " + zoneBegin);
 			}
 		});
 
@@ -41,7 +40,6 @@ class LaneSOTLExt implements LaneEvalIface {
 			public synchronized void handleCarDrive(int velocity, Object driver) {
 				LOGGER.trace(" >>>>>>> INDUCTION LOOP FIRED" + lane + "  " + carCount + "--");
 				carCount--;
-				System.out.println("IND :: LaneSOTLExt :: -- at " + zoneEnd);
 			}
 		});
 	}

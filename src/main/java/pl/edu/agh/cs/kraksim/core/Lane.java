@@ -33,7 +33,6 @@ public class Lane extends Element {
 
 	Lane(Core core, Link owner, int num, int relativeNumber, int length, int speedLimit, double minimalSpeed, List<BlockedCellsInfo> list) {
 		super(core);
-		System.out.println("lane " + list.toString());
 		this.owner = owner;
 		this.num = num;
 		this.length = length;

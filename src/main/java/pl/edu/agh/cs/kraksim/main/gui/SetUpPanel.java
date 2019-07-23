@@ -274,8 +274,6 @@ public class SetUpPanel extends JPanel {
 				props.setProperty("cityMapFile", cityMapLocation.getText());
 				storeParam("cityMapFile", cityMapLocation.getText());
 
-                System.out.println(cityMapLocation.getText());
-
 				props.setProperty("travelSchemeFile", travellingSchemeLocation.getText());
 				storeParam("travelSchemeFile", travellingSchemeLocation.getText());
 				props.setProperty("statOutFile", statsOutputLocation.getText());

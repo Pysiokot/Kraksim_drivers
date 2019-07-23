@@ -175,7 +175,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	/* assumption: stepsDone < stepsMax */
 	boolean pushCar(Car car, int stepsMax, int stepsDone) {
 		LOGGER.trace(car + " on " + lane);
-		System.out.println("driveCar :: pushCar (sourceLane) :: hasCarPlace() = " + hasCarPlace());
 		if (car.getPosition() > getFirstCarPos()) {
 			setFirstCarPos(car.getPosition());
 		}
@@ -241,7 +240,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	@Deprecated
 	void simulateTurn() {
 		LOGGER.trace(lane);
-		System.out.println("============================");
 //		ListIterator<Car> carIteratorTemp = cars.listIterator();
 //		while(carIteratorTemp.hasNext()) {
 //			Car c = carIteratorTemp.next();
@@ -269,7 +267,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 					car = nextCar;
 					continue;
 				}
-				System.out.println(car.toString());
 				// remember starting point
 				car.setBeforeLane(lane);
 				car.setBeforePos(car.getPosition());
@@ -302,7 +299,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 						if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGEL_MOVE_PROB)) {
 							velocity--;
 						}
-						System.out.println("setActionMultiNagel");
 						setActionMultiNagel(car);
 						break;
 					// deceleration if vdr
@@ -437,7 +433,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				if (decisionChance < carMoveModel.getFloatParameter(CarMoveModel.MODEL_MULTINAGEL_MOVE_PROB)) {
 					velocity--;
 				}
-				System.out.println("setActionMultiNagel");
 				setActionMultiNagel(car);
 				break;
 			// deceleration if vdr
@@ -513,7 +508,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		Action sourceAction = car.getAction();
 		if (sourceAction != null && car.getPosition() < (linkLength() - 5)) {
 			Action newAction = new Action(sourceAction.getSource(), sourceAction.getTarget(), sourceAction.getPriorLanes());
-			System.out.println("switchLanes");
 			car.switchLanes(newAction, this, this.realView);
 			car.setAction(newAction);
 
@@ -527,21 +521,8 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		if (!enteringCars.isEmpty()) {
 			for (Car enteringCar : enteringCars) {
 				if (enteringCar.getAction() != null && enteringCar.getAction().getTarget().equals(owner())) {	// was always FALSE during our tests
-					System.out.println("setVelocity(0) # 1");
 					enteringCar.setPosition(0);
 					enteringCar.setVelocity(0);
-				}
-				if(enteringCar.pos==0) {
-					System.out.println("this.lane.getAbsoluteNumber() " + this.lane.getAbsoluteNumber());
-					try {
-						Car c = enteringCar;
-						System.out.println("NEW CAR!!!\n\tabs:" + c.getAction().getSource().getAbsoluteNumber() + " rel " + c.getAction().getSource().getRelativeNumber()
-								+ " cel: " + c.getAction().getTarget().getId()
-								+"\n\tabs Pref" + c.getActionForNextIntersection().getSource().getAbsoluteNumber() + " rel Pref " + c.getActionForNextIntersection().getSource().getRelativeNumber()
-								+ " cel: Pref " + c.getActionForNextIntersection().getTarget().getId());
-					} catch(Exception e) {
-						
-					}
 				}
 				Iterator<Car> it = cars.iterator();
 				LinkedList<Car> newCarList = new LinkedList<>();
@@ -623,9 +604,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 					if (prob < rightLaneChangeDesire && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.RIGHT;
 					else if (prob > rightLaneChangeDesire && laneAbsoluteNumber > 0) direction = LaneSwitch.LEFT;
 					else direction = LaneSwitch.NO_CHANGE;
-					System.out.println("LOSOWANIE EMERGENCY: Czy chce zmienic pas? Chce, dostalem " + direction);
 				} else {
-					System.out.println("LOSOWANIE EMERGENCY: Czy chce zmienic pas? Nie chce.");
 					direction = LaneSwitch.NO_CHANGE;
 				}
 			} else if(prob < 0.3){
@@ -634,23 +613,18 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				if (prob < 0.5 && laneAbsoluteNumber < (laneCount - 1))  direction = LaneSwitch.RIGHT;
 				else if (prob > 0.5 && laneAbsoluteNumber > 0) direction = LaneSwitch.LEFT;
 				else direction = LaneSwitch.NO_CHANGE;
-				System.out.println("Losowanie zwykłe: Czy chce zmienic pas? Chce. Dostałem " + direction);
 			} else {
-				System.out.println("Losowanie zwykłe: Czy chce zmienic pas? Nie chce i nie zmieniam kierunku");
 				direction = LaneSwitch.NO_CHANGE;
 			}
 		} else {
 			if(lane.getAbsoluteNumber()-1 == car.getActionForNextIntersection().getSource().getAbsoluteNumber()){
-				System.out.println("GETTING RIGHT");
 				direction = LaneSwitch.RIGHT;
 			}
 			else if(lane.getAbsoluteNumber()+1 == car.getActionForNextIntersection().getSource().getAbsoluteNumber()){
-				System.out.println("GETTING LEFT");
 				direction = LaneSwitch.LEFT;
 			}
 			else {
 				direction = LaneSwitch.NO_CHANGE;
-				System.out.println("Koncowy else: nie zmieniam kierunku");
 			}
 		}
 
@@ -886,19 +860,19 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		//////////		LIST TEST
 		if(!removed) {
 			for(Car cPrint : this.cars) {
-				System.out.println("ERROR :: remove car :: end loop, no remove " + car);
-				System.out.print(cPrint.getPosition() + " "); 
+				System.err.println("ERROR :: remove car :: end loop, no remove " + car);
+				System.err.print(cPrint.getPosition() + " "); 
 				throw new RuntimeException("Error while remove cars - not removed");
 			}
 		}
 		int t_lastPos = -1;
 		for(Car c : this.cars) {
 			if(c.getPosition() <= t_lastPos) {
-				System.out.println("ERROR :: remove car :: positions " + car +" t_lastPos " + t_lastPos);
+				System.err.println("ERROR :: remove car :: positions " + car +" t_lastPos " + t_lastPos);
 				for(Car cPrint : this.cars) {
-					System.out.print(cPrint.getPosition() + " "); 
+					System.err.print(cPrint.getPosition() + " "); 
 				}
-				System.out.println();
+				System.err.println();
 				throw new RuntimeException("Error while remove cars - wrong order");
 			}
 			t_lastPos = c.getPosition();
@@ -987,7 +961,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	public void installInductionLoop(int line, CarDriveHandler handler) throws IndexOutOfBoundsException {
 		LOGGER.trace("Instaling IL ona lane " + lane + " at distance: " + line);
-		System.out.println("Instaling IL ona lane " + lane + " at distance: " + line);
 		if (line < 0 || line > linkLength()) {
 			throw new IndexOutOfBoundsException("line = " + line);
 		}
@@ -999,7 +972,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	private void addNewObstaclesFromCorelane() {
 		List<Integer> cellList = lane.getRecentlyActivatedBlockedCellsIndexList(); 	
 		for(Integer blickedCell : cellList) {
-			System.out.println("new blocked " + blickedCell);
 			enteringCars.add(new Obstacle(blickedCell, this));
 		}
 	}
@@ -1010,7 +982,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		while (it.hasNext()) {
 			Car car = it.next();
 			if(car.isObstacle() && cellList.contains(car.getPosition())) {
-				System.out.println("old remove " + car);
 				it.remove();
 			}
 		}

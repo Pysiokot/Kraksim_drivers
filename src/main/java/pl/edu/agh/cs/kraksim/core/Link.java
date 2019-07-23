@@ -67,7 +67,6 @@ public class Link extends Element {
 	Link(Core core, RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<Integer, List<BlockedCellsInfo>>> linkBlockedCellsInfo)
 			throws IllegalArgumentException {
 		super(core);
-		System.out.println("Link " + linkBlockedCellsInfo.toString());
 		linkNumber = core.getNextNumber();
 		id = roadInfo.getLinkId();
 		beginning = roadInfo.getFrom();
