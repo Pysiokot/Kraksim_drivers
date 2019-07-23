@@ -228,7 +228,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		this.addNewObstaclesFromCorelane();
 		if (!enteringCars.isEmpty()) {
 			for (Car enteringCar : enteringCars) {
-				if (enteringCar.getActionForNextIntersection() != null && enteringCar.getActionForNextIntersection().getTarget().equals(owner())) {	// was always FALSE during our tests
+				if (!enteringCar.isObstacle() && enteringCar.getActionForNextIntersection() != null && enteringCar.getActionForNextIntersection().getTarget().equals(owner())) {	// was always FALSE during our tests
 					enteringCar.setPosition(0);
 					enteringCar.setVelocity(0);
 				}

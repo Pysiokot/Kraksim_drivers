@@ -34,7 +34,6 @@ public class KraksimConfigurator {
 		}
 
 		Properties result = new Properties();
-		System.out.println();
 		try {
 			InputStream inStream = new FileInputStream(f);
 			result.load(inStream);

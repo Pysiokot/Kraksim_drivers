@@ -50,6 +50,7 @@ class Car {
 	//	if > switchLaneActionProbability -> switch lane for intersection
 	private double switchLaneMethodRandom;	
 	private int numOfTurnsInWantedSwitchLane = 0;	// number of turns car is in LaneSwitch.WANT_ ... -> used to reduce speed to 0 if needed
+	private int switchLaneUrgency = 0;	//  urgency to switch lanes, reduces conditions
 
 	private LaneSwitch switchToLane = LaneSwitch.NO_CHANGE;
 	
