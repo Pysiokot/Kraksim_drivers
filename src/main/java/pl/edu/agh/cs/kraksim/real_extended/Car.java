@@ -548,10 +548,11 @@ class Car {
 			if(!blockedCells.isEmpty()){
 				for(Integer obstacleIndex : blockedCells) {
 					int dist = obstacleIndex - getPosition();
-					if(dist < 0 || dist > obstacleVisibility){
+					if(dist < 0){
 						furthestDistance = obstacleVisibility + 1;
+						continue;
 					}
-					furthestDistance = Math.min(furthestDistance, dist);
+					furthestDistance = Math.min(furthestDistance, Math.min(dist, obstacleVisibility+1));
 				}
 			}
 
