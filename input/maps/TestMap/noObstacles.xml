@@ -9,49 +9,27 @@
     <roads defaultSpeedLimit="1">
         <road id="roads_0" street="roads_0" speedLimit="3" from="G1" to="I0">
             <uplink>
-                <main length="400" numberOfLanes="3">
-                    <blocked laneNumber="0" cell="230"/>
-                    <blocked laneNumber="2" cell="230"/>
-                    <blocked laneNumber="1" cell="235"/>
-                    <blocked laneNumber="0" cell="240"/>
-                    <blocked laneNumber="2" cell="240"/>
-                    <blocked laneNumber="1" cell="245"/>
-                    <blocked laneNumber="0" cell="250"/>
-                    <blocked laneNumber="2" cell="250"/>
-                    <blocked laneNumber="1" cell="255"/>
-                    <blocked laneNumber="0" cell="260"/>
-                    <blocked laneNumber="2" cell="260"/>
-                    <blocked laneNumber="1" cell="265"/>
-                    <blocked laneNumber="0" cell="270"/>
-                    <blocked laneNumber="2" cell="270"/>
-                    <blocked laneNumber="1" cell="275"/>
-                    <blocked laneNumber="0" cell="280"/>
-                    <blocked laneNumber="2" cell="280"/>
-                    <blocked laneNumber="1" cell="285"/>
-                    <blocked laneNumber="0" cell="290"/>
-                    <blocked laneNumber="2" cell="290"/>
-                    <blocked laneNumber="1" cell="295"/>
-                </main>
+                <main length="295" numberOfLanes="3"/>
                 <right length="100"/>
             </uplink>
             <downlink>
-                <main length="400" numberOfLanes="1" />
+                <main length="295" numberOfLanes="1" />
             </downlink>
         </road>
-        <road id="roads_1" street="roads_1" speedLimit="1" from="I0" to="G0">
+        <road id="roads_1" street="roads_1" speedLimit="5" from="I0" to="G0">
             <uplink>
-                <main length="165" numberOfLanes="1" />
+                <main length="150" numberOfLanes="2" />
             </uplink>
             <downlink>
-                <main length="165" numberOfLanes="1" />
+                <main length="150" numberOfLanes="2" />
             </downlink>
         </road>
         <road id="roads_2" street="roads_2" speedLimit="5" from="I0" to="G2">
             <uplink>
-                <main length="118" numberOfLanes="2" />
+                <main length="150" numberOfLanes="2" />
             </uplink>
             <downlink>
-                <main length="118" numberOfLanes="2" />
+                <main length="150" numberOfLanes="2" />
             </downlink>
         </road>
     </roads>
