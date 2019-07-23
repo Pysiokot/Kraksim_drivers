@@ -48,9 +48,8 @@ class Car {
 	// 	random value for each turn of choosing correct lane switch method, 
 	//	if < switchLaneActionProbability -> algorithm
 	//	if > switchLaneActionProbability -> switch lane for intersection
-	private double switchLaneMethodRandom;	
-	private int numOfTurnsInWantedSwitchLane = 0;	// number of turns car is in LaneSwitch.WANT_ ... -> used to reduce speed to 0 if needed
-	private int switchLaneUrgency = 0;	//  urgency to switch lanes, reduces conditions
+	private double switchLaneMethodRandom;	// random value used to calculate SwitchLaneMethod
+	private int switchLaneUrgency = 0;	// number of turns car is in LaneSwitch.WANT_ ... -> reduces switch lane conditions
 
 	private LaneSwitch switchToLane = LaneSwitch.NO_CHANGE;
 	
@@ -365,19 +364,19 @@ class Car {
 			} else {
 				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
 					this.switchToLane = LaneSwitch.WANTS_LEFT;	
-					numOfTurnsInWantedSwitchLane = 0;
+					switchLaneUrgency = 0;
 				} else {
 					this.switchToLane = LaneSwitch.NO_CHANGE;	
 				}
 			}
 		} else if(isDirectionBetterForNextIntersection(LaneSwitch.RIGHT)) {
-			// left is better
+			// right is better
 			if(this.checkIfCanSwitchTo(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
 			} else {
 				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
 					this.switchToLane = LaneSwitch.WANTS_RIGHT;
-					numOfTurnsInWantedSwitchLane = 0;
+					switchLaneUrgency = 0;
 				} else {
 					this.switchToLane = LaneSwitch.NO_CHANGE;	
 				}
@@ -489,17 +488,17 @@ class Car {
 	
 	/** other lane better if it has more space to next car in front */
 	private boolean isOtherLaneBetter(Car carInFront, Car otherCarFront, LaneRealExt otherLane) {
-		int gapThisFront = carInFront != null	? carInFront.getPosition() - this.pos - 1	: this.currentLane.linkLength() - this.pos -1;
-		int gapNeiFront = otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1	: otherLane.linkLength() - this.pos -1;
+		int gapThisFront = carInFront != null	? carInFront.getPosition() - this.pos - 1	: this.currentLane.linkLength() - this.pos - 1;
+		int gapNeiFront = otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1	: otherLane.linkLength() - this.pos - 1;
 		return (gapNeiFront-1) > gapThisFront;
 	}
 	
 	/** is it safe to switch lanes, tests my speed, others speed, gaps between cars, niceness of lane switch (how much space do I need) */
 	private boolean canSwitchLaneToOther(Car otherCarBehind, Car otherCarFront, LaneRealExt otherLane) {
-		int gapNeiFront =	otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1 	: otherLane.linkLength() - this.pos -1;
+		int gapNeiFront =	otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1 	: otherLane.linkLength() - this.pos - 1;
 		int gapNeiBehind =	otherCarBehind != null	? this.pos - otherCarBehind.getPosition() - 1	: this.pos - 1;
 		double crashFreeTurns = this.currentLane.CRASH_FREE_TIME;	// turns until crash, gap must be bigger than velocity * crashFreeTurns, == 1 -> after this turn it will look good
-		double crashFreeDivider = Math.max(Math.log(numOfTurnsInWantedSwitchLane), 1.0);
+		double crashFreeDivider = Math.max(Math.log(switchLaneUrgency), 1.0);
 		boolean spaceInFront = gapNeiFront >= (this.getVelocity()-1) * (crashFreeTurns / crashFreeDivider);
 		boolean spaceBehind = otherCarBehind == null || gapNeiBehind >= otherCarBehind.getFutureVelocity() * Math.max((crashFreeTurns - 1)/crashFreeDivider, 0);
 		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());
@@ -615,7 +614,7 @@ class Car {
 					this.switchToLane = LaneSwitch.LEFT;
 				}
 				else{
-					this.switchToLane = LaneSwitch.NO_CHANGE;
+					this.switchToLane = LaneSwitch.WANTS_LEFT;
 				}
 			}
 			else if(desiredLaneNumber > currentLane.getLane().getAbsoluteNumber()){
@@ -623,7 +622,7 @@ class Car {
 					this.switchToLane = LaneSwitch.RIGHT;
 				}
 				else{
-					this.switchToLane = LaneSwitch.NO_CHANGE;
+					this.switchToLane = LaneSwitch.WANTS_RIGHT;
 				}
 			}
 			else{
@@ -641,18 +640,18 @@ class Car {
 		else if(this.switchToLane == LaneSwitch.WANTS_LEFT) {
 			if(checkIfCanSwitchTo(LaneSwitch.LEFT)) {
 				this.switchToLane = LaneSwitch.LEFT;
-				numOfTurnsInWantedSwitchLane = 0;
+				switchLaneUrgency = 0;
 			} else {
-				numOfTurnsInWantedSwitchLane++;
+				switchLaneUrgency++;
 			}
 			
 		} 
 		else if(this.switchToLane == LaneSwitch.WANTS_RIGHT) {
 			if(checkIfCanSwitchTo(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
-				numOfTurnsInWantedSwitchLane = 0;
+				switchLaneUrgency = 0;
 			} else {
-				numOfTurnsInWantedSwitchLane++;
+				switchLaneUrgency++;
 			}
 		} 
 		else {	
@@ -826,11 +825,13 @@ class Car {
 	 * @param nextCar car in front of this
 	 */
 	void driveCar(Car nextCar) {
-		if(this.switchToLane != LaneSwitch.NO_CHANGE && this.switchToLane != LaneSwitch.WANTS_LEFT && this.switchToLane != LaneSwitch.WANTS_RIGHT) {
+		if(this.switchToLane == LaneSwitch.LEFT || this.switchToLane == LaneSwitch.RIGHT) {
 			this.changeLanes(this.getLaneFromLaneSwitchState());
 			nextCar = this.currentLane.getFrontCar(this);	// nextCar changed
+			this.velocity = Math.max(this.velocity-1, 0);
+			
 		} else if(this.switchToLane == LaneSwitch.WANTS_LEFT || this.switchToLane == LaneSwitch.WANTS_RIGHT) {
-			this.setVelocity(Math.max(this.getVelocity()-1, 1));	
+			this.setVelocity(Math.max(this.getVelocity()-1, 1));	// by default reduce speed to 1 if looking for a lane switch	
 		}
 		int freeCellsInFront;
 		if (nextCar != null) {
