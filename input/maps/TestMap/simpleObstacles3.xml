@@ -10,10 +10,10 @@
         <road id="roads_0" street="roads_0" speedLimit="3" from="G1" to="I0">
             <uplink>
                 <main length="295" numberOfLanes="3">
-                    <blocked laneNumber = "1" cell="50" lastCell="100"/>
-                    <blocked laneNumber = "2" cell="50" lastCell="110"/>
-                    <blocked laneNumber="0" cell="110" lastCell="160"/>
-                    <blocked laneNumber="1" cell="120" lastCell="160"/>
+                    <blocked laneNumber = "1" cell="100" lastCell="150"/>
+                    <blocked laneNumber = "2" cell="100" lastCell="160"/>
+                    <blocked laneNumber="0" cell="160" lastCell="210"/>
+                    <blocked laneNumber="1" cell="170" lastCell="210"/>
                 </main>
                 <right length="100"/>
             </uplink>
@@ -21,20 +21,20 @@
                 <main length="295" numberOfLanes="1" />
             </downlink>
         </road>
-        <road id="roads_1" street="roads_1" speedLimit="1" from="I0" to="G0">
+        <road id="roads_1" street="roads_1" speedLimit="5" from="I0" to="G0">
             <uplink>
-                <main length="165" numberOfLanes="1" />
+                <main length="150" numberOfLanes="2" />
             </uplink>
             <downlink>
-                <main length="165" numberOfLanes="1" />
+                <main length="150" numberOfLanes="2" />
             </downlink>
         </road>
         <road id="roads_2" street="roads_2" speedLimit="5" from="I0" to="G2">
             <uplink>
-                <main length="118" numberOfLanes="2" />
+                <main length="150" numberOfLanes="2" />
             </uplink>
             <downlink>
-                <main length="118" numberOfLanes="2" />
+                <main length="150" numberOfLanes="2" />
             </downlink>
         </road>
     </roads>
