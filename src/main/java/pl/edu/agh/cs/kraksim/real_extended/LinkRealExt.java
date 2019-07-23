@@ -216,10 +216,10 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 
 		if (!car.hasNextTripPoint()) {
 			car.setAction(null);
-			car.setActionForNextIntersection(null);
+			car.setActionPropositionForNextIntersection(null);
 		} else {
 			car.setAction(nextAction);
-			car.setActionForNextIntersection(nextAction);
+			car.setActionPropositionForNextIntersection(nextAction);
 		}
 
 		return nextLane;

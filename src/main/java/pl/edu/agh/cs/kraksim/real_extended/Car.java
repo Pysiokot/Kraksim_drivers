@@ -30,6 +30,8 @@ class Car {
 	private ListIterator<Link> linkIterator;
 	private Action action;
 	private Action actionForNextIntersection;
+	//	Proposition action set by after intersection finder will be set to actionForNextIntersection after intersection is crossed
+	private Action actionPropositionForNextIntersection;
 	protected int pos;
 	private int velocity;
 	//  private ListIterator<Link> copyLinkIterator;
@@ -191,6 +193,11 @@ class Car {
 
 	public Link nextTripPoint() {
 		// copyLinkIterator.next();
+//		try {
+//			throw new Exception();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		return linkIterator.next();
 	}
 
@@ -807,15 +814,12 @@ class Car {
 	 */
 	void simulateTurn() {
 		LOGGER.trace("car simulation : " + this);
-		//System.out.println("action " + this.getActionForNextIntersection());
-		
 		if(this.isObstacle()) {	// dont simulate obstacles
 			return;
 		}
 		if(!this.canMoveThisTurn()) {	// car already did this turn
 			return;
 		}
-		
 		Car nextCar = this.currentLane.getFrontCar(this);
 		
 		// remember starting point
@@ -837,7 +841,6 @@ class Car {
 		fireAllInductionLoopPointers();
 		
 		this.updateTurnNumber();
-		
 	}
 	
 	/** fire all InductionLoops */
@@ -988,7 +991,6 @@ class Car {
 										)
 								,0);
 			}
-			// TODO: interaction crossing
 		} else {	// road ended, gateway
 			try {
 				((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);				
@@ -1129,24 +1131,26 @@ class Car {
 			return false;
 		}
 		LinkRealExt targetLink = this.currentLane.getRealView().ext(this.actionForNextIntersection.getTarget());
-		Lane targetLaneNormal = targetLink.getLaneToEnter(this);
+		Lane targetLaneNormal = targetLink.getLaneToEnter(this);	// sets this.actionPropositionForNextIntersection
 		if(targetLaneNormal == null) {
-			return false;
+			return false;	// no good lanes after intersection
 		}
-		LaneRealExt targetLane = this.currentLane.getRealView().ext(targetLink.getLaneToEnter(this));
+		LaneRealExt targetLane = this.currentLane.getRealView().ext(targetLaneNormal);
 		if(!targetLane.canAddCarToLaneOnPosition(0)) {
-			return false;
+			return false;	// no space in lane after intersection
 		}
+		
+		// we are good to cross intersection 
 		this.currentLane.removeCarFromLaneWithIterator(this);
 		this.setPosition(0);
 		targetLane.addCarToLaneWithIterator(this);
+		this.actionForNextIntersection = this.actionPropositionForNextIntersection;
 		if(this.hasNextTripPoint()) {
 			this.nextTripPoint();
 		}
 		targetLink.fireAllEntranceHandlers(this);
 		this.currentLane.getRealView().ext(this.currentLane.getLane().getOwner()).fireAllExitHandlers(this);
 		this.currentLane = targetLane;
-		if(this.hasNextTripPoint()) this.nextTripPoint();
 		return true;
 	}
 
@@ -1209,6 +1213,14 @@ class Car {
 				TEST2013waitCounter = 0;
 			}
 		}
+	}
+
+	public Action getActionPropositionForNextIntersection() {
+		return actionPropositionForNextIntersection;
+	}
+
+	public void setActionPropositionForNextIntersection(Action actionPropositionForNextIntersection) {
+		this.actionPropositionForNextIntersection = actionPropositionForNextIntersection;
 	}
 
 }
