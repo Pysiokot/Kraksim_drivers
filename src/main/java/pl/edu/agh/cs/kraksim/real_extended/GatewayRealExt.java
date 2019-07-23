@@ -77,38 +77,36 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 
 			enqueuedCarCount--;
 		}
-
-		Car car = cars.peek();
-		// adds 1 car per turn if possible
-		if (car != null && gateway.getOutboundLink() != null) {
-			Lane targetLaneNormal = gateway.getOutboundLink().getMainLane(0);
-			LaneRealExt targetLane;
-			if(targetLaneNormal == null) {
-				targetLaneNormal = gateway.getOutboundLink().getMainLane(0);
-			}
-			targetLane = ev.ext(targetLaneNormal);
-			if(targetLane.canAddCarToLane(car)) {
-				targetLane.addCarToLane(car);
-				car.setCurrentLane(targetLane);
-				car.refreshTripRoute();
-				
-				Link nextLink = null;
-				if (car.hasNextTripPoint()) {
-					nextLink = car.peekNextTripPoint();
-				} else {
+		for(int i=0; i<gateway.getOutboundLink().mainLaneCount(); i++) {
+			Car car = cars.peek();
+			// adds 1 car per turn if possible
+			if (car != null && gateway.getOutboundLink() != null) {
+				Lane targetLaneNormal = gateway.getOutboundLink().getMainLane(i);
+				LaneRealExt targetLane;
+				targetLane = ev.ext(targetLaneNormal);
+				if(targetLane.canAddCarToLane(car)) {
+					targetLane.addCarToLane(car);
+					car.setCurrentLane(targetLane);
+					car.refreshTripRoute();
+					
+					Link nextLink = null;
+					if (car.hasNextTripPoint()) {
+						nextLink = car.peekNextTripPoint();
+					} else {
+					}
+					List<Action> actions = gateway.getOutboundLink().findActions(nextLink);
+					MultiLaneRoutingHelper laneHelper = new MultiLaneRoutingHelper(ev);
+					Action nextAction = laneHelper.chooseBestAction(actions);
+					
+					if (!car.hasNextTripPoint()) {
+						car.setActionForNextIntersection(null);
+					} else {
+						car.nextTripPoint();
+						car.setActionForNextIntersection(nextAction);
+					}
+					cars.poll();
+					ev.ext(gateway.getOutboundLink()).fireAllEntranceHandlers(car);
 				}
-				List<Action> actions = gateway.getOutboundLink().findActions(nextLink);
-				MultiLaneRoutingHelper laneHelper = new MultiLaneRoutingHelper(ev);
-				Action nextAction = laneHelper.chooseBestAction(actions);
-
-				if (!car.hasNextTripPoint()) {
-					car.setActionForNextIntersection(null);
-				} else {
-					car.nextTripPoint();
-					car.setActionForNextIntersection(nextAction);
-				}
-				cars.poll();
-				ev.ext(gateway.getOutboundLink()).fireAllEntranceHandlers(car);
 			}
 		}
 	}
