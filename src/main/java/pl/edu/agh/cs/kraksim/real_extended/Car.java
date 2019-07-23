@@ -569,7 +569,9 @@ class Car {
 					chosenLane = lane;
 				}
 				else if(laneChangesReqNew == laneChangesReqOld){
-					chosenLane = lane.getAbsoluteNumber() > chosenLane.getAbsoluteNumber() ? lane : chosenLane;
+					Random random = new Random();
+					float prob = random.nextFloat();
+					if(prob > 0.5) chosenLane = lane;
 				}
 			}
 		}
