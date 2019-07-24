@@ -298,18 +298,18 @@ public class SetUpPanel extends JPanel {
 				storeParam("zone_awareness", zoneAwareGroup.getSelection().getActionCommand());
 
 				// read some parameters from file
-				Properties fileProps = KraksimConfigurator.getPropertiesFromFile();
-				String realModule = fileProps.getProperty("realModule");
-				if(fileProps.getProperty("realModule") != null) {
+				//Properties fileProps = KraksimConfigurator.getPropertiesFromFile();
+				String realModule = KraksimConfigurator.getProperty("realModule");
+				if(KraksimConfigurator.getProperty("realModule") != null) {
 					props.setProperty("realModule", realModule);
 				}
 
-				String switchTime = fileProps.getProperty("switchTime");
+				String switchTime = KraksimConfigurator.getProperty("switchTime");
 				if(switchTime != null){
 					props.setProperty("switchTime", switchTime);
 				}
 
-				String minSafeDistance = fileProps.getProperty("minSafeDistance");
+				String minSafeDistance = KraksimConfigurator.getProperty("minSafeDistance");
 				if(minSafeDistance != null) {
 					props.setProperty("minSafeDistance", minSafeDistance);
 				}

@@ -13,12 +13,15 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class KraksimConfigurator {
 	private static final Logger LOGGER = Logger.getLogger(KraksimConfigurator.class);
 	private static String CONFIG_PATH = "configuration/kraksim.properties";
+	private static Map<String, String> propertiesMap = new HashMap<>();
 
     public static void setConfigPath(String configPath){
         CONFIG_PATH = configPath;
@@ -46,6 +49,16 @@ public class KraksimConfigurator {
 		}
 
 		return result;
+	}
+	
+	public static String getProperty(String name) {
+		if(propertiesMap.containsKey(name)) {
+			return propertiesMap.get(name);
+		} else {
+			String value = getPropertiesFromFile().getProperty(name);
+			propertiesMap.put(name, value);
+			return value;
+		}
 	}
 
 	public static String[] prepareInputParametersForSimulation(Properties params) {
@@ -193,7 +206,7 @@ public class KraksimConfigurator {
 	}
 
 	public static String getSNADistanceType() {
-		return getPropertiesFromFile().getProperty("snaDistanceType");
+		return getProperty("snaDistanceType");
 	}
 
     public static Properties createDefaultSessionConfig(){

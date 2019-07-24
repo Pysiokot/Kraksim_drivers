@@ -54,7 +54,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	LaneRealExt(Lane lane, RealEView ev, RealSimulationParams params) {
 		LOGGER.trace("Constructing LaneRealExt ");
-		emergencyVehiclesConfiguration = KraksimConfigurator.getPropertiesFromFile().getProperty("emergencyVehiclesConfiguration");
+		emergencyVehiclesConfiguration = KraksimConfigurator.getProperty("emergencyVehiclesConfiguration");
 		Properties properties = new Properties();
 		try {
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(emergencyVehiclesConfiguration));
@@ -83,9 +83,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 		SWITCH_TIME = params.getSwitchTime();
 		MIN_SAFE_DISTANCE = params.getMinSafeDistance();
-		this.CRASH_FREE_TIME = Double.parseDouble(KraksimConfigurator.getPropertiesFromFile().getProperty("crashFreeTime"));
-		this.PROBABILITY_POWER_VALUE = Double.parseDouble(KraksimConfigurator.getPropertiesFromFile().getProperty("probabilityPowerValue"));
-		this.INTERSECTION_LANE_SWITCH_TURN_LIMIT = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("intersectionLaneSwitchTurnThreshold"));
+		this.CRASH_FREE_TIME = Double.parseDouble(KraksimConfigurator.getProperty("crashFreeTime"));
+		this.PROBABILITY_POWER_VALUE = Double.parseDouble(KraksimConfigurator.getProperty("probabilityPowerValue"));
+		this.INTERSECTION_LANE_SWITCH_TURN_LIMIT = Integer.parseInt(KraksimConfigurator.getProperty("intersectionLaneSwitchTurnThreshold"));
 		
 		
 		// block cells

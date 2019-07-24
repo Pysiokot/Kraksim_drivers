@@ -11,14 +11,14 @@
       <uplink>
         <main length="295" numberOfLanes="3">
           <!-- <blocked laneNumber = "2" cell="80" lastCell="90" turnStart="50" turnEnd="100" /> -->
-          <blocked laneNumber = "0" blockedLength = "2" cell="150" />
+          <!-- <blocked laneNumber = "0" blockedLength = "2" cell="150" />
           <blocked laneNumber = "1" blockedLength = "2" cell="160" /> 
           <blocked laneNumber = "2" blockedLength = "2" cell="170" />
           <blocked laneNumber = "0" blockedLength = "2" cell="180" />
           <blocked laneNumber = "1" blockedLength = "2" cell="190" />
           <blocked laneNumber = "2" blockedLength = "2" cell="200" />
           <blocked laneNumber = "0" blockedLength = "2" cell="210" />
-          <blocked laneNumber = "1" blockedLength = "2" cell="220" />
+          <blocked laneNumber = "1" blockedLength = "2" cell="220" /> -->
         </main>
         <right length="100"/>
       </uplink>

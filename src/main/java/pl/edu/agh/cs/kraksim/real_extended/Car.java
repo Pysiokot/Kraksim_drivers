@@ -58,12 +58,12 @@ class Car {
 	
 	Car(Driver driver, Route route, boolean rerouting) {
 		// == reading TEST2013 configuration
-		Properties prop = KraksimConfigurator.getPropertiesFromFile();
-		String test2013enabled = prop.getProperty("TEST2013Enabled");
+		//Properties prop = KraksimConfigurator.getPropertiesFromFile();
+		String test2013enabled = KraksimConfigurator.getProperty("TEST2013Enabled");
 		if (test2013enabled != null && test2013enabled.trim().equals("true")) {
 			isTEST2013Enabled = true;
 
-			String test2013intersectionVisitor = prop.getProperty("TEST2013IntersectionVisitor");
+			String test2013intersectionVisitor = KraksimConfigurator.getProperty("TEST2013IntersectionVisitor");
 			if (test2013intersectionVisitor != null && test2013intersectionVisitor.trim().equals("true")) {
 				boolean isTEST2013IntersectionVisitorEnabled = true;
 				TEST2013intersectionsList = new LinkedList<>();
@@ -72,13 +72,13 @@ class Car {
 			}
 
 
-			String test2013intersectionLinkVisitor = prop.getProperty("TEST2013IntersectionLinkVisitor");
+			String test2013intersectionLinkVisitor = KraksimConfigurator.getProperty("TEST2013IntersectionLinkVisitor");
 
 			if (test2013intersectionLinkVisitor != null && test2013intersectionLinkVisitor.trim().equals("true")) {
 				TEST2013linkIntersectionsList = new HashMap<>();
 			}
 
-			String test2013waitLimit = prop.getProperty("TEST2013WaitLimit");
+			String test2013waitLimit = KraksimConfigurator.getProperty("TEST2013WaitLimit");
 			TEST2013waitLimit = Integer.valueOf(test2013waitLimit);
 		} else {
 			isTEST2013Enabled = false;
@@ -96,7 +96,7 @@ class Car {
 		beforeLane = null;
 		beforePos = 0;
 
-		obstacleVisibility = Integer.parseInt(KraksimConfigurator.getPropertiesFromFile().getProperty("obstacleVisibility"));
+		obstacleVisibility = Integer.parseInt(KraksimConfigurator.getProperty("obstacleVisibility"));
 
 		LOGGER.trace("\n Driver= " + driver + "\n rerouting= " + rerouting);
 	}
@@ -327,8 +327,8 @@ class Car {
 	}
 	
 	/**
-	 * @return true if direction will change lane to good one
-	 * @return true if direction will move car closer to good lane
+	 * @return true if direction will change lane to good one <br>
+	 * 	 true if direction will move car closer to good lane
 	 */
 	private boolean isDirectionBetterForNextIntersection(LaneSwitch direction) {
 		LaneRealExt targetLane = this.getLaneFromDirection(direction);
@@ -336,8 +336,8 @@ class Car {
 	}
 	
 	/**
-	 * @return true if targetLane is good for intersection
-	 * @return true if targetLane will move car closer to good lane
+	 * @return true if targetLane is good for intersection <br>
+	 *  true if targetLane will move car closer to good lane
 	 */
 	private boolean isLaneBetterForNextIntersection(LaneRealExt targetLane) {
 		if(targetLane == null)	return false;	// no lane cant be better
@@ -607,7 +607,6 @@ class Car {
 		if(distanceToNextObstacle <= obstacleVisibility) {
 
 			int desiredLaneNumber = getLaneNumberToBypassObstacle(distanceToNextObstacle);
-
 			if(desiredLaneNumber < currentLane.getLane().getAbsoluteNumber()){
 				if(checkIfCanSwitchTo(LaneSwitch.LEFT)){
 					this.switchToLane = LaneSwitch.LEFT;
@@ -934,8 +933,8 @@ class Car {
 	}
 
 	/**
-	 * @return true if car can move this turn
-	 * @return false if car was already moved this turn
+	 * @return true if car can move this turn <br>
+	 * 	false if car was already moved this turn
 	 */
 	public boolean canMoveThisTurn() {
 		return this.updateInTurn < Simulation.turnNumber;

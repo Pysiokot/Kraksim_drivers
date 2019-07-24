@@ -40,7 +40,7 @@ public class TravellingScheme {
 		Preconditions.checkArgument(gateways.length >= 2, "There should be at least two gateways in travelling scheme");
 		Preconditions.checkArgument(gateways.length == departureDists.length + 1, "There should be one gateway more than departure distributions");
 		this.parameters = parameters;
-		emergencyVehiclesConfiguration = KraksimConfigurator.getPropertiesFromFile().getProperty("emergencyVehiclesConfiguration");
+		emergencyVehiclesConfiguration = KraksimConfigurator.getProperty("emergencyVehiclesConfiguration");
 		Properties properties = new Properties();
 		try {
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(emergencyVehiclesConfiguration));
