@@ -29,7 +29,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	private final RealSimulationParams params;
 	private final int offset;
 	// MZA: multi-lanes. It had to be changed.
-	private final List<Car> enteringCars = new LinkedList<>();
+	private final List<Car> obstaclesToAdd = new LinkedList<>();
 	private final Map<Integer, InductionLoop> positionInductionLoops;
 	private final int speedLimit;
 	private final int emergencySpeedLimit;
@@ -226,39 +226,33 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		LOGGER.trace(lane);
 		this.removeExpiredObstacleFromCorelane();
 		this.addNewObstaclesFromCorelane();
-		if (!enteringCars.isEmpty()) {
-			for (Car enteringCar : enteringCars) {
-				if (!enteringCar.isObstacle() && enteringCar.getActionForNextIntersection() != null && enteringCar.getActionForNextIntersection().getTarget().equals(owner())) {	// was always FALSE during our tests
-					enteringCar.setPosition(0);
-					enteringCar.setVelocity(0);
-				}
+		if (!obstaclesToAdd.isEmpty()) {
+			ListIterator<Car> iterator = obstaclesToAdd.listIterator();
+			while(iterator.hasNext()) {
+				Car obstacleCar = iterator.next();
 				Iterator<Car> it = cars.iterator();
 				LinkedList<Car> newCarList = new LinkedList<>();
 				boolean ins = false;
 				while (it.hasNext()) {
 					Car iterCar = it.next();
-					if(enteringCar.isObstacle()) {
+					if(obstacleCar.isObstacle()) {
 						// if we have obstacle at cell 3 and cars at ->[c_2]->[c_3]->[c_5] then we need ->[c_2]->[o_3]->[c_3]->[c_5]
-						if (iterCar.getPosition() >= enteringCar.getPosition() && !ins) {
-							newCarList.add(enteringCar);
+						if (iterCar.getPosition() > obstacleCar.getPosition() && !ins) {
+							newCarList.add(obstacleCar);
+							iterator.remove();
 							ins = true;
-						}
-					} else {
-						// cars are added 
-						if (iterCar.getPosition() > enteringCar.getPosition() && !ins) {
-							newCarList.add(enteringCar);
+						} else if (iterCar.getPosition() == obstacleCar.getPosition() && !ins) {
 							ins = true;
 						}
 					}
 					newCarList.add(iterCar);						
 				}
 				if (!ins) {
-					newCarList.add(enteringCar);
+					newCarList.add(obstacleCar);
+					iterator.remove();
 				}
 				cars = newCarList;
-//				this.cars.addFirst(c);
 			}
-			enteringCars.clear();
 		}
 	}
 
@@ -276,7 +270,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}
 
 		// if there are newly entered cars - show lack of space
-		if (!enteringCars.isEmpty()) {
+		if (!obstaclesToAdd.isEmpty()) {
 			return -1;
 		}
 
@@ -292,7 +286,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	 * @author Maciej Zalewski
 	 */
 	public int getAllCarsNumber() {
-		return cars.size() + enteringCars.size();
+		return cars.size() + obstaclesToAdd.size();
 	}
 
 	public Car getBehindCar(Car car) {
@@ -564,7 +558,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 
 	List<Car> getEnteringCars() {
-		return enteringCars;
+		return obstaclesToAdd;
 	}
 
 	RealEView getRealView() {
@@ -625,17 +619,25 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	private void addNewObstaclesFromCorelane() {
 		List<Integer> cellList = lane.getRecentlyActivatedBlockedCellsIndexList(); 	
 		for(Integer blickedCell : cellList) {
-			enteringCars.add(new Obstacle(blickedCell, this));
+			obstaclesToAdd.add(new Obstacle(blickedCell, this));
 		}
 	}
 	
 	private void removeExpiredObstacleFromCorelane() {
 		List<Integer> cellList = lane.getRecentlyExpiredBlockedCellsIndexList(); 
-		Iterator<Car> it = cars.iterator();
-		while (it.hasNext()) {
-			Car car = it.next();
+		Iterator<Car> carsIterator = cars.iterator();
+		while (carsIterator.hasNext()) {
+			Car car = carsIterator.next();
 			if(car.isObstacle() && cellList.contains(car.getPosition())) {
-				it.remove();
+				carsIterator.remove();
+			}
+		}
+		
+		ListIterator<Car> obstaclesIterator = obstaclesToAdd.listIterator();
+		while(obstaclesIterator.hasNext()) {
+			Car car = obstaclesIterator.next();
+			if(car.isObstacle() && cellList.contains(car.getPosition())) {
+				obstaclesIterator.remove();
 			}
 		}
 	}

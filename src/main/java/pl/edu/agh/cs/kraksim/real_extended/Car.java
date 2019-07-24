@@ -862,6 +862,15 @@ class Car {
 			this.switchLaneUrgency++;
 		}
 		
+		if(this.getActionForNextIntersection() != null) {	
+			int lanesDifForCorrectForIntersection 
+				= Math.abs(this.currentLane.getLane().getAbsoluteNumber() - this.getActionForNextIntersection().getSource().getAbsoluteNumber());
+			int distaneToIntersection = this.currentLane.linkLength() - this.pos;
+			if(distaneToIntersection < lanesDifForCorrectForIntersection * Integer.parseInt(KraksimConfigurator.getProperty("forceStopOnWrongLaneForIntersection"))) {
+				this.setVelocity(Math.max(this.getVelocity()-1, 0));
+			}
+		}
+		
 		int freeCellsInFront;
 		if (nextCar != null) {
 			freeCellsInFront = nextCar.getPosition() - this.pos - 1;
