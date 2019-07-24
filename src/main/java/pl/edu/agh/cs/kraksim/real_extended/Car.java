@@ -364,7 +364,7 @@ class Car {
 			} else {
 				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
 					this.switchToLane = LaneSwitch.WANTS_LEFT;	
-					switchLaneUrgency = 0;
+					//switchLaneUrgency = 0;
 				} else {
 					this.switchToLane = LaneSwitch.NO_CHANGE;	
 				}
@@ -376,7 +376,7 @@ class Car {
 			} else {
 				if(this.currentLane.getParams().getRandomGenerator().nextDouble() < this.switchLaneActionProbability()) {
 					this.switchToLane = LaneSwitch.WANTS_RIGHT;
-					switchLaneUrgency = 0;
+					//switchLaneUrgency = 0;
 				} else {
 					this.switchToLane = LaneSwitch.NO_CHANGE;	
 				}
@@ -498,10 +498,10 @@ class Car {
 		int gapNeiFront =	otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1 	: otherLane.linkLength() - this.pos - 1;
 		int gapNeiBehind =	otherCarBehind != null	? this.pos - otherCarBehind.getPosition() - 1	: this.pos - 1;
 		double crashFreeTurns = this.currentLane.CRASH_FREE_TIME;	// turns until crash, gap must be bigger than velocity * crashFreeTurns, == 1 -> after this turn it will look good
-		double crashFreeDivider = Math.max(Math.log(switchLaneUrgency), 1.0);
-		boolean spaceInFront = gapNeiFront >= (this.getVelocity()-1) * (crashFreeTurns / crashFreeDivider);
-		boolean spaceBehind = otherCarBehind == null || gapNeiBehind >= otherCarBehind.getFutureVelocity() * Math.max((crashFreeTurns - 1)/crashFreeDivider, 0);
-		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());
+		double crashFreeMultiplier = Math.max(1 - switchLaneUrgency / Double.parseDouble(KraksimConfigurator.getProperty("turnsToIgnoreCrashRules")), 0);
+		boolean spaceInFront = gapNeiFront >= Math.round((this.getVelocity()-1) * crashFreeTurns * crashFreeMultiplier);
+		boolean spaceBehind = otherCarBehind == null || gapNeiBehind >= Math.round(otherCarBehind.getFutureVelocity() * (crashFreeTurns - 1) * crashFreeMultiplier);
+		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());	// Multiplier
 	}	
 //		[end] Switch Lane Algorithm
 ///////////////////////////////////////////////////////////
@@ -638,18 +638,18 @@ class Car {
 		else if(this.switchToLane == LaneSwitch.WANTS_LEFT) {
 			if(checkIfCanSwitchTo(LaneSwitch.LEFT)) {
 				this.switchToLane = LaneSwitch.LEFT;
-				switchLaneUrgency = 0;
+				//switchLaneUrgency = 0;
 			} else {
-				switchLaneUrgency++;
+				//switchLaneUrgency++;
 			}
 			
 		} 
 		else if(this.switchToLane == LaneSwitch.WANTS_RIGHT) {
 			if(checkIfCanSwitchTo(LaneSwitch.RIGHT)) {
 				this.switchToLane = LaneSwitch.RIGHT;
-				switchLaneUrgency = 0;
+				//switchLaneUrgency = 0;
 			} else {
-				switchLaneUrgency++;
+				//switchLaneUrgency++;
 			}
 		} 
 		else {	
@@ -664,6 +664,7 @@ class Car {
 			} else {
 				this.switchLaneMethod = SwitchLaneMethod.LOCAL_TRAFIC_ALGORITHM;
 			}
+			
 			if(this.switchLaneMethod == SwitchLaneMethod.INTERSECTION_LANE) {
 				if(this.isThisLaneGoodForNextIntersection()) {
 					this.setSwitchToLaneStateForAlgorithm(); // behaves differently based on switchLaneMethod
@@ -706,7 +707,6 @@ class Car {
 		}
 		
 		handleCorrectModel(nextCar);
-		
 		
 		driveCar(nextCar);
 		
@@ -823,14 +823,18 @@ class Car {
 	 * @param nextCar car in front of this
 	 */
 	void driveCar(Car nextCar) {
+		
 		if(this.switchToLane == LaneSwitch.LEFT || this.switchToLane == LaneSwitch.RIGHT) {
 			this.changeLanes(this.getLaneFromLaneSwitchState());
 			nextCar = this.currentLane.getFrontCar(this);	// nextCar changed
 			this.velocity = Math.max(this.velocity-1, 0);
+			this.switchLaneUrgency = 0;
 			
 		} else if(this.switchToLane == LaneSwitch.WANTS_LEFT || this.switchToLane == LaneSwitch.WANTS_RIGHT) {
-			this.setVelocity(Math.max(this.getVelocity()-1, 1));	// by default reduce speed to 1 if looking for a lane switch	
+			//this.setVelocity(Math.max(this.getVelocity()-1, 1));	// by default reduce speed to 1 if looking for a lane switch	
+			this.switchLaneUrgency++;
 		}
+		
 		int freeCellsInFront;
 		if (nextCar != null) {
 			freeCellsInFront = nextCar.getPosition() - this.pos - 1;
