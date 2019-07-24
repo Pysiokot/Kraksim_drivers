@@ -295,7 +295,7 @@ class Car {
 		int maxSpeed = this.isEmergency() ? this.currentLane.getEmergencySpeedLimit() : this.currentLane.getSpeedLimit();
 		int t_limitDistancetoIntersection = this.currentLane.INTERSECTION_LANE_SWITCH_TURN_LIMIT;	// const from config file
 		int d_limitDistancetoIntersection = t_limitDistancetoIntersection * maxSpeed;	// limit distance to intersection
-		int t_currentToIntersectionMaxSpeed = Math.floorDiv(d_intersection, maxSpeed);
+		int t_currentToIntersectionMaxSpeed = d_intersection / maxSpeed;
 		if(t_limitDistancetoIntersection >= t_currentToIntersectionMaxSpeed)	return 1;	// we are too close to intersection
 		double prob = (double)(this.getPosition() - d_limitDistancetoIntersection) / (double)(d_linkLength - d_limitDistancetoIntersection);
 		return Math.pow(prob, this.currentLane.PROBABILITY_POWER_VALUE);
@@ -573,8 +573,7 @@ class Car {
 					chosenLane = lane;
 				}
 				else if(laneChangesReqNew == laneChangesReqOld){
-					Random random = new Random();
-					float prob = random.nextFloat();
+					float prob = this.currentLane.getParams().getRandomGenerator().nextFloat();
 					if(prob > 0.5) chosenLane = lane;
 				}
 			}
