@@ -1,6 +1,8 @@
 package pl.edu.agh.cs.kraksim.main.gui;
 
 import org.apache.log4j.Logger;
+
+import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.core.City;
 import pl.edu.agh.cs.kraksim.core.Lane;
 import pl.edu.agh.cs.kraksim.core.Link;
@@ -186,7 +188,7 @@ public class GUISimulationVisualizer implements SimulationVisualizer {
 			runUpdateHooks(cityStat);
 		}
 
-		if (turn % 100 == 0) {
+		if (turn % Integer.parseInt(KraksimConfigurator.getProperty("statisticsDumpToFile")) == 0) {
 			//LOGGER.info(turn + ";" + cityStat.getAvgVelocity() + ";"  + cityStat.getAvgCarSpeed());
 			LOGGER.info(turn + "," + cityStat.getAvgVelocity());
 			LOGGER2.info(turn + "," + cityStat.getAllCarsOnRedLight());

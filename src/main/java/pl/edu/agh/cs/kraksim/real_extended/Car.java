@@ -184,18 +184,13 @@ class Car {
 		this.beforePos = beforePos;
 	}
 
-	// TODO: change this
+	/** @return trip_list.hasNext()	 */
 	public boolean hasNextTripPoint() {
 		return linkIterator.hasNext();
 	}
 
+	/** @return trip_list.next() */
 	public Link nextTripPoint() {
-		// copyLinkIterator.next();
-//		try {
-//			throw new Exception();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 		return linkIterator.next();
 	}
 
@@ -231,6 +226,9 @@ class Car {
 	}
 	
 	public void setActionForNextIntersection(Action actionForNextIntersection){
+		if (isTEST2013Enabled) {
+			TEST2013onNewAction(actionForNextIntersection);
+		}
 		this.actionForNextIntersection = actionForNextIntersection;
 	}
 	
@@ -317,9 +315,7 @@ class Car {
 	 */
 	private boolean isGivenLaneGoodForNextIntersection(Lane givenLane) {
 		Action actionIntersection = this.getActionForNextIntersection();
-		int laneIntersectionAbs = actionIntersection.getSource().getAbsoluteNumber();
 		int laneIntersectionRel = actionIntersection.getSource().getRelativeNumber();
-		int currentLaneAbs = givenLane.getAbsoluteNumber();
 		int currentLaneRel = givenLane.getRelativeNumber();
 		if(laneIntersectionRel == 0) {	// main lane is good, can be on any lane in main group
 			return currentLaneRel == 0;
@@ -344,10 +340,9 @@ class Car {
 	 *  true if targetLane will move car closer to good lane
 	 */
 	private boolean isLaneBetterForNextIntersection(LaneRealExt targetLane) {
-		if(targetLane == null)	return false;	// no lane cant be better
+		if(targetLane == null)	return false;	// no lane can't be better
 		Action actionIntersection = this.getActionForNextIntersection();
 		int laneIntersectionAbs = actionIntersection.getSource().getAbsoluteNumber();
-		int laneIntersectionRel = actionIntersection.getSource().getRelativeNumber();
 		return (this.isGivenLaneGoodForNextIntersection(targetLane.getLane())
 				|| Math.abs(targetLane.getLane().getAbsoluteNumber() - laneIntersectionAbs) < Math.abs(this.currentLane.getLane().getAbsoluteNumber() - laneIntersectionAbs)
 				);
@@ -410,7 +405,7 @@ class Car {
 		int switchLaneForceRight = -1;
 
 		if(this.currentLane.hasLeftNeighbor()
-			&& !(this.currentLane.leftNeighbor().getLane().isMainLane() ^ this.currentLane.getLane().isMainLane())	//nXOR
+			&& !(this.currentLane.leftNeighbor().getLane().isMainLane() ^ this.currentLane.getLane().isMainLane())	//nXOR, they must be the same type
 			&& (this.currentLane.leftNeighbor().getLane().isMainLane() || this.isGivenLaneGoodForNextIntersection(this.currentLane.leftNeighbor().getLane()))
 			&& (this.switchLaneMethod == SwitchLaneMethod.LOCAL_TRAFIC_ALGORITHM || this.isLaneBetterForNextIntersection(this.currentLane.leftNeighbor()))
 			) {
@@ -419,7 +414,7 @@ class Car {
 		}
 		
 		if(this.currentLane.hasRightNeighbor()
-			&& !(this.currentLane.rightNeighbor().getLane().isMainLane() ^ this.currentLane.getLane().isMainLane())	//nXOR
+			&& !(this.currentLane.rightNeighbor().getLane().isMainLane() ^ this.currentLane.getLane().isMainLane())	//nXOR, they must be the same type
 			&& (this.currentLane.rightNeighbor().getLane().isMainLane() || this.isGivenLaneGoodForNextIntersection(this.currentLane.rightNeighbor().getLane()))
 			&& (this.switchLaneMethod == SwitchLaneMethod.LOCAL_TRAFIC_ALGORITHM || this.isLaneBetterForNextIntersection(this.currentLane.rightNeighbor()))
 			) {
@@ -750,7 +745,7 @@ class Car {
 			}
 		} else {	// lane switched
 			LaneRealExt beforeLaneReal = this.currentLane.getRealView().ext(beforeLane);
-			fireInductionLoopForLane(beforeLaneReal, this.beforeLane.getLength()+1, this.beforePos);	// force to fire leaving lane induction
+			fireInductionLoopForLane(beforeLaneReal, this.beforeLane.getLength()+this.beforeLane.getOffset()+1, this.beforePos);	// force to fire leaving lane induction
 			fireInductionLoopForLane(this.currentLane, this.pos, -1);	// force to fire entering induction loop
 		}
 	}
@@ -762,7 +757,7 @@ class Car {
 	 * @param positionBefore position in previous turn
 	 */
 	public void fireInductionLoopForLane(LaneRealExt lane, int position, int positionBefore) {
-		for(Entry<Integer, InductionLoop> entry : this.currentLane.getPositionInductionLoops().entrySet()) {
+		for(Entry<Integer, InductionLoop> entry : lane.getPositionInductionLoops().entrySet()) {
 			if(positionBefore <= entry.getKey() && entry.getKey() < position) {
 				entry.getValue().handler.handleCarDrive(getVelocity(), getDriver());
 			}
