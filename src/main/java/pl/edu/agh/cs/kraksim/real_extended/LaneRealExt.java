@@ -159,8 +159,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 
 	boolean hasCarPlace() {
-		// CHANGE: MZA - to disable multiple cars entering the same lane 
-		return enteringCars.isEmpty() && getFirstCarPos() > offset;
+		return firstCarPos > offset;
 	}
 
 	/* assumption: stepsDone < stepsMax */

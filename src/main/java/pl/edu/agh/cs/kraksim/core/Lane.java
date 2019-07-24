@@ -42,10 +42,7 @@ public class Lane extends Element {
 		this.minimalSpeed = minimalSpeed;
 		this.blockedCellsInfo = list;
 		actions = new ArrayList<>();
-<<<<<<< Updated upstream
-=======
 		//this.offset = owner.getLength() - length;
->>>>>>> Stashed changes
 	}
 
 	public Link getOwner() {
@@ -70,15 +67,7 @@ public class Lane extends Element {
 	}
 
 	public int getOffset() {
-<<<<<<< Updated upstream
-		if (offset == -1) {
-			offset = owner.getLength() - length;
-		}
-
-		return offset;
-=======
 		return owner.getLength() - length;
->>>>>>> Stashed changes
 	}
 
 	/*
