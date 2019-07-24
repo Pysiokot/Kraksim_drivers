@@ -862,7 +862,7 @@ class Car {
 			this.switchLaneUrgency++;
 		}
 		
-		if(this.getActionForNextIntersection() != null) {	
+		if(this.getActionForNextIntersection() != null && !this.isThisLaneGoodForNextIntersection()) {	
 			int lanesDifForCorrectForIntersection 
 				= Math.abs(this.currentLane.getLane().getAbsoluteNumber() - this.getActionForNextIntersection().getSource().getAbsoluteNumber());
 			int distaneToIntersection = this.currentLane.linkLength() - this.pos;
