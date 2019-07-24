@@ -509,7 +509,6 @@ class Car {
 	}	
 //		[end] Switch Lane Algorithm
 ///////////////////////////////////////////////////////////
-	
 	/**
 	 * uses part of Switch Lane Algorithm to check if car can switch lanes (based on gap, velocity)
 	 * @return true if car can switch lane in given direction
@@ -559,11 +558,21 @@ class Car {
 
 			int furthest = -1;
 			// pick the lane where obstacle is the furthest and further than obstacle on current lane
-			for(int i = nearestObstacleDistanceList.length-1; i>=0; i--){
-				if(i == currentLaneNumber) continue;
-				if(nearestObstacleDistanceList[i] > furthest && nearestObstacleDistanceList[i] > distanceToObstacle){
-					id = i;
-					furthest = nearestObstacleDistanceList[i];
+			if(this.currentLane.getParams().getRandomGenerator().nextFloat() < 0.5) {	
+				for(int i = nearestObstacleDistanceList.length-1; i>=0; i--){
+					if(i == currentLaneNumber) continue;
+					if(nearestObstacleDistanceList[i] > furthest && nearestObstacleDistanceList[i] > distanceToObstacle){
+						id = i;
+						furthest = nearestObstacleDistanceList[i];
+					}
+				}
+			} else {
+				for(int i = 0; i<nearestObstacleDistanceList.length; i++){
+					if(i == currentLaneNumber) continue;
+					if(nearestObstacleDistanceList[i] > furthest && nearestObstacleDistanceList[i] > distanceToObstacle){
+						id = i;
+						furthest = nearestObstacleDistanceList[i];
+					}
 				}
 			}
 
@@ -622,7 +631,11 @@ class Car {
 					this.switchToLane = LaneSwitch.LEFT;
 				}
 				else{
-					this.switchToLane = LaneSwitch.WANTS_LEFT;
+					if(this.currentLane.getFrontCar(this).isObstacle()) {
+						this.switchToLane = LaneSwitch.WANTS_LEFT;						
+					} else {
+						this.switchToLane = LaneSwitch.NO_CHANGE;
+					}
 				}
 			}
 			else if(desiredLaneNumber > currentLane.getLane().getAbsoluteNumber()){
@@ -630,7 +643,11 @@ class Car {
 					this.switchToLane = LaneSwitch.RIGHT;
 				}
 				else{
-					this.switchToLane = LaneSwitch.WANTS_RIGHT;
+					if(this.currentLane.getFrontCar(this).isObstacle()) {
+						this.switchToLane = LaneSwitch.WANTS_RIGHT;						
+					} else {
+						this.switchToLane = LaneSwitch.NO_CHANGE;
+					}
 				}
 			}
 			else{
@@ -841,7 +858,7 @@ class Car {
 			this.switchLaneUrgency = 0;
 			
 		} else if(this.switchToLane == LaneSwitch.WANTS_LEFT || this.switchToLane == LaneSwitch.WANTS_RIGHT) {
-			//this.setVelocity(Math.max(this.getVelocity()-1, 1));	// by default reduce speed to 1 if looking for a lane switch	
+			this.setVelocity(Math.max(this.getVelocity()-1, 1));	// by default reduce speed to 1 if looking for a lane switch	
 			this.switchLaneUrgency++;
 		}
 		
