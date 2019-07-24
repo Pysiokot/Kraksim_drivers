@@ -11,6 +11,7 @@ import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.LinkMonIface;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -169,5 +170,40 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		}
 
 		return nextLane;
+	}
+
+	/**
+	 * Method creates a list containing distances to obstacles on each lane <br>
+	 * Uses car's position and visibility
+	 *
+	 * @param car car that wants to know what is ahead
+	 * @return int of distances to obstacles on each lane
+	 */
+	public int[] getObstaclesAhead(Car car) {
+
+		Lane[] allLanes = this.link.getLanes();
+		Lane currentLane = car.getCurrentLane().getLane();
+		int visibility = car.getObstacleVisibility();
+		int[] nearestObstacleDistanceList = new int[allLanes.length];
+
+		for (int i = 0; i < allLanes.length; i++) {
+			Lane lane = allLanes[i];
+			if (lane == currentLane || (lane.getOffset() > car.getPosition())) {
+				continue;
+			}
+			ArrayList<Integer> blockedCells = (ArrayList<Integer>) lane.getActiveBlockedCellsIndexList();
+			int furthestDistance = visibility + 1;
+			if (!blockedCells.isEmpty()) {
+				for (Integer obstacleIndex : blockedCells) {
+					int dist = obstacleIndex - car.getPosition();
+					if (dist < 0) {
+						dist = visibility + 1;
+					}
+					furthestDistance = Math.min(furthestDistance, dist);
+				}
+			}
+			nearestObstacleDistanceList[i] = furthestDistance;
+		}
+		return nearestObstacleDistanceList;
 	}
 }

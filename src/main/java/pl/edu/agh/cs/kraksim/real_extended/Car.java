@@ -278,6 +278,10 @@ class Car {
 	public void setCurrentLane(LaneRealExt currentLane) {
 		this.currentLane = currentLane;
 	}
+
+	int getObstacleVisibility(){
+		return obstacleVisibility;
+	}
 	
 //////////////////////////////////////////////////////////////////////////
 //	SIMULATION
@@ -544,41 +548,47 @@ class Car {
 	}
 	
 	private int getLaneNumberToBypassObstacle(int distanceToObstacle){
-		Lane chosenLane = null;
-		for(Lane lane : currentLane.getLane().getOwner().getLanes()){
-			if(lane == currentLane.getLane() || (lane.getOffset() > this.getPosition())){
-				continue;
-			}
-			ArrayList<Integer> blockedCells = (ArrayList<Integer>) lane.getActiveBlockedCellsIndexList();
-			int furthestDistance = obstacleVisibility + 1;
-			if(!blockedCells.isEmpty()){
-				for(Integer obstacleIndex : blockedCells) {
-					int dist = obstacleIndex - getPosition();
-					if(dist < 0){
-						furthestDistance = obstacleVisibility + 1;
-						continue;
-					}
-					furthestDistance = Math.min(furthestDistance, Math.min(dist, obstacleVisibility+1));
+
+		// get a list containing distance to nearest obstacle for each lane
+		int[] nearestObstacleDistanceList = currentLane.getRealView().ext(currentLane.getLane().getOwner()).getObstaclesAhead(this);
+
+		int currentLaneNumber = currentLane.getLane().getAbsoluteNumber();
+		boolean chosen = false;
+		int id = -1;
+		while(!chosen) {
+
+			int furthest = -1;
+			// pick the lane where obstacle is the furthest and further than obstacle on current lane
+			for(int i = nearestObstacleDistanceList.length-1; i>=0; i--){
+				if(i == currentLaneNumber) continue;
+				if(nearestObstacleDistanceList[i] > furthest && nearestObstacleDistanceList[i] > distanceToObstacle){
+					id = i;
+					furthest = nearestObstacleDistanceList[i];
 				}
 			}
 
-			if(furthestDistance > distanceToObstacle){
-				if(chosenLane == null){
-					chosenLane = lane;
-					continue;
+			if(furthest == -1){
+				id = currentLaneNumber;
+				break;
+			}
+
+			int direction;
+			if(id - currentLaneNumber < 0) direction = 1;
+			else direction = -1;
+			int tmp = id + direction;
+			chosen = true;
+			// checking all lanes between chosen and current
+			while(tmp != currentLaneNumber){
+				// if any lane between is worse then find another
+				if(nearestObstacleDistanceList[tmp] < distanceToObstacle){
+					nearestObstacleDistanceList[id] = -1;
+					chosen = false;
+					break;
 				}
-				int laneChangesReqNew = Math.abs(currentLane.getLane().getAbsoluteNumber() - lane.getAbsoluteNumber());
-				int laneChangesReqOld = Math.abs(currentLane.getLane().getAbsoluteNumber() - chosenLane.getAbsoluteNumber());
-				if(laneChangesReqNew < laneChangesReqOld){
-					chosenLane = lane;
-				}
-				else if(laneChangesReqNew == laneChangesReqOld){
-					float prob = this.currentLane.getParams().getRandomGenerator().nextFloat();
-					if(prob > 0.5) chosenLane = lane;
-				}
+				tmp += direction;
 			}
 		}
-		return chosenLane != null ? chosenLane.getAbsoluteNumber() : currentLane.getLane().getAbsoluteNumber();
+		return id;
 	}
 
 
