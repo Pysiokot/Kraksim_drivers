@@ -10,36 +10,36 @@
         <road id="roads_0" street="roads_0" from="G1" to="I0">
             <uplink>
                 <main length="300" numberOfLanes="3">
-                    <blocked laneNumber="0" cell="100"/>
-                    <blocked laneNumber="2" cell="100"/>
-                    <blocked laneNumber="1" cell="105"/>
-                    <blocked laneNumber="0" cell="110"/>
-                    <blocked laneNumber="2" cell="110"/>
-                    <blocked laneNumber="1" cell="115"/>
-                    <blocked laneNumber="0" cell="120"/>
-                    <blocked laneNumber="2" cell="120"/>
-                    <blocked laneNumber="1" cell="125"/>
-                    <blocked laneNumber="0" cell="130"/>
-                    <blocked laneNumber="2" cell="130"/>
-                    <blocked laneNumber="1" cell="135"/>
-                    <blocked laneNumber="0" cell="140"/>
-                    <blocked laneNumber="2" cell="140"/>
-                    <blocked laneNumber="1" cell="145"/>
-                    <blocked laneNumber="0" cell="150"/>
-                    <blocked laneNumber="2" cell="150"/>
-                    <blocked laneNumber="1" cell="155"/>
-                    <blocked laneNumber="0" cell="160"/>
-                    <blocked laneNumber="2" cell="160"/>
-                    <blocked laneNumber="1" cell="165"/>
-                    <blocked laneNumber="0" cell="170"/>
-                    <blocked laneNumber="2" cell="170"/>
-                    <blocked laneNumber="1" cell="175"/>
-                    <blocked laneNumber="0" cell="180"/>
-                    <blocked laneNumber="2" cell="180"/>
-                    <blocked laneNumber="1" cell="185"/>
-                    <blocked laneNumber="0" cell="190"/>
-                    <blocked laneNumber="2" cell="190"/>
-                    <blocked laneNumber="1" cell="195"/>
+<!--                    <blocked laneNumber="0" cell="100"/>-->
+<!--                    <blocked laneNumber="2" cell="100"/>-->
+<!--                    <blocked laneNumber="1" cell="105"/>-->
+<!--                    <blocked laneNumber="0" cell="110"/>-->
+<!--                    <blocked laneNumber="2" cell="110"/>-->
+<!--                    <blocked laneNumber="1" cell="115"/>-->
+<!--                    <blocked laneNumber="0" cell="120"/>-->
+<!--                    <blocked laneNumber="2" cell="120"/>-->
+<!--                    <blocked laneNumber="1" cell="125"/>-->
+<!--                    <blocked laneNumber="0" cell="130"/>-->
+<!--                    <blocked laneNumber="2" cell="130"/>-->
+<!--                    <blocked laneNumber="1" cell="135"/>-->
+<!--                    <blocked laneNumber="0" cell="140"/>-->
+<!--                    <blocked laneNumber="2" cell="140"/>-->
+<!--                    <blocked laneNumber="1" cell="145"/>-->
+<!--                    <blocked laneNumber="0" cell="150"/>-->
+<!--                    <blocked laneNumber="2" cell="150"/>-->
+<!--                    <blocked laneNumber="1" cell="155"/>-->
+<!--                    <blocked laneNumber="0" cell="160"/>-->
+<!--                    <blocked laneNumber="2" cell="160"/>-->
+<!--                    <blocked laneNumber="1" cell="165"/>-->
+<!--                    <blocked laneNumber="0" cell="170"/>-->
+<!--                    <blocked laneNumber="2" cell="170"/>-->
+<!--                    <blocked laneNumber="1" cell="175"/>-->
+<!--                    <blocked laneNumber="0" cell="180"/>-->
+<!--                    <blocked laneNumber="2" cell="180"/>-->
+<!--                    <blocked laneNumber="1" cell="185"/>-->
+<!--                    <blocked laneNumber="0" cell="190"/>-->
+<!--                    <blocked laneNumber="2" cell="190"/>-->
+<!--                    <blocked laneNumber="1" cell="195"/>-->
                 </main>
                 <right length="100"/>
             </uplink>
@@ -49,10 +49,10 @@
         </road>
         <road id="roads_1" street="roads_1" from="I0" to="G0">
             <uplink>
-                <main length="150" numberOfLanes="1" />
+                <main length="150" numberOfLanes="2" />
             </uplink>
             <downlink>
-                <main length="150" numberOfLanes="1" />
+                <main length="150" numberOfLanes="2" />
             </downlink>
         </road>
         <road id="roads_2" street="roads_2" from="I0" to="G2">

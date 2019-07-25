@@ -18,7 +18,7 @@ public class GatewayMiniStatExt {
 	private final Map<Gateway, RouteStat> routeStatMap;
 	GatewayMonIface gateMon;
 
-	GatewayMiniStatExt(Gateway gateway, MonIView monView, final Clock clock, final StatHelper helper) {
+	GatewayMiniStatExt(final Gateway gateway, MonIView monView, final Clock clock, final StatHelper helper) {
 		LOGGER.trace("for: " + gateway);
 		routeStatMap = new HashMap<>();
 		gateMon = monView.ext(gateway);
