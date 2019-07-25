@@ -88,8 +88,7 @@ public class City extends Element {
 		if (linkMap.containsKey(roadInfo.getLinkId())) {
 			throw new DuplicateIdentifierException(String.format("link with id %s already exists", roadInfo.getLinkId()));
 		}
-		//System.out.println(("road to " + roadInfo.getTo() + " from " + roadInfo.getFrom()));
-		System.out.println("City " + linkBlockedCellsInfo.toString());
+
 		Link link = new Link(core, roadInfo, leftLaneLens, mainLaneLen, numberOfLanes, rightLaneLens, linkBlockedCellsInfo);
 
 		// If this method throws an exception, no cleanup is needed.

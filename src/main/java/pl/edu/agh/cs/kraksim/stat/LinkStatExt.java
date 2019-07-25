@@ -10,7 +10,7 @@ class LinkStatExt implements LinkCarCounterIface {
 
 	private int carCount;
 
-	LinkStatExt(final Link link, MonIView monView) {
+	LinkStatExt(final Link link, MonIView monView) {	// not used in our tests
 		carCount = 0;
 
 		LinkMonIface l = monView.ext(link);
@@ -19,7 +19,6 @@ class LinkStatExt implements LinkCarCounterIface {
 			public void handleCarDrive(int velocity, Object driver) {
 				carCount++;
 				StatCollector.getInstance().addLinkEnterStatistic(link.getId(), driver.toString(), velocity);
-
 				//System.out.print(velocity);
 				//link.
 				//driver do costam, zapisz informacje

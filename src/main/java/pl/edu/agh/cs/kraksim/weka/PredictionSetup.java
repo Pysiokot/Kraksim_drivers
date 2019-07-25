@@ -134,7 +134,7 @@ public class PredictionSetup {
 	}
 
 	private String getConfigPath() {
-		return KraksimConfigurator.getPropertiesFromFile().getProperty("predictionConfiguration");
+		return KraksimConfigurator.getProperty("predictionConfiguration");
 	}
 
 	private void createMovingAverage(Properties properties) {

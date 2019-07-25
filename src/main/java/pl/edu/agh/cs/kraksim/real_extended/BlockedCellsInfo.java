@@ -83,7 +83,6 @@ public class BlockedCellsInfo {
 			if(builderTurnEnd == null && builderTurnDuration == null) {
 				blockedInfo.turnEnd = blockedInfo.turnStart;
 			}
-			System.out.println(builderTurnEnd);
 			if(blockedInfo.firstCell == null || blockedInfo.lastCell == null 
 					|| (blockedInfo.turnStart != null && blockedInfo.turnEnd == null)
 					|| (blockedInfo.turnStart == null && blockedInfo.turnEnd != null)) {

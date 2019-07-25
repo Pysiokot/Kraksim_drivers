@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoadNet>
+  <nodes>
+    <gateway id="G0" x="106" y="104" />
+    <gateway id="G1" x="323" y="113" />
+    <intersection id="I0" x="138" y="191" />
+    <intersection id="I1" x="265" y="187" />
+    <intersection id="I2" x="205" y="111" />
+  </nodes>
+  <roads defaultSpeedLimit="1">
+    <road id="roads_0" street="roads_0" speedLimit="2" from="G0" to="I0">
+      <uplink>
+        <main length="92" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="92" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_1" street="roads_1" speedLimit="2" from="I0" to="I2">
+      <uplink>
+        <main length="104" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="104" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_3" street="roads_3" speedLimit="2" from="I1" to="G1">
+      <uplink>
+        <main length="94" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="94" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_4" street="roads_4" speedLimit="2" from="I1" to="I0">
+      <uplink>
+        <main length="127" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="127" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_2" street="roads_2" speedLimit="2" from="I2" to="I1">
+      <uplink>
+        <main length="96" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="96" numberOfLanes="1" />
+      </downlink>
+    </road>
+  </roads>
+  <intersectionDescriptions>
+    <intersection id="I0">
+      <armActions arm="G0" dir="NS">
+        <action lane="0" exit="I1" />
+        <action lane="0" exit="I2" />
+      </armActions>
+      <armActions arm="I1" dir="NS">
+        <action lane="0" exit="G0">
+          <rule entrance="G0" lane="0" />
+        </action>
+      </armActions>
+      <armActions arm="I2" dir="NS">
+        <action lane="0" exit="G0" />
+      </armActions>
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I1">
+      <armActions arm="G1" dir="NS">
+        <action lane="0" exit="I0" />
+        <action lane="0" exit="I2">
+          <rule entrance="I0" lane="0" />
+        </action>
+      </armActions>
+      <armActions arm="I0" dir="NS" />
+      <armActions arm="I2" dir="NS" />
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I2">
+      <armActions arm="I0" dir="NS">
+        <action lane="0" exit="I1" />
+      </armActions>
+      <armActions arm="I1" dir="NS">
+        <action lane="0" exit="I0" />
+      </armActions>
+      <trafficLightsSchedule />
+    </intersection>
+  </intersectionDescriptions>
+</RoadNet>
+

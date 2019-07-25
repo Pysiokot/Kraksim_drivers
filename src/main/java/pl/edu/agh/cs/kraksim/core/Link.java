@@ -4,8 +4,10 @@ import com.google.common.base.Preconditions;
 import org.apache.commons.collections15.iterators.ArrayIterator;
 import pl.edu.agh.cs.kraksim.core.visitors.ElementVisitor;
 import pl.edu.agh.cs.kraksim.core.visitors.VisitingException;
+import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.parser.RoadInfo;
 import pl.edu.agh.cs.kraksim.real_extended.BlockedCellsInfo;
+import pl.edu.agh.cs.kraksim.real_extended.Obstacle;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -51,7 +53,8 @@ public class Link extends Element {
 	private String direction;
 	
 	private Map<String, Map<Integer, List<BlockedCellsInfo>>> blockedCellsInfo; // blocked cells details in format <road_type> -> <line_num> -> <num_of_blicked_cell>
-
+	private List<CarDriveHandler> entranceCarHandlers; // Handler fired on car entry to this lane
+	private List<CarDriveHandler> exitCarHandlers; // Handler fired on car exit 
 	private double weight;
 	private double load;
 
@@ -64,7 +67,6 @@ public class Link extends Element {
 	Link(Core core, RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<Integer, List<BlockedCellsInfo>>> linkBlockedCellsInfo)
 			throws IllegalArgumentException {
 		super(core);
-		System.out.println("Link " + linkBlockedCellsInfo.toString());
 		linkNumber = core.getNextNumber();
 		id = roadInfo.getLinkId();
 		beginning = roadInfo.getFrom();
@@ -80,6 +82,8 @@ public class Link extends Element {
 		lanes = new Lane[laneCount];
 		leftMainLaneNum = leftLaneLens.length;
 		rightMainLaneNum = leftMainLaneNum + (numberOfMainLanes - 1);
+		this.entranceCarHandlers = new ArrayList<>();
+		this.exitCarHandlers = new ArrayList<>();
 
 		initializeLeftLanes(core, leftLaneLens, mainLaneLen, this.blockedCellsInfo.get("left"));
 		initializeMainLane(core, mainLaneLen, this.blockedCellsInfo.get("main"));
@@ -96,7 +100,7 @@ public class Link extends Element {
 			}
 			int laneNum = rightMainLaneNum + i + 1;
 			lanes[laneNum] = new Lane(core, this, laneNum, i + 1, rightLaneLens[i], speedLimit, minimalSpeed
-					, (map == null || map.get(0) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(0));
+					, (map == null || map.get(i) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(i));
 		}
 	}
 	
@@ -116,32 +120,14 @@ public class Link extends Element {
 
 			int laneNum = leftMainLaneNum - i - 1;
 			lanes[laneNum] = new Lane(core, this, laneNum, -i - 1, leftLaneLens[i], speedLimit, minimalSpeed
-					, (map == null || map.get(0) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(0));
+					, (map == null || map.get(i) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(i));
 		}
 	}
 
 	public Color getColor() {
 		return zoneInfo.getZoneColor();
 	}
-
-//	private void initializeRightLanes(final Core core,
-//			final int[] rightLaneLens, final int mainLaneLen) {
-//		for (int i = 0; i < rightLaneLens.length; i++) {
-//			if (rightLaneLens[i] <= 0) {
-//				throw new IllegalArgumentException(
-//						"length of lane must be positive");
-//			}
-//			if (rightLaneLens[i] >= (i == 0 ? mainLaneLen
-//					: rightLaneLens[i - 1])) {
-//				throw new IllegalArgumentException(
-//						"an outer lane must be shorter than an inner lane");
-//			}
-//			int laneNum = rightMainLaneNum + i + 1;
-//			lanes[laneNum] = new Lane(core, this, laneNum, i + 1,
-//					rightLaneLens[i], speedLimit,minimalSpeed);
-//		}
-//	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -386,5 +372,26 @@ public class Link extends Element {
 
 	public double getLoad() {
 		return load;
+	}
+
+	// 2019
+	public Lane[] getLanes(){
+		return lanes;
+	}
+
+	public List<CarDriveHandler> getEntranceCarHandlers() {
+		return entranceCarHandlers;
+	}
+
+	public void setEntranceCarHandlers(List<CarDriveHandler> entranceCarHandlers) {
+		this.entranceCarHandlers = entranceCarHandlers;
+	}
+
+	public List<CarDriveHandler> getExitCarHandlers() {
+		return exitCarHandlers;
+	}
+
+	public void setExitCarHandlers(List<CarDriveHandler> exitCarHandlers) {
+		this.exitCarHandlers = exitCarHandlers;
 	}
 }

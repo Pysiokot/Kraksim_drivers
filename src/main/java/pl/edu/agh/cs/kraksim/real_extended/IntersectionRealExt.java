@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 class IntersectionRealExt extends NodeRealExt {
 	private static final Logger LOGGER = Logger.getLogger(IntersectionRealExt.class);
-	private final Intersection intersection;
+	public final Intersection intersection;
 
 	IntersectionRealExt(Intersection intersection, RealEView ev) {
 		super(ev);

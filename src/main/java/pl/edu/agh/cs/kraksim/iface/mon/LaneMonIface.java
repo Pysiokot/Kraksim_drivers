@@ -7,4 +7,5 @@ public interface LaneMonIface {
 	   * length
 	   */
 	void installInductionLoop(int line, CarDriveHandler handler) throws IndexOutOfBoundsException;
+	
 }

@@ -80,7 +80,6 @@ final class StatHelper {
 		}
 
 		int duration = turn - td.entranceTurn;
-
 		td.entranceGateway.noteTravel(exitGateway, td.length, duration);
 
 		cityTravelCount++;

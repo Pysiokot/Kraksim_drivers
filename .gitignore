@@ -1,14 +1,9 @@
 /target/
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
 .settings/org.eclipse.m2e.core.prefs
 .settings/org.eclipse.jdt.core.prefs
 .settings/org.eclipse.core.resources.prefs
 .project
-.idea/modules.xml
 .classpath
-.idea/*
+.idea/
 output/
-output/*
 configuration/lastSession.properties
-

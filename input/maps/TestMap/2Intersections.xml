@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoadNet>
+  <nodes>
+    <gateway id="G1" x="40" y="400" />
+    <gateway id="G0" x="180" y="50" />
+    <gateway id="G3" x="379" y="71" />
+    <intersection id="I0" x="40" y="130" />
+    <intersection id="I1" x="180" y="130" />
+    <intersection id="I2" x="292" y="170" />
+    <intersection id="I3" x="278" y="79" />
+  </nodes>
+  <roads defaultSpeedLimit="1">
+    <road id="roads_0" street="roads_0" speedLimit="3" from="G1" to="I0">
+      <uplink>
+        <right length="100" />
+        <main length="295" numberOfLanes="3" />
+      </uplink>
+      <downlink>
+        <main length="295" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_2" street="roads_2" speedLimit="2" from="I0" to="I1">
+      <uplink>
+        <main length="135" numberOfLanes="3" />
+      </uplink>
+      <downlink>
+        <main length="135" numberOfLanes="3" />
+      </downlink>
+    </road>
+    <road id="roads_4" street="roads_4" speedLimit="2" from="I1" to="G0">
+      <uplink>
+        <main length="70" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="70" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_3" street="roads_3" speedLimit="2" from="I1" to="I2">
+      <uplink>
+        <main length="118" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="118" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_5" street="roads_5" speedLimit="2" from="I2" to="I3">
+      <uplink>
+        <main length="92" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="92" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_7" street="roads_7" speedLimit="2" from="I3" to="G3">
+      <uplink>
+        <main length="101" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="101" numberOfLanes="1" />
+      </downlink>
+    </road>
+    <road id="roads_6" street="roads_6" speedLimit="2" from="I3" to="I1">
+      <uplink>
+        <main length="110" numberOfLanes="1" />
+      </uplink>
+      <downlink>
+        <main length="110" numberOfLanes="1" />
+      </downlink>
+    </road>
+  </roads>
+  <intersectionDescriptions>
+    <intersection id="I0">
+      <armActions arm="G1" dir="NS">
+        <action lane="0" exit="I1" />
+      </armActions>
+      <armActions arm="I1" dir="NS">
+        <action lane="0" exit="G1" />
+      </armActions>
+      <trafficLightsSchedule>
+        <phase num="1" name="phase_1" duration="10">
+          <inlane arm="G1" lane="0" state="green" />
+          <inlane arm="G1" lane="1" state="green" />
+          <inlane arm="I1" lane="0" state="green" />
+        </phase>
+      </trafficLightsSchedule>
+    </intersection>
+    <intersection id="I1">
+      <armActions arm="G0" dir="NS" />
+      <armActions arm="I0" dir="NS">
+        <action lane="0" exit="G0" />
+      </armActions>
+      <armActions arm="I2" dir="NS">
+        <action lane="0" exit="I0" />
+      </armActions>
+      <armActions arm="I3" dir="NS">
+        <action lane="0" exit="I0" />
+      </armActions>
+      <trafficLightsSchedule>
+        <phase num="1" name="phase_1" duration="10">
+          <inlane arm="G0" lane="0" state="green" />
+          <inlane arm="G2" lane="0" state="green" />
+          <inlane arm="I0" lane="0" state="green" />
+        </phase>
+        <phase num="2" name="phase_2" duration="10">
+          <inlane arm="G0" lane="0" state="red" />
+          <inlane arm="G2" lane="0" state="red" />
+          <inlane arm="I0" lane="0" state="red" />
+        </phase>
+      </trafficLightsSchedule>
+    </intersection>
+    <intersection id="I2">
+      <trafficLightsSchedule />
+    </intersection>
+    <intersection id="I3">
+      <armActions arm="G3" dir="NS">
+        <action lane="0" exit="I1" />
+        <action lane="0" exit="I2">
+          <rule entrance="I1" lane="0" />
+        </action>
+      </armActions>
+      <armActions arm="I2" dir="NS" />
+      <trafficLightsSchedule />
+    </intersection>
+  </intersectionDescriptions>
+</RoadNet>
+

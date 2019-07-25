@@ -7,30 +7,36 @@ import pl.edu.agh.cs.kraksim.iface.mon.CarEntranceHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.CarExitHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.GatewayMonIface;
 import pl.edu.agh.cs.kraksim.iface.mon.MonIView;
+import pl.edu.agh.cs.kraksim.real_extended.Car;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class GatewayMiniStatExt {
 	private static final Logger LOGGER = Logger.getLogger(GatewayMiniStatExt.class);
 	private final Map<Gateway, RouteStat> routeStatMap;
+	GatewayMonIface gateMon;
 
 	GatewayMiniStatExt(final Gateway gateway, MonIView monView, final Clock clock, final StatHelper helper) {
 		LOGGER.trace("for: " + gateway);
 		routeStatMap = new HashMap<>();
-
-		GatewayMonIface g = monView.ext(gateway);
-		g.installEntranceSensor(new CarEntranceHandler() {
+		gateMon = monView.ext(gateway);
+		gateMon.installEntranceSensor(new CarEntranceHandler() {
 			public void handleCarEntrance(Object driver) {
 				helper.beginTravel(driver, GatewayMiniStatExt.this, clock.getTurn());
 			}
 		});
 
-		g.installExitSensor(new CarExitHandler() {
+		gateMon.installExitSensor(new CarExitHandler() {
 			public void handleCarExit(Object driver) {
 				helper.endTravel(driver, gateway, clock.getTurn());
 			}
 		});
+	}
+	
+	public LinkedList<Car> getWaitingCars() {
+		return gateMon.getEnteringCars();
 	}
 
 	void clear() {

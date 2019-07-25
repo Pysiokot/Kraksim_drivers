@@ -14,9 +14,10 @@ import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 public class Obstacle extends Car {
 
-	Obstacle(int position) {
+	Obstacle(int position, LaneRealExt lane) {
 		super();
 		this.pos = position;
+		setCurrentLane(lane);
 	}
 	
 	public Driver getDriver() {
@@ -85,11 +86,11 @@ public class Obstacle extends Car {
 		throw new RuntimeException("Wrong action on stationary object");
 	}
 
-	public Action getPreferableAction(){
+	public Action getActionForNextIntersection(){
 		throw new RuntimeException("Wrong action on stationary object");
 	}
 	
-	public void setPreferableAction(Action preferableAction){
+	public void setActionForNextIntersection(Action preferableAction){
 		throw new RuntimeException("Wrong action on stationary object");
 	}
 	
@@ -115,5 +116,10 @@ public class Obstacle extends Car {
 
 	public void setLaneSwitch(LaneSwitch lane){
 		throw new RuntimeException("Wrong action on stationary object");
+	}
+
+	@Override
+	public int getFutureVelocity(){
+		return 0;
 	}
 }

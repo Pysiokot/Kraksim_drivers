@@ -88,7 +88,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		try {
 			params.parseOptions(args, console);
 		} catch (ParseException e) {
-			System.out.println("Exception!");
+			System.err.println("Exception!");
 			e.printStackTrace();
 		}
 		final EvalModuleProvider evalProvider = getEvaluationProvider();
@@ -108,8 +108,8 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		                physModuleCreator = new pl.edu.agh.cs.kraksim.real_extended.RealModuleCreator(simulationParams);
 		                break;
 		            } default : {
-		                physModuleCreator = new pl.edu.agh.cs.kraksim.real.RealModuleCreator
-		                        (new pl.edu.agh.cs.kraksim.real.RealSimulationParams(params.getModelRg(), params.getCarMoveModel()));
+		                physModuleCreator = new pl.edu.agh.cs.kraksim.real_extended.RealModuleCreator
+		                        (new pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams(params.getModelRg(), params.getCarMoveModel()));
 		                break;
 		            }
 		        }
@@ -396,8 +396,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 
 		visualizer.update(turn);
-		StatsUtil.dumpCarStats(modules.getCity(), modules.getStatView(), turn,
-				statWriter);
+		StatsUtil.dumpCarStats(modules.getCity(), modules.getStatView(), turn, statWriter);
 		
 		
 		StatsUtil.collectLinkStats(modules.getCity(), modules.getCarInfoView(), modules.getBlockView(), modules.getStatView(), turn, linkStat, linkRidingStat);

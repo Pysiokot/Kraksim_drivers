@@ -7,6 +7,7 @@ import pl.edu.agh.cs.kraksim.core.ModuleCreator;
 import pl.edu.agh.cs.kraksim.core.NULL;
 import pl.edu.agh.cs.kraksim.core.City;
 import pl.edu.agh.cs.kraksim.core.Gateway;
+import pl.edu.agh.cs.kraksim.core.Lane;
 import pl.edu.agh.cs.kraksim.core.Link;
 import pl.edu.agh.cs.kraksim.core.exceptions.ExtensionCreationException;
 import pl.edu.agh.cs.kraksim.iface.Clock;
@@ -16,6 +17,7 @@ public class MiniStatModuleCreator extends ModuleCreator<CityMiniStatExt, NULL, 
 	private final MonIView monView;
 	private final Clock clock;
 	private final StatHelper helper;
+	
 	private MiniStatEView ev;
 
 	public MiniStatModuleCreator(MonIView monView, Clock clock) {
@@ -47,5 +49,5 @@ public class MiniStatModuleCreator extends ModuleCreator<CityMiniStatExt, NULL, 
 	@Override
 	public LinkMiniStatExt createLinkExtension(Link link) throws ExtensionCreationException {
 		return new LinkMiniStatExt(link, monView, clock, helper);
-	}
+	} // Increase
 }

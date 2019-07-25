@@ -19,7 +19,7 @@ import pl.edu.agh.cs.kraksim.core.Link;
 import pl.edu.agh.cs.kraksim.iface.block.BlockIView;
 import pl.edu.agh.cs.kraksim.ministat.LinkMiniStatExt;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
-import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
+import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 import pl.edu.agh.cs.kraksim.visual.infolayer.InfoLayer;
 
 public class CityMapVisualizer {

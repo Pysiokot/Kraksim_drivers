@@ -6,31 +6,40 @@
     <gateway id="G2" x="158" y="66" />
     <intersection id="I0" x="40" y="66" />
   </nodes>
-  <roads defaultSpeedLimit="1">
-    <road id="roads_0" street="roads_0" speedLimit="3" from="G1" to="I0">
+  <roads defaultSpeedLimit="3">
+    <road id="roads_0" street="roads_0" from="G1" to="I0">
       <uplink>
-        <main length="295" numberOfLanes="3" />
-          <!-- <blocked laneNumber = "2" cell="80" lastCell="90" turnStart="50" turnEnd="100" />
-          <blocked laneNumber = "0" cell="100" /> -->
+        <main length="295" numberOfLanes="3">
+          <blocked laneNumber = "1" blockedLength = "30" cell="160" /> 
+          <blocked laneNumber = "0" blockedLength = "2" cell="200" />
+          <blocked laneNumber = "1" blockedLength = "2" cell="201" />
+
+          <blocked laneNumber = "1" blockedLength = "30" cell="250" /> 
+          <blocked laneNumber = "0" blockedLength = "2" cell="290" />
+          <blocked laneNumber = "1" blockedLength = "2" cell="291" />
+
+        </main>
+        <right length="5"/>
       </uplink>
       <downlink>
         <main length="295" numberOfLanes="1" />
       </downlink>
     </road>
-    <road id="roads_1" street="roads_1" speedLimit="1" from="I0" to="G0">
+    <road id="roads_1" street="roads_1" from="I0" to="G0">
       <uplink>
-        <main length="165" numberOfLanes="1" />
+        <main length="165" numberOfLanes="3" />
       </uplink>
       <downlink>
         <main length="165" numberOfLanes="1" />
       </downlink>
     </road>
-    <road id="roads_2" street="roads_2" speedLimit="1" from="I0" to="G2">
+    <road id="roads_2" street="roads_2" from="I0" to="G2">
       <uplink>
-        <main length="118" numberOfLanes="1" />
+        <main length="118" numberOfLanes="2" />
+         <!-- <blocked laneNumber = "1" cell="50" /> -->
       </uplink>
       <downlink>
-        <main length="118" numberOfLanes="1" />
+        <main length="118" numberOfLanes="2" />
       </downlink>
     </road>
   </roads>
@@ -41,7 +50,7 @@
       </armActions>
       <armActions arm="G1" dir="NS">
         <action lane="0" exit="G0" />
-        <action lane="0" exit="G2" />
+        <action lane="1" exit="G2" />
       </armActions>
       <armActions arm="G2" dir="NS" />
       <trafficLightsSchedule>
