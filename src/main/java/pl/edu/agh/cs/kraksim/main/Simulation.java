@@ -396,8 +396,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 
 		visualizer.update(turn);
-		StatsUtil.dumpCarStats(modules.getCity(), modules.getStatView(), turn,
-				statWriter);
+		StatsUtil.dumpCarStats(modules.getCity(), modules.getStatView(), turn, statWriter);
 		
 		
 		StatsUtil.collectLinkStats(modules.getCity(), modules.getCarInfoView(), modules.getBlockView(), modules.getStatView(), turn, linkStat, linkRidingStat);

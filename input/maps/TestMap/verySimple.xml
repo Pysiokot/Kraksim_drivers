@@ -10,16 +10,16 @@
     <road id="roads_0" street="roads_0" from="G1" to="I0">
       <uplink>
         <main length="295" numberOfLanes="3">
-          <blocked laneNumber = "0" blockedLength = "2" cell="150" />
-          <blocked laneNumber = "1" blockedLength = "2" cell="160" /> 
-          <blocked laneNumber = "2" blockedLength = "2" cell="170" />
-          <blocked laneNumber = "0" blockedLength = "2" cell="180" />
-          <blocked laneNumber = "1" blockedLength = "2" cell="190" />
-          <blocked laneNumber = "2" blockedLength = "2" cell="200" />
-          <blocked laneNumber = "0" blockedLength = "2" cell="210" />
-          <blocked laneNumber = "1" blockedLength = "2" cell="220" />
+          <blocked laneNumber = "1" blockedLength = "30" cell="160" /> 
+          <blocked laneNumber = "0" blockedLength = "2" cell="200" />
+          <blocked laneNumber = "1" blockedLength = "2" cell="201" />
+
+          <blocked laneNumber = "1" blockedLength = "30" cell="250" /> 
+          <blocked laneNumber = "0" blockedLength = "2" cell="290" />
+          <blocked laneNumber = "1" blockedLength = "2" cell="291" />
+
         </main>
-        <right length="100"/>
+        <right length="5"/>
       </uplink>
       <downlink>
         <main length="295" numberOfLanes="1" />

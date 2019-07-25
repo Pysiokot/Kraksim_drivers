@@ -171,6 +171,10 @@ public class StatsUtil {
 		long allCarsOnRedLigth = 0;
 		long emergencyVehiclesOnRedLight = 0;
 		long normalCarsOnRedLight = 0;
+		
+		long numOfCarsCountedToAvgVel = 0;
+		double cityAvgVelocity = 0;
+		
 		for (Iterator<Link> i = city.linkIterator(); i.hasNext(); ) {
 			Link link = i.next();
 			LinkMiniStatExt linkMiniStatExt = statView.ext(link);
@@ -278,8 +282,14 @@ public class StatsUtil {
 				assert (linkRidingAvgVelocity < linkAvgVelocity);
 			}
 
-			Double avarageVolocity = linkStat.getAvgVelocity(link);
-			linkMiniStatExt.setAvarageVolocity(avarageVolocity == null ? Double.valueOf(0) : avarageVolocity);
+			Double avarageVolocity = Double.compare(linkStat.getAvgVelocity(link),  Double.NaN) == 0 ? Double.valueOf(0) : linkStat.getAvgVelocity(link);
+			linkMiniStatExt.setAvarageVolocity( avarageVolocity);
+			cityAvgVelocity = 
+					(cityAvgVelocity * numOfCarsCountedToAvgVel + linkDriveLength) 
+					/ (numOfCarsCountedToAvgVel+linkMovementCount);
+			cityAvgVelocity = Double.compare(cityAvgVelocity,  Double.NaN) == 0 ? Double.valueOf(0) : cityAvgVelocity;
+			
+			numOfCarsCountedToAvgVel += linkMovementCount;
 			Double linkRidingAvgVelocity = linkRidingStat.getAvgVelocity(link);
 			linkMiniStatExt.setAvarageRidingVelocity(linkRidingAvgVelocity == null ? Double.valueOf(0) : linkRidingAvgVelocity);
 
@@ -295,7 +305,7 @@ public class StatsUtil {
 		cityMiniStat.setAllCarsOnRedLight(allCarsOnRedLigth);
 		cityMiniStat.setEmergencyVehiclesOnRedLight(emergencyVehiclesOnRedLight);
 		cityMiniStat.setNormalCarsOnRedLight(normalCarsOnRedLight);
-		
+		cityMiniStat.setAvgTurnCarVelocity(cityAvgVelocity);		
 	}
 
 	public static void dumpStats(final City city, final MiniStatEView statView, final int turn, final PrintWriter writer) {

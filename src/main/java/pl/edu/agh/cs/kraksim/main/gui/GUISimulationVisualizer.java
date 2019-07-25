@@ -37,6 +37,7 @@ public class GUISimulationVisualizer implements SimulationVisualizer {
 	private static final Logger LOGGER7 = Logger.getLogger(LastPeriodCarCount.class);
 	private static final Logger LOGGER8 = Logger.getLogger(LinkMiniStatExt.class);
 	private static final Logger LOGGER9 = Logger.getLogger(MiniStatModuleCreator.class);
+	private static final Logger LOGGER10 = Logger.getLogger(RouteStat.class);
 	private final VisualizerComponent visualizerComponent;
 	private final List<UpdateHook> hooks;
 	private final City city;
@@ -189,6 +190,7 @@ public class GUISimulationVisualizer implements SimulationVisualizer {
 		}
 
 		if (turn % Integer.parseInt(KraksimConfigurator.getProperty("statisticsDumpToFile")) == 0) {
+			cityStat.getAvgCarSpeed();
 			//LOGGER.info(turn + ";" + cityStat.getAvgVelocity() + ";"  + cityStat.getAvgCarSpeed());
 			LOGGER.info(turn + "," + cityStat.getAvgVelocity());
 			LOGGER2.info(turn + "," + cityStat.getAllCarsOnRedLight());
@@ -199,6 +201,7 @@ public class GUISimulationVisualizer implements SimulationVisualizer {
 			LOGGER7.info(turn + "," + cityStat.getNormalCarsOnRedLight());
 			LOGGER8.info(turn + "," + cityStat.getEmergencyVehiclesCount());
 			LOGGER9.info(turn + "," + cityStat.getNormalCarsCount());
+			LOGGER10.info(turn + "," + cityStat.getAvgTurnCarVelocity());
 		}
 
 		//Centrallity stats

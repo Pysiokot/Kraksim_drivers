@@ -41,6 +41,7 @@ class Car {
 	private int beforePos;
 	private boolean rerouting = false;
 	private int obstacleVisibility;
+	private int acceleration;
 
 	// 2019
 	private LaneRealExt currentLane = null;
@@ -97,6 +98,7 @@ class Car {
 		beforePos = 0;
 
 		obstacleVisibility = Integer.parseInt(KraksimConfigurator.getProperty("obstacleVisibility"));
+		acceleration = Integer.parseInt(KraksimConfigurator.getProperty("carAcceleration"));
 
 		LOGGER.trace("\n Driver= " + driver + "\n rerouting= " + rerouting);
 	}
@@ -124,7 +126,7 @@ class Car {
 	
 	/** @return min( velocity + 1 , Speed Limit )	 */
 	public int getFutureVelocity() {
-		return Math.min(velocity + 1, this.currentLane.getSpeedLimit());
+		return Math.min(velocity + this.acceleration, this.currentLane.getSpeedLimit());
 	}
 
 	public void setVelocity(int velocity) {
@@ -400,7 +402,6 @@ class Car {
 			// car already has an action and will try to do it this turn
 			return;
 		}
-		if(velocity == 0) throw new RuntimeException("vel == 0");
 		int switchLaneForceLeft = -1;
 		int switchLaneForceRight = -1;
 
@@ -725,7 +726,7 @@ class Car {
 		if (this.isEmergency()) {
 			this.velocity = Math.min(this.currentLane.getEmergencySpeedLimit(), this.velocity+this.currentLane.getEmergencyAcceleration());
 		} else {
-			this.velocity = Math.min(this.currentLane.getSpeedLimit(), this.velocity+1);
+			this.velocity = Math.min(this.currentLane.getSpeedLimit(), this.velocity+this.acceleration);
 		}
 		
 		handleCorrectModel(nextCar);
@@ -849,11 +850,12 @@ class Car {
 		if(this.switchToLane == LaneSwitch.LEFT || this.switchToLane == LaneSwitch.RIGHT) {
 			this.changeLanes(this.getLaneFromLaneSwitchState());
 			nextCar = this.currentLane.getFrontCar(this);	// nextCar changed
-			this.velocity = Math.max(this.velocity-1, 0);
+			this.velocity = Math.max(this.velocity-1, 0);	// Reduce by 1
 			this.switchLaneUrgency = 0;
 			
 		} else if(this.switchToLane == LaneSwitch.WANTS_LEFT || this.switchToLane == LaneSwitch.WANTS_RIGHT) {
-			this.setVelocity(Math.max(this.getVelocity()-1, 1));	// by default reduce speed to 1 if looking for a lane switch	
+			// cancel this.acceleration
+			this.setVelocity(Math.max(this.getVelocity()-this.acceleration, 1));	// by default reduce speed to 1 if looking for a lane switch	
 			this.switchLaneUrgency++;
 		}
 		

@@ -48,7 +48,7 @@ public class StatsPanel extends JPanel {
 			final NumberChart csc = new NumberChart("Avarage current velocity", visPanel.cityStat) {
 				@Override
 				public void refresh() {
-					addData(cityStat.getAvgCarSpeed());
+					addData(cityStat.getAvgTurnCarVelocity());
 				}
 			};
 
