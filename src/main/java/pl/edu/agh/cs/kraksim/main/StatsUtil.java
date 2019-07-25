@@ -11,6 +11,7 @@ import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 import pl.edu.agh.cs.kraksim.ministat.*;
+import pl.edu.agh.cs.kraksim.real_extended.Car;
 import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 
 import java.io.PrintWriter;
@@ -174,7 +175,6 @@ public class StatsUtil {
 		
 		long numOfCarsCountedToAvgVel = 0;
 		double cityAvgVelocity = 0;
-		
 		for (Iterator<Link> i = city.linkIterator(); i.hasNext(); ) {
 			Link link = i.next();
 			LinkMiniStatExt linkMiniStatExt = statView.ext(link);
@@ -300,6 +300,16 @@ public class StatsUtil {
 			allCarsOnRedLigth += carOnRedLightInLink;
 			emergencyVehiclesOnRedLight += emergencyVehiclesOrRedLightInLink;
 			normalCarsOnRedLight += normalCarsOrRedLightInLink;
+		}
+		
+		for (Iterator<Gateway> i = city.gatewayIterator(); i.hasNext(); ) {
+			Gateway gate = i.next();
+			GatewayMiniStatExt gateMiniStatExt = statView.ext(gate);
+			int waitingCars = gateMiniStatExt.getWaitingCars().size();
+			cityAvgVelocity = 
+					(cityAvgVelocity * numOfCarsCountedToAvgVel) 
+					/ (numOfCarsCountedToAvgVel+waitingCars);
+			cityAvgVelocity = Double.compare(cityAvgVelocity,  Double.NaN) == 0 ? Double.valueOf(0) : cityAvgVelocity;
 		}
 		
 		cityMiniStat.setAllCarsOnRedLight(allCarsOnRedLigth);

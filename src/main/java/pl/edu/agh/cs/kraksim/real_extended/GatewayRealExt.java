@@ -135,4 +135,8 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 	public void installExitSensor(CarExitHandler handler) {
 		exitHandlers.add(handler);
 	}
+	
+	public LinkedList<Car> getEnteringCars() {
+		return this.cars;
+	}
 }
