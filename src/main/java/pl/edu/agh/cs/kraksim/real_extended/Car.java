@@ -499,8 +499,9 @@ class Car {
 		int gapNeiBehind =	otherCarBehind != null	? this.pos - otherCarBehind.getPosition() - 1	: this.pos - 1;
 		double crashFreeTurns = this.currentLane.CRASH_FREE_TIME;	// turns until crash, gap must be bigger than velocity * crashFreeTurns, == 1 -> after this turn it will look good
 		double crashFreeMultiplier = Math.max(1 - switchLaneUrgency / Double.parseDouble(KraksimConfigurator.getProperty("turnsToIgnoreCrashRules")), 0);
-		boolean spaceInFront = gapNeiFront >= Math.round((this.getVelocity()-1) * crashFreeTurns * crashFreeMultiplier);
+		boolean spaceInFront = gapNeiFront >= Math.round((this.velocity - this.acceleration) * crashFreeTurns * crashFreeMultiplier);
 		boolean spaceBehind = otherCarBehind == null || gapNeiBehind >= Math.round(otherCarBehind.getFutureVelocity() * (crashFreeTurns - 1) * crashFreeMultiplier);
+		System.out.println(spaceInFront + " " + spaceBehind);
 		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());	// Multiplier
 	}	
 //		[end] Switch Lane Algorithm
