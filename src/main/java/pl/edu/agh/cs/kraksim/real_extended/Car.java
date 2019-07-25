@@ -505,7 +505,7 @@ public class Car {
 			crashFreeMultiplier = Math.max(1 - switchLaneUrgency / Double.parseDouble(KraksimConfigurator.getProperty("turnsToIgnoreCrashRules")), 0);
 		}
 		boolean spaceInFront = gapNeiFront >= Math.round((this.velocity - this.acceleration) * crashFreeTurns * crashFreeMultiplier);
-		boolean spaceBehind = otherCarBehind == null || gapNeiBehind >= Math.round(otherCarBehind.getFutureVelocity() * (crashFreeTurns - 1) * crashFreeMultiplier);
+		boolean spaceBehind = otherCarBehind == null || gapNeiBehind >= Math.round((otherCarBehind.getFutureVelocity()-(this.velocity - this.acceleration)) * (crashFreeTurns - 1) * crashFreeMultiplier);
 		return spaceInFront && spaceBehind && (otherLane.getOffset() <= this.getPosition());	// Multiplier
 	}	
 //		[end] Switch Lane Algorithm

@@ -185,7 +185,7 @@ public class GUISimulationVisualizer implements SimulationVisualizer {
 			turnDisp.setText(String.valueOf(turn));
 			carCountDisp.setText(String.valueOf(cityStat.getCarCount()));
 			travelCountDisp.setText(String.valueOf(cityStat.getTravelCount()));
-			avgVelocityDisp.setText(String.format("%5.2f", cityStat.getAvgVelocity()));
+			avgVelocityDisp.setText(String.format("%5.2f", cityStat.getAvgTurnCarVelocity()));
 			runUpdateHooks(cityStat);
 		}
 
