@@ -6,33 +6,33 @@
         <gateway id="G2" x="158" y="66" />
         <intersection id="I0" x="40" y="66" />
     </nodes>
-    <roads defaultSpeedLimit="1">
-        <road id="roads_0" street="roads_0" speedLimit="3" from="G1" to="I0">
+    <roads defaultSpeedLimit="5">
+        <road id="roads_0" street="roads_0" from="G1" to="I0">
             <uplink>
-                <main length="295" numberOfLanes="3">
+                <main length="300" numberOfLanes="3">
                     <blocked laneNumber = "0" cell="150" />
                     <blocked laneNumber = "1" cell="160" />
                 </main>
                 <right length="100"/>
             </uplink>
             <downlink>
-                <main length="295" numberOfLanes="1" />
+                <main length="300" numberOfLanes="1" />
             </downlink>
         </road>
-        <road id="roads_1" street="roads_1" speedLimit="1" from="I0" to="G0">
+        <road id="roads_1" street="roads_1" from="I0" to="G0">
             <uplink>
-                <main length="165" numberOfLanes="1" />
+                <main length="150" numberOfLanes="1" />
             </uplink>
             <downlink>
-                <main length="165" numberOfLanes="1" />
+                <main length="150" numberOfLanes="1" />
             </downlink>
         </road>
-        <road id="roads_2" street="roads_2" speedLimit="5" from="I0" to="G2">
+        <road id="roads_2" street="roads_2" from="I0" to="G2">
             <uplink>
-                <main length="118" numberOfLanes="2" />
+                <main length="120" numberOfLanes="2" />
             </uplink>
             <downlink>
-                <main length="118" numberOfLanes="2" />
+                <main length="120" numberOfLanes="2" />
             </downlink>
         </road>
     </roads>
