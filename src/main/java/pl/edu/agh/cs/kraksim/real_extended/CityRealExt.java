@@ -37,7 +37,11 @@ class CityRealExt implements CitySimIface, CityBlockIface {
 			LOGGER.trace(route);
 		}
 // TODO: routing configuration
-		evalView.ext(route.getSource()).enqueueCar(new Car(driver, route, rerouting));
+		if(driver.isEmergency()) {
+			evalView.ext(route.getSource()).enqueueCar(new Emergency(driver, route, rerouting));			
+		} else {
+			evalView.ext(route.getSource()).enqueueCar(new Car(driver, route, rerouting));			
+		}
 	}
 
 	public void simulateTurn() {

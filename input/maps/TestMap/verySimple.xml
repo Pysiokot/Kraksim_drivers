@@ -14,12 +14,12 @@
           <blocked laneNumber = "0" blockedLength = "2" cell="200" />
           <blocked laneNumber = "1" blockedLength = "2" cell="201" />
 
-          <blocked laneNumber = "1" blockedLength = "30" cell="250" /> 
+          <!-- <blocked laneNumber = "1" blockedLength = "30" cell="250" /> 
           <blocked laneNumber = "0" blockedLength = "2" cell="290" />
-          <blocked laneNumber = "1" blockedLength = "2" cell="291" />
+          <blocked laneNumber = "1" blockedLength = "2" cell="291" /> -->
 
         </main>
-        <right length="5"/>
+        <right length="50"/>
       </uplink>
       <downlink>
         <main length="295" numberOfLanes="1" />

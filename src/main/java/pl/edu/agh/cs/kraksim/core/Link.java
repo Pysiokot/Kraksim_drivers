@@ -11,6 +11,7 @@ import pl.edu.agh.cs.kraksim.real_extended.Obstacle;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -393,5 +394,13 @@ public class Link extends Element {
 
 	public void setExitCarHandlers(List<CarDriveHandler> exitCarHandlers) {
 		this.exitCarHandlers = exitCarHandlers;
+	}
+
+	public List<Integer> getActiveBlockedCellsIndexList() {
+		List<Integer> blockedList = new ArrayList<>();
+		for(Lane lane : Arrays.asList(this.lanes)) {
+			blockedList.addAll(lane.getActiveBlockedCellsIndexList());
+		}
+		return blockedList;
 	}
 }

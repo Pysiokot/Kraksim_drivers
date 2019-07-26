@@ -72,6 +72,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 	
 	void simulateTurn() {
 		LOGGER.trace(link);
+		//System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx");
 		List laneList = Arrays.asList(this.link.getLanes());
 		for (Object lane : laneList) {
 			this.ev.ext((Lane) lane).prepareIterator();

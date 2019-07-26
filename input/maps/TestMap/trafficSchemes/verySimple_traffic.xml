@@ -4,7 +4,7 @@
         <gateway id="G1">
             <uniform a="0" b="50" />
         </gateway>
-        <gateway id="G0" />
+        <gateway id="G2" />
     </scheme>
 </traffic>
 

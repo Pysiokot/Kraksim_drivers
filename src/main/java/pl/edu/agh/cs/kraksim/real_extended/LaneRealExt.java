@@ -309,7 +309,28 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 	
 	public Car getFrontCar(Car car) {
-		return getFrontCar(car.getPosition());
+		if(!car.getCurrentLane().equals(this)) throw new RuntimeException("wqe");
+		if(this.cars.contains(car)) {
+			int minPositiveDistance = Integer.MAX_VALUE;
+			Car nextCar = null;
+			List<Car> carsOnLane = this.getCars();
+			boolean passedMyself = false;
+			for (Car _car : carsOnLane) {
+				//System.out.println("\t" + passedMyself+" " + _car );
+				int carsDistance = _car.getPosition() - car.getPosition();
+				if (passedMyself && minPositiveDistance > carsDistance && carsDistance >= 0) {
+					minPositiveDistance = carsDistance;
+					nextCar = _car;
+					return nextCar;					
+				}
+				if(!passedMyself && _car.equals(car)) {
+					passedMyself = true;
+				}
+			}
+		} else {
+			return getFrontCar(car.getPosition());			
+		}
+		return null;
 	}
 	
 	public Car getFrontCar(int pos) {
@@ -395,10 +416,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			if(c.getPosition() <= t_lastPos) {
 				System.err.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
 				for(Car cPrint : this.cars) {
-					System.err.print(cPrint.getPosition() + " "); 
+					System.err.print(cPrint.getPosition()+"="+(cPrint instanceof Emergency) + " "); 
 				}
 				System.err.println();
-				throw new RuntimeException("Error while adding cars");
+				//throw new RuntimeException("Error while adding cars");
 			}
 			t_lastPos = c.getPosition();
 		}
@@ -437,7 +458,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			if(c.getPosition() <= t_lastPos) {
 				System.err.println("ERROR :: remove car :: positions " + car +" t_lastPos " + t_lastPos);
 				for(Car cPrint : this.cars) {
-					System.err.print(cPrint.getPosition() + " "); 
+					System.err.print(cPrint.getPosition()+"="+(cPrint instanceof Emergency) + " "); 
 				}
 				System.err.println();
 				throw new RuntimeException("Error while remove cars - wrong order");
@@ -458,13 +479,25 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	 */
 	public boolean addCarToLaneWithIterator(Car car) {
 		boolean added = false;
-		while(this.carIterator.hasPrevious()) {
-			if(this.carIterator.previous().getPosition() < car.getPosition()) {
-				this.carIterator.next();
-				this.carIterator.add(car);
-				added = true;	// we can add it in the middle of list
-				break;
+		if(car instanceof Emergency) {
+			//	[c_4] -> [c_5] -> [e_5] -> [c_6] 
+			while(this.carIterator.hasPrevious()) {
+				if(this.carIterator.previous().getPosition() <= car.getPosition()) {
+					this.carIterator.next();
+					this.carIterator.add(car);
+					added = true;	// we can add it in the middle of list
+					break;
+				}
 			}
+		} else {
+			while(this.carIterator.hasPrevious()) {
+				if(this.carIterator.previous().getPosition() < car.getPosition()) {
+					this.carIterator.next();
+					this.carIterator.add(car);
+					added = true;	// we can add it in the middle of list
+					break;
+				}
+		}
 		}
 		// it needs to be put as last element of list and this.carIterator.hasPrevious() is false
 		if(!added) {
@@ -478,10 +511,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			if(c.getPosition() <= t_lastPos) {
 				System.err.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
 				for(Car cPrint : this.cars) {
-					System.err.print(cPrint.getPosition() + " "); 
+					System.err.print(cPrint.getPosition()+"="+(cPrint instanceof Emergency) + " "); 
 				}
 				System.err.println();
-				throw new RuntimeException("Error while adding cars");
+				//throw new RuntimeException("Error while adding cars");
 			}
 			t_lastPos = c.getPosition();
 		}
@@ -517,10 +550,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			if(c.getPosition() <= t_lastPos) {
 				System.err.println("ERROR :: remove car :: positions " + car +" t_lastPos " + t_lastPos);
 				for(Car cPrint : this.cars) {
-					System.err.print(cPrint.getPosition() + " "); 
+					System.err.print(cPrint.getPosition()+"="+(cPrint instanceof Emergency) + " "); 
 				}
 				System.err.println();
-				throw new RuntimeException("Error while remove cars - wrong order");
+				//throw new RuntimeException("Error while remove cars - wrong order");
 			}
 			t_lastPos = c.getPosition();
 		}
