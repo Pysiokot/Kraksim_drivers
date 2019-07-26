@@ -480,6 +480,7 @@ public class Car {
 		}
 		return -1;
 	}
+	
 	/** is distance to next car less than my speed  */
 	private boolean isMyLaneBad(Car carInFront) {
 		int gapThisFront = 	carInFront != null ? carInFront.getPosition() - this.pos - 1 : this.currentLane.linkLength() - this.pos -1;

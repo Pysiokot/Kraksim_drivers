@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<traffic>
+    <scheme count="50">
+        <gateway id="G1">
+            <uniform a="0" b="50" />
+        </gateway>
+        <gateway id="G0" />
+    </scheme>
+</traffic>
+

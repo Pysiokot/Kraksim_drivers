@@ -146,7 +146,7 @@ public class StatsUtil {
 			assert avgVelocities.size() == avgRidingVelocities.size();
 
 			int period = 0;
-			for (int j = 0; j < avgVelocities.size(); j++) {
+			for (int j = 0; avgVelocities!=null && j < avgVelocities.size(); j++) {
 				double avgVelocity = avgVelocities.get(j);
 				double avgRidingVelocity = avgRidingVelocities.get(j);
 				int carCount = carCounts.get(j);

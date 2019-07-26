@@ -51,8 +51,9 @@ public class TravellingScheme {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.emergencyVehicles = Integer.valueOf(properties.getProperty("emergencyVehiclesNr"));
-		this.count = count - emergencyVehicles;
+		double emergencySpawnPercentage = Double.parseDouble(KraksimConfigurator.getProperty("emergency_spawnPercentage"));
+		this.count = count;
+		this.emergencyVehicles = (int) Math.round(this.count * emergencySpawnPercentage);
 		this.gateways = gateways;
 		this.departureDists = departureDists;
         driver_zones = prepareDriverZones(zones);
