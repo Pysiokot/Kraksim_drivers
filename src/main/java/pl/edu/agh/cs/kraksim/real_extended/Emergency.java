@@ -7,10 +7,14 @@ import pl.edu.agh.cs.kraksim.iface.sim.Route;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 public class Emergency extends Car {
+	private final String swapPenaltyMode;
+	private final double swapPenaltyValue;
 	
 	public Emergency(Driver driver, Route route, boolean rerouting) {
 		super(driver, route, rerouting);
 		this.setAcceleration((int) Math.round(this.getAcceleration() * Double.parseDouble((KraksimConfigurator.getProperty("emergency_accelerationMultiplier")))));
+		swapPenaltyMode = KraksimConfigurator.getProperty("emergency_swapReduceMode");
+		swapPenaltyValue = Double.parseDouble(KraksimConfigurator.getProperty("emergency_swapReduceValue"));
 	}
 	
 	/** formula for calculating probability based on current position <br>
@@ -181,6 +185,14 @@ public class Emergency extends Car {
 			this.switchLaneUrgency*=2;
 		}
 		
+		driveForward(0, 0);
+		
+	}
+	
+	private void driveForward(int distDrivenTotal, int distDrivenThisDrive) {
+		Car nextCar = this.getCurrentLane().getFrontCar(this);
+		//System.out.println("\tnextCar " + nextCar);
+		boolean continueTravel;
 		int freeCellsInFront;
 		if (nextCar != null) {
 			freeCellsInFront = nextCar.getPosition() - this.pos - 1;
@@ -192,45 +204,73 @@ public class Emergency extends Car {
 		//	move car forward |velocity| squares if lane ended do intersection/gateway function
 		int distanceTraveled = 0;
 		int distanceTraveledOnPreviousLane = 0;	// used in intersection crossing
-		if(freeCellsInFront >= this.getVelocity()) {	// simple move forward
-			distanceTraveled = this.getVelocity();
-		} else if (nextCar != null) {	// there is car in front, will crash
+		if(freeCellsInFront >= this.getVelocity() - distDrivenTotal) {	// simple move forward
+			distanceTraveled = Math.max(0, this.getVelocity() - distDrivenTotal);
+			continueTravel = false;	// last move in this turn
+		} else if (nextCar != null) {	// there is car in front, will crash, distance is less than velocity
 			distanceTraveled = freeCellsInFront;
+			continueTravel = true;
 		} else if(this.getActionForNextIntersection() != null){	// road ended, interaction
+			continueTravel = false;
 			distanceTraveled = freeCellsInFront;
 			boolean crossed = this.crossIntersection();
 			if(crossed) {
-				nextCar = this.getCurrentLane().getFrontCar(this);	// nextCar changed
-				if (nextCar != null) {	// distance to new car also
-					freeCellsInFront = nextCar.getPosition() - this.pos - 1;
-				} else {
-					freeCellsInFront = this.getCurrentLane().linkLength() - this.pos -1;
-				}
-				distanceTraveledOnPreviousLane = distanceTraveled;
-				distanceTraveled += 
-						Math.max(
-								Math.min(
-										Math.min(
-											freeCellsInFront, this.getVelocity() - distanceTraveledOnPreviousLane - 1)
-											, this.getSpeedLimit()
-										)
-								,0);
+				this.setVelocity(this.getVelocity() - distanceTraveled);
+				this.driveForward(distDrivenTotal + distanceTraveled + 1, 0);	// distance in previous driveForward + distance in this (freeCellsInFront) + 1 for swap				
+				return;
 			}
 		} else {	// road ended, gateway
-			try {
-				((GatewayRealExt) this.getCurrentLane().getRealView().ext(this.getCurrentLane().linkEnd())).acceptCar(this);				
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw e;
-			}
+			continueTravel = false;
+			((GatewayRealExt) this.getCurrentLane().getRealView().ext(this.getCurrentLane().linkEnd())).acceptCar(this);				
 			this.getCurrentLane().removeCarFromLaneWithIterator(this);
 			distanceTraveled = freeCellsInFront + 2;
 		}
-		this.setPosition(this.pos + distanceTraveled - distanceTraveledOnPreviousLane);
-		if(distanceTraveled<0) throw new RuntimeException("ss");
-		this.setVelocity(distanceTraveled);
+		
+		if(continueTravel) {
+			Car nextNextCar = this.getCurrentLane().getFrontCar(nextCar);
+			if((nextCar instanceof Obstacle || nextCar instanceof Emergency)
+					|| (nextNextCar!=null && nextNextCar.getPosition() == nextCar.getPosition() 
+								&& (nextNextCar instanceof Obstacle || nextNextCar instanceof Emergency)
+					)) {
+				// cant swap
+				continueTravel = false;	// change, we cant swap -> we cant move forward
+			} else {
+				
+				if(this.swapPenaltyMode.equals("substract")) {
+					this.setVelocity(Math.max(0, (int) (this.getVelocity() - swapPenaltyValue)));
+					nextCar.setVelocity(Math.max(0, (int) (nextCar.getVelocity() - swapPenaltyValue)));
+				} else {
+					this.setVelocity((int) (this.getVelocity()/swapPenaltyValue));				
+					nextCar.setVelocity((int) (nextCar.getVelocity()/swapPenaltyValue));	
+				}
+				//System.out.println("\tdriveForward new Vel " + this.getVelocity());
+				// swap with nextCar
+				this.swap(nextCar);
+				this.driveForward(distDrivenTotal + distanceTraveled + 1, 0);	// distance in previous driveForward + distance in this (freeCellsInFront) + 1 for swap				
+				return;
+			}
+		} 
+		if(!continueTravel) {
+			//System.out.println("this.getPosition() + distanceTraveled, "+ this.getPosition() +" "+ distanceTraveled);
+			this.setPosition(this.getPosition() + distanceTraveled);
+			this.setVelocity(distanceTraveled + distDrivenTotal);			
+		}
+		//System.out.println("\tdriveForward end " + this);
 	}
 	
+	private void swap(Car nextCar) {
+//		System.out.println("SWAP ------------ " + this.getPosition());
+//		for(Car cPrint : this.getCurrentLane().getCars()) {
+//			System.out.print(cPrint.getPosition()+"="+(cPrint instanceof Emergency) + " "); 
+//		}
+		this.getCurrentLane().removeCarFromLaneWithIterator(this);
+		this.setPosition(nextCar.getPosition());
+		this.getCurrentLane().addCarToLaneWithIterator(this);
+//		for(Car cPrint : this.getCurrentLane().getCars()) {
+//			System.out.print(cPrint.getPosition()+"="+(cPrint instanceof Emergency) + " "); 
+//		}
+//		System.out.println("====-------- " + this.getPosition());
+	}
 	
 	/** Includes emergency multiplier */
 	public int getSpeedLimit() {

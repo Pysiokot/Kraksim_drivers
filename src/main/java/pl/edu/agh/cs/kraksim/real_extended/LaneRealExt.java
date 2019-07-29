@@ -13,6 +13,7 @@ import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
 import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.LaneMonIface;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
+import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -479,16 +480,23 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	 */
 	public boolean addCarToLaneWithIterator(Car car) {
 		boolean added = false;
+		int id = 0;
 		if(car instanceof Emergency) {
 			//	[c_4] -> [c_5] -> [e_5] -> [c_6] 
+			while(this.carIterator.hasNext() && this.carIterator.next().getPosition() <= car.getPosition())
+			{ // normalize iterator position, we want it to be in front of car
+			}
 			while(this.carIterator.hasPrevious()) {
-				if(this.carIterator.previous().getPosition() <= car.getPosition()) {
+				Car c = this.carIterator.previous();
+				if(c.getPosition() <= car.getPosition()) {
 					this.carIterator.next();
 					this.carIterator.add(car);
 					added = true;	// we can add it in the middle of list
 					break;
 				}
+				id++;
 			}
+			//if(this.carIterator.hasPrevious()) this.carIterator.previous();
 		} else {
 			while(this.carIterator.hasPrevious()) {
 				if(this.carIterator.previous().getPosition() < car.getPosition()) {
@@ -501,6 +509,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}
 		// it needs to be put as last element of list and this.carIterator.hasPrevious() is false
 		if(!added) {
+			//System.out.println("add last");
 			this.carIterator.add(car);
 		}
 		
@@ -509,11 +518,11 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		int t_lastPos = -1;
 		for(Car c : this.cars) {
 			if(c.getPosition() <= t_lastPos) {
-				System.err.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
+				//System.err.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
 				for(Car cPrint : this.cars) {
-					System.err.print(cPrint.getPosition()+"="+(cPrint instanceof Emergency) + " "); 
+					//System.err.print(cPrint.getPosition()+"="+(cPrint instanceof Emergency) + " "); 
 				}
-				System.err.println();
+				//System.err.println();
 				//throw new RuntimeException("Error while adding cars");
 			}
 			t_lastPos = c.getPosition();
@@ -528,11 +537,40 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	 */
 	public boolean removeCarFromLaneWithIterator(Car car) {
 		boolean removed = false;
-		while(this.carIterator.hasPrevious()) {
-			if(this.carIterator.previous().equals(car)) {
-				this.carIterator.remove();
-				removed = true;	// we can remove it from the middle of list
-				break;
+		boolean removeFromPrevious;
+		
+		if(this.carIterator.hasPrevious() && this.carIterator.previous().getPosition() < car.getPosition()) {
+			removeFromPrevious = false;
+			if(this.carIterator.hasNext()) this.carIterator.next();
+		} else {
+			removeFromPrevious = true;
+			if(this.carIterator.hasNext()) this.carIterator.next();
+		}
+		
+		if(removeFromPrevious) {	
+			if(this.carIterator.hasNext()) this.carIterator.next();
+			while(this.carIterator.hasPrevious()) {
+				if(this.carIterator.previous().equals(car)) {
+					this.carIterator.remove();
+					removed = true;	// we can remove it from the middle of list
+					break;
+				}
+			}
+			//if(this.carIterator.hasPrevious()) this.carIterator.previous();
+		} else {
+			int stepsForward = 0;
+			if(this.carIterator.hasPrevious()) this.carIterator.previous();
+			while(this.carIterator.hasNext()) {
+				stepsForward++;
+				if(this.carIterator.next().equals(car)) {
+					this.carIterator.remove();
+					removed = true;	// we can remove it from the middle of list
+					break;
+				}
+			}
+			if(this.carIterator.hasNext()) this.carIterator.next();
+			for(int i=0; i<stepsForward; i++) {
+				this.carIterator.previous();
 			}
 		}
 		
@@ -576,6 +614,18 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		while(tempIt.hasNext()) {
 			Car car = tempIt.next();
 			if(car.getPosition() == pos) {
+				return false;
+			}
+		}			
+		return true;
+	}
+	
+	public boolean canAddEmergencyToLaneOnPosition(int pos) {
+		System.out.println("QWe");
+		ListIterator<Car> tempIt = this.cars.listIterator();
+		while(tempIt.hasNext()) {
+			Car car = tempIt.next();
+			if((car instanceof Emergency || car instanceof Obstacle) && car.getPosition() == pos) {
 				return false;
 			}
 		}			
@@ -735,7 +785,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			return car.getVelocity();
 		}
 
-		public Object currentDriver() {
+		public Driver currentDriver() {
 			if (car == null) {
 				throw new NoSuchElementException();
 			}

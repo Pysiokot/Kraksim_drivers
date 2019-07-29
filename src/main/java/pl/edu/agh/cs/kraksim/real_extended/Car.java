@@ -491,7 +491,16 @@ public class Car {
 	protected boolean isOtherLaneBetter(Car carInFront, Car otherCarFront, LaneRealExt otherLane) {
 		int gapThisFront = carInFront != null	? carInFront.getPosition() - this.pos - 1	: this.currentLane.linkLength() - this.pos - 1;
 		int gapNeiFront = otherCarFront != null	? otherCarFront.getPosition() - this.pos - 1	: otherLane.linkLength() - this.pos - 1;
-		return (gapNeiFront-1) > gapThisFront;
+		boolean obstacleClose = false;
+		for(Integer obstacleIndex : otherLane.getLane().getActiveBlockedCellsIndexList()) {
+			int dist = obstacleIndex - getPosition();	// [C] --> [o]
+			if(dist < 0) continue;
+			else if(dist < Integer.parseInt(KraksimConfigurator.getProperty("obstacleVisibility"))) {
+				obstacleClose = true;
+				break;
+			}
+		}
+		return (gapNeiFront-1) > gapThisFront && !obstacleClose;
 	}
 	
 	/** is it safe to switch lanes, tests my speed, others speed, gaps between cars, niceness of lane switch (how much space do I need) */
@@ -752,7 +761,10 @@ public class Car {
 		if(!this.canMoveThisTurn()) {	// car already did this turn
 			return;
 		}
+		
+		//if(this instanceof Emergency) System.out.println("==============================\n" + this);
 		Car nextCar = this.currentLane.getFrontCar(this);
+		//System.out.println("car:\t" + this+"\nNext:\t" + nextCar);
 		
 		// remember starting point
 		this.setBeforeLane(this.currentLane.getLane());

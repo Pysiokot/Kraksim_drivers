@@ -16,7 +16,7 @@ public class CityMiniStatExt {
 	private long allCarsOnRedLight;
 	private long emergencyVehiclesOnRedLight;
 	private long normalCarsOnRedLight;
-	private double avgTurnCarVelocity;
+	private AvgTurnVelocityCounter avgTurnVelocityCounter = new AvgTurnVelocityCounter();
 
 	CityMiniStatExt(City city, MiniStatEView ev, StatHelper helper) {
 		this.city = city;
@@ -117,11 +117,11 @@ public class CityMiniStatExt {
 		this.normalCarsOnRedLight = normalCarsOnRedLight;
 	}
 
-	public double getAvgTurnCarVelocity() {
-		return avgTurnCarVelocity;
+	public AvgTurnVelocityCounter getAvgTurnVelocityCounter() {
+		return avgTurnVelocityCounter;
 	}
 
-	public void setAvgTurnCarVelocity(double avgTurnCarVelocity) {
-		this.avgTurnCarVelocity = avgTurnCarVelocity;
+	public void setAvgTurnVelocityCounter(AvgTurnVelocityCounter avgTurnVelocityCounter) {
+		this.avgTurnVelocityCounter = avgTurnVelocityCounter;
 	}
 }

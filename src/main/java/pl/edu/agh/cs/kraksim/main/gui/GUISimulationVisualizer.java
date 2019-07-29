@@ -30,14 +30,14 @@ import java.util.NoSuchElementException;
 public class GUISimulationVisualizer implements SimulationVisualizer {
 	private static final Logger LOGGER = Logger.getLogger(GUISimulationVisualizer.class);
 	private static final Logger LOGGER2 = Logger.getLogger(StatsPanel.class);
-	private static final Logger LOGGER3 = Logger.getLogger(CentrallityStatistics.class);
-	private static final Logger LOGGER4 = Logger.getLogger(GatewayMiniStatExt.class);
-	private static final Logger LOGGER5 = Logger.getLogger(LastPeriodAvgDuration.class);
 	private static final Logger LOGGER6 = Logger.getLogger(LastPeriodAvgVelocity.class);
 	private static final Logger LOGGER7 = Logger.getLogger(LastPeriodCarCount.class);
-	private static final Logger LOGGER8 = Logger.getLogger(LinkMiniStatExt.class);
-	private static final Logger LOGGER9 = Logger.getLogger(MiniStatModuleCreator.class);
-	private static final Logger LOGGER10 = Logger.getLogger(RouteStat.class);
+	private static final Logger LOGGER_normalCount = Logger.getLogger(MiniStatModuleCreator.class);
+	private static final Logger LOGGER_emergencyCount = Logger.getLogger(LinkMiniStatExt.class);
+	private static final Logger LOGGER_carCount = Logger.getLogger(CentrallityStatistics.class);
+	private static final Logger LOGGER_normalCarTurnVelocity = Logger.getLogger(RouteStat.class);
+	private static final Logger LOGGER_emergencyCarTurnVelocity = Logger.getLogger(GatewayMiniStatExt.class);
+	private static final Logger LOGGER_allCarTurnVelocity = Logger.getLogger(LastPeriodAvgDuration.class);
 	private final VisualizerComponent visualizerComponent;
 	private final List<UpdateHook> hooks;
 	private final City city;
@@ -180,12 +180,13 @@ public class GUISimulationVisualizer implements SimulationVisualizer {
 			}
 		}
 
+		AvgTurnVelocityCounter avgCarTurnVel = cityStat.getAvgTurnVelocityCounter();
 		if (turn % refreshPeriod == 0) {
 			visualizerComponent.update();
 			turnDisp.setText(String.valueOf(turn));
 			carCountDisp.setText(String.valueOf(cityStat.getCarCount()));
 			travelCountDisp.setText(String.valueOf(cityStat.getTravelCount()));
-			avgVelocityDisp.setText(String.format("%5.2f", cityStat.getAvgTurnCarVelocity()));
+			avgVelocityDisp.setText(String.format("%5.2f", avgCarTurnVel.getAvgAllVelocity()));
 			runUpdateHooks(cityStat);
 		}
 
@@ -194,14 +195,16 @@ public class GUISimulationVisualizer implements SimulationVisualizer {
 			//LOGGER.info(turn + ";" + cityStat.getAvgVelocity() + ";"  + cityStat.getAvgCarSpeed());
 			LOGGER.info(turn + "," + cityStat.getAvgVelocity());
 			LOGGER2.info(turn + "," + cityStat.getAllCarsOnRedLight());
-			LOGGER3.info(turn + "," + cityStat.getCarCount());
-			LOGGER4.info(turn + "," + cityStat.getAvgEmergencyVehiclesVelocity());
-			LOGGER5.info(turn + "," + cityStat.getAvgNormalCarsVelocity());
 			LOGGER6.info(turn + "," + cityStat.getEmergencyVehiclesOnRedLight());
 			LOGGER7.info(turn + "," + cityStat.getNormalCarsOnRedLight());
-			LOGGER8.info(turn + "," + cityStat.getEmergencyVehiclesCount());
-			LOGGER9.info(turn + "," + cityStat.getNormalCarsCount());
-			LOGGER10.info(turn + "," + cityStat.getAvgTurnCarVelocity());
+			
+			LOGGER_carCount.info(turn + "," + cityStat.getCarCount());
+			LOGGER_emergencyCount.info(turn + "," + cityStat.getEmergencyVehiclesCount());
+			LOGGER_normalCount.info(turn + "," + cityStat.getNormalCarsCount());
+			
+			LOGGER_normalCarTurnVelocity.info(turn + "," + avgCarTurnVel.getAvgNormalCarVelocity());
+			LOGGER_emergencyCarTurnVelocity.info(turn + "," + avgCarTurnVel.getAvgEmergencyCarVelocity());
+			LOGGER_allCarTurnVelocity.info(turn + "," + avgCarTurnVel.getAvgAllVelocity());
 		}
 
 		//Centrallity stats

@@ -169,6 +169,7 @@ public class StatsUtil {
 	 */
 	public static void collectLinkStats(final City city, final CarInfoIView carInfoView, final BlockIView blockView, final MiniStatEView statView, int turn, LinkStat linkStat, LinkStat linkRidingStat) {
 		CityMiniStatExt cityMiniStat = statView.ext(city);
+		AvgTurnVelocityCounter avgTurnVelCounter = new AvgTurnVelocityCounter();
 		long allCarsOnRedLigth = 0;
 		long emergencyVehiclesOnRedLight = 0;
 		long normalCarsOnRedLight = 0;
@@ -205,6 +206,11 @@ public class StatsUtil {
 				CarInfoCursor infoForwardCursor = laneCarInfo.carInfoForwardCursor();
 				while (infoForwardCursor != null && infoForwardCursor.isValid()) {
 					try {
+						if(!infoForwardCursor.currentDriver().isEmergency()) {
+							avgTurnVelCounter.insertNormalCarVelocity(infoForwardCursor.currentVelocity());
+						} else {
+							avgTurnVelCounter.insertEmergencyCarVelocity(infoForwardCursor.currentVelocity());
+						}
 						linkDriveLength += infoForwardCursor.currentVelocity();
 						linkMovementCount++;
 					} catch (NoSuchElementException e) {
@@ -306,16 +312,19 @@ public class StatsUtil {
 			Gateway gate = i.next();
 			GatewayMiniStatExt gateMiniStatExt = statView.ext(gate);
 			int waitingCars = gateMiniStatExt.getWaitingCars().size();
-			cityAvgVelocity = 
-					(cityAvgVelocity * numOfCarsCountedToAvgVel) 
-					/ (numOfCarsCountedToAvgVel+waitingCars);
-			cityAvgVelocity = Double.compare(cityAvgVelocity,  Double.NaN) == 0 ? Double.valueOf(0) : cityAvgVelocity;
+			for(Car car : gateMiniStatExt.getWaitingCars()) {	
+				if(!car.getDriver().isEmergency()) {
+					avgTurnVelCounter.insertNormalCarVelocity(0);
+				} else {
+					avgTurnVelCounter.insertEmergencyCarVelocity(0);
+				}
+			}
 		}
 		
 		cityMiniStat.setAllCarsOnRedLight(allCarsOnRedLigth);
 		cityMiniStat.setEmergencyVehiclesOnRedLight(emergencyVehiclesOnRedLight);
 		cityMiniStat.setNormalCarsOnRedLight(normalCarsOnRedLight);
-		cityMiniStat.setAvgTurnCarVelocity(cityAvgVelocity);		
+		cityMiniStat.setAvgTurnVelocityCounter(avgTurnVelCounter);		
 	}
 
 	public static void dumpStats(final City city, final MiniStatEView statView, final int turn, final PrintWriter writer) {

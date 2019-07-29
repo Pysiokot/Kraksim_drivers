@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import pl.edu.agh.cs.kraksim.core.City;
 import pl.edu.agh.cs.kraksim.core.Gateway;
 import pl.edu.agh.cs.kraksim.core.Intersection;
+import pl.edu.agh.cs.kraksim.core.Lane;
 import pl.edu.agh.cs.kraksim.core.Link;
 import pl.edu.agh.cs.kraksim.iface.block.CityBlockIface;
 import pl.edu.agh.cs.kraksim.iface.sim.CitySimIface;
@@ -12,7 +13,9 @@ import pl.edu.agh.cs.kraksim.iface.sim.TravelEndHandler;
 import pl.edu.agh.cs.kraksim.main.Simulation;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 class CityRealExt implements CitySimIface, CityBlockIface {
 	private static final Logger LOGGER = Logger.getLogger(CityRealExt.class);
