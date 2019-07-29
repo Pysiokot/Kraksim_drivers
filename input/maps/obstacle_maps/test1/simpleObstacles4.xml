@@ -10,7 +10,28 @@
         <road id="roads_0" street="roads_0" from="G1" to="I0">
             <uplink>
                 <main length="300" numberOfLanes="3">
-                    <!-- <blocked laneNumber = "2" cell="100" lastCell="220"/> -->
+                    <blocked laneNumber="1" cell="100" lastCell="101"/>
+                    <blocked laneNumber="2" cell="100" lastCell="101"/>
+                    <blocked laneNumber="0" cell="104" lastCell="105"/>
+                    <blocked laneNumber="1" cell="104" lastCell="105"/>
+                    <blocked laneNumber="1" cell="108" lastCell="109"/>
+                    <blocked laneNumber="2" cell="108" lastCell="109"/>
+                    <blocked laneNumber="0" cell="112" lastCell="113"/>
+                    <blocked laneNumber="1" cell="112" lastCell="113"/>
+                    <blocked laneNumber="1" cell="116" lastCell="117"/>
+                    <blocked laneNumber="2" cell="116" lastCell="117"/>
+                    <blocked laneNumber="0" cell="120" lastCell="121"/>
+                    <blocked laneNumber="1" cell="120" lastCell="121"/>
+                    <blocked laneNumber="1" cell="124" lastCell="125"/>
+                    <blocked laneNumber="2" cell="124" lastCell="125"/>
+                    <blocked laneNumber="0" cell="128" lastCell="129"/>
+                    <blocked laneNumber="1" cell="128" lastCell="129"/>
+                    <blocked laneNumber="1" cell="132" lastCell="133"/>
+                    <blocked laneNumber="2" cell="132" lastCell="133"/>
+                    <blocked laneNumber="0" cell="136" lastCell="137"/>
+                    <blocked laneNumber="1" cell="136" lastCell="137"/>
+                    <blocked laneNumber="1" cell="140" lastCell="141"/>
+                    <blocked laneNumber="2" cell="140" lastCell="141"/>
                 </main>
                 <right length="100"/>
             </uplink>
