@@ -319,12 +319,21 @@ public class Car {
 		Action actionIntersection = this.getActionForNextIntersection();
 		int laneIntersectionRel = actionIntersection.getSource().getRelativeNumber();
 		int currentLaneRel = givenLane.getRelativeNumber();
+		int currentLaneAbs = givenLane.getAbsoluteNumber();
 		if(laneIntersectionRel == 0) {	// main lane is good, can be on any lane in main group
 			return currentLaneRel == 0;
 		} else if(laneIntersectionRel < 0) {	// left turn
-			return currentLaneRel < 0;
+			if(actionIntersection.getSource().existsAtThisPosition(pos)) {
+				return currentLaneRel < 0;				
+			} else {
+				return (currentLaneAbs - this.currentLane.getLane().getOwner().leftLaneCount()) == 0;
+			}
 		} else {	// right turn
-			return currentLaneRel > 0;
+			if(actionIntersection.getSource().existsAtThisPosition(pos)) {
+				return currentLaneRel > 0;				
+			} else {
+				return (currentLaneAbs - this.currentLane.getLane().getOwner().leftLaneCount() - this.currentLane.getLane().getOwner().mainLaneCount() +1) == 0;
+			}
 		}
 	}
 	
@@ -907,7 +916,8 @@ public class Car {
 			int lanesDifForCorrectForIntersection 
 				= Math.abs(this.currentLane.getLane().getAbsoluteNumber() - this.getActionForNextIntersection().getSource().getAbsoluteNumber());
 			int distaneToIntersection = this.currentLane.linkLength() - this.pos;
-			if(distaneToIntersection < lanesDifForCorrectForIntersection * Integer.parseInt(KraksimConfigurator.getProperty("forceStopOnWrongLaneForIntersection"))) {
+			if(!this.isThisLaneGoodForNextIntersection()
+					&& distaneToIntersection < lanesDifForCorrectForIntersection * Integer.parseInt(KraksimConfigurator.getProperty("forceStopOnWrongLaneForIntersection"))) {
 				this.setVelocity(Math.max(this.getVelocity()-this.getAcceleration(), 0));
 			}
 		}

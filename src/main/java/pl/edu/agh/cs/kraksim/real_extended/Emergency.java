@@ -3,6 +3,7 @@ package pl.edu.agh.cs.kraksim.real_extended;
 import org.apache.commons.collections15.bag.SynchronizedSortedBag;
 
 import pl.edu.agh.cs.kraksim.KraksimConfigurator;
+import pl.edu.agh.cs.kraksim.core.Lane;
 import pl.edu.agh.cs.kraksim.iface.sim.Route;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
@@ -218,7 +219,7 @@ public class Emergency extends Car {
 				this.setVelocity(this.getVelocity() - distanceTraveled);
 				this.driveForward(distDrivenTotal + distanceTraveled + 1, 0);	// distance in previous driveForward + distance in this (freeCellsInFront) + 1 for swap				
 				return;
-			}
+			} 
 		} else {	// road ended, gateway
 			continueTravel = false;
 			((GatewayRealExt) this.getCurrentLane().getRealView().ext(this.getCurrentLane().linkEnd())).acceptCar(this);				
@@ -239,14 +240,15 @@ public class Emergency extends Car {
 				if(this.swapPenaltyMode.equals("substract")) {
 					this.setVelocity(Math.max(0, (int) (this.getVelocity() - swapPenaltyValue)));
 					nextCar.setVelocity(Math.max(0, (int) (nextCar.getVelocity() - swapPenaltyValue)));
-				} else {
+				} else {	// divide
 					this.setVelocity((int) (this.getVelocity()/swapPenaltyValue));				
 					nextCar.setVelocity((int) (nextCar.getVelocity()/swapPenaltyValue));	
 				}
 				//System.out.println("\tdriveForward new Vel " + this.getVelocity());
 				// swap with nextCar
 				this.swap(nextCar);
-				this.driveForward(distDrivenTotal + distanceTraveled + 1, 0);	// distance in previous driveForward + distance in this (freeCellsInFront) + 1 for swap				
+				this.driveForward(distDrivenTotal + distanceTraveled + 1, 0);	
+				// distance in previous driveForward + distance in this (freeCellsInFront) + 1 for swap				
 				return;
 			}
 		} 
@@ -270,6 +272,31 @@ public class Emergency extends Car {
 //			System.out.print(cPrint.getPosition()+"="+(cPrint instanceof Emergency) + " "); 
 //		}
 //		System.out.println("====-------- " + this.getPosition());
+	}
+	
+	/**
+	 * removes car from current lane and moves it across the intersection <br>
+	 * changes this.currentLane, sets position to 0
+	 * @return true if car moved across intersection
+	 */
+	public boolean crossIntersection() {
+		LinkRealExt targetLink = this.getCurrentLane().getRealView().ext(this.getActionForNextIntersection().getTarget());
+		Lane targetLaneNormal = targetLink.getLaneToEnter(this);	// sets this.actionForNextIntersection
+		if(targetLaneNormal == null) {
+			return false;	// no good lanes after intersection
+		}
+		// we are good to cross intersection 
+		LaneRealExt targetLane = this.getCurrentLane().getRealView().ext(targetLaneNormal);		
+		this.getCurrentLane().removeCarFromLaneWithIterator(this);
+		this.setPosition(0);
+		targetLane.addCarToLaneWithIterator(this);
+		if(this.hasNextTripPoint()) {
+			this.nextTripPoint();
+		}
+		targetLink.fireAllEntranceHandlers(this);
+		this.getCurrentLane().getRealView().ext(this.getCurrentLane().getLane().getOwner()).fireAllExitHandlers(this);
+		this.setCurrentLane(targetLane);
+		return true;
 	}
 	
 	/** Includes emergency multiplier */

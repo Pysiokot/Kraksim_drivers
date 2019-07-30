@@ -9,20 +9,15 @@
   <roads defaultSpeedLimit="3">
     <road id="roads_0" street="roads_0" from="G1" to="I0">
       <uplink>
-        <main length="295" numberOfLanes="3">
-          <!-- <blocked laneNumber = "1" blockedLength = "30" cell="160" /> 
-          <blocked laneNumber = "0" blockedLength = "2" cell="200" />
-          <blocked laneNumber = "1" blockedLength = "2" cell="201" /> -->
+<main length="295" numberOfLanes="3">
+  <blocked laneNumber = "1" blockedLength = "30" cell="160" /> 
+  <blocked laneNumber = "0" blockedLength = "2" cell="200" />
+  <blocked laneNumber = "1" blockedLength = "2" cell="201" />
 
-          <!-- <blocked laneNumber = "0" blockedLength = "2" cell="280" />
-          <blocked laneNumber = "1" blockedLength = "2" cell="280" />
-          <blocked laneNumber = "2" blockedLength = "2" cell="280" /> -->
-
-          <blocked laneNumber = "1" blockedLength = "30" cell="250" />
-          <blocked laneNumber = "0" blockedLength = "2" cell="290" />
-          <blocked laneNumber = "1" blockedLength = "2" cell="291" />
-
-        </main>
+  <blocked laneNumber = "1" blockedLength = "30" cell="60" /> 
+  <blocked laneNumber = "0" blockedLength = "2" cell="100" />
+  <blocked laneNumber = "1" blockedLength = "2" cell="101" />
+</main>
         <right length="2"/>
       </uplink>
       <downlink>
