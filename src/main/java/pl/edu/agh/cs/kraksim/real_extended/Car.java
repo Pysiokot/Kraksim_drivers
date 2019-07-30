@@ -754,6 +754,9 @@ public class Car {
 				this.setSwitchToLaneStateForAlgorithm();	// behaves differently based on switchLaneMethod
 			}
 		}
+		if(this.getLaneFromLaneSwitchState() == null) {
+			this.switchToLane = LaneSwitch.NO_CHANGE;
+		}
 		
 	}
 	
@@ -785,7 +788,6 @@ public class Car {
 		this.velocity = Math.min(this.getSpeedLimit(), this.velocity+this.getAcceleration());
 		
 		handleCorrectModel(nextCar);
-		
 		driveCar(nextCar);
 		
 		fireAllInductionLoopPointers();
@@ -901,7 +903,6 @@ public class Car {
 	 * @param nextCar car in front of this
 	 */
 	void driveCar(Car nextCar) {
-		
 		if(this.switchToLane == LaneSwitch.LEFT || this.switchToLane == LaneSwitch.RIGHT) {
 			this.changeLanes(this.getLaneFromLaneSwitchState());
 			nextCar = this.currentLane.getFrontCar(this);	// nextCar changed
