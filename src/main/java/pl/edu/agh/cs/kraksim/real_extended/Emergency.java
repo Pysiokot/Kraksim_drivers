@@ -236,13 +236,14 @@ public class Emergency extends Car {
 				// cant swap
 				continueTravel = false;	// change, we cant swap -> we cant move forward
 			} else {
-				
-				if(this.swapPenaltyMode.equals("substract")) {
+				if(this.swapPenaltyMode.equals("subtract")) {
 					this.setVelocity(Math.max(0, (int) (this.getVelocity() - swapPenaltyValue)));
-					nextCar.setVelocity(Math.max(0, (int) (nextCar.getVelocity() - swapPenaltyValue)));
+					//nextCar.setVelocity(Math.max(0, (int) (nextCar.getVelocity() - swapPenaltyValue)));
+					nextCar.setVelocity(0);
 				} else {	// divide
 					this.setVelocity((int) (this.getVelocity()/swapPenaltyValue));				
-					nextCar.setVelocity((int) (nextCar.getVelocity()/swapPenaltyValue));	
+					//nextCar.setVelocity((int) (nextCar.getVelocity()/swapPenaltyValue));	
+					nextCar.setVelocity(0);
 				}
 				//System.out.println("\tdriveForward new Vel " + this.getVelocity());
 				// swap with nextCar
