@@ -705,11 +705,13 @@ public class Car {
 			}
 		}
 		else if (!isEmergency() && this.currentLane.getBehindCar(this) != null && this.currentLane.getBehindCar(this).isEmergency()) {
-			if(checkIfCanSwitchTo(LaneSwitch.RIGHT)) {
-				this.switchToLane = LaneSwitch.RIGHT;
-			} else {
-				this.switchToLane = LaneSwitch.NO_CHANGE;
-			} 
+			if(this.getCurrentLane().hasRightNeighbor() && this.getCurrentLane().rightNeighbor().getLane().isMainLane()) {	
+				if(checkIfCanSwitchTo(LaneSwitch.RIGHT)) {
+					this.switchToLane = LaneSwitch.RIGHT;
+				} else {
+					this.switchToLane = LaneSwitch.WANTS_RIGHT;
+				} 
+			}
 		} 
 		// if car wanted to switch lanes in previous turn, check if its possible now
 		else if(this.switchToLane == LaneSwitch.WANTS_LEFT) {
