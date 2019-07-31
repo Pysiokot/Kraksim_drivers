@@ -57,7 +57,7 @@ class LaneSOTLExt implements LaneEvalIface {
 		if (sotlLaneValue > params.threshold) {
 			return sotlLaneValue;
 		} else {
-			return 0;
+			return sotlLaneValue;
 		}
 	}
 

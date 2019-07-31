@@ -83,9 +83,10 @@ public class MultiLaneRoutingHelper {
 	 *
 	 * @param action the action to be taken on current link
 	 * @param link   current link to choose lanes from
+	 * @param car 
 	 * @return the best lane to make the given action or null if no appropriate lane can be entered
 	 */
-	public Lane chooseBestLaneForAction(Action action, Link link) {
+	public Lane chooseBestLaneForAction(Action action, Link link, Car car) {
 		Lane result = null;
 		// if action is not null, it means that some action has already been chosen
 		// the best thing would be to put the car on the lane that is source of an action
@@ -127,9 +128,16 @@ public class MultiLaneRoutingHelper {
 					}
 
 					// check if lane can be entered
-					if(lane.getOffset() == 0 && laneRealExt.canAddCarToLaneOnPosition(0)){
-						result = lane;
-						break;
+					if(car instanceof Emergency) {
+						if(lane.getOffset() == 0 && laneRealExt.canAddEmergencyToLaneOnPosition(0)){
+							result = lane;
+							break;
+						}
+					} else {
+						if(lane.getOffset() == 0 && laneRealExt.canAddCarToLaneOnPosition(0)){
+							result = lane;
+							break;
+						}
 					}
 
 					// going from left to right for left and main lanes
@@ -155,8 +163,19 @@ public class MultiLaneRoutingHelper {
 				// ... check it's load
 				int lSize = laneRE.getCars().size();
 				int lDist = Integer.MAX_VALUE;
+				for(Car carIter : laneRE.getCars()) {
+					if(car instanceof Emergency) {
+						if(carIter instanceof Emergency) {
+							lDist = carIter.getPosition();
+							break;
+						}
+					} else {
+						lDist = carIter.getPosition();
+						break;
+					}
+					
+				}
 				if (lSize > 0) {
-					lDist = laneRE.getCars().peek().getPosition();
 				}
 				// ... and, if there is more space to the nearest car
 				if (nearestCarPosition < lDist) {

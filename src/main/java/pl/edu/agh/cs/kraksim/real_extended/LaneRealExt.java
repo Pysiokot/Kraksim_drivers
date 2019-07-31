@@ -13,6 +13,7 @@ import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
 import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.LaneMonIface;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
+import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -22,7 +23,6 @@ import java.util.*;
 
 public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 	private static final Logger LOGGER = Logger.getLogger(LaneRealExt.class);
-	private final String emergencyVehiclesConfiguration;
 
 	private final Lane lane;
 	private final RealEView realView;
@@ -32,19 +32,12 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	private final List<Car> obstaclesToAdd = new LinkedList<>();
 	private final Map<Integer, InductionLoop> positionInductionLoops;
 	private final int speedLimit;
-	private final int emergencySpeedLimit;
-	private final int emergencySpeedLimitTimesHigher;
-	private final int emergencyAcceleration;
-	private final double laneChangeDesire;
-	private final double rightLaneChangeDesire;
 	private final CarMoveModel carMoveModel;
 	private boolean blocked;
 	private int firstCarPos;
 	private boolean carApproaching;
 	private boolean wait;
 
-	final int SWITCH_TIME;
-	final int MIN_SAFE_DISTANCE;
 	final double CRASH_FREE_TIME;	// how much turns ahead car will test speed and positions to determine if switching is safe
 	final double PROBABILITY_POWER_VALUE;	// power function for switch lane action probability
 	final int INTERSECTION_LANE_SWITCH_TURN_LIMIT; // cars will be forced to switch lanes to correct for next intersection at this * maxSpeed distance
@@ -54,26 +47,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	LaneRealExt(Lane lane, RealEView ev, RealSimulationParams params) {
 		LOGGER.trace("Constructing LaneRealExt ");
-		emergencyVehiclesConfiguration = KraksimConfigurator.getProperty("emergencyVehiclesConfiguration");
-		Properties properties = new Properties();
-		try {
-			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(emergencyVehiclesConfiguration));
-			properties.load(bis);
-			bis.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.emergencySpeedLimitTimesHigher = Integer.valueOf(properties.getProperty("emergencySpeedLimitTimesHigher"));
-		this.emergencyAcceleration = Integer.valueOf(properties.getProperty("emergencyAcceleration"));
-		this.laneChangeDesire = Double.valueOf(properties.getProperty("laneChangeDesire"));
-		this.rightLaneChangeDesire = Double.valueOf(properties.getProperty("rightLaneChangeDesire"));
 		this.lane = lane;
 		realView = ev;
 		this.params = params;
 		speedLimit = lane.getSpeedLimit();
-		emergencySpeedLimit = getSpeedLimit() * emergencySpeedLimitTimesHigher;
 		carMoveModel = params.carMoveModel;
 
 		offset = lane.getOffset();// linkLength() - lane.getLength();
@@ -81,16 +58,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		blocked = false;
 		positionInductionLoops = new HashMap<>(0);
 
-		SWITCH_TIME = params.getSwitchTime();
-		MIN_SAFE_DISTANCE = params.getMinSafeDistance();
 		this.CRASH_FREE_TIME = Double.parseDouble(KraksimConfigurator.getProperty("crashFreeTime"));
 		this.PROBABILITY_POWER_VALUE = Double.parseDouble(KraksimConfigurator.getProperty("probabilityPowerValue"));
 		this.INTERSECTION_LANE_SWITCH_TURN_LIMIT = Integer.parseInt(KraksimConfigurator.getProperty("intersectionLaneSwitchTurnThreshold"));
-		
-		
-		// block cells
-		//this.addNewObstaclesFromCorelane();
-		//this.finalizeTurnSimulation();
+
 	}
 
 	public CarMoveModel getCarMoveModel() {
@@ -309,7 +280,27 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 	
 	public Car getFrontCar(Car car) {
-		return getFrontCar(car.getPosition());
+		if(!car.getCurrentLane().equals(this)) throw new RuntimeException("wqe");
+		if(this.cars.contains(car)) {
+			int minPositiveDistance = Integer.MAX_VALUE;
+			Car nextCar = null;
+			List<Car> carsOnLane = this.getCars();
+			boolean passedMyself = false;
+			for (Car _car : carsOnLane) {
+				int carsDistance = _car.getPosition() - car.getPosition();
+				if (passedMyself && minPositiveDistance > carsDistance && carsDistance >= 0) {
+					minPositiveDistance = carsDistance;
+					nextCar = _car;
+					return nextCar;					
+				}
+				if(!passedMyself && _car.equals(car)) {
+					passedMyself = true;
+				}
+			}
+		} else {
+			return getFrontCar(car.getPosition());			
+		}
+		return null;
 	}
 	
 	public Car getFrontCar(int pos) {
@@ -386,22 +377,9 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		// it needs to be put as last element of list and this.carIterator.hasPrevious() is false
 		if(!added) {
 			this.carIterator.add(car);
+			added = true;
 		}
 		
-		////////////////		TO REMOVE 
-		//////////		LIST TEST
-		int t_lastPos = -1;
-		for(Car c : this.cars) {
-			if(c.getPosition() <= t_lastPos) {
-				System.err.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
-				for(Car cPrint : this.cars) {
-					System.err.print(cPrint.getPosition() + " "); 
-				}
-				System.err.println();
-				throw new RuntimeException("Error while adding cars");
-			}
-			t_lastPos = c.getPosition();
-		}
 		return added;
 	}
 	
@@ -422,29 +400,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				break;
 			}
 		}
-		
-		////////////////		TO REMOVE 
-		//////////		LIST TEST
-		if(!removed) {
-			for(Car cPrint : this.cars) {
-				System.err.println("ERROR :: remove car :: end loop, no remove " + car);
-				System.err.print(cPrint.getPosition() + " "); 
-				throw new RuntimeException("Error while remove cars - not removed");
-			}
-		}
-		int t_lastPos = -1;
-		for(Car c : this.cars) {
-			if(c.getPosition() <= t_lastPos) {
-				System.err.println("ERROR :: remove car :: positions " + car +" t_lastPos " + t_lastPos);
-				for(Car cPrint : this.cars) {
-					System.err.print(cPrint.getPosition() + " "); 
-				}
-				System.err.println();
-				throw new RuntimeException("Error while remove cars - wrong order");
-			}
-			t_lastPos = c.getPosition();
-		}
-		
+				
 		return removed;
 		
 	}
@@ -458,33 +414,38 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	 */
 	public boolean addCarToLaneWithIterator(Car car) {
 		boolean added = false;
-		while(this.carIterator.hasPrevious()) {
-			if(this.carIterator.previous().getPosition() < car.getPosition()) {
-				this.carIterator.next();
-				this.carIterator.add(car);
-				added = true;	// we can add it in the middle of list
-				break;
+		int id = 0;
+		if(car instanceof Emergency) {
+			//	[c_4] -> [c_5] -> [e_5] -> [c_6] 
+			while(this.carIterator.hasNext() && this.carIterator.next().getPosition() <= car.getPosition())
+			{ // normalize iterator position, we want it to be in front of car
 			}
+			while(this.carIterator.hasPrevious()) {
+				Car c = this.carIterator.previous();
+				if(c.getPosition() <= car.getPosition()) {
+					this.carIterator.next();
+					this.carIterator.add(car);
+					added = true;	// we can add it in the middle of list
+					break;
+				}
+				id++;
+			}
+		} else {
+			while(this.carIterator.hasPrevious()) {
+				if(this.carIterator.previous().getPosition() < car.getPosition()) {
+					this.carIterator.next();
+					this.carIterator.add(car);
+					added = true;	// we can add it in the middle of list
+					break;
+				}
+		}
 		}
 		// it needs to be put as last element of list and this.carIterator.hasPrevious() is false
 		if(!added) {
 			this.carIterator.add(car);
+			added = true;
 		}
 		
-		////////////////		TO REMOVE 
-		//////////		LIST TEST
-		int t_lastPos = -1;
-		for(Car c : this.cars) {
-			if(c.getPosition() <= t_lastPos) {
-				System.err.println("ERROR :: adding car " + car +" t_lastPos " + t_lastPos);
-				for(Car cPrint : this.cars) {
-					System.err.print(cPrint.getPosition() + " "); 
-				}
-				System.err.println();
-				throw new RuntimeException("Error while adding cars");
-			}
-			t_lastPos = c.getPosition();
-		}
 		return added;
 	}
 	
@@ -495,34 +456,41 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	 */
 	public boolean removeCarFromLaneWithIterator(Car car) {
 		boolean removed = false;
-		while(this.carIterator.hasPrevious()) {
-			if(this.carIterator.previous().equals(car)) {
-				this.carIterator.remove();
-				removed = true;	// we can remove it from the middle of list
-				break;
-			}
+		boolean removeFromPrevious;
+		
+		if(this.carIterator.hasPrevious() && this.carIterator.previous().getPosition() < car.getPosition()) {
+			removeFromPrevious = false;
+			if(this.carIterator.hasNext()) this.carIterator.next();
+		} else {
+			removeFromPrevious = true;
+			if(this.carIterator.hasNext()) this.carIterator.next();
 		}
 		
-		////////////////		TO REMOVE 
-		//////////		LIST TEST
-		if(!removed) {
-			for(Car cPrint : this.cars) {
-				System.err.println("ERROR :: remove car :: end loop, no remove " + car);
-				System.err.print(cPrint.getPosition() + " "); 
-				throw new RuntimeException("Error while remove cars - not removed");
-			}
-		}
-		int t_lastPos = -1;
-		for(Car c : this.cars) {
-			if(c.getPosition() <= t_lastPos) {
-				System.err.println("ERROR :: remove car :: positions " + car +" t_lastPos " + t_lastPos);
-				for(Car cPrint : this.cars) {
-					System.err.print(cPrint.getPosition() + " "); 
+		if(removeFromPrevious) {	
+			if(this.carIterator.hasNext()) this.carIterator.next();
+			while(this.carIterator.hasPrevious()) {
+				if(this.carIterator.previous().equals(car)) {
+					this.carIterator.remove();
+					removed = true;	// we can remove it from the middle of list
+					break;
 				}
-				System.err.println();
-				throw new RuntimeException("Error while remove cars - wrong order");
 			}
-			t_lastPos = c.getPosition();
+			if(this.carIterator.hasPrevious()) this.carIterator.previous();
+		} else {
+			int stepsForward = 0;
+			if(this.carIterator.hasPrevious()) this.carIterator.previous();
+			while(this.carIterator.hasNext()) {
+				stepsForward++;
+				if(this.carIterator.next().equals(car)) {
+					this.carIterator.remove();
+					removed = true;	// we can remove it from the middle of list
+					break;
+				}
+			}
+			if(this.carIterator.hasNext()) this.carIterator.next();
+			for(int i=0; i<stepsForward; i++) {
+				this.carIterator.previous();
+			}
 		}
 		return removed;
 	}
@@ -543,6 +511,17 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		while(tempIt.hasNext()) {
 			Car car = tempIt.next();
 			if(car.getPosition() == pos) {
+				return false;
+			}
+		}			
+		return true;
+	}
+	
+	public boolean canAddEmergencyToLaneOnPosition(int pos) {
+		ListIterator<Car> tempIt = this.cars.listIterator();
+		while(tempIt.hasNext()) {
+			Car car = tempIt.next();
+			if((car instanceof Emergency || car instanceof Obstacle) && car.getPosition() == pos) {
 				return false;
 			}
 		}			
@@ -648,14 +627,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	
 	/////////////////////////////////////////////////////////////////////
 
-	public int getEmergencySpeedLimit() {
-		return emergencySpeedLimit;
-	}
-
-	public int getEmergencyAcceleration() {
-		return emergencyAcceleration;
-	}
-
 	public int getSpeedLimit() {
 		return speedLimit;
 	}
@@ -702,7 +673,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			return car.getVelocity();
 		}
 
-		public Object currentDriver() {
+		public Driver currentDriver() {
 			if (car == null) {
 				throw new NoSuchElementException();
 			}

@@ -155,7 +155,7 @@ class LinkRealExt implements LinkBlockIface, LinkMonIface {
 		// choosing the best action from the given list
 		Action nextAction = laneHelper.chooseBestAction(actions);
 		// choosing the best lane to enter in order to get to lane given in action
-		Lane nextLane = laneHelper.chooseBestLaneForAction(nextAction, link);
+		Lane nextLane = laneHelper.chooseBestLaneForAction(nextAction, link, car);
 
 		// if null then no lane can be entered for given action
 		if (nextLane == null) {

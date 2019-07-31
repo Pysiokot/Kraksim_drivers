@@ -14,7 +14,9 @@ import java.awt.*;
 
 public class StatsPanel extends JPanel {
 	public static final Logger LOGGER = Logger.getLogger(StatsPanel.class);
-
+	int maxCarCountNormal;
+	int maxCarCountEmergency;
+	double maxCarVel;
 	public StatsPanel(Controllable sim) {
 		//carNumberChart = new NumberChart("Car count");
 
@@ -28,32 +30,57 @@ public class StatsPanel extends JPanel {
 		if (vis instanceof GUISimulationVisualizer) {
 			final GUISimulationVisualizer visPanel = ((GUISimulationVisualizer) sim.getVisualizer());
 
-			final NumberChart cnc = new NumberChart("Car count", visPanel.cityStat) {
+//			final NumberChart cvc = new NumberChart("Average velocity", visPanel.cityStat) {
+//				@Override
+//				public void refresh() {
+//					addData(cityStat.getAvgVelocity());
+//				}
+//			};
+//			cvc.setRange(0, 5);
+//			add(cvc);
+			
+			final NumberChart normalCarCount = new NumberChart("Normal car count", visPanel.cityStat) {
 				@Override
 				public void refresh() {
-					addData(cityStat.getCarCount());
+					maxCarCountNormal = Math.max(maxCarCountNormal,  cityStat.getNormalCarsCount());
+					addData(cityStat.getNormalCarsCount());
+				}
+			};
+			normalCarCount.setRange(0, 1.1*maxCarCountNormal);
+			add(normalCarCount);
+			
+			
+			final NumberChart emergencyCarCount = new NumberChart("Emergency car count", visPanel.cityStat) {
+				@Override
+				public void refresh() {
+					maxCarCountEmergency = Math.max(maxCarCountEmergency,  cityStat.getEmergencyVehiclesCount());
+					addData(cityStat.getEmergencyVehiclesCount());
+				}
+			};
+			emergencyCarCount.setRange(0, 1.1*maxCarCountNormal);
+			add(emergencyCarCount);
+			
+			final NumberChart normalVel = new NumberChart("Normal car avarage current velocity", visPanel.cityStat) {
+				@Override
+				public void refresh() {
+					maxCarVel = Math.max(maxCarVel, cityStat.getAvgTurnVelocityCounter().getAvgNormalCarVelocity());
+					addData(cityStat.getAvgTurnVelocityCounter().getAvgNormalCarVelocity());
 				}
 			};
 
-			add(cnc);
-			final NumberChart cvc = new NumberChart("Average velocity", visPanel.cityStat) {
+			normalVel.setRange(0, 1.1*maxCarVel);
+			add(normalVel);
+			
+			final NumberChart emergencyVel = new NumberChart("Emergency car avarage current velocity", visPanel.cityStat) {
 				@Override
 				public void refresh() {
-					addData(cityStat.getAvgVelocity());
+					maxCarVel = Math.max(maxCarVel, cityStat.getAvgTurnVelocityCounter().getAvgEmergencyCarVelocity());
+					addData(cityStat.getAvgTurnVelocityCounter().getAvgEmergencyCarVelocity());
 				}
 			};
 
-			cvc.setRange(0, 5);
-			add(cvc);
-			final NumberChart csc = new NumberChart("Avarage current velocity", visPanel.cityStat) {
-				@Override
-				public void refresh() {
-					addData(cityStat.getAvgTurnCarVelocity());
-				}
-			};
-
-			csc.setRange(0, 5);
-			add(csc);
+			emergencyVel.setRange(0, 1.1*maxCarVel);
+			add(emergencyVel);
 
 			final NumberChart wcc = new NumberChart("Cars waiting on red light", visPanel.cityStat) {
 				@Override
@@ -74,9 +101,14 @@ public class StatsPanel extends JPanel {
 			visPanel.addUpdateHook(new UpdateHook() {
 				@Override
 				public void onUpdate(CityMiniStatExt cityStat) {
-					cnc.refresh();
-					cvc.refresh();
-					csc.refresh();
+					normalCarCount.refresh();
+					normalCarCount.setRange(0, 1.1*maxCarCountNormal);
+					emergencyCarCount.refresh();
+					emergencyCarCount.setRange(0, 1.1*maxCarCountEmergency);
+					normalVel.refresh();
+					normalVel.setRange(0, 1.1*maxCarVel);
+					emergencyVel.refresh();
+					emergencyVel.setRange(0, 1.1*maxCarVel);
 					wcc.refresh();
 					carVelocityBelowValue.refresh();
 					//LOGGER.info(visPanel.cityStat.getAllCarsOnRedLight());
