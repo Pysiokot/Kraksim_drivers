@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class TravellingScheme {
-	private final String emergencyVehiclesConfiguration;
 	private final int count;
 	private final int emergencyVehicles;
 	private final Gateway[] gateways;
@@ -40,17 +39,6 @@ public class TravellingScheme {
 		Preconditions.checkArgument(gateways.length >= 2, "There should be at least two gateways in travelling scheme");
 		Preconditions.checkArgument(gateways.length == departureDists.length + 1, "There should be one gateway more than departure distributions");
 		this.parameters = parameters;
-		emergencyVehiclesConfiguration = KraksimConfigurator.getProperty("emergencyVehiclesConfiguration");
-		Properties properties = new Properties();
-		try {
-			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(emergencyVehiclesConfiguration));
-			properties.load(bis);
-			bis.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		double emergencySpawnPercentage = Double.parseDouble(KraksimConfigurator.getProperty("emergency_spawnPercentage"));
 		this.count = count;
 		this.emergencyVehicles = (int) Math.round(this.count * emergencySpawnPercentage);

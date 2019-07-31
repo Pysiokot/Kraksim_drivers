@@ -23,7 +23,6 @@ import java.util.*;
 
 public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIface {
 	private static final Logger LOGGER = Logger.getLogger(LaneRealExt.class);
-	private final String emergencyVehiclesConfiguration;
 
 	private final Lane lane;
 	private final RealEView realView;
@@ -33,19 +32,12 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	private final List<Car> obstaclesToAdd = new LinkedList<>();
 	private final Map<Integer, InductionLoop> positionInductionLoops;
 	private final int speedLimit;
-	private final int emergencySpeedLimit;
-	private final int emergencySpeedLimitTimesHigher;
-	private final int emergencyAcceleration;
-	private final double laneChangeDesire;
-	private final double rightLaneChangeDesire;
 	private final CarMoveModel carMoveModel;
 	private boolean blocked;
 	private int firstCarPos;
 	private boolean carApproaching;
 	private boolean wait;
 
-	final int SWITCH_TIME;
-	final int MIN_SAFE_DISTANCE;
 	final double CRASH_FREE_TIME;	// how much turns ahead car will test speed and positions to determine if switching is safe
 	final double PROBABILITY_POWER_VALUE;	// power function for switch lane action probability
 	final int INTERSECTION_LANE_SWITCH_TURN_LIMIT; // cars will be forced to switch lanes to correct for next intersection at this * maxSpeed distance
@@ -55,26 +47,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 
 	LaneRealExt(Lane lane, RealEView ev, RealSimulationParams params) {
 		LOGGER.trace("Constructing LaneRealExt ");
-		emergencyVehiclesConfiguration = KraksimConfigurator.getProperty("emergencyVehiclesConfiguration");
-		Properties properties = new Properties();
-		try {
-			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(emergencyVehiclesConfiguration));
-			properties.load(bis);
-			bis.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.emergencySpeedLimitTimesHigher = Integer.valueOf(properties.getProperty("emergencySpeedLimitTimesHigher"));
-		this.emergencyAcceleration = Integer.valueOf(properties.getProperty("emergencyAcceleration"));
-		this.laneChangeDesire = Double.valueOf(properties.getProperty("laneChangeDesire"));
-		this.rightLaneChangeDesire = Double.valueOf(properties.getProperty("rightLaneChangeDesire"));
 		this.lane = lane;
 		realView = ev;
 		this.params = params;
 		speedLimit = lane.getSpeedLimit();
-		emergencySpeedLimit = getSpeedLimit() * emergencySpeedLimitTimesHigher;
 		carMoveModel = params.carMoveModel;
 
 		offset = lane.getOffset();// linkLength() - lane.getLength();
@@ -82,16 +58,10 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		blocked = false;
 		positionInductionLoops = new HashMap<>(0);
 
-		SWITCH_TIME = params.getSwitchTime();
-		MIN_SAFE_DISTANCE = params.getMinSafeDistance();
 		this.CRASH_FREE_TIME = Double.parseDouble(KraksimConfigurator.getProperty("crashFreeTime"));
 		this.PROBABILITY_POWER_VALUE = Double.parseDouble(KraksimConfigurator.getProperty("probabilityPowerValue"));
 		this.INTERSECTION_LANE_SWITCH_TURN_LIMIT = Integer.parseInt(KraksimConfigurator.getProperty("intersectionLaneSwitchTurnThreshold"));
-		
-		
-		// block cells
-		//this.addNewObstaclesFromCorelane();
-		//this.finalizeTurnSimulation();
+
 	}
 
 	public CarMoveModel getCarMoveModel() {
@@ -317,7 +287,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 			List<Car> carsOnLane = this.getCars();
 			boolean passedMyself = false;
 			for (Car _car : carsOnLane) {
-				//System.out.println("\t" + passedMyself+" " + _car );
 				int carsDistance = _car.getPosition() - car.getPosition();
 				if (passedMyself && minPositiveDistance > carsDistance && carsDistance >= 0) {
 					minPositiveDistance = carsDistance;
@@ -461,7 +430,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 				}
 				id++;
 			}
-			//if(this.carIterator.hasPrevious()) this.carIterator.previous();
 		} else {
 			while(this.carIterator.hasPrevious()) {
 				if(this.carIterator.previous().getPosition() < car.getPosition()) {
@@ -474,7 +442,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 		}
 		// it needs to be put as last element of list and this.carIterator.hasPrevious() is false
 		if(!added) {
-			//System.out.println("add last");
 			this.carIterator.add(car);
 			added = true;
 		}
@@ -508,7 +475,7 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 					break;
 				}
 			}
-			//if(this.carIterator.hasPrevious()) this.carIterator.previous();
+			if(this.carIterator.hasPrevious()) this.carIterator.previous();
 		} else {
 			int stepsForward = 0;
 			if(this.carIterator.hasPrevious()) this.carIterator.previous();
@@ -659,14 +626,6 @@ public class LaneRealExt implements LaneBlockIface, LaneCarInfoIface, LaneMonIfa
 	}
 	
 	/////////////////////////////////////////////////////////////////////
-
-	public int getEmergencySpeedLimit() {
-		return emergencySpeedLimit;
-	}
-
-	public int getEmergencyAcceleration() {
-		return emergencyAcceleration;
-	}
 
 	public int getSpeedLimit() {
 		return speedLimit;

@@ -750,15 +750,15 @@ public class Car {
 
 	}
 
-	/**
-	 * perform lane switch if set <br>
-	 * move car base on its speed and car in front
-	 * @param nextCar car in front of this
-	 */
-	void driveCar(Car nextCar) {
+/////////////////////////////////////////////////////////////////////////////////////////////
+//		DRIVE CAR methods
+/*
+ * INFO: only last call of _drive_driveForward can change position and velocity at the end, rest must return -1 to prevent it
+ */
+	/** very local method */
+	protected void _drive_handleSwitchLaneState() {
 		if(this.switchToLane == LaneSwitch.LEFT || this.switchToLane == LaneSwitch.RIGHT) {
 			this.changeLanes(this.getLaneFromLaneSwitchState());
-			nextCar = this.currentLane.getFrontCar(this);	// nextCar changed
 			this.velocity = Math.max(this.velocity-1, 0);	// Reduce by 1
 			this.switchLaneUrgency = 0;
 			
@@ -767,7 +767,10 @@ public class Car {
 			this.setVelocity(Math.max(this.getVelocity()-this.getAcceleration(), 1));	// by default reduce speed to 1 if looking for a lane switch	
 			this.switchLaneUrgency++;
 		}
-		
+	}
+	
+	/** very local method */
+	protected void _drive_forceStopIntersection() {
 		// force stop and force lane switch if on wrong lane for intersection and close to the end of the road
 		if(this.getActionForNextIntersection() != null && !this.isThisLaneGoodForNextIntersection()) {	
 			int lanesDifForCorrectForIntersection 
@@ -778,7 +781,49 @@ public class Car {
 				this.setVelocity(Math.max(this.getVelocity()-this.getAcceleration(), 0));
 			}
 		}
+	}
+	
+	/** very local method @return distanceTraveled */
+	protected int _drive_moveSimpleForward() {
+		// simple move forward
+		return this.velocity;
+	}
+	
+	/** very local method @return distanceTraveled */
+	protected int _drive_moveNextClose(int freeCellsInFront, Car nextCar, int distDrivenTotal) {
+		// simple move forward
+		return freeCellsInFront;
+	}
+	
+	/** very local method @return distanceTraveled */
+	protected int _drive_moveIntersection(Car nextCar, int freeCellsInFront, int distDrivenTotal) {
+		int distanceTraveled = freeCellsInFront;
+		boolean crossed = this.crossIntersection();
+		if(crossed) {
+			this.setVelocity(this.getVelocity() - distanceTraveled);
+			this._drive_driveForward(distDrivenTotal + distanceTraveled);
+		}
+		return -1;
+	}
+	
+	/** very local method @return distanceTraveled */
+	protected int _drive_moveGateway(int freeCellsInFront) {
+		try {
+			((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);				
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		this.currentLane.removeCarFromLaneWithIterator(this);
+		return freeCellsInFront + 2;
+	}
+	
+	/** very local method @return distanceTraveled */
+	protected void _drive_driveForward(int distDrivenTotal) {
 		
+		this.setVelocity(Math.min(this.getVelocity(),  this.getSpeedLimit()));
+		
+		Car nextCar = this.getCurrentLane().getFrontCar(this);
 		int freeCellsInFront;
 		if (nextCar != null) {
 			freeCellsInFront = nextCar.getPosition() - this.pos - 1;
@@ -789,52 +834,50 @@ public class Car {
 		
 		//	move car forward |velocity| squares if lane ended do intersection/gateway function
 		int distanceTraveled = 0;
-		int distanceTraveledOnPreviousLane = 0;	// used in intersection crossing
+		
 		if(freeCellsInFront >= this.velocity) {	// simple move forward
 			
-			distanceTraveled = this.velocity;
+			distanceTraveled = _drive_moveSimpleForward();
 			
 		} else if (nextCar != null) {	// there is car in front, will crash, go only as far as u can
 			
-			distanceTraveled = freeCellsInFront;
+			distanceTraveled = _drive_moveNextClose(freeCellsInFront, nextCar, distDrivenTotal);
 			
 		} else if(this.getActionForNextIntersection() != null){	// road ended, intersection
 			
-			distanceTraveled = freeCellsInFront;
-			boolean crossed = this.crossIntersection();
-			if(crossed) {
-				nextCar = this.currentLane.getFrontCar(this);	// nextCar changed
-				if (nextCar != null) {	// distance to new car also
-					freeCellsInFront = nextCar.getPosition() - this.pos - 1;
-				} else {
-					freeCellsInFront = this.currentLane.linkLength() - this.pos -1;
-				}
-				distanceTraveledOnPreviousLane = distanceTraveled;
-				distanceTraveled += 
-						Math.max(
-								Math.min(
-										Math.min(
-											freeCellsInFront, this.getVelocity() - distanceTraveledOnPreviousLane - 1)
-											, this.getSpeedLimit()
-										)
-								,0);
-			}
-			
+			distanceTraveled = _drive_moveIntersection(nextCar, freeCellsInFront, distDrivenTotal);
+				
 		} else {	// road ended, gateway
 			
-			try {
-				((GatewayRealExt) this.currentLane.getRealView().ext(this.currentLane.linkEnd())).acceptCar(this);				
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw e;
-			}
-			this.currentLane.removeCarFromLaneWithIterator(this);
-			distanceTraveled = freeCellsInFront + 2;
+			distanceTraveled = _drive_moveGateway(freeCellsInFront);
 			
 		}
 		
-		this.setPosition(this.pos + distanceTraveled - distanceTraveledOnPreviousLane);
-		this.setVelocity(distanceTraveled);
+		if(distanceTraveled >=0) {	
+			// position is changed by swap, by crossIntersection(), every driveForward() is called with correct position for next move (in this turn)
+			this.setPosition(this.getPosition() + distanceTraveled);
+			// velocity = total distance traveled
+			this.setVelocity(distanceTraveled + distDrivenTotal);	
+		}
+		
+	}
+	
+	
+	/**
+	 * perform lane switch if set <br>
+	 * move car base on its speed and car in front
+	 * @param nextCar car in front of this
+	 */
+	void driveCar(Car nextCar) {
+		
+		// switch lanes, perform all necessary action with switchToLane state
+		_drive_handleSwitchLaneState();
+		
+		// force stop and force lane switch if on wrong lane for intersection and close to the end of the road
+		_drive_forceStopIntersection();
+		
+		// drive
+		_drive_driveForward(0);
 	}
 
 	/**
