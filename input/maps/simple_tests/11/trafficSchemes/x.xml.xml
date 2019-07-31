@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<traffic>
+  <scheme count="1000">
+    <gateway id="G0">
+      <point y="0" />
+    </gateway>
+    <gateway id="G1" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G0">
+      <point y="0" />
+    </gateway>
+    <gateway id="G2" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G0">
+      <point y="0" />
+    </gateway>
+    <gateway id="G3" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G1">
+      <point y="0" />
+    </gateway>
+    <gateway id="G0" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G1">
+      <point y="0" />
+    </gateway>
+    <gateway id="G2" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G1">
+      <point y="0" />
+    </gateway>
+    <gateway id="G3" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G2">
+      <point y="0" />
+    </gateway>
+    <gateway id="G0" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G2">
+      <point y="0" />
+    </gateway>
+    <gateway id="G1" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G2">
+      <point y="0" />
+    </gateway>
+    <gateway id="G3" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G3">
+      <point y="0" />
+    </gateway>
+    <gateway id="G0" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G3">
+      <point y="0" />
+    </gateway>
+    <gateway id="G1" />
+  </scheme>
+  <scheme count="1000">
+    <gateway id="G3">
+      <point y="0" />
+    </gateway>
+    <gateway id="G2" />
+  </scheme>
+</traffic>
+

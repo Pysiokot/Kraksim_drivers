@@ -4,6 +4,7 @@ import pl.edu.agh.cs.kraksim.core.exceptions.InvalidActionException;
 import pl.edu.agh.cs.kraksim.core.exceptions.UnsupportedLinkOperationException;
 import pl.edu.agh.cs.kraksim.core.visitors.ElementVisitor;
 import pl.edu.agh.cs.kraksim.core.visitors.VisitingException;
+import pl.edu.agh.cs.kraksim.real_extended.BlockedCellsInfo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,16 +20,18 @@ public class Lane extends Element {
 	private final int relativeNumber;
 	/* length of the lane */
 	private final int length;
-	private int offset = -1;
+	//private int offset = -1;
 	/* actions performable from the lane */
 	private final List<Action> actions;
 	private final int speedLimit;
 	/* minimal speed that should be achieved */
 	private final double minimalSpeed;
+	
+	private List<BlockedCellsInfo> blockedCellsInfo;	// blocked cells details in format <num_of_blocked_cell>
 
 	private static final String INVALIDACTION = "trying to add invalid action to";
 
-	Lane(Core core, Link owner, int num, int relativeNumber, int length, int speedLimit, double minimalSpeed) {
+	Lane(Core core, Link owner, int num, int relativeNumber, int length, int speedLimit, double minimalSpeed, List<BlockedCellsInfo> list) {
 		super(core);
 		this.owner = owner;
 		this.num = num;
@@ -36,7 +39,9 @@ public class Lane extends Element {
 		this.speedLimit = speedLimit;
 		this.relativeNumber = relativeNumber;
 		this.minimalSpeed = minimalSpeed;
+		this.blockedCellsInfo = list;
 		actions = new ArrayList<>();
+		//this.offset = owner.getLength() - length;
 	}
 
 	public Link getOwner() {
@@ -61,11 +66,7 @@ public class Lane extends Element {
 	}
 
 	public int getOffset() {
-		if (offset == -1) {
-			offset = owner.getLength() - length;
-		}
-
-		return offset;
+		return owner.getLength() - length;
 	}
 
 	/*
@@ -183,5 +184,48 @@ public class Lane extends Element {
 
 	public List<Action> getActions() {
 		return actions;
+	}
+
+	public List<Integer> getActiveBlockedCellsIndexList() {
+		List<Integer> cellList = new ArrayList<>();
+		for(BlockedCellsInfo blockedInfo : this.blockedCellsInfo) {
+			if(blockedInfo.isActive()) {
+				cellList.addAll(blockedInfo.getCellIndexList());
+			}
+		}
+		return cellList;
+	}
+	
+	public List<Integer> getRecentlyExpiredBlockedCellsIndexList() {
+		List<Integer> cellList = new ArrayList<>();
+		for(BlockedCellsInfo blockedInfo : this.blockedCellsInfo) {
+			if(blockedInfo.changedToInactiveThisTurn()) {
+				cellList.addAll(blockedInfo.getCellIndexList());
+			}
+		}
+		return cellList;
+	}
+	
+	public List<Integer> getRecentlyActivatedBlockedCellsIndexList() {
+		List<Integer> cellList = new ArrayList<>();
+		for(BlockedCellsInfo blockedInfo : this.blockedCellsInfo) {
+			if(blockedInfo.changedToActiveThisTurn()) {
+				cellList.addAll(blockedInfo.getCellIndexList());
+			}
+		}
+		return cellList;
+	}
+
+	public List<BlockedCellsInfo> getBlockedCellsInfo() {
+		return this.blockedCellsInfo;
+	}
+	
+	// 2016
+	public boolean isMainLane() {
+		return this.getRelativeNumber() == 0;
+	}
+	
+	public boolean existsAtThisPosition(int pos) {
+		return pos > this.getOffset();
 	}
 }

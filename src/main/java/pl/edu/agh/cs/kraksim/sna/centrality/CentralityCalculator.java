@@ -33,21 +33,21 @@ public class CentralityCalculator {
 				PageRank<Node, Link> pageRank = new PageRank<>(graph, 100);
 				pageRank.evaluate();
 
-				for (Node n : graph.getVertices()) {
-					System.out.println(n.getId() + " - " + pageRank.getVertexScore(n));
-				}
+//				for (Node n : graph.getVertices()) {
+//					System.out.println(n.getId() + " - " + pageRank.getVertexScore(n));
+//				}
 				break;
 			case BetweenesCentrallity:
 				BetweennessCentrality<Node, Link> betweenness = new BetweennessCentrality<>((Graph<Node, Link>) graph);
-				for (Node n : graph.getVertices()) {
-					System.out.println(n.getId() + " - " + betweenness.getVertexScore(n));
-				}
+//				for (Node n : graph.getVertices()) {
+//					System.out.println(n.getId() + " - " + betweenness.getVertexScore(n));
+//				}
 				break;
 			case HITS:
 				HITS<Node, Link> hits = new HITS<>((Graph<Node, Link>) graph);
-				for (Node n : graph.getVertices()) {
-					System.out.println(n.getId() + " - " + hits.getVertexScore(n).authority);
-				}
+//				for (Node n : graph.getVertices()) {
+//					System.out.println(n.getId() + " - " + hits.getVertexScore(n).authority);
+//				}
 				break;
 		}
 	}

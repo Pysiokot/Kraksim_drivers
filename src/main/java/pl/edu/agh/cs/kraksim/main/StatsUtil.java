@@ -9,8 +9,10 @@ import pl.edu.agh.cs.kraksim.iface.block.LaneBlockIface;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoCursor;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
+import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 import pl.edu.agh.cs.kraksim.ministat.*;
-import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
+import pl.edu.agh.cs.kraksim.real_extended.Car;
+import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 
 import java.io.PrintWriter;
 import java.util.*;
@@ -144,7 +146,7 @@ public class StatsUtil {
 			assert avgVelocities.size() == avgRidingVelocities.size();
 
 			int period = 0;
-			for (int j = 0; j < avgVelocities.size(); j++) {
+			for (int j = 0; avgVelocities!=null && j < avgVelocities.size(); j++) {
 				double avgVelocity = avgVelocities.get(j);
 				double avgRidingVelocity = avgRidingVelocities.get(j);
 				int carCount = carCounts.get(j);
@@ -167,7 +169,13 @@ public class StatsUtil {
 	 */
 	public static void collectLinkStats(final City city, final CarInfoIView carInfoView, final BlockIView blockView, final MiniStatEView statView, int turn, LinkStat linkStat, LinkStat linkRidingStat) {
 		CityMiniStatExt cityMiniStat = statView.ext(city);
+		AvgTurnVelocityCounter avgTurnVelCounter = new AvgTurnVelocityCounter();
 		long allCarsOnRedLigth = 0;
+		long emergencyVehiclesOnRedLight = 0;
+		long normalCarsOnRedLight = 0;
+		
+		long numOfCarsCountedToAvgVel = 0;
+		double cityAvgVelocity = 0;
 		for (Iterator<Link> i = city.linkIterator(); i.hasNext(); ) {
 			Link link = i.next();
 			LinkMiniStatExt linkMiniStatExt = statView.ext(link);
@@ -186,6 +194,8 @@ public class StatsUtil {
 
 			long linkRidingDriveLength = 0;
 			long linkRidingMovementCount = 0;
+			long emergencyVehiclesLinkRidingMovementCount = 0;
+			long normalCarsLinkRidingMovementCount = 0;
 
 			for (int lineNum = 0; lineNum < link.laneCount(); lineNum++) {
 				Lane lane = link.getLaneAbs(lineNum);
@@ -196,6 +206,11 @@ public class StatsUtil {
 				CarInfoCursor infoForwardCursor = laneCarInfo.carInfoForwardCursor();
 				while (infoForwardCursor != null && infoForwardCursor.isValid()) {
 					try {
+						if(!infoForwardCursor.currentDriver().isEmergency()) {
+							avgTurnVelCounter.insertNormalCarVelocity(infoForwardCursor.currentVelocity());
+						} else {
+							avgTurnVelCounter.insertEmergencyCarVelocity(infoForwardCursor.currentVelocity());
+						}
 						linkDriveLength += infoForwardCursor.currentVelocity();
 						linkMovementCount++;
 					} catch (NoSuchElementException e) {
@@ -236,8 +251,15 @@ public class StatsUtil {
 						}
 
 						if (!skipingMode) {
+							Driver d = (Driver) infoBackwardCursor.currentDriver();
+							boolean emergency = d.isEmergency();
 							linkRidingDriveLength += infoBackwardCursor.currentVelocity();
 							linkRidingMovementCount++;
+							if (emergency) {
+								emergencyVehiclesLinkRidingMovementCount++;
+							} else {
+								normalCarsLinkRidingMovementCount++;
+							}
 						}
 						lastPos = currentPos;
 					} catch (NoSuchElementException e) {
@@ -266,18 +288,43 @@ public class StatsUtil {
 				assert (linkRidingAvgVelocity < linkAvgVelocity);
 			}
 
-			Double avarageVolocity = linkStat.getAvgVelocity(link);
-			linkMiniStatExt.setAvarageVolocity(avarageVolocity == null ? Double.valueOf(0) : avarageVolocity);
+			Double avarageVolocity = Double.compare(linkStat.getAvgVelocity(link),  Double.NaN) == 0 ? Double.valueOf(0) : linkStat.getAvgVelocity(link);
+			linkMiniStatExt.setAvarageVolocity( avarageVolocity);
+			cityAvgVelocity = 
+					(cityAvgVelocity * numOfCarsCountedToAvgVel + linkDriveLength) 
+					/ (numOfCarsCountedToAvgVel+linkMovementCount);
+			cityAvgVelocity = Double.compare(cityAvgVelocity,  Double.NaN) == 0 ? Double.valueOf(0) : cityAvgVelocity;
+			
+			numOfCarsCountedToAvgVel += linkMovementCount;
 			Double linkRidingAvgVelocity = linkRidingStat.getAvgVelocity(link);
 			linkMiniStatExt.setAvarageRidingVelocity(linkRidingAvgVelocity == null ? Double.valueOf(0) : linkRidingAvgVelocity);
 
 			long carOnRedLightInLink = linkMiniStatExt.getCarCount() - linkRidingMovementCount;
+			long emergencyVehiclesOrRedLightInLink = linkMiniStatExt.getEmergencyVehiclesCount() - emergencyVehiclesLinkRidingMovementCount;
+			long normalCarsOrRedLightInLink = linkMiniStatExt.getNormalCarsCount() - normalCarsLinkRidingMovementCount;
 			linkMiniStatExt.setCarCountOnRedLigth(carOnRedLightInLink);
 			allCarsOnRedLigth += carOnRedLightInLink;
+			emergencyVehiclesOnRedLight += emergencyVehiclesOrRedLightInLink;
+			normalCarsOnRedLight += normalCarsOrRedLightInLink;
+		}
+		
+		for (Iterator<Gateway> i = city.gatewayIterator(); i.hasNext(); ) {
+			Gateway gate = i.next();
+			GatewayMiniStatExt gateMiniStatExt = statView.ext(gate);
+			int waitingCars = gateMiniStatExt.getWaitingCars().size();
+			for(Car car : gateMiniStatExt.getWaitingCars()) {	
+				if(!car.getDriver().isEmergency()) {
+					avgTurnVelCounter.insertNormalCarVelocity(0);
+				} else {
+					avgTurnVelCounter.insertEmergencyCarVelocity(0);
+				}
+			}
 		}
 		
 		cityMiniStat.setAllCarsOnRedLight(allCarsOnRedLigth);
-		
+		cityMiniStat.setEmergencyVehiclesOnRedLight(emergencyVehiclesOnRedLight);
+		cityMiniStat.setNormalCarsOnRedLight(normalCarsOnRedLight);
+		cityMiniStat.setAvgTurnVelocityCounter(avgTurnVelCounter);		
 	}
 
 	public static void dumpStats(final City city, final MiniStatEView statView, final int turn, final PrintWriter writer) {

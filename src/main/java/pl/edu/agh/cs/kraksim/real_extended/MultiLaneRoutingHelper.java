@@ -24,15 +24,17 @@ public class MultiLaneRoutingHelper {
 		this.ev = ev;
 	}
 
+
+	// 2019 - changed order of conditions
+
 	/**
 	 * This method chooses the best action from the given list
 	 *
 	 * @param actions list of actions to choose from
-	 * @param source  link into which car is entering
 	 * @return action that is the best to set for the car
 	 * @author Maciej Zalewski
 	 */
-	public Action chooseBestAction(List<Action> actions, Link source) {
+	public Action chooseBestAction(List<Action> actions) {
 
 		// the answer may be obvious...
 		if (actions.isEmpty()) {
@@ -54,18 +56,17 @@ public class MultiLaneRoutingHelper {
 			// ... check it's load
 			int lSize = laneRE.getAllCarsNumber();
 			int lDist = laneRE.getFirstCarPosition();
-			// ... and, if there are less cars on the lane than on the
-			// minimum one ...
-			if (lSize < lowestCarsCount) {
+			// ... and, if there is more space to the nearest car
+			if (nearestCarPosition < lDist) {
 				// ... set it as the best.
 				result = action;
 				lowestCarsCount = lSize;
 				nearestCarPosition = lDist;
 				continue;
 			}
-			// ... or there is the same number of cars, but there is more
-			// space to the nearest one ...
-			if ((lSize == lowestCarsCount) && (nearestCarPosition < lDist)) {
+			// ... or there is the same distance to the nearest car, but
+			// there is less car on the lane
+			if ((lDist == nearestCarPosition) && lSize < lowestCarsCount) {
 				// ... set it as the best.
 				result = action;
 				lowestCarsCount = lSize;
@@ -82,25 +83,72 @@ public class MultiLaneRoutingHelper {
 	 *
 	 * @param action the action to be taken on current link
 	 * @param link   current link to choose lanes from
-	 * @return the best lane to make the given action
+	 * @param car 
+	 * @return the best lane to make the given action or null if no appropriate lane can be entered
 	 */
-	public Lane chooseBestLaneForAction(Action action, Link link) {
+	public Lane chooseBestLaneForAction(Action action, Link link, Car car) {
 		Lane result = null;
 		// if action is not null, it means that some action has already been chosen
 		// the best thing would be to put the car on the lane that is source of an action
-		// If that lane does not start from the intersection, we shall choose main lane 
+		// If that lane does not start from the intersection, we shall choose main lane
 		// nearest to it
 		if (action != null) {
 			int destinationLaneNo = action.getSource().getAbsoluteNumber();
-			// is it left lane?
-			if (destinationLaneNo < link.leftLaneCount()) {
-				result = link.getMainLane(0);
-				// or maybe right?
-			} else if (destinationLaneNo >= (link.laneCount() - link.rightLaneCount())) {
-				result = link.getMainLane(link.mainLaneCount() - 1);
-				// so it has to be a main lane
-			} else {
-				result = link.getLaneAbs(destinationLaneNo);
+			int destinationLaneType = action.getSource().getRelativeNumber();
+			Lane lane = link.getLaneAbs(destinationLaneNo);
+			LaneRealExt laneRealExt = ev.ext(lane);
+			// check if chosen lane can be entered
+			if(lane.getOffset() == 0 && laneRealExt.canAddCarToLaneOnPosition(0)){
+				result = lane;
+			}
+			// try finding most appropriate lane
+			else{
+				// start from left lanes
+				if(destinationLaneType < 0){
+					destinationLaneNo = 0;
+				}
+				// start from right lanes
+				else if(destinationLaneType > 0){
+					destinationLaneNo = link.laneCount() - 1;
+				}
+				// check only main lanes
+				else{
+					destinationLaneNo = link.getLeftMainLaneNum();
+				}
+				while(destinationLaneNo >= 0 && destinationLaneNo < link.laneCount()){
+
+					lane = link.getLaneAbs(destinationLaneNo);
+					laneRealExt = ev.ext(lane);
+					// end conditions - incorrect lanes
+					if(destinationLaneType == 0 && lane.getRelativeNumber() != 0){
+						break;
+					}
+					else if(destinationLaneType * lane.getRelativeNumber() < 0){
+						break;
+					}
+
+					// check if lane can be entered
+					if(car instanceof Emergency) {
+						if(lane.getOffset() == 0 && laneRealExt.canAddEmergencyToLaneOnPosition(0)){
+							result = lane;
+							break;
+						}
+					} else {
+						if(lane.getOffset() == 0 && laneRealExt.canAddCarToLaneOnPosition(0)){
+							result = lane;
+							break;
+						}
+					}
+
+					// going from left to right for left and main lanes
+					// going from right to left for right lanes
+					if(destinationLaneType < 0){
+						destinationLaneNo--;
+					}
+					else{
+						destinationLaneNo++;
+					}
+				}
 			}
 		} else {
 			// otherwise, we are heading to a gateway and have no action set. So, we shall
@@ -113,23 +161,33 @@ public class MultiLaneRoutingHelper {
 			for (Lane lane : link.getMainLanes()) {
 				LaneRealExt laneRE = ev.ext(lane);
 				// ... check it's load
-				int lSize = laneRE.cars.size();
+				int lSize = laneRE.getCars().size();
 				int lDist = Integer.MAX_VALUE;
-				if (lSize > 0) {
-					lDist = laneRE.cars.peek().getPosition();
+				for(Car carIter : laneRE.getCars()) {
+					if(car instanceof Emergency) {
+						if(carIter instanceof Emergency) {
+							lDist = carIter.getPosition();
+							break;
+						}
+					} else {
+						lDist = carIter.getPosition();
+						break;
+					}
+					
 				}
-				// ... and, if there are less cars on the lane than on the
-				// minimum one ...
-				if (lSize < lowestCarsCount) {
+				if (lSize > 0) {
+				}
+				// ... and, if there is more space to the nearest car
+				if (nearestCarPosition < lDist) {
 					// ... set it as the best.
 					result = lane;
 					lowestCarsCount = lSize;
 					nearestCarPosition = lDist;
 					continue;
 				}
-				// ... or there is the same number of cars, but there is more
-				// space to the nearest one ...
-				if ((lSize == lowestCarsCount) && (nearestCarPosition < lDist)) {
+				// ... or there is the same distance to the nearest car (greater than 0), but
+				// there is less cars on the lane
+				if (lDist == nearestCarPosition && nearestCarPosition > 0 && lSize < lowestCarsCount) {
 					// ... set it as the best.
 					result = lane;
 					lowestCarsCount = lSize;

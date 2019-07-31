@@ -1,16 +1,18 @@
 package pl.edu.agh.cs.kraksim.visual.infolayer;
 
-import pl.edu.agh.cs.kraksim.core.Intersection;
-import pl.edu.agh.cs.kraksim.core.Lane;
-import pl.edu.agh.cs.kraksim.core.Link;
-import pl.edu.agh.cs.kraksim.core.Node;
+import pl.edu.agh.cs.kraksim.core.*;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoCursor;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
+import pl.edu.agh.cs.kraksim.iface.eval.EvalIView;
+import pl.edu.agh.cs.kraksim.iface.eval.LaneEvalIface;
 import pl.edu.agh.cs.kraksim.main.EvalModuleProvider;
+import pl.edu.agh.cs.kraksim.main.drivers.Driver;
+import pl.edu.agh.cs.kraksim.visual.VisualizerComponent;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.Action;
 import javax.vecmath.Vector2d;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +22,10 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class IntersectionPanel extends JPanel{
 
@@ -153,7 +158,7 @@ public class IntersectionPanel extends JPanel{
 
     public void drawBundleOfCars(Graphics g, ArrayList<Link> lanes){
         Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(laneWidth));
+        // g2.setStroke(new BasicStroke(laneWidth));
         int drawnLanesGlobal = 0;
 
         Vector2d direction = getDirection(lanes.get(0));
@@ -161,7 +166,6 @@ public class IntersectionPanel extends JPanel{
 
         direction.normalize();
         perpendicual.normalize();
-        Color col = Color.YELLOW;
         CarInfoIView carInfoView = ip.getCarInfoIView();
         for(Link lane : lanes){
             CarInfoCursor cursor;
@@ -196,13 +200,22 @@ public class IntersectionPanel extends JPanel{
         LaneCarInfoIface carInfo = carInfoView.ext(lane);
         CarInfoCursor infoForwardCursor = carInfo.carInfoForwardCursor();
         int offset = lane.getOffset();
+        
+        //first draw blocked
+        java.util.List<Integer> blockedCellsList = lane.getActiveBlockedCellsIndexList();
+        for(Integer blockedCell : blockedCellsList) {
+        	drawCar(g2, lane, blockedCell, drawnLanesGlobal, direction, perpendicual, VisualizerComponent.BLOCKED_CELL_COLOR, isInbound(lane.getOwner()), false);
+        	
+        }
 
+        //later draw cars, now if car and obstacle are on the same time, car will be drawn
         while (infoForwardCursor != null && infoForwardCursor.isValid()) {
             int position = infoForwardCursor.currentPos() + (offset);
-            drawCar(g2, lane, infoForwardCursor.currentPos(), drawnLanesGlobal, direction, perpendicual, Color.yellow, isInbound(lane.getOwner()));
+            drawCar(g2, lane, infoForwardCursor.currentPos(), drawnLanesGlobal, direction, perpendicual, ((Driver)infoForwardCursor.currentDriver()).getCarColor(), isInbound(lane.getOwner()), ((Driver)infoForwardCursor.currentDriver()).isEmergency());
             infoForwardCursor.next();
         }
-        drawTextForLane(g2, lane, drawnLanesGlobal, direction, perpendicual, Color.yellow);
+        
+        drawTextForLane(g2, lane, drawnLanesGlobal, direction, perpendicual, Color.YELLOW);
     }
 
     public void drawBundleOfLanes(Graphics g, ArrayList<Link> lanes){
@@ -220,17 +233,17 @@ public class IntersectionPanel extends JPanel{
         for(Link lane : lanes){
             CarInfoCursor cursor;
             if(isInbound(lane)&&lane.leftLaneCount()>0){
-               drawLane(g2, lane.getLeftLane(0), (lane.getLeftLane(0).getLength() + 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
+               drawLane(g2, lane.getLeftLane(0),	(lane.getLeftLane(0).getLength() + 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
                drawnLanesGlobal++;
             }
 
             for(int i = 0; i < lane.mainLaneCount(); i++){
-                drawLane(g2, lane.getMainLane(i),( lane.getMainLane(0).getLength()+ 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
+                drawLane(g2, lane.getMainLane(i),	(lane.getMainLane(0).getLength()+ 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
                 drawnLanesGlobal++;
             }
 
             if(isInbound(lane) && lane.rightLaneCount()>0){
-                drawLane(g2, lane.getRightLane(0),(lane.getRightLane(0).getLength()+ 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
+                drawLane(g2, lane.getRightLane(0),	(lane.getRightLane(0).getLength()+ 15) * oneUnitLength, drawnLanesGlobal, direction, perpendicual, col);
                 drawnLanesGlobal++;
             }
         }
@@ -249,12 +262,16 @@ public class IntersectionPanel extends JPanel{
 
         algorithmInfoPosition.add(currentPerpendicual);
 
-        String toWrite = String.valueOf(InfoProvider.getInstance().getEvalIView().ext(lane).getEvaluation());
+        InfoProvider info = InfoProvider.getInstance();
+        EvalIView eval = info.getEvalIView();
+        LaneEvalIface laneEvel = eval.ext(lane);
+        
+        String toWrite = String.valueOf(laneEvel.getEvaluation());
         if(toWrite.isEmpty()) toWrite = "0.0";
         drawTexts(g2,toWrite, algorithmInfoPosition, Color.ORANGE, 12);
     }
 
-    private void drawCar(Graphics2D g2, Lane lane, int position, int drawnLanes, Vector2d direction, Vector2d perpendicual, Color color, Boolean inbound ){
+    private void drawCar(Graphics2D g2, Lane lane, int position, int drawnLanes, Vector2d direction, Vector2d perpendicual, Color color, Boolean inbound , Boolean isEmergency){
         Vector2d currentDirection = new Vector2d(direction);
         Vector2d currentStart = new Vector2d(center);
         Vector2d currentPerpendicual = new Vector2d(perpendicual);
@@ -276,7 +293,30 @@ public class IntersectionPanel extends JPanel{
 
 
         g2.setColor(color);
-        g2.draw(new Line2D.Double(dirTmp.x, dirTmp.y, currentDirection.x, currentDirection.y));
+
+        // 2019 - Emergency is now a triangle
+        if(isEmergency){
+
+            if(!inbound){
+                Vector2d tmp = currentDirection;
+                currentDirection = dirTmp;
+                dirTmp = tmp;
+            }
+            double a = currentDirection.x - dirTmp.x;
+            double b = currentDirection.y - dirTmp.y;
+            double len = Math.sqrt(a*a + b*b);
+            double x = b / len;
+            double y = - a / len;
+            double normA = a / len;
+            double normB = b / len;
+
+            int[] xPoints = {(int) (currentDirection.x + normA * laneWidth/2), (int) (dirTmp.x + (x - normA) * laneWidth/2 ), (int) (dirTmp.x - (x + normA) * laneWidth/2)};
+            int[] yPoints = {(int) (currentDirection.y  + normB * laneWidth/2), (int) (dirTmp.y + (y - normB) * laneWidth/2), (int) (dirTmp.y - (y + normB) * laneWidth/2)};
+            g2.fillPolygon(xPoints, yPoints, xPoints.length);
+        }
+        else{
+            g2.draw(new Line2D.Double(dirTmp.x, dirTmp.y, currentDirection.x, currentDirection.y));
+        }
     }
 
 
@@ -393,7 +433,12 @@ public class IntersectionPanel extends JPanel{
     }
 
     public Boolean isInbound(Link l){
-        return l.getEnd().equals(crossroad);
+        // 9.07.19 - fixed outgoing lanes approaching gateways
+        Boolean inbound = l.getEnd().equals(crossroad);
+        if(l.getEnd() instanceof Gateway){
+            return !inbound;
+        }
+        return inbound;
     }
     public void setLabel(JLabel l){
         statsLabel = l;

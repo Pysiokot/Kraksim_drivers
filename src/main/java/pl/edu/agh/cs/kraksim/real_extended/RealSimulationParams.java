@@ -48,7 +48,7 @@ public final class RealSimulationParams {
 		this.decelProb = decelProb;
 		this.priorLaneTimeHeadway = priorLaneTimeHeadway;
 		randomGenerator = rg;
-		carMoveModel = new CarMoveModel("nagle");
+		carMoveModel = new CarMoveModel("nagel");
 		victimProb = DEFAULT_VICTIM_PROB;
 	}
 

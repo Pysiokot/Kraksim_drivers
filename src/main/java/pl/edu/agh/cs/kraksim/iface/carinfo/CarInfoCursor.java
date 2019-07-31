@@ -1,6 +1,7 @@
 package pl.edu.agh.cs.kraksim.iface.carinfo;
 
 import pl.edu.agh.cs.kraksim.core.Lane;
+import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 
 public interface CarInfoCursor {
 
@@ -12,7 +13,7 @@ public interface CarInfoCursor {
 
 	int currentVelocity();
 
-	Object currentDriver();
+	Driver currentDriver();
 
 	Lane beforeLane();
 

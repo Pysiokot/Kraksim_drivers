@@ -2,18 +2,8 @@ package pl.edu.agh.cs.kraksim.main;
 
 // on 7/15/07 3:41 PM
 
-import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.Collection;
-import java.util.PriorityQueue;
-
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
-
 import pl.edu.agh.cs.kraksim.core.Core;
 import pl.edu.agh.cs.kraksim.core.Gateway;
 import pl.edu.agh.cs.kraksim.core.Link;
@@ -38,6 +28,10 @@ import pl.edu.agh.cs.kraksim.sna.SnaConfigurator;
 import pl.edu.agh.cs.kraksim.traffic.TravellingScheme;
 import pl.edu.agh.cs.kraksim.visual.infolayer.InfoProvider;
 
+import java.io.*;
+import java.util.Collection;
+import java.util.PriorityQueue;
+
 public class Simulation implements Clock, TravelEndHandler, Controllable {
 	private static final Logger logger = Logger.getLogger(Simulation.class);
 	
@@ -58,6 +52,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 	private Collection<TravellingScheme> trafficScheme;
 
 	private int turn;
+	public static Integer turnNumber = 0; // the only way to get sim turn in other class 
 	private int activeDriverCount;
 	private PriorityQueue<Driver> departureQueue;
 	private DecisionHelper isDriverRoutingHelper;
@@ -93,7 +88,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		try {
 			params.parseOptions(args, console);
 		} catch (ParseException e) {
-			System.out.println("Exception!");
+			System.err.println("Exception!");
 			e.printStackTrace();
 		}
 		final EvalModuleProvider evalProvider = getEvaluationProvider();
@@ -113,8 +108,8 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		                physModuleCreator = new pl.edu.agh.cs.kraksim.real_extended.RealModuleCreator(simulationParams);
 		                break;
 		            } default : {
-		                physModuleCreator = new pl.edu.agh.cs.kraksim.real.RealModuleCreator
-		                        (new pl.edu.agh.cs.kraksim.real.RealSimulationParams(params.getModelRg(), params.getCarMoveModel()));
+		                physModuleCreator = new pl.edu.agh.cs.kraksim.real_extended.RealModuleCreator
+		                        (new pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams(params.getModelRg(), params.getCarMoveModel()));
 		                break;
 		            }
 		        }
@@ -250,6 +245,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		// --- INITIALIZE TEST RUN
 		// ===================================================================================
 		turn = 0;
+		turnNumber = turn;
 		modules.getStatView().ext(modules.getCity()).clear();
 
 		generateDrivers();
@@ -391,6 +387,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 		modules.getWekaPrediction().turnEnded();
 		turn++;
+		turnNumber = turn;
 		
 		//do grafu
 		if(turn % SnaConfigurator.getSnaRefreshInterval() == 0){
@@ -399,8 +396,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 
 		visualizer.update(turn);
-		StatsUtil.dumpCarStats(modules.getCity(), modules.getStatView(), turn,
-				statWriter);
+		StatsUtil.dumpCarStats(modules.getCity(), modules.getStatView(), turn, statWriter);
 		
 		
 		StatsUtil.collectLinkStats(modules.getCity(), modules.getCarInfoView(), modules.getBlockView(), modules.getStatView(), turn, linkStat, linkRidingStat);
@@ -408,6 +404,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 	private void runPhase() {
 		turn = 0;
+		turnNumber = turn;
 		modules.getStatView().ext(modules.getCity()).clear();
 
 		generateDrivers();
@@ -424,22 +421,41 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 		for (TravellingScheme travelScheme : trafficScheme) {
 			for (int i = 0; i < travelScheme.getCount(); i++) {
+				boolean emergency = false;
 				boolean isDriverReRoutingDecision = isDriverRoutingHelper
 						.decide();
 				if (isDriverReRoutingDecision) {
-					Driver driver = travelScheme.generateDriver(activeDriverCount++,
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
 							travelScheme, modules.getDynamicRouter(),
 							new DecisionHelper(params.getDecisionRg(), params
 									.getRouteDecisionTh()));
 					driver.setDepartureTurn(params.getGenRg());
 					departureQueue.add(driver);
 				} else {
-					Driver driver = travelScheme.generateDriver(activeDriverCount++,
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
 							travelScheme, null, null);
 					driver.setDepartureTurn(params.getGenRg());
 					departureQueue.add(driver);
 				}
 
+			}
+			for (int j = 0; j < travelScheme.getEmergencyVehicles(); j++) {
+				boolean emergency = true;
+				boolean isDriverReRoutingDecision = isDriverRoutingHelper
+						.decide();
+				if (isDriverReRoutingDecision) {
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
+							travelScheme, modules.getDynamicRouter(),
+							new DecisionHelper(params.getDecisionRg(), params
+									.getRouteDecisionTh()));
+					driver.setDepartureTurn(params.getGenRg());
+					departureQueue.add(driver);
+				} else {
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
+							travelScheme, null, null);
+					driver.setDepartureTurn(params.getGenRg());
+					departureQueue.add(driver);
+				}
 			}
 		}
 	}
@@ -515,5 +531,5 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 	public StatsUtil.LinkStat getLinkRidingStat(){
 		return linkRidingStat;
 	}
-
+	
 }

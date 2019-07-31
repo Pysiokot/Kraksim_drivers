@@ -1,6 +1,10 @@
 package pl.edu.agh.cs.kraksim.real_extended;
 
+import pl.edu.agh.cs.kraksim.AssumptionNotSatisfiedException;
+import pl.edu.agh.cs.kraksim.core.Action;
 import pl.edu.agh.cs.kraksim.core.Gateway;
+import pl.edu.agh.cs.kraksim.core.Lane;
+import pl.edu.agh.cs.kraksim.core.Link;
 import pl.edu.agh.cs.kraksim.iface.mon.CarEntranceHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.CarExitHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.GatewayMonIface;
@@ -44,21 +48,48 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 	public void setTravelEndHandler(TravelEndHandler handler) {
 		travelEndHandler = handler;
 	}
-
+	
 	void simulateTurn() {
 		ListIterator<Car> iter = cars.listIterator(cars.size());
 		while (enqueuedCarCount > 0) {
 			Object d = iter.previous().getDriver();
-			for (CarEntranceHandler h : entranceHandlers) {
-				h.handleCarEntrance(d);
+			for (CarEntranceHandler h : entranceHandlers) {	// no clue what CarEntranceHandler does
+				h.handleCarEntrance(d);	// handles new car entrance for each new car in "cars" list
 			}
 
 			enqueuedCarCount--;
 		}
-
-		Car car = cars.peek();
-		if (car != null && gateway.getOutboundLink() != null && ev.ext(gateway.getOutboundLink()).enterCar(car, 1, 0)) {
-			cars.poll();
+		for(int i=0; i<gateway.getOutboundLink().mainLaneCount(); i++) {
+			Car car = cars.peek();
+			// adds 1 car per turn if possible
+			if (car != null && gateway.getOutboundLink() != null) {
+				Lane targetLaneNormal = gateway.getOutboundLink().getMainLane(i);
+				LaneRealExt targetLane;
+				targetLane = ev.ext(targetLaneNormal);
+				if(targetLane.canAddCarToLane(car)) {
+					targetLane.addCarToLane(car);
+					car.setCurrentLane(targetLane);
+					car.refreshTripRoute();
+					
+					Link nextLink = null;
+					if (car.hasNextTripPoint()) {
+						nextLink = car.peekNextTripPoint();
+					} else {
+					}
+					List<Action> actions = gateway.getOutboundLink().findActions(nextLink);
+					MultiLaneRoutingHelper laneHelper = new MultiLaneRoutingHelper(ev);
+					Action nextAction = laneHelper.chooseBestAction(actions);
+					
+					if (!car.hasNextTripPoint()) {
+						car.setActionForNextIntersection(null);
+					} else {
+						car.nextTripPoint();
+						car.setActionForNextIntersection(nextAction);
+					}
+					cars.poll();
+					ev.ext(gateway.getOutboundLink()).fireAllEntranceHandlers(car);
+				}
+			}
 		}
 	}
 
@@ -75,6 +106,7 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 		// CHANGE: MZA: to enable multiple lanes
 		if (!acceptedCars.isEmpty()) {
 			for (Car car : acceptedCars) {
+				ev.ext(gateway.getInboundLink()).fireAllExitHandlers(car);
 				for (CarExitHandler h : exitHandlers) {
 					h.handleCarExit(car.getDriver());
 				}
@@ -102,5 +134,9 @@ class GatewayRealExt extends NodeRealExt implements GatewaySimIface, GatewayMonI
 
 	public void installExitSensor(CarExitHandler handler) {
 		exitHandlers.add(handler);
+	}
+	
+	public LinkedList<Car> getEnteringCars() {
+		return this.cars;
 	}
 }

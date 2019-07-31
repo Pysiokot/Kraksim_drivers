@@ -32,6 +32,7 @@ public class TrafficDataXmlHandler extends DefaultHandler {
 	private int level = 0;
 	private int count;
 	private Color driverColor = null;
+	private Color emergencyVehicleColor = null;
 
 	public TrafficDataXmlHandler(City c, StartupParameters parameters) {
 		this.c = c;
@@ -71,7 +72,8 @@ public class TrafficDataXmlHandler extends DefaultHandler {
 					departureDists = new ArrayList<>();
 					zones = new ArrayList<>();
 					count = Integer.parseInt(attrs.getValue("count"));
-					driverColor = parseColor(attrs.getValue("driver_color"));
+					driverColor = Color.YELLOW;
+					emergencyVehicleColor = Color.BLUE;
 
 					level = SCHEME_LEVEL;
 				}
@@ -93,7 +95,7 @@ public class TrafficDataXmlHandler extends DefaultHandler {
 
 					gws = gateways.toArray(gws);
 					ds = departureDists.toArray(ds);
-					TravellingScheme ts = new TravellingScheme(parameters, count, gws, ds, zones, driverColor);
+					TravellingScheme ts = new TravellingScheme(parameters, count, gws, ds, zones, driverColor, emergencyVehicleColor);
 					schemes.add(ts);
 					level = 0;// traffic
 				}
@@ -163,7 +165,7 @@ public class TrafficDataXmlHandler extends DefaultHandler {
 			g = Integer.parseInt(colorStr.substring(3, 5), 16);
 			b = Integer.parseInt(colorStr.substring(5, 7), 16);
 		} catch (Exception e) {
-			LOGGER.error(String.format("[ERROR] cannot parse string '%s' as color", colorStr));
+			LOGGER.error(String.format("[ERROR] cannot parse string '%s' as carColor", colorStr));
 			return null;
 		}
 		return new Color(r, g, b);

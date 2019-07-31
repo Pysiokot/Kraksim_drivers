@@ -13,12 +13,15 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class KraksimConfigurator {
 	private static final Logger LOGGER = Logger.getLogger(KraksimConfigurator.class);
 	private static String CONFIG_PATH = "configuration/kraksim.properties";
+	private static Map<String, String> propertiesMap = new HashMap<>();
 
     public static void setConfigPath(String configPath){
         CONFIG_PATH = configPath;
@@ -34,7 +37,6 @@ public class KraksimConfigurator {
 		}
 
 		Properties result = new Properties();
-
 		try {
 			InputStream inStream = new FileInputStream(f);
 			result.load(inStream);
@@ -47,6 +49,16 @@ public class KraksimConfigurator {
 		}
 
 		return result;
+	}
+	
+	public static String getProperty(String name) {
+		if(propertiesMap.containsKey(name)) {
+			return propertiesMap.get(name);
+		} else {
+			String value = getPropertiesFromFile().getProperty(name);
+			propertiesMap.put(name, value);
+			return value;
+		}
 	}
 
 	public static String[] prepareInputParametersForSimulation(Properties params) {
@@ -68,7 +80,7 @@ public class KraksimConfigurator {
 		if ((carMoveModel = params.getProperty("carMoveModel")) != null) {
 			paramsList.add(carMoveModel);
 		} else {
-			paramsList.add("nagle");
+			paramsList.add("nagel");
 		}
 
         // select phys module
@@ -194,7 +206,7 @@ public class KraksimConfigurator {
 	}
 
 	public static String getSNADistanceType() {
-		return getPropertiesFromFile().getProperty("snaDistanceType");
+		return getProperty("snaDistanceType");
 	}
 
     public static Properties createDefaultSessionConfig(){
@@ -204,7 +216,7 @@ public class KraksimConfigurator {
         sessionProperties.setProperty("travelSchemeFile", "");
         sessionProperties.setProperty("centralNodesAlgMod", "none\\:Lack");
         sessionProperties.setProperty("algorithm", "sotl");
-        sessionProperties.setProperty("carMoveModel", "nagle:decProb=0.2");
+        sessionProperties.setProperty("carMoveModel", "nagel:decProb=0.2");
         sessionProperties.setProperty("yellowTransition", "3");
         sessionProperties.setProperty("statOutFile", "output/statistics/stats.txt");
         sessionProperties.setProperty("zone_awareness", "enabled");

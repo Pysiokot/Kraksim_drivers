@@ -2,7 +2,7 @@ package pl.edu.agh.cs.kraksim.stat;
 
 import com.google.common.collect.Maps;
 import pl.edu.agh.cs.kraksim.core.City;
-import pl.edu.agh.cs.kraksim.real.RealSimulationParams;
+import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 
 import java.io.IOException;
 import java.io.Writer;

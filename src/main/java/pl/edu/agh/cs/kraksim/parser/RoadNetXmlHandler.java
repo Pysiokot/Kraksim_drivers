@@ -1,5 +1,6 @@
 package pl.edu.agh.cs.kraksim.parser;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -11,11 +12,14 @@ import pl.edu.agh.cs.kraksim.core.exceptions.DuplicateIdentifierException;
 import pl.edu.agh.cs.kraksim.core.exceptions.InvalidActionException;
 import pl.edu.agh.cs.kraksim.core.exceptions.LinkAttachmentException;
 import pl.edu.agh.cs.kraksim.core.exceptions.UnsupportedLinkOperationException;
+import pl.edu.agh.cs.kraksim.real_extended.BlockedCellsInfo;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -41,6 +45,9 @@ public class RoadNetXmlHandler extends DefaultHandler {
 	 * @author Lukasz Dziewonski
 	 */
 	private int numberOfLanes;
+	private String lastLaneType;	// type of last seen lane, values: main/left/right
+	private Map<String, Map<Integer, List<BlockedCellsInfo>>> linkBlockedCellsInfo;	// map with blocked cells in format main/left/right -> <lane_number> -> <num_of_cell>, important only during line creation
+			//	road_type -> lane_num -> list_of_blicked_cells
 
 	private Core core;
 	private City city;
@@ -73,6 +80,7 @@ public class RoadNetXmlHandler extends DefaultHandler {
 		roadStack = new Stack<>();
 		leftLaneLenTab = new ArrayList<>();
 		rightLaneLenTab = new ArrayList<>();
+		linkBlockedCellsInfo = new HashMap<>();
 		core = new Core();
 		city = core.getCity();
 	}
@@ -88,6 +96,7 @@ public class RoadNetXmlHandler extends DefaultHandler {
 	@Override
 	public void startElement(String namespaceURI, String localName, String rawName, Attributes attrs) {
 		LOGGER.trace(level + " -> " + localName + ' ' + outAttribs(attrs));
+		//System.out.println("rawName " + rawName + "level " + level.toString());
 		switch (level) {
 			case ROADS:
 				createRoad(rawName, attrs);
@@ -104,7 +113,11 @@ public class RoadNetXmlHandler extends DefaultHandler {
 			break;
 
 			case UPLINK:
-				createLane(rawName, attrs);
+				if(rawName.equals("blocked")) {
+					createLaneBlockCells(rawName, attrs);
+				} else {
+					createLane(rawName, attrs);
+				}
 				break;
 
 			case DOWNLINK:
@@ -372,16 +385,68 @@ public class RoadNetXmlHandler extends DefaultHandler {
 	 */
 	private void createLane(String rawName, Attributes attrs) {
 		if (rawName.equals("main")) {
+			lastLaneType = "main";
 			mainLaneLen = Integer.parseInt(attrs.getValue("length"));
 			String numberOfLanesStr = attrs.getValue("numberOfLanes");
 			numberOfLanes = Integer.parseInt(numberOfLanesStr == null ? "1" : numberOfLanesStr);
+			
 		}
 		if (rawName.equals("left")) {
+			lastLaneType = "left";
 			leftLaneLenTab.add(Integer.parseInt(attrs.getValue("length")));
 		}
 		if (rawName.equals("right")) {
+			lastLaneType = "right";
 			rightLaneLenTab.add(Integer.parseInt(attrs.getValue("length")));
 		}
+	}
+	
+	// parse info about block cells in this.lastLaneType lane
+	private void createLaneBlockCells(String rawName, Attributes attrs) {
+		if(rawName.equals("blocked")) {
+			Integer laneNumber = attrs.getValue("laneNumber") != null ? Integer.parseInt(attrs.getValue("laneNumber")) : null;
+			Integer firstCell = attrs.getValue("cell") != null ? Integer.parseInt(attrs.getValue("cell")) : null;
+			Integer lastCell = attrs.getValue("lastCell") != null ? Integer.parseInt(attrs.getValue("lastCell")) : null;
+			Integer blockedLength = attrs.getValue("blockedLength") != null ? Integer.parseInt(attrs.getValue("blockedLength")) : null;
+			Integer turnStart = attrs.getValue("turnStart") != null ? Integer.parseInt(attrs.getValue("turnStart")) : null;
+			Integer turnEnd = attrs.getValue("turnEnd") != null ? Integer.parseInt(attrs.getValue("turnEnd")) : null;
+			Integer turnDuration = attrs.getValue("turnDuration") != null ? Integer.parseInt(attrs.getValue("turnDuration")) : null;
+			BlockedCellsInfo blockedInfo = null;
+			try{
+				blockedInfo = BlockedCellsInfo.builder()
+					.firstCell(firstCell)
+					.lastCell(lastCell)
+					.blockedLength(blockedLength)
+					.turnStart(turnStart)
+					.turnEnd(turnEnd)
+					.turnDuration(turnDuration)
+					.build();
+			} catch(ParsingException e) {
+				LOGGER.error("wrong cell blocking details, ignoring one entry");
+				return ;
+			}
+			if(laneNumber == null ) {
+				LOGGER.error("wrong cell blocking details, ignoring one entry");
+				return ;
+			}
+			Map<Integer, List<BlockedCellsInfo>> blockedCellsInfoList = this.linkBlockedCellsInfo.get(this.lastLaneType); // laneNumber + ":" + cellNumber);
+			if(blockedCellsInfoList == null) {
+				ArrayList<BlockedCellsInfo> cellList = new ArrayList<BlockedCellsInfo>();
+				cellList.add(blockedInfo);
+				HashMap<Integer, List<BlockedCellsInfo>> laneNumMap = new HashMap<>();
+				laneNumMap.put(laneNumber, cellList);
+				this.linkBlockedCellsInfo.put(this.lastLaneType, laneNumMap);
+			} else {
+				List<BlockedCellsInfo> cellList = blockedCellsInfoList.get(laneNumber);
+				if(cellList == null) {
+					cellList = new ArrayList<>();
+					cellList.add(blockedInfo);
+					blockedCellsInfoList.put(laneNumber, cellList);
+				} else {
+					cellList.add(blockedInfo);
+				}
+			}
+		}	
 	}
 
 	/**
@@ -397,6 +462,7 @@ public class RoadNetXmlHandler extends DefaultHandler {
 			String limit = attrs.getValue("speedLimit");
 			String minimalSpeedStr = attrs.getValue("minimalSpeed");
 			String zoneName = attrs.getValue("zone");
+			//System.out.println("id " + id + " street " + street + " limit " + limit + " minimalSpeedStr " + minimalSpeedStr + " zoneName " + zoneName);
 
 			zoneName = (zoneName == null) ? "" : zoneName;
 			int speedLimit = (limit == null) ? defaultSpeedLimit : Integer.parseInt(limit);
@@ -452,13 +518,14 @@ public class RoadNetXmlHandler extends DefaultHandler {
 					}
 					RoadInfo ri = roadStack.peek();
 					try {
-						city.createLink(ri, l, mainLaneLen, numberOfLanes, r);
+						city.createLink(ri, l, mainLaneLen, numberOfLanes, r, this.linkBlockedCellsInfo);
 					} catch (DuplicateIdentifierException | IllegalArgumentException | LinkAttachmentException e) {
 						e.printStackTrace();
 					}
 
 					leftLaneLenTab = new ArrayList<>();
 					rightLaneLenTab = new ArrayList<>();
+					this.linkBlockedCellsInfo = new HashMap<>();
 					level = Level.ROAD;
 				}
 				break;
@@ -476,13 +543,14 @@ public class RoadNetXmlHandler extends DefaultHandler {
 					RoadInfo ri = roadStack.peek();
 					try {
 						ri.setReversed();
-						city.createLink(ri, l, mainLaneLen, numberOfLanes, r);
+						city.createLink(ri, l, mainLaneLen, numberOfLanes, r, this.linkBlockedCellsInfo);
 					} catch (DuplicateIdentifierException | LinkAttachmentException | IllegalArgumentException e) {
 						e.printStackTrace();
 					}
 
 					leftLaneLenTab = new ArrayList<>();
 					rightLaneLenTab = new ArrayList<>();
+					this.linkBlockedCellsInfo = new HashMap<>();
 					level = Level.ROAD;
 				}
 				break;

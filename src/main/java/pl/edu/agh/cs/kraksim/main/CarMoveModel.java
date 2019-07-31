@@ -8,8 +8,8 @@ public class CarMoveModel {
 	public static final String MODEL_VDR_0_PROB = "zeroProb";
 	public static final String MODEL_VDR_MOVE_PROB = "movingProb";
 
-	public static final String MODEL_NAGLE = "nagle";
-	public static final String MODEL_NAGLE_MOVE_PROB = "decProb";
+	public static final String MODEL_NAGEL = "nagel";
+	public static final String MODEL_NAGEL_MOVE_PROB = "decProb";
 
 	public static final String MODEL_BRAKELIGHT = "bl";
 	public static final String MODEL_BRAKELIGHT_0_PROB = "zeroProb";
@@ -17,8 +17,8 @@ public class CarMoveModel {
 	public static final String MODEL_BRAKELIGHT_BRAKE_PROB = "brakeProb";
 	public static final String MODEL_BRAKELIGHT_DISTANCE_THRESHOLD = "threshold";
 
-	public static final String MODEL_MULTINAGLE = "multiNagle";
-	public static final String MODEL_MULTINAGLE_MOVE_PROB = "decProb";
+	public static final String MODEL_MULTINAGEL = "multiNagel";
+	public static final String MODEL_MULTINAGEL_MOVE_PROB = "decProb";
 
 	private String name;
 	private Map<String, String> parameters;

@@ -4,12 +4,18 @@ import com.google.common.base.Preconditions;
 import org.apache.commons.collections15.iterators.ArrayIterator;
 import pl.edu.agh.cs.kraksim.core.visitors.ElementVisitor;
 import pl.edu.agh.cs.kraksim.core.visitors.VisitingException;
+import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.parser.RoadInfo;
+import pl.edu.agh.cs.kraksim.real_extended.BlockedCellsInfo;
+import pl.edu.agh.cs.kraksim.real_extended.Obstacle;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class Link extends Element {
@@ -46,7 +52,10 @@ public class Link extends Element {
 	private final double minimalSpeed;
 	private final ZoneInfo zoneInfo;
 	private String direction;
-
+	
+	private Map<String, Map<Integer, List<BlockedCellsInfo>>> blockedCellsInfo; // blocked cells details in format <road_type> -> <line_num> -> <num_of_blicked_cell>
+	private List<CarDriveHandler> entranceCarHandlers; // Handler fired on car entry to this lane
+	private List<CarDriveHandler> exitCarHandlers; // Handler fired on car exit 
 	private double weight;
 	private double load;
 
@@ -56,7 +65,8 @@ public class Link extends Element {
 	 * <p/>
 	 * See City.createLink()
 	 */
-	Link(Core core, RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens) throws IllegalArgumentException {
+	Link(Core core, RoadInfo roadInfo, int[] leftLaneLens, int mainLaneLen, int numberOfLanes, int[] rightLaneLens, Map<String, Map<Integer, List<BlockedCellsInfo>>> linkBlockedCellsInfo)
+			throws IllegalArgumentException {
 		super(core);
 		linkNumber = core.getNextNumber();
 		id = roadInfo.getLinkId();
@@ -67,18 +77,21 @@ public class Link extends Element {
 		minimalSpeed = roadInfo.getMinimalSpeed();
 		numberOfMainLanes = numberOfLanes;
 		zoneInfo = roadInfo.getZoneInfo();
+		this.blockedCellsInfo = linkBlockedCellsInfo;
 
 		int laneCount = leftLaneLens.length + numberOfMainLanes + rightLaneLens.length;
 		lanes = new Lane[laneCount];
 		leftMainLaneNum = leftLaneLens.length;
 		rightMainLaneNum = leftMainLaneNum + (numberOfMainLanes - 1);
+		this.entranceCarHandlers = new ArrayList<>();
+		this.exitCarHandlers = new ArrayList<>();
 
-		initializeLeftLanes(core, leftLaneLens, mainLaneLen);
-		initializeMainLane(core, mainLaneLen);
-		initializeRightLanes(core, rightLaneLens, mainLaneLen);
+		initializeLeftLanes(core, leftLaneLens, mainLaneLen, this.blockedCellsInfo.get("left"));
+		initializeMainLane(core, mainLaneLen, this.blockedCellsInfo.get("main"));
+		initializeRightLanes(core, rightLaneLens, mainLaneLen, this.blockedCellsInfo.get("right"));
 	}
 
-	private void initializeRightLanes(Core core, int[] rightLaneLens, int mainLaneLen) {
+	private void initializeRightLanes(Core core, int[] rightLaneLens, int mainLaneLen, Map<Integer, List<BlockedCellsInfo>> map) {
 		for (int i = 0; i < rightLaneLens.length; i++) {
 			if (rightLaneLens[i] <= 0) {
 				throw new IllegalArgumentException("length of lane must be positive");
@@ -87,50 +100,35 @@ public class Link extends Element {
 				throw new IllegalArgumentException("an outer lane must be shorter than an inner lane");
 			}
 			int laneNum = rightMainLaneNum + i + 1;
-			lanes[laneNum] = new Lane(core, this, laneNum, i + 1, rightLaneLens[i], speedLimit, minimalSpeed);
+			lanes[laneNum] = new Lane(core, this, laneNum, i + 1, rightLaneLens[i], speedLimit, minimalSpeed
+					, (map == null || map.get(i) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(i));
+		}
+	}
+	
+	private void initializeMainLane(final Core core, final int mainLaneLen, Map<Integer, List<BlockedCellsInfo>> map) {
+		Preconditions.checkArgument(mainLaneLen > 0, "length of lane must be positive");
+
+		for (int i = leftMainLaneNum; i <= rightMainLaneNum; i++) {
+			lanes[i] = new Lane(core, this, i, 0, mainLaneLen, speedLimit, minimalSpeed
+					, (map == null || map.get(i) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(i));
+		}
+	}
+
+	private void initializeLeftLanes(final Core core, final int[] leftLaneLens, final int mainLaneLen, Map<Integer, List<BlockedCellsInfo>> map) {
+		for (int i = 0; i < leftLaneLens.length; i++) {
+			Preconditions.checkArgument(leftLaneLens[i] > 0, "length of lane must be positive");
+			Preconditions.checkArgument(leftLaneLens[i] < (i == 0 ? mainLaneLen : leftLaneLens[i - 1]), "an outer lane must be shorter than an inner lane");
+
+			int laneNum = leftMainLaneNum - i - 1;
+			lanes[laneNum] = new Lane(core, this, laneNum, -i - 1, leftLaneLens[i], speedLimit, minimalSpeed
+					, (map == null || map.get(i) == null) ? new ArrayList<BlockedCellsInfo>() : map.get(i));
 		}
 	}
 
 	public Color getColor() {
 		return zoneInfo.getZoneColor();
 	}
-
-//	private void initializeRightLanes(final Core core,
-//			final int[] rightLaneLens, final int mainLaneLen) {
-//		for (int i = 0; i < rightLaneLens.length; i++) {
-//			if (rightLaneLens[i] <= 0) {
-//				throw new IllegalArgumentException(
-//						"length of lane must be positive");
-//			}
-//			if (rightLaneLens[i] >= (i == 0 ? mainLaneLen
-//					: rightLaneLens[i - 1])) {
-//				throw new IllegalArgumentException(
-//						"an outer lane must be shorter than an inner lane");
-//			}
-//			int laneNum = rightMainLaneNum + i + 1;
-//			lanes[laneNum] = new Lane(core, this, laneNum, i + 1,
-//					rightLaneLens[i], speedLimit,minimalSpeed);
-//		}
-//	}
-
-	private void initializeMainLane(final Core core, final int mainLaneLen) {
-		Preconditions.checkArgument(mainLaneLen > 0, "length of lane must be positive");
-
-		for (int i = leftMainLaneNum; i <= rightMainLaneNum; i++) {
-			lanes[i] = new Lane(core, this, i, 0, mainLaneLen, speedLimit, minimalSpeed);
-		}
-	}
-
-	private void initializeLeftLanes(final Core core, final int[] leftLaneLens, final int mainLaneLen) {
-		for (int i = 0; i < leftLaneLens.length; i++) {
-			Preconditions.checkArgument(leftLaneLens[i] > 0, "length of lane must be positive");
-			Preconditions.checkArgument(leftLaneLens[i] < (i == 0 ? mainLaneLen : leftLaneLens[i - 1]), "an outer lane must be shorter than an inner lane");
-
-			int laneNum = leftMainLaneNum - i - 1;
-			lanes[laneNum] = new Lane(core, this, laneNum, -i - 1, leftLaneLens[i], speedLimit, minimalSpeed);
-		}
-	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -375,5 +373,34 @@ public class Link extends Element {
 
 	public double getLoad() {
 		return load;
+	}
+
+	// 2019
+	public Lane[] getLanes(){
+		return lanes;
+	}
+
+	public List<CarDriveHandler> getEntranceCarHandlers() {
+		return entranceCarHandlers;
+	}
+
+	public void setEntranceCarHandlers(List<CarDriveHandler> entranceCarHandlers) {
+		this.entranceCarHandlers = entranceCarHandlers;
+	}
+
+	public List<CarDriveHandler> getExitCarHandlers() {
+		return exitCarHandlers;
+	}
+
+	public void setExitCarHandlers(List<CarDriveHandler> exitCarHandlers) {
+		this.exitCarHandlers = exitCarHandlers;
+	}
+
+	public List<Integer> getActiveBlockedCellsIndexList() {
+		List<Integer> blockedList = new ArrayList<>();
+		for(Lane lane : Arrays.asList(this.lanes)) {
+			blockedList.addAll(lane.getActiveBlockedCellsIndexList());
+		}
+		return blockedList;
 	}
 }

@@ -31,7 +31,7 @@ public class SetUpPanel extends JPanel {
 
 	private static final String TRAFFIC_SCHEMES_DIRECTORY = "trafficSchemes";
 
-	private static final List<String> availableMoveModels = ImmutableList.of(CarMoveModel.MODEL_NAGLE, CarMoveModel.MODEL_VDR, CarMoveModel.MODEL_BRAKELIGHT, CarMoveModel.MODEL_MULTINAGLE);
+	private static final List<String> availableMoveModels = ImmutableList.of(CarMoveModel.MODEL_NAGEL, CarMoveModel.MODEL_VDR, CarMoveModel.MODEL_BRAKELIGHT, CarMoveModel.MODEL_MULTINAGEL);
 
 	private InputPanel cityMapLocation;
 	private InputPanel travellingSchemeLocation;
@@ -224,10 +224,10 @@ public class SetUpPanel extends JPanel {
 		moveModelPane.setBorder(BorderFactory.createTitledBorder("Move model settings"));
 		JComboBox<String> moveModels = new JComboBox<>();
 		moveModels.addItem(getParam("carMoveModel"));
-		moveModels.addItem(CarMoveModel.MODEL_NAGLE + ":decProb=0.2");
+		moveModels.addItem(CarMoveModel.MODEL_NAGEL + ":decProb=0.2");
 		moveModels.addItem(CarMoveModel.MODEL_VDR + ":zeroProb=0.9,movingProb=0.2");
 		moveModels.addItem(CarMoveModel.MODEL_BRAKELIGHT + ":zeroProb=0.9,movingProb=0.2,brakeProb=0.2,threshold=5");
-		moveModels.addItem(CarMoveModel.MODEL_MULTINAGLE + ":decProb=0.2");
+		moveModels.addItem(CarMoveModel.MODEL_MULTINAGEL + ":decProb=0.2");
 		moveModels.setEditable(true);
 		moveModels.addActionListener(new ActionListener() {
 
@@ -274,8 +274,6 @@ public class SetUpPanel extends JPanel {
 				props.setProperty("cityMapFile", cityMapLocation.getText());
 				storeParam("cityMapFile", cityMapLocation.getText());
 
-                System.out.println(cityMapLocation.getText());
-
 				props.setProperty("travelSchemeFile", travellingSchemeLocation.getText());
 				storeParam("travelSchemeFile", travellingSchemeLocation.getText());
 				props.setProperty("statOutFile", statsOutputLocation.getText());
@@ -300,18 +298,18 @@ public class SetUpPanel extends JPanel {
 				storeParam("zone_awareness", zoneAwareGroup.getSelection().getActionCommand());
 
 				// read some parameters from file
-				Properties fileProps = KraksimConfigurator.getPropertiesFromFile();
-				String realModule = fileProps.getProperty("realModule");
-				if(fileProps.getProperty("realModule") != null) {
+				//Properties fileProps = KraksimConfigurator.getPropertiesFromFile();
+				String realModule = KraksimConfigurator.getProperty("realModule");
+				if(KraksimConfigurator.getProperty("realModule") != null) {
 					props.setProperty("realModule", realModule);
 				}
 
-				String switchTime = fileProps.getProperty("switchTime");
+				String switchTime = KraksimConfigurator.getProperty("switchTime");
 				if(switchTime != null){
 					props.setProperty("switchTime", switchTime);
 				}
 
-				String minSafeDistance = fileProps.getProperty("minSafeDistance");
+				String minSafeDistance = KraksimConfigurator.getProperty("minSafeDistance");
 				if(minSafeDistance != null) {
 					props.setProperty("minSafeDistance", minSafeDistance);
 				}

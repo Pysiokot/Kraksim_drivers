@@ -14,11 +14,15 @@ public class CityMiniStatExt {
 	private final StatHelper helper;
 
 	private long allCarsOnRedLight;
+	private long emergencyVehiclesOnRedLight;
+	private long normalCarsOnRedLight;
+	private AvgTurnVelocityCounter avgTurnVelocityCounter = new AvgTurnVelocityCounter();
 
 	CityMiniStatExt(City city, MiniStatEView ev, StatHelper helper) {
 		this.city = city;
 		this.ev = ev;
 		this.helper = helper;
+		
 		LOGGER.trace(" ");
 	}
 
@@ -40,6 +44,14 @@ public class CityMiniStatExt {
 		return helper.getCityCarCount();
 	}
 
+	public int getEmergencyVehiclesCount() {
+		return helper.getEmergencyVehiclesCount();
+	}
+
+	public int getNormalCarsCount() {
+		return helper.getNormalCarsCount();
+	}
+
 	public int getTravelCount() {
 		LOGGER.trace("TravelCount=" + helper.getCityTravelCount());
 		return helper.getCityTravelCount();
@@ -49,6 +61,14 @@ public class CityMiniStatExt {
 		LOGGER.trace("AverageVelocity=" + helper.getCityAvgVelocity());
 		LOGGER.info(helper.getCityAvgVelocity()); //TODO
 		return helper.getCityAvgVelocity();
+	}
+
+	public float getAvgEmergencyVehiclesVelocity() {
+		return helper.getAvgEmergencyVehiclesVelocity();
+	}
+
+	public float getAvgNormalCarsVelocity() {
+		return helper.getAvgNormalCarsVelocity();
 	}
 
 	//TODO:
@@ -79,5 +99,29 @@ public class CityMiniStatExt {
 
 	public void setAllCarsOnRedLight(long allCarsOnRedLight) {
 		this.allCarsOnRedLight = allCarsOnRedLight;
+	}
+
+	public long getEmergencyVehiclesOnRedLight() {
+		return emergencyVehiclesOnRedLight;
+	}
+
+	public void setEmergencyVehiclesOnRedLight(long emergencyVehiclesOnRedLight) {
+		this.emergencyVehiclesOnRedLight = emergencyVehiclesOnRedLight;
+	}
+
+	public long getNormalCarsOnRedLight() {
+		return normalCarsOnRedLight;
+	}
+
+	public void setNormalCarsOnRedLight(long normalCarsOnRedLight) {
+		this.normalCarsOnRedLight = normalCarsOnRedLight;
+	}
+
+	public AvgTurnVelocityCounter getAvgTurnVelocityCounter() {
+		return avgTurnVelocityCounter;
+	}
+
+	public void setAvgTurnVelocityCounter(AvgTurnVelocityCounter avgTurnVelocityCounter) {
+		this.avgTurnVelocityCounter = avgTurnVelocityCounter;
 	}
 }

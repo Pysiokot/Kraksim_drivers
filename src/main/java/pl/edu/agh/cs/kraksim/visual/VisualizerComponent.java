@@ -1,19 +1,5 @@
 package pl.edu.agh.cs.kraksim.visual;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.Iterator;
-
-import javax.swing.JPanel;
-
 import pl.edu.agh.cs.kraksim.core.City;
 import pl.edu.agh.cs.kraksim.core.Link;
 import pl.edu.agh.cs.kraksim.core.Node;
@@ -24,14 +10,25 @@ import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
 import pl.edu.agh.cs.kraksim.visual.infolayer.InfoProvider;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.Iterator;
+import java.util.Random;
+
 @SuppressWarnings("serial")
 public class VisualizerComponent extends JPanel {
 
 	private transient Dimension modelSize;
 
 	private static final float VEHICLE_SIZE = 2.4f;
-	private static final Color VEHICLE_COLOR = Color.YELLOW;
 	public static final Dimension defaultDimension = new Dimension(640, 480);
+	public static final Color BLOCKED_CELL_COLOR = Color.black;
 
 	private transient City city;
 	private transient CityMapVisualizer cityMapVisualizer; // NOPMD by
@@ -97,7 +94,7 @@ public class VisualizerComponent extends JPanel {
 		setOpaque(true);
 		// setBorder(BorderFactory.createLineBorder(Color.RED));
 		revalidate();
-
+		update();
 	}
 
 	private static Dimension computeModelSize(final City city) {
@@ -211,50 +208,78 @@ public class VisualizerComponent extends JPanel {
 			// iterator pozycji samochodow w komorkach
 
 			CarInfoCursor cursor;
+
+			
 			// [START] rysowanie aut na lewym pasie
 			int offset = 0;
 			int position = 0;
 			for (int j = link.leftLaneCount() - 1; j >= 0; j--) {
+				// [start] draw blocked Cells on lane
+				java.util.List<Integer> blockedCellsList = link.getLeftLane(j).getActiveBlockedCellsIndexList();
+				for(Integer blockedCell : blockedCellsList) {
+					drawVehicle(g2d, start, laneRoadAxisOffset,
+							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+				}
+				// [end] blocked cells
 				cursor = carInfoView.ext(link.getLeftLane(j))
 						.carInfoForwardCursor();
 				offset = link.getLeftLane(j).getOffset();
 				while (cursor.isValid()) {
 					position = cursor.currentPos() + offset;
-					Color color = ((Driver)cursor.currentDriver()).getColor();
+					Color color = ((Driver)cursor.currentDriver()).getCarColor();
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
+								
 				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]
 			// [START] rysowanie aut na glownych pasach
 			for (int j = 0; j < link.mainLaneCount(); j++) {
+				java.util.List<Integer> blockedCellsList = link.getMainLane(j).getActiveBlockedCellsIndexList();
+				for(Integer blockedCell : blockedCellsList) {
+					drawVehicle(g2d, start, laneRoadAxisOffset,
+							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+				}
+				// [end] blocked cells
+
 				cursor = carInfoView.ext(link.getMainLane(j))
 						.carInfoForwardCursor();
 				offset = link.getMainLane(j).getOffset();
 				while (cursor.isValid()) {
 					position = cursor.currentPos() + offset;
-					Color color = ((Driver)cursor.currentDriver()).getColor();
+					Color color = ((Driver)cursor.currentDriver()).getCarColor();
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
+				
+				// [start] draw blocked Cells on lane
 				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]
 			// [START] rysowanie aut na prawych pasach
+			
 			for (int j = link.rightLaneCount() - 1; j >= 0; j--) {
+				// [start] draw blocked Cells on lane
+				java.util.List<Integer> blockedCellsList = link.getRightLane(j).getActiveBlockedCellsIndexList();
+				for(Integer blockedCell : blockedCellsList) {
+					drawVehicle(g2d, start, laneRoadAxisOffset,
+							vectorOrtogonal, blockedCell, vectorAB, celluarWidth, BLOCKED_CELL_COLOR);
+				}
+				// [end] blocked cells
 				cursor = carInfoView.ext(link.getRightLane(j))
 						.carInfoForwardCursor();
 				offset = link.getRightLane(j).getOffset();
 				while (cursor.isValid()) {
 					position = cursor.currentPos() + offset;
-					Color color = ((Driver)cursor.currentDriver()).getColor();
+					Color color = ((Driver)cursor.currentDriver()).getCarColor();
 					drawVehicle(g2d, start, laneRoadAxisOffset,
 							vectorOrtogonal, position, vectorAB, celluarWidth, color);
 					cursor.next();
 				}
+					
 				laneRoadAxisOffset += CityMapVisualizer.LANE_WIDTH;
 			}
 			// [END]
@@ -273,11 +298,7 @@ public class VisualizerComponent extends JPanel {
 		double delta = VEHICLE_SIZE / 2;
 		Rectangle2D vehicle = new Rectangle2D.Double(centerX - delta, centerY
 				- delta, 2 * delta, 2 * delta);
-		if (color == null) {
-		    g2d.setColor(VEHICLE_COLOR);
-		} else {
-		    g2d.setColor(color);
-		}
+		g2d.setColor(color);
 		g2d.draw(vehicle);
 		g2d.fill(vehicle);
 	}

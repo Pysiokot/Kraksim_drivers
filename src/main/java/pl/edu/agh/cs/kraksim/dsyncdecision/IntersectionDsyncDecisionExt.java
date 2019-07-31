@@ -71,14 +71,34 @@ class IntersectionDsyncDecisionExt extends IntersectionDecisionExt {
 		} else {
 			prolongCurrentPhase(10);
 		}
-		//  }
 	}
-
-
 
 	private void setNextPhase() {
 		if (isPhaseFinished()) {
 			setGreen(nextPhase);
+            for (Iterator<Link> iter = intersection.inboundLinkIterator(); iter.hasNext(); ) {
+                Link link = iter.next();
+                for (Iterator<Lane> laneIter = link.laneIterator(); laneIter.hasNext(); ) {
+                    Lane lane = laneIter.next();
+					if (blockView.ext(lane).anyEmergencyCarsOnLane()) {
+						Lane bestLane = getMostEmergencyLane();
+						synchronized (this) {
+							if (blockView.ext(bestLane).isBlocked()) {
+								for (Iterator<Link> it = intersection.inboundLinkIterator(); it.hasNext(); ) {
+									Link link1 = it.next();
+									for (Iterator<Lane> laneIt = link1.laneIterator(); laneIt.hasNext(); ) {
+										Lane lane1 = laneIt.next();
+										blockView.ext(lane1).block();
+									}
+								}
+								Link bestLink = bestLane.getOwner();
+								blockView.ext(bestLink).unblock();
+								initFirstPhase();
+							}
+						}
+					}
+                }
+            }
 		}
 	}
 
@@ -300,4 +320,29 @@ class IntersectionDsyncDecisionExt extends IntersectionDecisionExt {
 	//    // ---
 	//    return chosenLane;
 	//  }
+
+	public Lane getMostEmergencyLane() {
+		Lane bestLane = null;
+		int biggestEmergencyCarsNr = 0;
+		int closestDistance = Integer.MAX_VALUE;
+		int emergencyCarsNr;
+		int distance;
+
+		for (Iterator<Link> iter = intersection.inboundLinkIterator(); iter.hasNext(); ) {
+			Link link = iter.next();
+			for (Iterator<Lane> laneIter = link.laneIterator(); laneIter.hasNext(); ) {
+				Lane lane = laneIter.next();
+				if (blockView.ext(lane).anyEmergencyCarsOnLane()) {
+					emergencyCarsNr = blockView.ext(lane).getEmergencyCarsOnLaneNr();
+					distance = blockView.ext(lane).getClosestEmergencyCarDistance();
+					if ((bestLane == null) || (emergencyCarsNr > biggestEmergencyCarsNr)
+							|| (emergencyCarsNr == biggestEmergencyCarsNr && distance < closestDistance)) {
+						bestLane = lane;
+					}
+				}
+			}
+		}
+
+		return bestLane;
+	}
 }

@@ -1,6 +1,8 @@
 package pl.edu.agh.cs.kraksim.main.gui;
 
 import org.apache.log4j.Logger;
+
+import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.core.City;
 import pl.edu.agh.cs.kraksim.core.Lane;
 import pl.edu.agh.cs.kraksim.core.Link;
@@ -9,10 +11,10 @@ import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoCursor;
 import pl.edu.agh.cs.kraksim.iface.carinfo.CarInfoIView;
 import pl.edu.agh.cs.kraksim.iface.carinfo.LaneCarInfoIface;
 import pl.edu.agh.cs.kraksim.main.UpdateHook;
-import pl.edu.agh.cs.kraksim.ministat.CityMiniStatExt;
-import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
+import pl.edu.agh.cs.kraksim.ministat.*;
 import pl.edu.agh.cs.kraksim.sna.SnaConfigurator;
 import pl.edu.agh.cs.kraksim.sna.centrality.CentrallityStatistics;
+import pl.edu.agh.cs.kraksim.statistics.StatsPanel;
 import pl.edu.agh.cs.kraksim.visual.VisualizerComponent;
 
 import javax.swing.*;
@@ -27,6 +29,15 @@ import java.util.NoSuchElementException;
 @SuppressWarnings("serial")
 public class GUISimulationVisualizer implements SimulationVisualizer {
 	private static final Logger LOGGER = Logger.getLogger(GUISimulationVisualizer.class);
+	private static final Logger LOGGER2 = Logger.getLogger(StatsPanel.class);
+	private static final Logger LOGGER6 = Logger.getLogger(LastPeriodAvgVelocity.class);
+	private static final Logger LOGGER7 = Logger.getLogger(LastPeriodCarCount.class);
+	private static final Logger LOGGER_normalCount = Logger.getLogger(MiniStatModuleCreator.class);
+	private static final Logger LOGGER_emergencyCount = Logger.getLogger(LinkMiniStatExt.class);
+	private static final Logger LOGGER_carCount = Logger.getLogger(CentrallityStatistics.class);
+	private static final Logger LOGGER_normalCarTurnVelocity = Logger.getLogger(RouteStat.class);
+	private static final Logger LOGGER_emergencyCarTurnVelocity = Logger.getLogger(GatewayMiniStatExt.class);
+	private static final Logger LOGGER_allCarTurnVelocity = Logger.getLogger(LastPeriodAvgDuration.class);
 	private final VisualizerComponent visualizerComponent;
 	private final List<UpdateHook> hooks;
 	private final City city;
@@ -169,18 +180,31 @@ public class GUISimulationVisualizer implements SimulationVisualizer {
 			}
 		}
 
+		AvgTurnVelocityCounter avgCarTurnVel = cityStat.getAvgTurnVelocityCounter();
 		if (turn % refreshPeriod == 0) {
 			visualizerComponent.update();
 			turnDisp.setText(String.valueOf(turn));
 			carCountDisp.setText(String.valueOf(cityStat.getCarCount()));
 			travelCountDisp.setText(String.valueOf(cityStat.getTravelCount()));
-			avgVelocityDisp.setText(String.format("%5.2f", cityStat.getAvgVelocity()));
+			avgVelocityDisp.setText(String.format("%5.2f", avgCarTurnVel.getAvgAllVelocity()));
 			runUpdateHooks(cityStat);
 		}
 
-		if (turn % 100 == 0) {
+		if (turn % Integer.parseInt(KraksimConfigurator.getProperty("statisticsDumpToFile")) == 0) {
+			cityStat.getAvgCarSpeed();
 			//LOGGER.info(turn + ";" + cityStat.getAvgVelocity() + ";"  + cityStat.getAvgCarSpeed());
 			LOGGER.info(turn + "," + cityStat.getAvgVelocity());
+			LOGGER2.info(turn + "," + cityStat.getAllCarsOnRedLight());
+			LOGGER6.info(turn + "," + cityStat.getEmergencyVehiclesOnRedLight());
+			LOGGER7.info(turn + "," + cityStat.getNormalCarsOnRedLight());
+			
+			LOGGER_carCount.info(turn + "," + cityStat.getCarCount());
+			LOGGER_emergencyCount.info(turn + "," + cityStat.getEmergencyVehiclesCount());
+			LOGGER_normalCount.info(turn + "," + cityStat.getNormalCarsCount());
+			
+			LOGGER_normalCarTurnVelocity.info(turn + "," + avgCarTurnVel.getAvgNormalCarVelocity());
+			LOGGER_emergencyCarTurnVelocity.info(turn + "," + avgCarTurnVel.getAvgEmergencyCarVelocity());
+			LOGGER_allCarTurnVelocity.info(turn + "," + avgCarTurnVel.getAvgAllVelocity());
 		}
 
 		//Centrallity stats
