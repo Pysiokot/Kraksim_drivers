@@ -142,7 +142,7 @@ public class MultiLaneRoutingHelper {
 
 					// going from left to right for left and main lanes
 					// going from right to left for right lanes
-					if(destinationLaneType < 0){
+					if(destinationLaneType > 0){
 						destinationLaneNo--;
 					}
 					else{

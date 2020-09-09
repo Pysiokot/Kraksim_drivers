@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<RoadNet>
+	<nodes>
+		<gateway id="Nroad" x="110" y="10" />
+		<intersection id="X1" x="110" y="70" />
+		<gateway id="Sroad" x="110" y="210" />
+		<gateway id="Eroad" x="170" y="70" />
+		<intersection id="X2" x="110" y="150" />
+	</nodes>
+	<roads defaultSpeedLimit="10">
+		<road id="NroadX1" street="ulica Pionowa" from="Nroad"
+			to="X1">
+			<uplink>
+				<main length="200" numberOfLanes="2" />
+			</uplink>
+			<downlink>
+				<main length="200" numberOfLanes="2" />
+			</downlink>
+		</road>
+		<road id="X1X2" street="ulica Pionowa" from="X1"
+			to="X2">
+			<uplink>
+				<main length="200" numberOfLanes="2" />
+			</uplink>
+			<downlink>
+				<main length="200" numberOfLanes="1" />
+				<right length="100"/>
+			</downlink>
+		</road>
+		<road id="EroadX1" street="ulica Pozioma" from="Eroad"
+			to="X1">
+			<uplink>
+				<main length="200" numberOfLanes="2" />
+			</uplink>
+			<downlink>
+				<main length="200" numberOfLanes="2" />
+			</downlink>
+		</road>
+		<road id="SroadX2" street="ulica Pionowa" from="Sroad"
+			to="X2">
+			<uplink>
+				<main length="200" numberOfLanes="1" />
+			</uplink>
+			<downlink>
+				<main length="200" numberOfLanes="2" />
+			</downlink>
+		</road>	
+	</roads>
+	<intersectionDescriptions>
+		<intersection id="X1">
+			<armActions arm="Nroad">
+				<action lane="0" exit="X2"></action>
+				<action lane="0" exit="Eroad">
+					<rule entrance="X2" lane="0"/>
+					<rule entrance="X2" lane="1"/>
+				</action>
+					
+			</armActions>
+			<armActions arm="Eroad">
+				<action lane="0" exit="Nroad">
+					<rule entrance="X2" lane="0"/>
+				</action>
+				<action lane="0" exit="X2">
+					<rule entrance="X2" lane="0"/>
+					<rule entrance="Nroad" lane="0"/>
+				</action>
+			</armActions>
+			<armActions arm="X2">
+				<action lane="0" exit="Nroad"></action>
+				<action lane="1" exit="Eroad"></action>
+			</armActions>
+			<trafficLightsSchedule>
+				<phase num="1" duration="100">
+					<inlane arm="Nroad" lane="0" state="red" />
+					<inlane arm="X2" lane="1" state="red" />
+					<inlane arm="Eroad" lane="0" state="red" />
+					<inlane arm="X2" lane="0" state="red" />
+				</phase>
+			</trafficLightsSchedule>
+		</intersection>
+		<intersection id="X2">
+			<armActions arm="X1">
+				<action lane="0" exit="Sroad"></action>
+			</armActions>
+			<armActions arm="Sroad">
+				<action lane="0" exit="X1"></action>
+			</armActions>
+			<trafficLightsSchedule>
+				<phase num="1" duration="100">
+					<inlane arm="X1" lane="0" state="green" />
+					<inlane arm="Sroad" lane="0" state="green" />
+				</phase>
+			</trafficLightsSchedule>
+		</intersection>
+	</intersectionDescriptions>
+</RoadNet>

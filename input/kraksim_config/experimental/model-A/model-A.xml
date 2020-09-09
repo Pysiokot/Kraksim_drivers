@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<RoadNet>
+	<nodes>
+		<gateway id="L" x="20" y="240" />>
+		<gateway id="R" x="480" y="240" />>
+
+		<intersection id="R1" x="400" y="240" />
+		<intersection id="L1" x="100" y="240" />
+
+		<intersection id="T1" x="250" y="200" />
+	</nodes>
+
+	<roads defaultSpeedLimit="10">
+		<road id="LL1" street="ulica Zlewa" from="L"
+			to="L1">
+			<uplink>
+				<main length="400" numberOfLanes="1" />
+				<right length="200" numberOfLanes="1"/>
+			</uplink>
+			<downlink>
+				<main length="400" numberOfLanes="2" />
+			</downlink>
+		</road>
+		<road id="L1R1" street="ulica Srodkowa Belka" from="L1"
+					 to="R1">
+		<uplink>
+			<main length="400" numberOfLanes="1" />
+		</uplink>
+		</road>
+		<road id="R1L1" street="ulica Srodkowa Belka" from="R1"
+			  to="L1">
+			<uplink>
+				<main length="400" numberOfLanes="1" />
+			</uplink>
+		</road>
+		<road id="RR1" street="ulica Zprawa" from="R"
+			  to="R1">
+			<uplink>
+				<main length="400" numberOfLanes="1" />
+				<right length="200" numberOfLanes="1"/>
+			</uplink>
+			<downlink>
+				<main length="400" numberOfLanes="2" />
+			</downlink>
+		</road>
+		<road id="R1T1" street="ulica Prawy Ukos" from="R1"
+			  to="T1">
+			<uplink>
+				<main length="250" numberOfLanes="2" />
+			</uplink>
+			<downlink>
+				<main length="250" numberOfLanes="2" />
+			</downlink>
+		</road>
+		<road id="L1T1" street="ulica Lewy Ukos" from="L"
+			  to="T1">
+			<uplink>
+				<main length="250" numberOfLanes="2" />
+			</uplink>
+			<downlink>
+				<main length="250" numberOfLanes="2" />
+			</downlink>
+		</road>
+	</roads>
+	<intersectionDescriptions>
+		<intersection id="L1">
+			<armActions arm="L">
+				<action lane="0" exit="T1">
+				</action>
+				<action lane="1" exit="T1">
+				</action>
+				<action lane="1" exit="R1">
+				</action>
+			</armActions>
+			<armActions arm="R1">
+				<action lane="0" exit="T1">
+					<rule entrance="L" lane="0"/>
+					<rule entrance="L" lane="1"/>
+				</action>
+				<action lane="0" exit="L">
+				</action>
+			</armActions>
+			<trafficLightsSchedule>
+				<phase num="1" duration="15">
+					<inlane arm="L" lane="0" state="green" />
+					<inlane arm="L" lane="1" state="green" />
+					<inlane arm="R1" lane="0" state="red" />
+					<inlane arm="T1" lane="0" state="green" />
+				</phase>
+				<phase num="2" duration="10">
+					<inlane arm="L" lane="0" state="red" />
+					<inlane arm="L" lane="1" state="red" />
+					<inlane arm="R1" lane="0" state="green" />
+					<inlane arm="T1" lane="0" state="red" />
+				</phase>
+			</trafficLightsSchedule>
+		</intersection>
+		<intersection id="T1">
+			<armActions arm="L">
+				<action lane="0" exit="R1">
+				</action>
+			</armActions>
+			<armActions arm="R1">
+				<action lane="0" exit="L">
+				</action>
+			</armActions>
+			<trafficLightsSchedule>
+				<phase num="1" duration="1500">
+					<inlane arm="L" lane="0" state="green" />
+					<inlane arm="R1" lane="0" state="green" />
+				</phase>
+			</trafficLightsSchedule>
+		</intersection>
+		<intersection id="R1">
+			<armActions arm="L1">
+				<action lane="0" exit="T1">
+					<rule entrance="R" lane="1"/>
+				</action>
+				<action lane="0" exit="R">
+					<rule entrance="T1" lane="0"/>
+				</action>
+			</armActions>
+			<armActions arm="R">
+				<action lane="1" exit="T1">
+					<!--					<rule entrance="Nroad" lane="0"/>-->
+					<!--					<rule entrance="Sroad" lane="0"/>-->
+				</action>
+				<action lane="0" exit="L1">
+					<rule entrance="T1" lane="0"/>
+				</action>
+			</armActions>
+			<armActions arm="T1">
+				<action lane="0" exit="R"/>
+				<action lane="0" exit="L1"/>
+			</armActions>
+			<trafficLightsSchedule>
+				<phase num="1" duration="15">
+					<inlane arm="L1" lane="0" state="red" />
+					<inlane arm="R" lane="0" state="green" />
+					<inlane arm="R" lane="1" state="green" />
+					<inlane arm="T1" lane="0" state="red" />
+				</phase>
+				<phase num="2" duration="15">
+					<inlane arm="L1" lane="0" state="green" />
+					<inlane arm="R" lane="0" state="red" />
+					<inlane arm="R" lane="1" state="red" />
+					<inlane arm="T1" lane="0" state="red" />
+				</phase>
+				<phase num="3" duration="12">
+					<inlane arm="L1" lane="0" state="red" />
+					<inlane arm="R" lane="0" state="red" />
+					<inlane arm="R" lane="1" state="green" />
+					<inlane arm="T1" lane="0" state="green" />
+				</phase>
+			</trafficLightsSchedule>
+		</intersection>
+	</intersectionDescriptions>
+</RoadNet>

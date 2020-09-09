@@ -6,6 +6,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.KraksimRuntimeException;
 import pl.edu.agh.cs.kraksim.core.*;
 import pl.edu.agh.cs.kraksim.core.exceptions.DuplicateIdentifierException;
@@ -384,20 +385,21 @@ public class RoadNetXmlHandler extends DefaultHandler {
 	 * @param attrs
 	 */
 	private void createLane(String rawName, Attributes attrs) {
+		int length_multiplier = Integer.parseInt(KraksimConfigurator.getProperty("len_mul"));
 		if (rawName.equals("main")) {
 			lastLaneType = "main";
-			mainLaneLen = Integer.parseInt(attrs.getValue("length"));
+			mainLaneLen = Integer.parseInt(attrs.getValue("length"))*length_multiplier;
 			String numberOfLanesStr = attrs.getValue("numberOfLanes");
 			numberOfLanes = Integer.parseInt(numberOfLanesStr == null ? "1" : numberOfLanesStr);
 			
 		}
 		if (rawName.equals("left")) {
 			lastLaneType = "left";
-			leftLaneLenTab.add(Integer.parseInt(attrs.getValue("length")));
+			leftLaneLenTab.add(Integer.parseInt(attrs.getValue("length"))*length_multiplier);
 		}
 		if (rawName.equals("right")) {
 			lastLaneType = "right";
-			rightLaneLenTab.add(Integer.parseInt(attrs.getValue("length")));
+			rightLaneLenTab.add(Integer.parseInt(attrs.getValue("length"))*length_multiplier);
 		}
 	}
 	

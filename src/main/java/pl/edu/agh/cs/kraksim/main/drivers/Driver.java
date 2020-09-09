@@ -2,6 +2,7 @@ package pl.edu.agh.cs.kraksim.main.drivers;
 
 import pl.edu.agh.cs.kraksim.core.Gateway;
 import pl.edu.agh.cs.kraksim.core.Link;
+import pl.edu.agh.cs.kraksim.real_extended.DriverType;
 import pl.edu.agh.cs.kraksim.routing.Router;
 import pl.edu.agh.cs.kraksim.traffic.TravellingScheme;
 
@@ -13,6 +14,7 @@ public abstract class Driver implements Comparable<Driver> {
 	protected final int id;
 	protected final TravellingScheme.Cursor cursor;
 	protected final Router router;
+	protected final DriverType driverType;
 	protected int departureTurn;
 	protected Color carColor;
 	protected boolean emergency;
@@ -21,17 +23,26 @@ public abstract class Driver implements Comparable<Driver> {
 			new Color(0xffa20025), new Color(0xffe51400), new Color(0xfffa6800), new Color(0xfff0a30a),
 			new Color(0xffe3c800),	new Color(0xff825a2c)};
 
-	protected Driver(int id, TravellingScheme scheme, Router router, boolean emergency) {
+	protected Driver(int id, TravellingScheme scheme, Router router, boolean emergency, DriverType driverType) {
 		this.id = id;
 		this.router = router;
+		this.driverType = driverType;
 		cursor = scheme.cursor();
 		if (emergency) {
 			carColor = Color.WHITE;
 		} else {
 			Random generator = new Random();
-			this.carColor = carColors[generator.nextInt(carColors.length)];
+			//this.carColor = carColors[generator.nextInt(carColors.length)];
+			this.carColor = driverType.getColor();
 		}
 		this.emergency = emergency;
+	}
+
+	public double getLinkTime(Link link){
+		if (router != null) {
+			return router.getLinkDistance(link);
+		}
+		return -1;
 	}
 
 	public abstract ListIterator<Link> updateRouteFrom(Link sourceLink);
@@ -90,5 +101,9 @@ public abstract class Driver implements Comparable<Driver> {
 
 	public DriverZones getAllowedZones() {
 		return null;
+	}
+
+	public DriverType getDriverType() {
+		return driverType;
 	}
 }

@@ -20,6 +20,8 @@ import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizer;
 import pl.edu.agh.cs.kraksim.parser.ModelParser;
 import pl.edu.agh.cs.kraksim.parser.ParsingException;
 import pl.edu.agh.cs.kraksim.parser.TrafficSchemeParser;
+import pl.edu.agh.cs.kraksim.real_extended.DriverType;
+import pl.edu.agh.cs.kraksim.real_extended.QLearner;
 import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 import pl.edu.agh.cs.kraksim.routing.NoRouteException;
 import pl.edu.agh.cs.kraksim.routing.prediction.TrafficPredictionFactory;
@@ -29,7 +31,10 @@ import pl.edu.agh.cs.kraksim.traffic.TravellingScheme;
 import pl.edu.agh.cs.kraksim.visual.infolayer.InfoProvider;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class Simulation implements Clock, TravelEndHandler, Controllable {
@@ -41,6 +46,8 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 	private PrintWriter statWriter;
 	private PrintWriter summaryStatWriter;
 	private PrintWriter linkStatWriter;
+	private PrintWriter qTablesWriter;
+	private PrintWriter qSummaryWriter;
 	private SimulationVisualizer visualizer;
 	private StatsUtil.LinkStat linkStat;
 	private StatsUtil.LinkStat linkRidingStat;
@@ -127,6 +134,9 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 
 	private void setUpStatictics() {
 		if (params.getStatFileName() != null) {
+			File file = new File(params.getStatFileName());
+			boolean dirCreated = file.mkdirs();
+			boolean success = file.delete();
 			try {
 				statWriter = new PrintWriter(new BufferedOutputStream(
 						new FileOutputStream(params.getStatFileName())));
@@ -138,6 +148,14 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
             new BufferedOutputStream(new FileOutputStream(params
                 .getStatFileName()
                 + ".link")));
+
+        qTablesWriter = new PrintWriter(new BufferedOutputStream(
+				new FileOutputStream(params.getStatFileName()+".ql")));
+
+
+		qSummaryWriter = new PrintWriter(new BufferedOutputStream(
+				new FileOutputStream(params.getStatFileName()+".qla")));
+
         
 			} catch (FileNotFoundException e) {
 				error("Error: statistics file cannot be created -- "
@@ -237,7 +255,7 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		for (int i = 0; i < params.getLearnPhaseCount(); i++) {
 			visualizer.startLearningPhase(i);
 			runPhase();
-			visualizer.endPhase();
+			//visualizer.endPhase();
 		}
 		startTime = System.currentTimeMillis();
 		visualizer.startTestingPhase();
@@ -293,6 +311,12 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		visualizer.endPhase();
 		visualizer.end(elapsed);
 
+		if (qTablesWriter != null && qSummaryWriter != null) {
+			modules.getRLearners().forEach((n)->qTablesWriter.print(n.QTableToString()));
+			printQAnalysis();
+		}
+
+
 		if (summaryStatWriter != null) {
 			StatsUtil.dumpStats(modules.getCity(), modules.getStatView(), turn,
 					summaryStatWriter);
@@ -304,10 +328,49 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		cleanUp(summaryStatWriter);
 		cleanUp(statWriter);
 		cleanUp(linkStatWriter);
-		cleanUp(console);
+		cleanUp(qTablesWriter);
+		cleanUp(qSummaryWriter);
+		//cleanUp(console);
+		modules.getRLearners().forEach(QLearner::cleanUp);
 
 		if (controler != null) {
 			controler.end();
+		}
+	}
+
+	private void printQAnalysis() {
+		List<QLearner> rLearners = modules.getRLearners();
+		if(rLearners.isEmpty())
+			return;
+		int[][] bests = new int[7][27];
+		int[][] sumVisits = new int[7][27];
+		for (QLearner qlearner : rLearners){
+			Object table = qlearner.getPolicy().getQTable();
+			int[][] visits = qlearner.getPolicy().getVisits();
+			for (int i=0;i<7;i++){
+				double value=0;
+				int max=0;
+				for (int j=0;j<27;j++){
+					sumVisits[i][j]+=visits[i][j];
+					if (value < (double) Array.get(Array.get(table, i),j)){
+						value = (double) Array.get(Array.get(table, i),j);
+						max=j;
+					}
+
+				}
+
+				if(value>0.0)
+					bests[i][max]+=1;
+			}
+		}
+		for (int i=0;i<7;i++) {
+			String line = "state "+i+"("+Arrays.stream(bests[i]).sum()+")"+"("+Arrays.stream(sumVisits[i]).sum()+")\n";
+			for (int j = 0; j < 27; j++) {
+				line += bests[i][j] + "("+sumVisits[i][j]+") ";
+			}
+			line+="\n";
+			System.out.println(line);
+			qSummaryWriter.print(line);
 		}
 	}
 
@@ -357,6 +420,8 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 	 * ONE simulation step, one turn.
 	 */
 	private void step() {
+		modules.getRLearners().forEach(QLearner::runPreEpoch);
+
 		try {
 			doDepartures();
 		} catch (NoRouteException e) {
@@ -390,10 +455,11 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		turnNumber = turn;
 		
 		//do grafu
-		if(turn % SnaConfigurator.getSnaRefreshInterval() == 0){
+		if(turn % SnaConfigurator.getSnaRefreshInterval() == 0 && params.isVisualization()){
 			refreshGraph();
 		}
 
+		modules.getRLearners().forEach(QLearner::runPostEpoch);
 
 		visualizer.update(turn);
 		StatsUtil.dumpCarStats(modules.getCity(), modules.getStatView(), turn, statWriter);
@@ -422,17 +488,17 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 		for (TravellingScheme travelScheme : trafficScheme) {
 			for (int i = 0; i < travelScheme.getCount(); i++) {
 				boolean emergency = false;
-				boolean isDriverReRoutingDecision = isDriverRoutingHelper
-						.decide();
+				boolean isDriverReRoutingDecision = true;//isDriverRoutingHelper.decide(50);
+				DriverType driverType = DriverType.generateDriverType();
 				if (isDriverReRoutingDecision) {
-					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency, driverType,
 							travelScheme, modules.getDynamicRouter(),
 							new DecisionHelper(params.getDecisionRg(), params
 									.getRouteDecisionTh()));
 					driver.setDepartureTurn(params.getGenRg());
 					departureQueue.add(driver);
 				} else {
-					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency, driverType,
 							travelScheme, null, null);
 					driver.setDepartureTurn(params.getGenRg());
 					departureQueue.add(driver);
@@ -442,16 +508,17 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 			for (int j = 0; j < travelScheme.getEmergencyVehicles(); j++) {
 				boolean emergency = true;
 				boolean isDriverReRoutingDecision = isDriverRoutingHelper
-						.decide();
+						.decide(50);
+				DriverType driverType = DriverType.generateDriverType();
 				if (isDriverReRoutingDecision) {
-					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency, driverType,
 							travelScheme, modules.getDynamicRouter(),
 							new DecisionHelper(params.getDecisionRg(), params
 									.getRouteDecisionTh()));
 					driver.setDepartureTurn(params.getGenRg());
 					departureQueue.add(driver);
 				} else {
-					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency,
+					Driver driver = travelScheme.generateDriver(activeDriverCount++, emergency, driverType,
 							travelScheme, null, null);
 					driver.setDepartureTurn(params.getGenRg());
 					departureQueue.add(driver);
@@ -479,8 +546,10 @@ public class Simulation implements Clock, TravelEndHandler, Controllable {
 //					Driver.srcGateway().getOutboundLink(),
 //					Driver.destGateway());
 
+			Route route2 = modules.getStaticRouter().getRoute(l234,g234);
+
 			modules.getSimView().ext(modules.getCity()).insertTravel(
-					Driver, route, params.isRerouting());
+					Driver, route, route2, params.isRerouting());
 		}
 	}
 

@@ -22,6 +22,20 @@ final class StatHelper {
 	private float normalCarsTravelLength;
 	private float normalCarsTravelDuration;
 
+	private int calmDriversCount;
+	private float calmDriversTravelLength;
+	private float calmDriversTravelDuration;
+	private int normalDriversCount;
+	private float normalDriversTravelLength;
+	private float normalDriversTravelDuration;
+	private int agressiveDriversCount;
+	private float agressiveDriversTravelLength;
+	private float agressiveDriversTravelDuration;
+
+	private int globalCalmNumber=0;
+	private int globalNormalNumber=0;
+	private int globalAgressiveNumber=0;
+
 	private float cityAvgCarSpeed;
 
 	StatHelper() {
@@ -48,6 +62,15 @@ final class StatHelper {
 		normalCarsTravelLength = 0.0f;
 		normalCarsTravelDuration = 0.0f;
 		cityAvgCarSpeed = 0.0f;
+		calmDriversCount = 0;
+		calmDriversTravelLength = 0.0f;
+		calmDriversTravelDuration = 0.0f;
+		normalDriversCount = 0;
+		normalDriversTravelLength = 0.0f;
+		normalDriversTravelDuration = 0.0f;
+		agressiveDriversCount = 0;
+		agressiveDriversTravelLength = 0.0f;
+		agressiveDriversTravelDuration = 0.0f;
 	}
 
 	void beginTravel(Object driver, GatewayMiniStatExt entranceGateway, int turn) {
@@ -60,6 +83,20 @@ final class StatHelper {
 		} else {
 			normalCarsCount++;
 		}
+
+		int type = d.getDriverType().getType()+1;
+
+		if(type==1){
+			calmDriversCount++;
+			globalCalmNumber++;
+		} else if (type==3){
+			agressiveDriversCount++;
+			globalAgressiveNumber++;
+		} else {
+			normalDriversCount++;
+			globalNormalNumber++;
+		}
+
 		tdMap.put(driver, new TravelDetails(entranceGateway, turn));
 	}
 
@@ -79,6 +116,16 @@ final class StatHelper {
 			normalCarsCount--;
 		}
 
+		int type = d.getDriverType().getType() + 1;
+
+		if(type==1){
+			calmDriversCount--;
+		} else if (type==3){
+			agressiveDriversCount--;
+		} else {
+			normalDriversCount--;
+		}
+
 		int duration = turn - td.entranceTurn;
 		td.entranceGateway.noteTravel(exitGateway, td.length, duration);
 
@@ -92,6 +139,16 @@ final class StatHelper {
 			normalCarsTravelLength += td.length;
 			normalCarsTravelDuration += duration;
 		}
+		if(type==1){
+			calmDriversTravelLength += td.length;
+			calmDriversTravelDuration += duration;
+		} else if (type==3){
+			agressiveDriversTravelLength += td.length;
+			agressiveDriversTravelDuration += duration;
+		} else {
+			normalDriversTravelLength += td.length;
+			normalDriversTravelDuration += duration;
+		}
 
 		LOGGER.trace("Trip: " + driver + ", len=" + td.length + ", dur=" + duration);
 
@@ -101,6 +158,11 @@ final class StatHelper {
 		}
 
 		return td;
+	}
+
+	int[] getDriversNumbers() {
+		int[] numbers = {globalCalmNumber,globalNormalNumber,globalAgressiveNumber};
+		return numbers;
 	}
 
 	float getCityAvgCarSpeed() {
@@ -134,6 +196,24 @@ final class StatHelper {
 	float getAvgNormalCarsVelocity() {
 		return normalCarsTravelDuration > 0.0f ? normalCarsTravelLength / normalCarsTravelDuration : 0.0f;
 	}
+
+	float getAvgCalmDriversVelocity() {
+		return calmDriversTravelDuration > 0.0f ? calmDriversTravelLength / calmDriversTravelDuration : 0.0f;
+	}
+
+	float getAvgAgressiveDriversVelocity() {
+		return agressiveDriversTravelDuration > 0.0f ? agressiveDriversTravelLength / agressiveDriversTravelDuration : 0.0f;
+	}
+
+	float getAvgNormalDriversVelocity() {
+		return normalDriversTravelDuration > 0.0f ? normalDriversTravelLength / normalDriversTravelDuration : 0.0f;
+	}
+
+	int getCalmDriversCount() { return calmDriversCount;}
+
+	int getAgressiveDriversCount() { return agressiveDriversCount;}
+
+	int getNormalDriversCount() { return normalDriversCount;}
 
 	float getCityTravelLength() {
 		return cityTravelLength;

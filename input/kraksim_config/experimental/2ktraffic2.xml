@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+czas trwania schematu: 12h = 3600
+
+pomiędzy każdą parą węzłów generowane jest 200 samochodów
+z rozkładem jednostajnym
+-->
+<traffic>
+  <scheme count="1">
+    <gateway id="Sroad">
+      <uniform a="0" b="360"/>
+    </gateway>
+    <gateway id="Nroad"/>
+  </scheme>
+
+  <scheme count="1">
+    <gateway id="Nroad">
+      <uniform a="0" b="360"/>
+    </gateway>
+    <gateway id="Sroad"/>
+  </scheme>
+
+  <scheme count="1">
+    <gateway id="Eroad">
+      <uniform a="0" b="360"/>
+    </gateway>
+    <gateway id="Nroad"/>
+  </scheme>
+
+  <scheme count="1">
+    <gateway id="Nroad">
+      <uniform a="0" b="360"/>
+    </gateway>
+    <gateway id="Eroad"/>
+  </scheme>
+
+  <scheme count="5">
+    <gateway id="Sroad">
+      <uniform a="0" b="100"/>
+    </gateway>
+    <gateway id="Eroad"/>
+  </scheme>
+
+  <scheme count="1">
+    <gateway id="Eroad">
+      <uniform a="0" b="360"/>
+    </gateway>
+    <gateway id="Sroad"/>
+  </scheme>
+</traffic>

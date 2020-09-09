@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RoadNet>
+
+	<nodes>
+		<gateway id="Wroad" x="10" y="30" />
+		<gateway id="Eroad" x="210" y="30" />
+	</nodes>
+
+	<roads defaultSpeedLimit="10">
+		<road id="NroadX1" street="ulica Pozioma" from="Wroad"
+			to="Eroad">
+			<uplink>
+				<main length="500" numberOfLanes="2"/>
+			</uplink>
+			<downlink>
+				<main length="500" numberOfLanes="2"/>
+			</downlink>
+		</road>
+
+	</roads>
+	<intersectionDescriptions />
+</RoadNet>

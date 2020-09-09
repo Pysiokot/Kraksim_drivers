@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-NUM_OF_CARS = 50
+NUM_OF_CARS = 140
 
-print """<?xml version="1.0"?>
+print("""<?xml version="1.0"?>
+
 <!--
 	czas trwania schematu: 12h = 21600
 	
@@ -10,7 +11,7 @@ print """<?xml version="1.0"?>
 	z rozkładem jednostajnym
 -->
 <traffic>
-""" % (NUM_OF_CARS,)
+""" % (NUM_OF_CARS,))
 
 for fromId in xrange(0,14):
     for toId in xrange(0,14):
@@ -26,6 +27,6 @@ for fromId in xrange(0,14):
 	</scheme>
         """ % ( NUM_OF_CARS, "G"+str(fromId), "G"+str(toId) )
 
-        print schemeStr
+        print (schemeStr)
 
-print "</traffic>"
+print ("</traffic>")

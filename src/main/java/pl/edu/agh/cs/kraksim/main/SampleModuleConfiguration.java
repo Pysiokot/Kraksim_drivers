@@ -2,6 +2,7 @@ package pl.edu.agh.cs.kraksim.main;
 
 import edu.uci.ics.jung.graph.Graph;
 import org.apache.log4j.Logger;
+import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.core.*;
 import pl.edu.agh.cs.kraksim.core.exceptions.InvalidClassSetDefException;
 import pl.edu.agh.cs.kraksim.core.exceptions.ModuleCreationException;
@@ -17,6 +18,8 @@ import pl.edu.agh.cs.kraksim.main.gui.GUISimulationVisualizer;
 import pl.edu.agh.cs.kraksim.main.gui.SimulationVisualizer;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatEView;
 import pl.edu.agh.cs.kraksim.ministat.MiniStatModuleCreator;
+import pl.edu.agh.cs.kraksim.real_extended.DriverEnv;
+import pl.edu.agh.cs.kraksim.real_extended.QLearner;
 import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 import pl.edu.agh.cs.kraksim.routing.*;
 import pl.edu.agh.cs.kraksim.simpledecision.SimpleDecisionEView;
@@ -26,7 +29,10 @@ import pl.edu.agh.cs.kraksim.sna.centrality.MeasureType;
 import pl.edu.agh.cs.kraksim.weka.WekaPredictionModule;
 import pl.edu.agh.cs.kraksim.weka.WekaPredictionModuleHandler;
 
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SampleModuleConfiguration {
 	private static final Logger LOGGER = Logger.getLogger(SampleModuleConfiguration.class);
@@ -34,12 +40,16 @@ public class SampleModuleConfiguration {
 	private City city;
 	private Router router;
 	private TimeBasedRouter dynamicRouter;
+	private StaticRouter staticRouter;
 	private SimIView simView;
 	private MiniStatEView statView;
 	private EvalIView evalView;
 	private DecisionIView decisionView;
 	private CarInfoIView carInfoView;
 	private BlockIView blockView;
+	private boolean qlearning = KraksimConfigurator.getProperty("qlearning").equals("true");
+
+	private List<QLearner> QLearners;
 
 	private Graph<Node, Link> graph;
 
@@ -88,6 +98,7 @@ public class SampleModuleConfiguration {
 				}
 				dynamicRouter = new TimeBasedRouter(city, timeTable);
 				router = dynamicRouter;
+				staticRouter = new StaticRouter(city);
 			} else {
 				router = new StaticRouter(city);
 				if (params.getPredictionModule().equals("weka") && params.isEnablePrediction()) {
@@ -115,6 +126,18 @@ public class SampleModuleConfiguration {
 			} else {
 				Module newDecisionModule = core.newModule("newDecision", new DsyncDecisionModuleCreator(statView, blockView, clock, params.getTransitionDuration(), evalProvider.getAlgorithmCode().equals("sync")));
 				decisionView = new DecisionIView(newDecisionModule);
+			}
+
+			if (qlearning){
+				List<QLearner> tmpRlearners = new LinkedList<>();
+
+				for (Iterator<Link> linkIt = city.linkIterator(); linkIt.hasNext();) {
+					tmpRlearners.add(new QLearner(new DriverEnv(linkIt.next(), city,  statView, carInfoView, clock, params.getStatFileName())));
+				}
+
+				QLearners = tmpRlearners;
+			} else {
+				QLearners = Collections.emptyList();
 			}
 
 			if (params.isVisualization()) {
@@ -152,6 +175,10 @@ public class SampleModuleConfiguration {
 		return dynamicRouter;
 	}
 
+	public StaticRouter getStaticRouter() {
+		return staticRouter;
+	}
+
 	public SimIView getSimView() {
 		return simView;
 	}
@@ -186,5 +213,9 @@ public class SampleModuleConfiguration {
 
 	public Graph<Node, Link> getGraph() {
 		return graph;
+	}
+
+	public List<QLearner> getRLearners() {
+		return QLearners;
 	}
 }

@@ -54,9 +54,7 @@
 				</action>
 			</armActions>
 			<armActions arm="Sroad">
-				<action lane="0" exit="Nroad">
-
-				</action>
+				<action lane="0" exit="Nroad"></action>
 				<action lane="-1" exit="Wroad">
 					<rule entrance="Nroad" lane="0"/>
 					<rule entrance="Nroad" lane="1"/>

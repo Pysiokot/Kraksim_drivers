@@ -324,7 +324,7 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 	// }
 
 	private Lane choseLane() {
-		greenLane.clear();
+		//greenLane.clear();
 		if (!interruptable) {
 			interruptable = true;
 			Lane lane = interruptGreen(chooseMinimalSpeedLanes());
@@ -349,8 +349,9 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 
 				float evaluation = evalView.ext(lane).getEvaluation();
 
-				evaluation = maxEvaluationIfBlockedLane(lane, evaluation);
-				evaluation = wekaPredictionHandler.adjustEvalToPrediction(lane, evaluation);
+				//evaluation = maxEvaluationIfBlockedLane(lane, evaluation);
+				//evaluation = minEvaluationIfNoContinuation(lane, evaluation);
+				//evaluation = wekaPredictionHandler.adjustEvalToPrediction(lane, evaluation);
 
 				LOGGER.trace(lane + " " + evaluation + ", chosen= " + chosenEvaluation);
 				if (evaluation > chosenEvaluation) {
@@ -359,7 +360,7 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 				}
 			}
 		}
-
+		greenLane.clear();
 		LOGGER.trace(chosenLane);
 
 		// TODO: this is tricky, it should only work wll for SOTL
@@ -374,11 +375,23 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 	private float maxEvaluationIfBlockedLane(Lane lane, float evaluationFromLightsControl) {
 		LaneCarInfoIface laneCarInfo = carInfoView.ext(lane);
 		CarInfoCursor infoForwardCursor = laneCarInfo.carInfoForwardCursor();
+		CarInfoCursor infoBackwardCursor = laneCarInfo.carInfoBackwardCursor();
 		if (laneIsFull(infoForwardCursor)) {
-			return Float.MAX_VALUE;
-		} else {
+			if (greenLane.contains(lane) && cannotEnterIntersection(infoBackwardCursor)) {
+				System.out.println(lane.toString());
+				return 0;
+			}
+			else {
+				return Float.MAX_VALUE;
+			}
+		}else
+		{
 			return evaluationFromLightsControl;
 		}
+	}
+
+	private boolean cannotEnterIntersection(CarInfoCursor infoForwardCursor) {
+		return anyCarsOnLane(infoForwardCursor) && firstCarOnLaneIsNotMoving(infoForwardCursor);
 	}
 
 	private boolean laneIsFull(CarInfoCursor infoForwardCursor) {
@@ -392,6 +405,12 @@ public class IntersectionSimpleDecisionExt extends IntersectionDecisionExt {
 	private static boolean lastCarOnLaneIsNotMoving(CarInfoCursor infoForwardCursor) {
 		return infoForwardCursor.currentVelocity() == 0.0f && infoForwardCursor.currentPos() == 0;
 	}
+
+    private static boolean firstCarOnLaneIsNotMoving(CarInfoCursor infoForwardCursor) {
+		if(infoForwardCursor.currentPos() == infoForwardCursor.currentLane().getLength())
+			System.out.println(infoForwardCursor.currentPos() + "    " + (infoForwardCursor.currentLane().getLength()-1));
+        return infoForwardCursor.currentVelocity() == 0.0f && infoForwardCursor.currentPos() == infoForwardCursor.currentLane().getLength()-1;
+    }
 
 	private class Pair {
 		public Pair(Lane lane2, double multiplier2) {

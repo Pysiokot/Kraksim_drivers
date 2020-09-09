@@ -184,12 +184,14 @@ public class CentralityCalculator {
 			nodes.remove(indx);
 		}
 		int interval = sortedNodes.size() / subGraphsNumber;
-		for (int i = 0; i < sortedNodes.size(); i++) {
-			int nr = i / interval;
-			if (nr >= subGraphsNumber) {
-				nr = subGraphsNumber - 1;
+		if (interval>0){
+			for (int i = 0; i < sortedNodes.size(); i++) {
+				int nr = i / interval;
+				if (nr >= subGraphsNumber) {
+					nr = subGraphsNumber - 1;
+				}
+				sortedNodes.get(i).setSubGraphNumber(nr);
 			}
-			sortedNodes.get(i).setSubGraphNumber(nr);
 		}
 	}
 

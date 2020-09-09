@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<RoadNet>
+	<nodes>
+		<gateway id="Nroad" x="110" y="10" />
+		<gateway id="Sroad" x="110" y="210" />
+		<intersection id="X1" x="110" y="70" />
+	</nodes>
+	<roads defaultSpeedLimit="2">
+		<road id="NroadX1" street="ulica Pionowa" from="Nroad"
+			to="X1">
+			<uplink>
+				<main length="20" numberOfLanes="3" />
+			</uplink>
+			<downlink>
+				<main length="20" numberOfLanes="3" />
+			</downlink>
+		</road>
+		<road id="SroadX1" street="ulica Pionowa" from="Sroad"
+			to="X1">
+			<uplink>
+				<main length="20" numberOfLanes="3" />
+			</uplink>
+			<downlink>
+				<main length="20" numberOfLanes="3"  />
+			</downlink>
+		</road>
+		
+	</roads>
+	<intersectionDescriptions>
+		<intersection id="X1">
+			<armActions arm="Nroad">
+				<action lane="0" exit="Sroad"></action>
+			</armActions>
+			<armActions arm="Sroad">
+				<action lane="0" exit="Nroad"></action>
+			</armActions>
+			<trafficLightsSchedule>
+				<phase num="1" duration="100">
+					<inlane arm="Nroad" lane="0" state="green" />
+					<inlane arm="Sroad" lane="0" state="red" />
+				</phase>
+				<phase num="2" duration="100">
+					<inlane arm="Nroad" lane="0" state="red" />
+					<inlane arm="Sroad" lane="0" state="green" />
+				</phase>
+
+			</trafficLightsSchedule>
+		</intersection>
+		
+	</intersectionDescriptions>
+</RoadNet>

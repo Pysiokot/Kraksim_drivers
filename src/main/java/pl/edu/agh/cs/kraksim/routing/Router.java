@@ -14,6 +14,8 @@ public abstract class Router {
 
 	public abstract Route getRouteIncludingZone(Link sourceLink, Node destGateway, DriverZones zones) throws NoRouteException;
 
+	public abstract double getLinkDistance(Link link);
+
 	protected void validateArgument(Link sourceLink, Node targetNode, Node sourceNode) {
 		if (sourceNode == null) {
 			throw new IllegalArgumentException("null source");

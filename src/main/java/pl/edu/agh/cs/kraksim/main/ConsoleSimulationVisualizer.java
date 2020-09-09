@@ -32,12 +32,12 @@ class ConsoleSimulationVisualizer implements SimulationVisualizer {
 
 	public void end(long elapsed) {
 		writer.printf("Simulation time:" + (elapsed / 1000.0) + "\nTHE END\n");
-		writer.close();
+		//writer.close();
 	}
 
 	public void update(final int turn) {
 //        if ( turn % 100 == 0 ) {
-		writer.printf("\rturn: %6d %6d %6d %6.2f %6.2f", turn, stat.getTravelCount(), stat.getCarCount(), stat.getAvgVelocity(), stat.getTravelLength() / 1000);
+		//writer.printf("\rturn: %6d %6d %6d %6.2f %6.2f", turn, stat.getTravelCount(), stat.getCarCount(), stat.getAvgVelocity(), stat.getTravelLength() / 1000);
 		//    }
 	}
 }

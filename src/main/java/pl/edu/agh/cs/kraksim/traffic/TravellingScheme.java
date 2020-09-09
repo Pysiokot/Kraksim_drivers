@@ -9,6 +9,7 @@ import pl.edu.agh.cs.kraksim.main.drivers.DecisionHelper;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
 import pl.edu.agh.cs.kraksim.main.drivers.DriverZones;
 import pl.edu.agh.cs.kraksim.main.drivers.ZoneAwareDriver;
+import pl.edu.agh.cs.kraksim.real_extended.DriverType;
 import pl.edu.agh.cs.kraksim.routing.TimeBasedRouter;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class TravellingScheme {
+	private final String emergencyVehiclesConfiguration;
 	private final int count;
 	private final int emergencyVehicles;
 	private final Gateway[] gateways;
@@ -39,9 +41,22 @@ public class TravellingScheme {
 		Preconditions.checkArgument(gateways.length >= 2, "There should be at least two gateways in travelling scheme");
 		Preconditions.checkArgument(gateways.length == departureDists.length + 1, "There should be one gateway more than departure distributions");
 		this.parameters = parameters;
+		emergencyVehiclesConfiguration = KraksimConfigurator.getProperty("emergencyVehiclesConfiguration");
+		Properties properties = new Properties();
+		try {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(emergencyVehiclesConfiguration));
+			properties.load(bis);
+			bis.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		double emergencySpawnPercentage = Double.parseDouble(KraksimConfigurator.getProperty("emergency_spawnPercentage"));
 		this.count = count;
-		this.emergencyVehicles = (int) Math.round(this.count * emergencySpawnPercentage);
+		// TN no emergency vehicles
+		// this.emergencyVehicles = (int) Math.round(this.count * emergencySpawnPercentage);
+		this.emergencyVehicles = 0;
 		this.gateways = gateways;
 		this.departureDists = departureDists;
         driver_zones = prepareDriverZones(zones);
@@ -61,10 +76,10 @@ public class TravellingScheme {
 		return new Cursor();
 	}
 
-	public Driver generateDriver(int id, boolean emergency, TravellingScheme travelScheme, TimeBasedRouter dynamicRouter, DecisionHelper decisionHelper) {
+	public Driver generateDriver(int id, boolean emergency, DriverType driverType, TravellingScheme travelScheme, TimeBasedRouter dynamicRouter, DecisionHelper decisionHelper) {
 		DriverZones allowed_zones = getDriverZones();
 
-		return new ZoneAwareDriver(id, travelScheme, dynamicRouter, emergency, decisionHelper, allowed_zones);
+		return new ZoneAwareDriver(id, travelScheme, dynamicRouter, emergency, driverType, decisionHelper, allowed_zones);
 	}
 
 	public class Cursor {

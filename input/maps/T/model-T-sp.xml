@@ -6,7 +6,6 @@
 		<gateway id="Sroad" x="210" y="420" />
 		<gateway id="Wroad" x="10" y="210" />
 		<intersection id="X1" x="210" y="210" />
-
 	</nodes>
 
 	<roads>

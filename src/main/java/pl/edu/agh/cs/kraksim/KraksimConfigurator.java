@@ -25,6 +25,7 @@ public class KraksimConfigurator {
 
     public static void setConfigPath(String configPath){
         CONFIG_PATH = configPath;
+		propertiesMap.clear();
     }
 
 	public static Properties getPropertiesFromFile() {
@@ -61,11 +62,11 @@ public class KraksimConfigurator {
 		}
 	}
 
-	public static String[] prepareInputParametersForSimulation(Properties params) {
+	public static String[] prepareInputParametersForSimulation(Properties params, int n) {
 		List<String> paramsList = new ArrayList<>();
 
 		String visualization = params.getProperty("visualization");
-		if (visualization.equals("true")) {
+		if (visualization.equals("true") && n==0) {
 			paramsList.add("-v");
 		} else {
 			paramsList.add("-g");
@@ -147,15 +148,38 @@ public class KraksimConfigurator {
 			paramsList.add("false");
 		}
 
+		paramsList.add(params.getProperty("algorithm"));
+
+		String tmpMapName = params.getProperty("map_name");
+		String tmpDensity = params.getProperty("density");
+		String tmpLvls = params.getProperty("clvl")+params.getProperty("nlvl")+params.getProperty("alvl");
+		String outDicName = params.getProperty("out_dic_name");
+		String genName = params.getProperty("gen_name");
+
+		if(params.getProperty("qlearning").equals("true"))
+			tmpLvls="qlearning";
+
 		String statOutFileParam = params.getProperty("statOutFile");
 		if ((statOutFileParam != null) && !(statOutFileParam.isEmpty())) {
 			paramsList.add("-o");
-			paramsList.add(statOutFileParam);
+			String tmp = String.format("%s\\%s\\%s\\%s\\%s\\p",outDicName, tmpMapName, tmpDensity, genName, tmpLvls);
+			//if (params.getProperty("mass").equals("true"))
+				statOutFileParam=tmp;
+			paramsList.add(statOutFileParam+n+".csv");
 		}
 
-		paramsList.add(params.getProperty("algorithm"));
-		paramsList.add(params.getProperty("cityMapFile"));
-		paramsList.add(params.getProperty("travelSchemeFile"));
+
+		String tmp;
+		tmp=params.getProperty("cityMapFile");
+		//if (params.getProperty("mass").equals("true"))
+			tmp = String.format("input\\kraksim_config\\%s\\%s.xml", tmpMapName, tmpMapName);
+		paramsList.add(tmp);
+		tmp=params.getProperty("travelSchemeFile");
+		//if (params.getProperty("mass").equals("true"))
+			tmp = String.format("input\\kraksim_config\\%s\\%s-%s.xml", tmpMapName, tmpMapName, tmpDensity);
+		paramsList.add(tmp);
+//		paramsList.add(params.getProperty("cityMapFile"));
+//		paramsList.add(params.getProperty("travelSchemeFile"));
 
 		return paramsList.toArray(new String[paramsList.size()]);
 	}

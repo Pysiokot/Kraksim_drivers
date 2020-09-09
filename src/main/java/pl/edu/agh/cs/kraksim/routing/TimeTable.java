@@ -29,7 +29,7 @@ public class TimeTable implements ITimeTable {
 		this.city = city;
 		this.statView = statView;
 		this.clock = clock;
-		this.updatePeriod = updatePeriod;
+		this.updatePeriod = updatePeriod/3;
 		predictor = TrafficPredictionFactory.getTrafficPredictor();
 	}
 

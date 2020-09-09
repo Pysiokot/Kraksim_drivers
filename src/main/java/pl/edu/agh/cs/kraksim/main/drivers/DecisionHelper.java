@@ -24,4 +24,11 @@ public class DecisionHelper {
 
 		return decision;
 	}
+
+	public boolean decide(int th) {
+		boolean decision = randomGenerator.nextInt(100) < th;
+		LOGGER.trace(decision);
+
+		return decision;
+	}
 }

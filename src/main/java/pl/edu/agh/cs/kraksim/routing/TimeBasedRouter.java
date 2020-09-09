@@ -43,6 +43,10 @@ public class TimeBasedRouter extends Router {
 		return getRouteIncludingZone(sourceLink, targetNode, null);
 	}
 
+	public double getLinkDistance(Link link){
+		return timeTable.getTime(link);
+	}
+
 	private List<Link> dijkstra(Link sourceLink, Gateway targetNode, DriverZones allowedZones) {
 		LOGGER.trace("Dijkstra from " + sourceLink + " to " + targetNode + '\n');
 

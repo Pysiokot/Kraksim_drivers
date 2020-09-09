@@ -133,13 +133,39 @@ public class StatsUtil {
 		}
 	}
 
+//	public static void dumpLinkStats(final City city, final PrintWriter statWriter, LinkStat linkStat, LinkStat linkRidingStat) {
+//
+//
+//		for (Iterator<Link> i = city.linkIterator(); i.hasNext(); ) {
+//			Link link = i.next();
+//
+//			statWriter.print(String.format("<link from='%s' to='%s'>\n", link.getBeginning().getId(), link.getEnd().getId()));
+//			List<Double> avgVelocities = linkStat.getAvgVelocitiesList(link);
+//			List<Double> avgRidingVelocities = linkRidingStat.getAvgVelocitiesList(link);
+//			List<Integer> carCounts = linkStat.getCarCountList(link);
+//			assert avgVelocities.size() == avgRidingVelocities.size();
+//
+//			int period = 0;
+//			for (int j = 0; avgVelocities!=null && j < avgVelocities.size(); j++) {
+//				double avgVelocity = avgVelocities.get(j);
+//				double avgRidingVelocity = avgRidingVelocities.get(j);
+//				int carCount = carCounts.get(j);
+//				int begin = period * dumpLinkStatsInterval;
+//				int end = (period + 1) * dumpLinkStatsInterval;
+//				statWriter.print(String.format("\t<period begin='%d' end='%d' avg_velocity='%.4f' avg_riding_velocity='%.4f' carCount='%d'>\n", begin, end, avgVelocity, avgRidingVelocity, carCount));
+//				period++;
+//			}
+//			statWriter.print("</link>\n");
+//		}
+//	}
+
 	public static void dumpLinkStats(final City city, final PrintWriter statWriter, LinkStat linkStat, LinkStat linkRidingStat) {
 
-
+		statWriter.println("<stats>");
 		for (Iterator<Link> i = city.linkIterator(); i.hasNext(); ) {
 			Link link = i.next();
 
-			statWriter.print(String.format("<link from='%s' to='%s'>\n", link.getBeginning().getId(), link.getEnd().getId()));
+			statWriter.print(String.format("<link from=\"%s\" to=\"%s\">\n", link.getBeginning().getId(), link.getEnd().getId()));
 			List<Double> avgVelocities = linkStat.getAvgVelocitiesList(link);
 			List<Double> avgRidingVelocities = linkRidingStat.getAvgVelocitiesList(link);
 			List<Integer> carCounts = linkStat.getCarCountList(link);
@@ -152,11 +178,12 @@ public class StatsUtil {
 				int carCount = carCounts.get(j);
 				int begin = period * dumpLinkStatsInterval;
 				int end = (period + 1) * dumpLinkStatsInterval;
-				statWriter.print(String.format("\t<period begin='%d' end='%d' avg_velocity='%.4f' avg_riding_velocity='%.4f' carCount='%d'>\n", begin, end, avgVelocity, avgRidingVelocity, carCount));
+				statWriter.print(String.format("\t<period begin=\"%d\" end=\"%d\" avg_velocity=\"%.4f\" avg_riding_velocity=\"%.4f\" carCount=\"%d\"/>\n", begin, end, avgVelocity, avgRidingVelocity, carCount));
 				period++;
 			}
 			statWriter.print("</link>\n");
 		}
+		statWriter.println("</stats>");
 	}
 
 	/**
@@ -289,7 +316,9 @@ public class StatsUtil {
 			}
 
 			Double avarageVolocity = Double.compare(linkStat.getAvgVelocity(link),  Double.NaN) == 0 ? Double.valueOf(0) : linkStat.getAvgVelocity(link);
-			linkMiniStatExt.setAvarageVolocity( avarageVolocity);
+			boolean update = Double.compare(linkStat.getAvgVelocity(link),  Double.NaN) == 0;
+			if (!update)
+				linkMiniStatExt.setAvarageVolocity( avarageVolocity);
 			cityAvgVelocity = 
 					(cityAvgVelocity * numOfCarsCountedToAvgVel + linkDriveLength) 
 					/ (numOfCarsCountedToAvgVel+linkMovementCount);
@@ -330,8 +359,10 @@ public class StatsUtil {
 	public static void dumpStats(final City city, final MiniStatEView statView, final int turn, final PrintWriter writer) {
 		writer.println("CITY STATS");
 		writer.println("==========");
-		writer.printf("%15s %15s\n", "sim. duration", "avg. velocity");
-		writer.printf("%15d %15.2f\n", turn, statView.ext(city).getAvgVelocity());
+		writer.printf("%15s %15s %15s %15s %15s\n", "sim. duration", "avg. velocity", "calm", "normal", "agressive");
+		writer.printf("%15d    %15.2f           %15.2f %15.2f %15.2f\n", turn, statView.ext(city).getAvgVelocity(), statView.ext(city).getAvgCalmDriversVelocity(), statView.ext(city).getAvgNormalDriversVelocity(), statView.ext(city).getAvgAgressiveDriversVelocity());
+		int[] numbers = statView.ext(city).getDriversNumbers();
+		writer.printf("%15d %15d %15d\n", numbers[0], numbers[1], numbers[2]);
 
 		writer.println();
 

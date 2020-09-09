@@ -176,7 +176,7 @@ public class MainVisualisationPanel extends JPanel implements GraphVisualizer {
 		}
 		KmeansClustering.setProperties(params);
 
-		sim = new Simulation(KraksimConfigurator.prepareInputParametersForSimulation(params));
+		sim = new Simulation(KraksimConfigurator.prepareInputParametersForSimulation(params,0));
 		sim.setGraphVisualizer(this);
 		SimulationVisualizer vis = sim.getVisualizer();
 

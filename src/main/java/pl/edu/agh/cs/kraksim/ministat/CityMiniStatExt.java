@@ -71,6 +71,21 @@ public class CityMiniStatExt {
 		return helper.getAvgNormalCarsVelocity();
 	}
 
+	public float getAvgNormalDriversVelocity(){ return helper.getAvgNormalDriversVelocity();}
+
+	public float getAvgAgressiveDriversVelocity(){ return helper.getAvgAgressiveDriversVelocity();}
+
+	public float getAvgCalmDriversVelocity(){ return helper.getAvgCalmDriversVelocity();}
+
+	public int getCalmDriversCount() { return helper.getCalmDriversCount();	}
+
+	public int getAgressiveDriversCount() { return helper.getAgressiveDriversCount();	}
+
+	public int getNormalDriversCount() { return helper.getNormalDriversCount();	}
+
+	public int[] getDriversNumbers() { return helper.getDriversNumbers(); }
+
+
 	//TODO:
 	public float getTravelLength() {
 		return helper.getCityTravelLength();

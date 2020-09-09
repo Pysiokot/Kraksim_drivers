@@ -30,6 +30,7 @@ public class CentrallityStatistics {
 		File file = new File(filePath);
 		try {
 			if (!file.exists()) {
+				LOGGER.info(file);
 				file.createNewFile();
 			}
 			FileWriter fw = new FileWriter(file, true);

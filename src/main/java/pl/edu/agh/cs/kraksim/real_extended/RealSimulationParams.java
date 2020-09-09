@@ -6,8 +6,8 @@ import java.util.Random;
 
 public final class RealSimulationParams {
 	public static final float CELL_LENGTH_IN_METERS = 7.5f;
-	public static final float TURN_DURATION_IN_SECONDS = 1.0f;
-	public static final int DEFAULT_MAX_VELOCITY = 2;
+	public static final float TURN_DURATION_IN_SECONDS = 5.0f;
+	public static final int DEFAULT_MAX_VELOCITY = 10;
 	public static final float DEFAULT_DECEL_PROB = 0.2f;
 	public static final int DEFAULT_PRIOR_LANE_TIME_HEADWAY = 4;
 	/**

@@ -35,7 +35,7 @@ class CityRealExt implements CitySimIface, CityBlockIface {
 		}
 	}
 
-	public void insertTravel(final Driver driver, final Route route, final boolean rerouting) {
+	public void insertTravel(final Driver driver, final Route route,final Route route2, final boolean rerouting) {
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.trace(route);
 		}
@@ -43,7 +43,7 @@ class CityRealExt implements CitySimIface, CityBlockIface {
 		if(driver.isEmergency()) {
 			evalView.ext(route.getSource()).enqueueCar(new Emergency(driver, route, rerouting));			
 		} else {
-			evalView.ext(route.getSource()).enqueueCar(new Car(driver, route, rerouting));			
+			evalView.ext(route.getSource()).enqueueCar(new Car(driver, route, route2, rerouting));
 		}
 	}
 

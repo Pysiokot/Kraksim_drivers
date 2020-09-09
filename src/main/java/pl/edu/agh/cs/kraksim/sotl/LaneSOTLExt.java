@@ -9,6 +9,9 @@ import pl.edu.agh.cs.kraksim.iface.mon.CarDriveHandler;
 import pl.edu.agh.cs.kraksim.iface.mon.LaneMonIface;
 import pl.edu.agh.cs.kraksim.iface.mon.MonIView;
 
+import java.util.HashSet;
+import java.util.Set;
+
 class LaneSOTLExt implements LaneEvalIface {
 	private static final Logger LOGGER = Logger.getLogger(LaneSOTLExt.class);
 
@@ -18,12 +21,14 @@ class LaneSOTLExt implements LaneEvalIface {
 	private volatile int carCount = 0;
 	private int sotlLaneValue = 0;
 	private final String id;
+	private final Set<Object> drivers;
 
 	LaneSOTLExt(final Lane lane, MonIView monView, BlockIView blockView, SOTLParams params) {
 		LOGGER.trace(lane);
 
 		this.params = params;
 		id = lane.getOwner().getId() + ':' + lane.getAbsoluteNumber();
+		drivers = new HashSet<>();
 
 		laneBlockExt = blockView.ext(lane);
 		LaneMonIface laneMonitoring = monView.ext(lane);
@@ -32,12 +37,17 @@ class LaneSOTLExt implements LaneEvalIface {
 			public synchronized void handleCarDrive(int velocity, Object driver) {
 				LOGGER.trace(" >>>>>>> INDUCTION LOOP FIRED" + lane + "  " + carCount + "++");
 				carCount++;
+				drivers.add(driver);
 			}
 		});
 
 		int zoneEnd = lane.getOwner().getLength();
 		laneMonitoring.installInductionLoop(zoneEnd, new CarDriveHandler() {
 			public synchronized void handleCarDrive(int velocity, Object driver) {
+				if (!drivers.contains(driver)) {
+					LOGGER.warn("Leaving car should have been registered at the enterence. Driver id = " + driver.hashCode());
+					//return;
+				}
 				LOGGER.trace(" >>>>>>> INDUCTION LOOP FIRED" + lane + "  " + carCount + "--");
 				carCount--;
 			}
@@ -57,7 +67,7 @@ class LaneSOTLExt implements LaneEvalIface {
 		if (sotlLaneValue > params.threshold) {
 			return sotlLaneValue;
 		} else {
-			return sotlLaneValue;
+			return 0;
 		}
 	}
 

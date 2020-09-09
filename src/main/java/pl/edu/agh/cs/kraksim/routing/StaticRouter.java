@@ -72,6 +72,10 @@ public class StaticRouter extends Router {
 		return getRouteIncludingZone(sourceLink, targetNode, null);
 	}
 
+	public double getLinkDistance(Link link){
+		return link.getLength();
+	}
+
 	private Map<Link, List<Link>> dijkstra(Link s, DriverZones zones) {
 		LOGGER.trace("START\n" + s);
 
