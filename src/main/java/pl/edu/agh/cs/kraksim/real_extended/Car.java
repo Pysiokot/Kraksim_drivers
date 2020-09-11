@@ -11,6 +11,7 @@ import pl.edu.agh.cs.kraksim.iface.sim.Route;
 import pl.edu.agh.cs.kraksim.main.CarMoveModel;
 import pl.edu.agh.cs.kraksim.main.Simulation;
 import pl.edu.agh.cs.kraksim.main.drivers.Driver;
+import pl.edu.agh.cs.kraksim.qlearning.DriverParams;
 import pl.edu.agh.cs.kraksim.real_extended.LaneRealExt.InductionLoop;
 import java.awt.*;
 import java.util.*;

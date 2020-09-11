@@ -21,7 +21,7 @@ import pl.edu.agh.cs.kraksim.parser.ModelParser;
 import pl.edu.agh.cs.kraksim.parser.ParsingException;
 import pl.edu.agh.cs.kraksim.parser.TrafficSchemeParser;
 import pl.edu.agh.cs.kraksim.real_extended.DriverType;
-import pl.edu.agh.cs.kraksim.real_extended.QLearner;
+import pl.edu.agh.cs.kraksim.qlearning.QLearner;
 import pl.edu.agh.cs.kraksim.real_extended.RealSimulationParams;
 import pl.edu.agh.cs.kraksim.routing.NoRouteException;
 import pl.edu.agh.cs.kraksim.routing.prediction.TrafficPredictionFactory;

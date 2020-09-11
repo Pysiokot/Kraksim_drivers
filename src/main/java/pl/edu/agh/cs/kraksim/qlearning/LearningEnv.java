@@ -1,4 +1,4 @@
-package pl.edu.agh.cs.kraksim.real_extended;
+package pl.edu.agh.cs.kraksim.qlearning;
 
 public interface LearningEnv {
 

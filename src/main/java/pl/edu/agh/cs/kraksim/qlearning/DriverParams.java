@@ -1,4 +1,4 @@
-package pl.edu.agh.cs.kraksim.real_extended;
+package pl.edu.agh.cs.kraksim.qlearning;
 
 import pl.edu.agh.cs.kraksim.KraksimConfigurator;
 import pl.edu.agh.cs.kraksim.core.Link;
